@@ -6,13 +6,13 @@
 #    By: molesen <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/09 11:33:19 by molesen           #+#    #+#              #
-#    Updated: 2022/02/09 11:36:34 by molesen          ###   ########.fr        #
+#    Updated: 2022/02/09 12:21:28 by molesen          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libftprintf.a
 
-CC = gcc -Wall -Wextra -Werrpr -I
+CC = gcc -Wall -Wextra -Werror -I ./libft
 
 SRC = ft_printf.c
 
