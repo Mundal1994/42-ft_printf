@@ -27,9 +27,32 @@ ALLOWED FUNCTIONS
 mandatory part
 HAVE TO MANAGE FOLLOWING CONVERSIONS (conversion specifies whether to interpret the corresponding argument as a charater, a string, a pointer, an integer or a floating-point number)
 - csp
-	- 
+	- value should be converted to an alternate form if # is used. csp conversions doesnt have any effect.
+	- is p the void* pointer argument in hexidecimal??
 - diouxX (with the flags: hh, h, l and ll)
+	- if a precision has been given about the minimum digits that must appear but the converted value requires fewer digits it has to be padded on the left with zeros.
+	printf(%-+5.d", 133);
+	output: +133
+
+	printf(%-+5.6", 133);
+	output: +000133
+
+	length modifier that specifies the size of the argument. these length modifiers are valid for d, i, n, o, u, x and X conversion:
+	modifier	d, i			o, u, x, X		n
+	hh				signed char		unsigned char	signed char *
+	h				short			unsigned short	short *
+	l (ell)			long			unsigned long	long *
+	ll (ell ell)	long long		unsigned long long	long long*
 - f (with the flags: l and L)
+	- (i think it is this at least): a blank should be left before a positive number produced by a signed conversion (f)
+	- or... # value should be converted to alternate form. f - result will always contain a decimal point, even if no digits follow it.
+
+	length modifier
+	modifier	f
+	l (ell)		double (ignored, same behaviour as without it)
+	L			long double
+
+
 YOU MUST MANAGE
 - %%
 - #0-+ and space
@@ -97,3 +120,8 @@ examples
 
 TODO:
 - test and play around with printf to see how it acts with the different characters
+
+links:
+- https://www.ibm.com/docs/en/zos/2.3.0?topic=lf-va-arg-va-copy-va-end-va-start-access-function-arguments
+- https://www.lix.polytechnique.fr/~liberti/public/computing/prog/c/C/FUNCTIONS/format.html
+- 
