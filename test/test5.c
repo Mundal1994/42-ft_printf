@@ -1,4 +1,3 @@
-# include "../get_next_line.h"
 # include <stdio.h>
 # include <unistd.h>
 # include <string.h>
@@ -22,11 +21,11 @@
 void	print_result(int result)
 {
 	if (result == 1)
-		printf(CYAN"LINE HAS BEEN READ\n"UNCOLOR);
+		printf(CYAN"result...%d\n"UNCOLOR, result);
 	else if (result == -1)
-		printf(RED"ERROR OCCURED\n"UNCOLOR);
+		printf(RED"result...%d\n"UNCOLOR, result);
 	else
-		printf(CYAN"READING COMPLETED\n"UNCOLOR);
+		printf(CYAN"result...%d\n"UNCOLOR, result);
 }
 
 void	print_OK(int result)
@@ -37,17 +36,18 @@ void	print_OK(int result)
 		printf(GREEN"				OK!\n\n"UNCOLOR);
 }
 
+static void	width(void)
+{
+	// width
+}
+
+static void	precision(void)
+{
+	// precision
+}
+
 int main(void)
 {
-    //printf(PURPLE"4 letter word test\n"UNCOLOR);
-	//letter_word_4_test();
-	//printf(GREEN"				OK!\n"UNCOLOR);
+	//ned to make test for minimum field width and precision
 
-    //printf(PURPLE"8 letter word test\n"UNCOLOR);
-	//letter_word_8_test();
-	//printf(GREEN"				OK!\n"UNCOLOR);
-
-    //printf(PURPLE"16 letter word test\n"UNCOLOR);
-	//letter_word_16_test();
-	//printf(GREEN"				OK!\n"UNCOLOR);
 }
