@@ -36,18 +36,63 @@ void	print_OK(int result)
 		printf(GREEN"				OK!\n\n"UNCOLOR);
 }
 
-static void	width(void)
+static void	compare_results_width(int number)
 {
-	// width
+	int orig;
+
+	printf("\nInput width: [%d]\n", number);
+	printf("expected [%.10d] : ", number);
+	orig = printf("[%.10d]\n", number);
+	print_result(orig);
 }
 
-static void	precision(void)
+static void	compare_results_0(int number)
 {
-	// precision
+	int orig;
+
+	printf("\nInput 0: [%d]\n", number);
+	printf("expected [%010d] : ", number);
+	orig = printf("[%010d]\n", number);
+	print_result(orig);
+}
+
+static void	width(void)
+{
+	int number;
+
+	// width
+	printf(PURPLE"\nWIDTH & PRECISION TEST\n"UNCOLOR);
+	number = -10;
+	printf("\n[.10] pads the converted number with leading zeroes up to 10 digits\n");
+	compare_results_width(number);
+	printf("\n[010] pads the output with leading zeroes up to a width of 10 characters\n");
+	compare_results_0(number);
+
+	number = 10;
+	compare_results_width(number);
+	compare_results_0(number);
+
+	number = 0;
+	int orig;
+
+	printf("\nInput width: [%d]\n", number);
+	printf("expected [%00d] : ", number);
+	orig = printf("[%00d]\n", number);
+	print_result(orig);
+
+	printf("\nInput 0: [%d]\n", number);
+	printf("expected [%.0d] : ", number);
+	orig = printf("[%.0d]\n", number);
+	print_result(orig);
+
+	number = 5;
+	char *pointer = "little";
+	printf("\nprecision: [4] and [10]\n");
+	printf("Here is a number[%4d]and a[%10s]word.\n", number, pointer);
 }
 
 int main(void)
 {
-	//ned to make test for minimum field width and precision
-
+	printf(PURPLE"with test\n"UNCOLOR);
+	width();
 }

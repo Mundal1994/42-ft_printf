@@ -17,7 +17,11 @@
 # include<unistd.h>
 # include<string.h>
 
-# define BUFF_SIZE 32
+# define BUFF_SIZE	32
+# define FD_SIZE	4096
+# define ERROR	-1
+# define TRUE	1
+# define FALSE	0
 
 typedef struct s_list
 {

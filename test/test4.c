@@ -33,16 +33,6 @@ void	print_OK(int result)
 }
 */
 
-static void	percentage_print(void)
-{
-	int orig;
-	printf(PURPLE"\nPRINT %% TEST\n"UNCOLOR);
-
-	printf("this should print [%%]: ");
-	orig = printf("[%%]\n");
-	print_result(orig);
-}
-
 static void	hashtag(void)
 {
 	int number;
@@ -188,11 +178,6 @@ static void	mix(void)
 
 int main(void)
 {
-	printf(PURPLE"Percentage_print test\n"UNCOLOR);
-	percentage_print();
-
-	printf(PURPLE"\n-------\n\n"UNCOLOR);
-
 	printf(PURPLE"hashtag test\n"UNCOLOR);
 	hashtag();
 

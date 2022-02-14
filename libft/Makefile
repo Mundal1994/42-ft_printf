@@ -90,7 +90,7 @@ OBJS = $(SRCS:.c=.o)
 
 all: $(NAME)
 $(NAME):
-	@$(CC) -c -I $(SRCS)
+	@$(CC) -c -I ./includes $(SRCS)
 	@ar rc $(NAME) $(OBJS)
 	@ranlib $(NAME)
 

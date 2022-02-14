@@ -125,3 +125,118 @@ links:
 - https://www.ibm.com/docs/en/zos/2.3.0?topic=lf-va-arg-va-copy-va-end-va-start-access-function-arguments
 - https://www.lix.polytechnique.fr/~liberti/public/computing/prog/c/C/FUNCTIONS/format.html
 - 
+
+
+
+
+
+
+loop through string
+	if not %
+		ft_putchar character
+	else
+		if next char is %
+			ft_putchar %
+			move curser one extra
+		else
+			call function that will check the next characters (returns nbr to know how many char we have put) (figure out what numbers exactly does)
+			need to move curser until end (so check for csp, diouxX and f ?)
+	go to next char
+
+
+
+STDARG
+#include <stdarg.h>
+- va_start: initializes arg_ptr for subsequent calls to va_arg() and va_end()
+- va_arg: retrieves a value of the given var_type from the location given by arg_ptr and increases arg_ptr to point to the next argument in the list. va_arg can retrieve arguments from the list any number of times withtin the function. returns current argument
+- va_copy: creates copy (dest) of variable of type va_list (src). The copy appear as if it has gone through a va_start() and the exact set of sequences of va_arg() as that of src. when dest has been initialized the va_copy macro shouldn't be invoked to reinitialize dest without using va_end first for the same dest.
+- va_end: va_start and va_end must be in same function. va_end is needed by some systems to indicate end of parameter scanning.
+va_start, va_copy and ca_end
+
+- va_list: is the object type that holds information needed byt he macros va_start, va_copy, va_arg and va_end
+	char *va_list[2]
+
+
+
+function to check the next char
+	maybe first find the flags (typedef enum useful?)
+	i think i should use va_start, va_arg, va_end etc...
+	va_start
+	if (char == csp, diouxX, f)
+		add to enum
+		flag function - simple print ( add something to skip some calculations ex TRUE or FALSE)
+		return (nbr);
+	while we havent reached csp, diouxX and f keep looping
+		if (char == csp, diouxX, f)
+			add to enum
+			break ;
+		if (char == # || char == 0 && char + 1 != ft_digit || char == - || char == + || char == space || precision)
+			call a function that adds what 0 does or check if next is a number to do minimum-field width
+		else if (char == h && char + 1 != h || char == l && char + 1 != ll || char == L)
+			call a function to check this
+		else if (char == h && char + 1 == h || char == l && char + 1 == ll)
+			call a function to check this
+		else if (min field-width (char == 0 && char + 1 == ft_digit), precision)
+			call a    unction to check this
+	flag function check print
+	return (nbr)
+
+
+
+flag function check print
+	while loop through enum
+	if (csp)
+		call function for csp (TRUE FALSE)
+	else if (diouxX)
+		call function for diouxX (TRUE FALSE)
+	else
+		call function for f (TRUE FALSE)
+
+
+function csp
+	loop through to check if other flags has been checked (if TRUE FALSE)
+	if (true or false)
+		if (#0-+, width precision)
+			call function for that (think it will be the same for all the cases)
+	print (diouxX)
+
+
+function diouxX
+	loop through to check if other flags has been checked (if TRUE FALSE)
+	if (true or false)
+		if (#0-+, width precision)
+			call function for that (think it will be the same for all the cases)
+		else if (function for flags ll, l, hh, h
+			call function for that
+	print (diouxX)
+
+
+function f
+	loop through to check if other flags has been checked (if TRUE FALSE)
+	if (true or false)
+		if (#0-+, width precision)
+			call function for that (think it will be the same for all the cases)
+		else if (function for flags l, L
+			call function for that
+	print (diouxX)
+
+
+function for flags #0+- etc
+	if (#)
+		do
+	if (-)
+		do
+
+
+function for flags ll, l, hh, h
+	if (h)
+		do
+	if (l)
+		do
+
+
+function for l and L (h)
+	if (l)
+		do
+	if (L)
+		do
