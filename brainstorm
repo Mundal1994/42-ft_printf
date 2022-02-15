@@ -125,11 +125,32 @@ links:
 - https://www.ibm.com/docs/en/zos/2.3.0?topic=lf-va-arg-va-copy-va-end-va-start-access-function-arguments
 - https://www.lix.polytechnique.fr/~liberti/public/computing/prog/c/C/FUNCTIONS/format.html
 - 
+-------
+
+
+#
+this has no effect on c, d, i, n, p, s and u
+affects x, X, o and f
+
+0
+zero padding.
+padded on the left with zeros. if precision is given the 0 flag is ignored
+
+-
+negative field width flag - value is left adjusted on the field boundary. - overrides 0 if both are given
+
+' '
+blank before postive number produced by signed conversion d, f, i
+
++
+sig must always be placed before a number produced by a signed conversion. + overrides space if both are used
 
 
 
+ask jeff - undefined behaviour ex using # with s - return error / quit program or print result anyway?
 
 
+-------
 
 loop through string
 	if not %

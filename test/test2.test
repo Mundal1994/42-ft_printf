@@ -1,3 +1,4 @@
+# include "../ft_printf.h"
 # include <stdio.h>
 # include <unistd.h>
 # include <string.h>
@@ -18,14 +19,9 @@
 # define WHITE	"\033[37m"
 # define UNCOLOR	"\033[39m"
 
-void	print_result(int result)
+void	print_result(int result, int mine)
 {
-	if (result == 1)
-		printf(CYAN"result...%d\n"UNCOLOR, result);
-	else if (result == -1)
-		printf(RED"result...%d\n"UNCOLOR, result);
-	else
-		printf(CYAN"result...%d\n"UNCOLOR, result);
+	printf(CYAN"return expected [%d] : [%d]\n"UNCOLOR, result, mine);
 }
 
 void	print_OK(int result)
@@ -39,45 +35,46 @@ void	print_OK(int result)
 static void	compare_results_d(int number, char c)
 {
 	int orig;
+	int mine;
 
 	if (c == 'd')
 	{
-		printf("expected [%d] : ", number);
-		orig = printf("[%d]\n", number);
-		print_result(orig);
+		orig = printf("expect: [%d]\n", number);
+		mine = ft_printf("output: [%d]\n", number);
+		print_result(orig, mine);
 	}
 	else if (c == 'i')
 	{
-		printf("expected [%i] : ", number);
-		orig = printf("[%i]\n", number);
-		print_result(orig);
+		orig = printf("expect: [%i]\n", number);
+		mine = ft_printf("output: [%i]\n", number);
+		print_result(orig, mine);
 	}
 	else if (c == 'o')
 	{
-		printf("expected [%o] : ", number);
-		orig = printf("[%o]\n", number);
-		print_result(orig);
+		orig = printf("expect: [%o]\n", number);
+		mine = ft_printf("output: [%o]\n", number);
+		print_result(orig, mine);
 	}
 	else if (c == 'u')
 	{
-		printf("expected [%u] : ", number);
-		orig = printf("[%u]\n", number);
-		print_result(orig);
+		orig = printf("expect: [%u]\n", number);
+		mine = ft_printf("output: [%u]\n", number);
+		print_result(orig, mine);
 	}
 	else if (c == 'x')
 	{
-		printf("expected [%x] : ", number);
-		orig = printf("[%x]\n", number);
-		print_result(orig);
+		orig = printf("expect: [%x]\n", number);
+		mine = ft_printf("output: [%x]\n", number);
+		print_result(orig, mine);
 	}
 	else if (c == 'X')
 	{
-		printf("expected [%X] : ", number);
-		orig = printf("[%X]\n", number);
-		print_result(orig);
+		orig = printf("expect: [%X]\n", number);
+		mine = ft_printf("output: [%X]\n", number);
+		print_result(orig, mine);
 	}
 }
-
+/*
 static void	compare_results_d_hh(signed char number, char c)
 {
 	int orig;
@@ -118,8 +115,8 @@ static void	compare_results_d_hh(signed char number, char c)
 		orig = printf("[%hhX]\n", number);
 		print_result(orig);
 	}
-}
-
+}*/
+/*
 static void	compare_results_d_h(short number, char c)
 {
 	int orig;
@@ -160,8 +157,8 @@ static void	compare_results_d_h(short number, char c)
 		orig = printf("[%hX]\n", number);
 		print_result(orig);
 	}
-}
-
+}*/
+/*
 static void	compare_results_d_l(long number, char c)
 {
 	int orig;
@@ -202,8 +199,8 @@ static void	compare_results_d_l(long number, char c)
 		orig = printf("[%lX]\n", number);
 		print_result(orig);
 	}
-}
-
+}*/
+/*
 static void	compare_results_d_ll(long long number, char c)
 {
 	int orig;
@@ -245,38 +242,36 @@ static void	compare_results_d_ll(long long number, char c)
 		print_result(orig);
 	}
 }
-
+*/
 static void	d(void)
 {
-	int	orig;
 	// DECIMAL INTEGER (ASSUMES BASE 10)
 	//assumes integer is a signed decimal number
 	int	number = 5;
 
-	printf(PURPLE"\nDECIMAL INTEGER (ASSUMES BASE 10) TEST\n"UNCOLOR);
-	printf("Input: [%d]\n", number);
+	printf(YELLOW"\nInput: [%d]\n"UNCOLOR, number);
 	compare_results_d(number, 'd');
 
 	number = 2147483647;
-	printf("Input: [%d]\n", number);
+	printf(YELLOW"\nInput: [%d]\n"UNCOLOR, number);
 	compare_results_d(number, 'd');
 
 	number = -2147483648;
-	printf("Input: [%d]\n", number);
+	printf(YELLOW"\nInput: [%d]\n"UNCOLOR, number);
 	compare_results_d(number, 'd');
 
 	number = -1234;
-	printf("Input: [%d]\n", number);
+	printf(YELLOW"\nInput: [%d]\n"UNCOLOR, number);
 	compare_results_d(number, 'd');
 
 	number = 1234;
-	printf("Input: [%d]\n", number);
+	printf(YELLOW"\nInput: [%d]\n"UNCOLOR, number);
 	compare_results_d(number, 'd');
 
 	number = -0;
-	printf("Input: [%d]\n", number);
+	printf(YELLOW"\nInput: [%d]\n"UNCOLOR, number);
 	compare_results_d(number, 'd');
-
+/*
 	// difference between %d and %i
 	printf(PURPLE"\ndifference between %%d and %%i TEST\n"UNCOLOR);
 	number = 012;
@@ -380,17 +375,16 @@ static void	d(void)
 	longlong = 1234;
 	printf("[%llu]: ", longlong);
 	compare_results_d_ll(longlong, 'd');
-
+*/
 	//mine = ft_printf("%d", number);
 	//printf("Expected: [%d]	output: [%s]\n", , "5");
 	//print_OK(strcmp(printf("%d", number), "5"));
 }
-
+/*
 static void	i(void)
 {
 	// DEMICAL INTEGER (DETECTS THE BASE AUTOMATICALLY)
 	// defaults to decimal but also reads hexadecimal (if start is 0x) or octal (if start with 0)
-	int	orig;
 	int	number = 5;
 
 	printf(PURPLE"\nDEMICAL INTEGER (DETECTS THE BASE AUTOMATICALLY) TEST\n"UNCOLOR);
@@ -523,12 +517,11 @@ static void	i(void)
 	longlong = 1234;
 	printf("Input: [%llu]\n", longlong);
 	compare_results_d_ll(longlong, 'i');
-}
-
+}*/
+/*
 static void	o(void)
 {
 	// OCTAL (base 8) integer
-	int	orig;
 	int	number = 150;
 
 	printf(PURPLE"\nOCTAL (base 8) INTEGER TEST\n"UNCOLOR);
@@ -647,12 +640,11 @@ static void	o(void)
 	longlong = 1234;
 	printf("Input: [%llu]\n", longlong);
 	compare_results_d_ll(longlong, 'o');
-}
-
+}*/
+/*
 static void	u(void)
 {
 	// INT UNSIGNED DECIMAL (non negative numbers)
-	int	orig;
 	unsigned int	number = 5;
 
 	printf(PURPLE"\nINT UNSIGNED DECIMAL (non negative numbers) TEST\n"UNCOLOR);
@@ -771,13 +763,11 @@ static void	u(void)
 	longlong = 1234;
 	printf("Input: [%llu]\n", longlong);
 	compare_results_d_ll(longlong, 'u');
-}
-
-
+}*/
+/*
 static void	x(void)
 {
 	// HEXADECIMAL (base 16) INTEGER (small characters)
-	int	orig;
 	int	number = 0x5;
 
 	printf(PURPLE"\nHEXADECIMAL (base 16) INTEGER (small characters) TEST\n"UNCOLOR);
@@ -896,8 +886,8 @@ static void	x(void)
 	longlong = 1234;
 	printf("Input: [%llu]\n", longlong);
 	compare_results_d_ll(longlong, 'x');
-}
-
+}*/
+/*
 static void	X(void)
 {
 	// HEXADECIMAL (base 16) INTEGER (big characters)
@@ -1020,7 +1010,7 @@ static void	X(void)
 	printf("Input: [%llu]\n", longlong);
 	compare_results_d_ll(longlong, 'X');
 }
-
+*/
 int main(void)
 {
 	printf(PURPLE"decimal integer (assume base 10) test\n"UNCOLOR);
@@ -1028,21 +1018,21 @@ int main(void)
 
 	printf(PURPLE"\n-------\n\n"UNCOLOR);
 	printf(PURPLE"decimal integer (detects base automatically) test\n"UNCOLOR);
-	i();
+	//i();
 
 	printf(PURPLE"\n-------\n\n"UNCOLOR);
 	printf(PURPLE"octal (base 8) integer test\n"UNCOLOR);
-	o();
+	//o();
 
 	printf(PURPLE"\n-------\n\n"UNCOLOR);
 	printf(PURPLE"int unsigned decimal test\n"UNCOLOR);
-	u();
+	//u();
 
 	printf(PURPLE"\n-------\n\n"UNCOLOR);
 	printf(PURPLE"hexadecimal (base 16) integer (small char) test\n"UNCOLOR);
-	x();
+	//x();
 
 	printf(PURPLE"\n-------\n\n"UNCOLOR);
 	printf(PURPLE"hexadecimal (base 16) integer (big char) test\n"UNCOLOR);
-	X();
+	//X();
 }

@@ -85,6 +85,8 @@ SRCS += ft_lstprint.c
 SRCS += ft_lstprint_size.c
 SRCS += ft_free2d.c
 SRCS += get_next_line.c
+SRCS += ft_itoa_base.c
+SRCS += ft_strrev.c
 
 OBJS = $(SRCS:.c=.o)
 

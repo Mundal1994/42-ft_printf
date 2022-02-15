@@ -27,42 +27,46 @@ void	print_OK(int result)
 	else
 		printf(GREEN"				OK!\n\n"UNCOLOR);
 }
-/*
+
 static void	compare_char(char c)
 {
 	int orig;
 	int mine;
 
-	printf("[%c]: ", c);
-	orig = printf("expected [%c] : ", c);
-	mine = ft_printf("[%c]\n", c);
+	printf(YELLOW"\n[%c]\n"UNCOLOR, c);
+	orig = printf("expect: [%c]\n", c);
+	mine = ft_printf("output: [%c]\n", c);
 	print_result(orig, mine);
-}*/
-/*
+}
+
 static void	compare_string(char *str)
 {
 	int orig;
 	int mine;
 
-	printf("[%s]: ", str);
-	orig = printf("expected [%s] : ", str);
-	mine = ft_printf("[%s]\n", str);
+	printf(YELLOW"\n[%s]\n"UNCOLOR, str);
+	orig = printf("expect: [%s]\n", str);
+	mine = ft_printf("output: [%s]\n", str);
 	print_result(orig, mine);
-}*/
+}
 
 static void	basic(void)
 {
 	char hi = 'W';
 	char ho = 'O';
 	char *str = "new";
-	//char pnt = *str;
-	ft_printf(UNCOLOR"hello[%c][%c][%s]\n", hi, ho, str);
-	//ft_printf("hello my name is james\n");
-	//ft_printf("hi");
-	//ft_printf("\n");
-	//ft_printf("");
+	char *pnt = str;
+	short nbr = 24;
+	//int	*ptr = &nbr;
+	printf(UNCOLOR"expect: hello[%+hd]\n", nbr);
+	printf(UNCOLOR"expect: hello[%c][%c][%s][%p]\n", hi, ho, str, pnt);
+	ft_printf("output: hello[%c][%c][%s][%p]\n", hi, ho, str, pnt);
+	ft_printf("hello my name is james\n");
+	ft_printf("hi");
+	ft_printf("\n");
+	ft_printf("");
 }
-/*
+
 static void	percentage_print(void)
 {
 	int orig;
@@ -81,14 +85,11 @@ static void	percentage_print(void)
 	mine = ft_printf("output: [%%] [%%] [%%]");
 	ft_putchar('\n');
 	print_result(orig, mine);
-}*/
-/*
+}
+
 static void	c(void)
 {
-	// CHAR
-	//char c = 'H';
-
-	printf(PURPLE"\nCHAR TEST\n"UNCOLOR);
+	char c = 'H';
 	compare_char(c);
 
 	c = ' ';
@@ -102,14 +103,12 @@ static void	c(void)
 
 	c = 'm';
 	compare_char(c);
-}*/
-/*
+}
+
 static void	s(void)
 {
-	// STRING
 	char *str = "hello";
 
-	printf(PURPLE"\nSTRING TEST\n"UNCOLOR);
 	compare_string(str);
 
 	str = "hi my name is james";
@@ -123,8 +122,17 @@ static void	s(void)
 
 	str = "123456789";
 	compare_string(str);
-}*/
 /*
+	int orig;
+	int mine;
+
+	str = "hello";
+	printf(YELLOW"\n[%s]\n"UNCOLOR, str);
+	orig = printf("expect: [%#s]\n", str);
+	mine = ft_printf("output: [%#s]\n", str);
+	print_result(orig, mine);*/
+}
+
 static void	p(void)
 {
 	int orig;
@@ -134,12 +142,11 @@ static void	p(void)
 	int *pnt;
 
 	pnt = &intnbr;
-	printf(PURPLE"\nPOINTER TEST\n"UNCOLOR);
-	orig = printf("[%p]: ", pnt);
+	orig = printf("\n[%p]\n", pnt);
 	mine = ft_printf("[%p]\n", pnt);
 	print_result(orig, mine);
 }
-*/
+
 int main(void)
 {
 	printf(PURPLE"BASIC STRING TEST\n"UNCOLOR);
@@ -148,20 +155,20 @@ int main(void)
 	printf(PURPLE"\n-------\n\n"UNCOLOR);
 
 	printf(PURPLE"PERCENTAGE PRINT TEST\n"UNCOLOR);
-	//percentage_print();
+	percentage_print();
 
 	printf(PURPLE"\n-------\n\n"UNCOLOR);
 
 	printf(PURPLE"\nCHAR TEST\n"UNCOLOR);
-	//c();
+	c();
 
 	printf(PURPLE"\n-------\n\n"UNCOLOR);
 	printf(PURPLE"STRING TEST\n"UNCOLOR);
-	//s();
+	s();
 
 	printf(PURPLE"\n-------\n\n"UNCOLOR);
 	printf(PURPLE"POINTER TEST\n"UNCOLOR);
-	//p();
+	p();
 
 	return (0);
 }

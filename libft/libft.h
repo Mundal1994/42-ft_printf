@@ -102,5 +102,7 @@ void	ft_lstprint(t_list **alst);
 void	ft_lstprint_size(t_list **alst);
 char	**ft_free2d(char **dest);
 int		get_next_line(const int fd, char **line);
+char	*ft_itoa_base(int nbr, char *strout, int base);
+char	*ft_strrev(char *str);
 
 #endif

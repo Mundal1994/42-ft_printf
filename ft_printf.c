@@ -27,30 +27,135 @@ static void	ft_initialize_flag(t_flag *flag)
 	flag->ll = FALSE;
 	flag->s_l = FALSE;
 	flag->b_l = FALSE;
+	flag->index = 0;
+	flag->flags = FALSE;
 }
 
-static int	ft_convert_symbol(const char *format, char *str, va_list *arg)
+static char	ft_hex_digit(int value)
 {
-	if (*format == 'c' || *format == 's' || *format == 'p')
+	if (value >= 0 && value < 10)
+		return ('0' + value);
+	else
+		return ('a' + value - 10);
+}
+
+static void	ft_hex_to_str(void* addr, char *str)
+{/*
+	int	i;
+	int count;
+	uintptr_t	pnt;
+	
+	pnt = (uintptr_t)addr;
+	i = (sizeof(pnt) << 3) - 4;
+	count = 2;
+	while (i >= 0)
 	{
-		if (*format == 'c')
-			*str = (char)va_arg(*arg, int);
-		else if (*format == 's')
-			*str = *((char *)va_arg(*arg, char *));
-		//else
-		//	str = (char *)va_arg(*arg, char *);
+		str[count++] = ft_hex_digit((pnt >> i) & 0xf);
+		i -= 4;
+	}*/
+	int	i;
+	int count;
+	uintptr_t	pnt;
+	
+	pnt = (uintptr_t)addr;
+	i = (sizeof(pnt) << 3) - 4;
+	count = 2;
+	while (i >= 0)
+	{
+		str[count++] = ft_hex_digit((pnt >> i) & 0xf);
+		i -= 4;
+	}
+	/*
+	size_t printed = 0;
+	size_t i;
+	const unsigned char* pnt = addr;
+
+	i = 0;
+	while (++i < size)
+	{
+		int g;
+		g = (*(pnt + i) >> 4) & 0xf;
+		if (g >= 10)
+			g += 'a' - 10;
+		else
+			g += '0';
+		*str++ = g;
+		printed++;
+
+		g = *(pnt + i) & 0xf;
+		if (g >= 10)
+			g += 'a' - 10;
+		else
+			g += '0';
+		*str++ = g;
+		printed++;
+	}*/
+}
+
+static void	ft_cspf_print(const char *format, char *str, t_flag *flag, va_list *arg)
+{
+	char * str_arg;
+	int	i;
+
+	i = 0;
+	if (*format == 'c')
+		*str = (char)va_arg(*arg, int);
+	else if (*format == 's')
+	{
+		str_arg = va_arg(*arg, char*);
+		ft_strcpy(str, str_arg);
+		flag->index += ft_strlen(str_arg) - 1;
+	}
+	else if (*format == 'p')
+	{
+		str_arg = va_arg(*arg, char*);
+		str[0] = '0';
+		str[1] = 'x';
+		ft_hex_to_str(str_arg, str);
+		flag->index += 13;
+	}
+	else
+	{
+		//f
+	}
+}
+/*
+static void	ft_diu_print(const char *format, char *str, t_flag *flag, va_list *arg)
+{
+	char temp[20];
+
+	if (*format == 'd')
+	{
+		ft_itoa_base(va_arg(*arg, int), temp, 10);
+		ft_putstr(temp);
+		ft_strcpy(str, temp);
+		flag->index = ft_strlen(temp);
+	}
+	else if (*format == 'i')
+	{
+		
+	}
+	else if (*format == 'u')
+	{
+		
+	}
+}*/
+
+static int	ft_convert_symbol(const char *format, char *str, t_flag *flag, va_list *arg)
+{
+	if (*format == 'c' || *format == 's' || *format == 'p' || *format == 'f')
+	{
+		ft_cspf_print(format, str, flag, arg);
 		return (TRUE);
 	}
-	else if (*format == 'd' || *format == 'i' || *format == 'o')
+	else if (*format == 'd' || *format == 'i' || *format == 'u')
 	{
+		//ft_diu_print(format, str, flag, arg);
 		return (TRUE);
 	}
-	else if (*format == 'u' || *format == 'x' || *format == 'X')
+	else if (*format == 'o' || *format == 'x' || *format == 'X')
 	{
-		return (TRUE);
-	}
-	else if (*format == 'f')
-	{
+		//ft_oxX_print(format, str, flag, arg);
 		return (TRUE);
 	}
 	return (FALSE);
@@ -59,31 +164,28 @@ static int	ft_convert_symbol(const char *format, char *str, va_list *arg)
 static void	ft_find_flags(const char *format, char *str, t_flag *flag, va_list *arg)
 {
 	int	i;
+	//char * str_arg;
 
 	i = 0;
-	if (ft_convert_symbol(&format[i], &str[i], arg) == TRUE)
-	{
-		//print
-		(void)flag;
-	}
+	if (ft_convert_symbol(&format[i], &str[i], flag, arg) == TRUE)
+		return ;
 	else
 	{
-		//means we have a flag loop
+		flag->flags = TRUE;
+		/*if (*format == '#')
+		str_arg = va_arg(*arg, char*);
+		ft_strcpy(str, str_arg);
+		flag->index += ft_strlen(str_arg) - 1;*/
 	}
 }
 
-static void	ft_convert_checker(const char *format, char *str, va_list *arg)
+static void	ft_convert_checker(const char *format, char *str, t_flag *flag, va_list *arg)
 {
-	t_flag	*flag;
-
-	//va_start(arg, str);
-	flag = (t_flag *) malloc(sizeof(t_flag));
-	if (!flag)
-		ft_putstr("error");
-	ft_initialize_flag(flag);
+	
 	ft_find_flags(format, str, flag, arg);
+	if (flag->flags == FALSE)
+		return ;
 	//ft_str_convert(str, flag);
-	//va_end(arg, str);
 }
 
 //write char imidiately or store in a string
@@ -92,49 +194,40 @@ static void	ft_convert_checker(const char *format, char *str, va_list *arg)
 int	ft_printf(const char *format, ...)
 {
 	int		i;
-	int		j;
 	char	str[100];
 	va_list	arg;
+	t_flag	*flag;
 
+	flag = (t_flag *) malloc(sizeof(t_flag));
+	if (!flag)
+		ft_putstr("error");
+	ft_initialize_flag(flag);
 	va_start(arg, format);
 	i = 0;
-	j = 0;
 	//str = ft_strnew(ft_strlen(format));
 	if (format)
 	{
 		while (format[i] != '\0')
 		{
 			if (format[i] != '%')
-				str[j] = format[i];
+				str[flag->index] = format[i];
 			else
 			{
 				i++;
 				if (format[i] == '%')
-					str[j] = '%';
+					str[flag->index] = '%';
 				else
-				{
-					//if (format[i] == 'c')
-					//	str[j] = (char)va_arg(arg, int);
-
-					// call function to check rest char
-					ft_convert_checker(&format[i], &str[j], &arg);
-					ft_putchar('\n');
-					ft_putstr(str);
-					ft_putchar('\n');
-					j += ft_strlen(&str[i]);
-					
-				}
+					ft_convert_checker(&format[i], &str[flag->index], flag, &arg);
 			}
-			//ft_putnbr(i);
 			i++;
-			j++;
+			flag->index++;
 		}
 	}
-	str[j] = '\0';
+	str[flag->index] = '\0';
 	ft_putstr(str);
-	//return (ft_strlen(str));
 	va_end(arg);
-	return (0);
+	return (ft_strlen(str)); 
+	//return (0);
 }
 
 

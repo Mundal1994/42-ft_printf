@@ -19,6 +19,8 @@ typedef struct	s_flag
 	int			ll;
 	int			s_l;
 	int			b_l;
+	int			index;
+	int			flags;
 }				t_flag;
 
 int	ft_printf(const char *format, ...);
