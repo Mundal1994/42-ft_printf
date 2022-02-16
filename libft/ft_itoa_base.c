@@ -44,15 +44,14 @@ char	*ft_itoa_base(int nbr, char *strout, int base)
 	long	var;
 
 	str = strout;
-	neg = 0;
+	neg = 1;
+	var = (long)nbr;
 	if (nbr < 0)
 	{
-		var = (long)nbr;
 		neg = -1;
 		var *= neg;
-		ft_itoa_helper(str, var, base, neg);
 	}
-	ft_itoa_helper(str, nbr, base, neg);
+	ft_itoa_helper(str, var, base, neg);
 	ft_strrev(strout);
 	return (strout);
 }

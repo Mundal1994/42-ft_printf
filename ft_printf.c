@@ -110,13 +110,23 @@ static void	ft_diu_print(const char *format, char *str, t_flag *flag, va_list *a
 	else if (*format == 'i')
 	{
 		nbr = va_arg(*arg, int);
+
 		// it doesn't recognize the octal because nbr doesnt keep the 0
-		if (ft_isxdigit(nbr) == 1)
+		/*if (nbr >= 0 && ft_isxdigit(nbr) == 1)
+		{
 			ft_itoa_base(nbr, str, 16);
-		else if (ft_isoctal(nbr) == 1)
+			ft_putstr("hex");
+		}
+		else if (nbr >= 0 && ft_isoctal(nbr) == 1)
+		{
+			ft_putstr("octal");
 			ft_itoa_base(nbr, str, 8);
+		}
 		else
+		{*/
+			//ft_putstr("decimal");
 			ft_itoa_base(nbr, str, 10);
+		//}
 		flag->index += ft_strlen(str) - 1;
 	}
 	else if (*format == 'u')
@@ -124,6 +134,32 @@ static void	ft_diu_print(const char *format, char *str, t_flag *flag, va_list *a
 		
 	}
 }
+
+static void	ft_oxX_print(const char *format, char *str, t_flag *flag, va_list *arg)
+{
+	int	nbr;
+
+	nbr = va_arg(*arg, int);
+	if (*format == 'o' && flag->flags == FALSE)
+	{
+		ft_itoa_base(nbr, str, 8);
+		flag->index += ft_strlen(str) - 1;
+	}
+	else if (*format == 'x' && flag->flags == FALSE)
+	{
+		ft_itoa_base(nbr, str, 16);
+		flag->index += ft_strlen(str) - 1;
+	}
+	else if (*format == 'X' && flag->flags == FALSE)
+	{
+		ft_itoa_base(nbr, str, 16);
+		flag->index += ft_strlen(str) - 1;
+	}
+	//if minus - problem with octal or doesn't return properly with the \0
+}
+
+//di difference - has to figure out if there is one
+//oxX - still errors when it comes to minus values and x doesn't always print lower characters
 
 static int	ft_convert_symbol(const char *format, char *str, t_flag *flag, va_list *arg)
 {
@@ -139,7 +175,7 @@ static int	ft_convert_symbol(const char *format, char *str, t_flag *flag, va_lis
 	}
 	else if (*format == 'o' || *format == 'x' || *format == 'X')
 	{
-		//ft_oxX_print(format, str, flag, arg);
+		ft_oxX_print(format, str, flag, arg);
 		return (TRUE);
 	}
 	return (FALSE);

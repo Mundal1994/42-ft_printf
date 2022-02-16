@@ -425,6 +425,23 @@ static void	i(void)
 	number = 0x12;
 	printf("Input: [0x12]\n");
 	compare_results_d(number, 'i');
+
+	number = 2550;
+	printf("expect: [%d]\n", number);
+	ft_printf("output: [%d]\n", number);
+
+	number = 0x2550;
+	printf("expect: [%i]\n", number);
+	ft_printf("output: [%i]\n", number);
+
+	number = 021;
+	printf("Input: 021\n");
+	printf("%%d expect: [%d]\n", number);
+	//ft_printf("%%d output: [%d]\n", number);
+
+	number = 021;
+	printf("%%i expect: [%i]\n", number);
+	//ft_printf("%%i output: [%i]\n", number);
 /*
 	// with flags hh
 	unsigned char	c = '5';
@@ -519,13 +536,11 @@ static void	i(void)
 	printf("Input: [%llu]\n", longlong);
 	compare_results_d_ll(longlong, 'i');*/
 }
-/*
+
 static void	o(void)
 {
 	// OCTAL (base 8) integer
 	int	number = 150;
-
-	printf(PURPLE"\nOCTAL (base 8) INTEGER TEST\n"UNCOLOR);
 	printf("Input: [%d]\n", number);
 	compare_results_d(number, 'o');
 
@@ -548,7 +563,7 @@ static void	o(void)
 	number = 15;
 	printf("Input: [%d]\n", number);
 	compare_results_d(number, 'o');
-
+/*
 	// with flags hh
 	unsigned char	c = '5';
 	printf(PURPLE"\nhh TEST\n"UNCOLOR);
@@ -640,8 +655,8 @@ static void	o(void)
 
 	longlong = 1234;
 	printf("Input: [%llu]\n", longlong);
-	compare_results_d_ll(longlong, 'o');
-}*/
+	compare_results_d_ll(longlong, 'o');*/
+}
 /*
 static void	u(void)
 {
@@ -764,13 +779,11 @@ static void	u(void)
 	printf("Input: [%llu]\n", longlong);
 	compare_results_d_ll(longlong, 'u');
 }*/
-/*
+
 static void	x(void)
 {
 	// HEXADECIMAL (base 16) INTEGER (small characters)
 	int	number = 0x5;
-
-	printf(PURPLE"\nHEXADECIMAL (base 16) INTEGER (small characters) TEST\n"UNCOLOR);
 	printf("Input: [%i]\n", number);
 	compare_results_d(number, 'x');
 
@@ -793,7 +806,7 @@ static void	x(void)
 	number = -0x0;
 	printf("Input: [%i]\n", number);
 	compare_results_d(number, 'x');
-
+/*
 	// with flags hh
 	unsigned char	c = '5';
 	printf(PURPLE"\nhh TEST\n"UNCOLOR);
@@ -885,15 +898,13 @@ static void	x(void)
 
 	longlong = 1234;
 	printf("Input: [%llu]\n", longlong);
-	compare_results_d_ll(longlong, 'x');
-}*/
-/*
+	compare_results_d_ll(longlong, 'x');*/
+}
+
 static void	X(void)
 {
 	// HEXADECIMAL (base 16) INTEGER (big characters)
 	int	number = 0x5;
-
-	printf(PURPLE"\nHEXADECIMAL (base 16) INTEGER (small characters) TEST\n"UNCOLOR);
 	printf("Input: [%i]\n", number);
 	compare_results_d(number, 'X');
 
@@ -916,7 +927,7 @@ static void	X(void)
 	number = -0x0;
 	printf("Input: [%i]\n", number);
 	compare_results_d(number, 'X');
-
+/*
 	// with flags hh
 	unsigned char	c = '5';
 	printf(PURPLE"\nhh TEST\n"UNCOLOR);
@@ -1008,9 +1019,9 @@ static void	X(void)
 
 	longlong = 1234;
 	printf("Input: [%llu]\n", longlong);
-	compare_results_d_ll(longlong, 'X');
+	compare_results_d_ll(longlong, 'X');*/
 }
-*/
+
 int main(void)
 {
 	printf(PURPLE"decimal integer (assume base 10) test\n"UNCOLOR);
@@ -1022,7 +1033,7 @@ int main(void)
 
 	printf(PURPLE"\n-------\n\n"UNCOLOR);
 	printf(PURPLE"octal (base 8) integer test\n"UNCOLOR);
-	//o();
+	o();
 
 	printf(PURPLE"\n-------\n\n"UNCOLOR);
 	printf(PURPLE"int unsigned decimal test\n"UNCOLOR);
@@ -1030,9 +1041,9 @@ int main(void)
 
 	printf(PURPLE"\n-------\n\n"UNCOLOR);
 	printf(PURPLE"hexadecimal (base 16) integer (small char) test\n"UNCOLOR);
-	//x();
+	x();
 
 	printf(PURPLE"\n-------\n\n"UNCOLOR);
 	printf(PURPLE"hexadecimal (base 16) integer (big char) test\n"UNCOLOR);
-	//X();
+	X();
 }
