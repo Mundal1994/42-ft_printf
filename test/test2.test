@@ -19,17 +19,18 @@
 # define WHITE	"\033[37m"
 # define UNCOLOR	"\033[39m"
 
-void	print_result(int result, int mine)
-{
-	printf(CYAN"return expected [%d] : [%d]\n"UNCOLOR, result, mine);
-}
-
 void	print_OK(int result)
 {
 	if (result != 0)
-		printf(RED"				KO!\n\n"UNCOLOR);
+		printf(RED"KO!\n"UNCOLOR);
 	else
-		printf(GREEN"				OK!\n\n"UNCOLOR);
+		printf(GREEN"OK!\n"UNCOLOR);
+}
+
+void	print_result(int result, int mine)
+{
+	printf(CYAN"return expected [%d] : [%d]	"UNCOLOR, result, mine);
+	print_OK(result - mine);
 }
 
 static void	compare_results_d(int number, char c)
@@ -271,7 +272,7 @@ static void	d(void)
 	number = -0;
 	printf(YELLOW"\nInput: [%d]\n"UNCOLOR, number);
 	compare_results_d(number, 'd');
-/*
+
 	// difference between %d and %i
 	printf(PURPLE"\ndifference between %%d and %%i TEST\n"UNCOLOR);
 	number = 012;
@@ -281,7 +282,7 @@ static void	d(void)
 	number = 033;
 	printf("Input: [033]\n");
 	compare_results_d(number, 'd');
-
+/*
 	// with flags hh
 	unsigned char	c = '5';
 	printf(PURPLE"\nhh TEST\n"UNCOLOR);
@@ -380,7 +381,7 @@ static void	d(void)
 	//printf("Expected: [%d]	output: [%s]\n", , "5");
 	//print_OK(strcmp(printf("%d", number), "5"));
 }
-/*
+
 static void	i(void)
 {
 	// DEMICAL INTEGER (DETECTS THE BASE AUTOMATICALLY)
@@ -424,7 +425,7 @@ static void	i(void)
 	number = 0x12;
 	printf("Input: [0x12]\n");
 	compare_results_d(number, 'i');
-
+/*
 	// with flags hh
 	unsigned char	c = '5';
 	printf(PURPLE"\nhh TEST\n"UNCOLOR);
@@ -516,8 +517,8 @@ static void	i(void)
 
 	longlong = 1234;
 	printf("Input: [%llu]\n", longlong);
-	compare_results_d_ll(longlong, 'i');
-}*/
+	compare_results_d_ll(longlong, 'i');*/
+}
 /*
 static void	o(void)
 {
@@ -647,7 +648,6 @@ static void	u(void)
 	// INT UNSIGNED DECIMAL (non negative numbers)
 	unsigned int	number = 5;
 
-	printf(PURPLE"\nINT UNSIGNED DECIMAL (non negative numbers) TEST\n"UNCOLOR);
 	printf("Input: [%i]\n", number);
 	compare_results_d(number, 'u');
 
@@ -1018,7 +1018,7 @@ int main(void)
 
 	printf(PURPLE"\n-------\n\n"UNCOLOR);
 	printf(PURPLE"decimal integer (detects base automatically) test\n"UNCOLOR);
-	//i();
+	i();
 
 	printf(PURPLE"\n-------\n\n"UNCOLOR);
 	printf(PURPLE"octal (base 8) integer test\n"UNCOLOR);

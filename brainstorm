@@ -147,9 +147,6 @@ sig must always be placed before a number produced by a signed conversion. + ove
 
 
 
-ask jeff - undefined behaviour ex using # with s - return error / quit program or print result anyway?
-
-
 -------
 
 loop through string

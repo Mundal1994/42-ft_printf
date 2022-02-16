@@ -15,17 +15,18 @@
 # define WHITE	"\033[37m"
 # define UNCOLOR	"\033[39m"
 
-void	print_result(int result, int mine)
-{
-	printf(CYAN"return expected [%d] : [%d]\n"UNCOLOR, result, mine);
-}
-
 void	print_OK(int result)
 {
 	if (result != 0)
-		printf(RED"				KO!\n\n"UNCOLOR);
+		printf(RED"KO!\n"UNCOLOR);
 	else
-		printf(GREEN"				OK!\n\n"UNCOLOR);
+		printf(GREEN"OK!\n"UNCOLOR);
+}
+
+void	print_result(int result, int mine)
+{
+	printf(CYAN"return expected [%d] : [%d]	"UNCOLOR, result, mine);
+	print_OK(result - mine);
 }
 
 static void	compare_char(char c)
@@ -76,10 +77,12 @@ static void	percentage_print(void)
 	mine = ft_printf("output: [%%]\n");
 	print_result(orig, mine);
 
+	printf("\n");
 	orig = printf("expect: [%%] [%%] [%%]\n");
 	mine = ft_printf("output: [%%] [%%] [%%]\n");
 	print_result(orig, mine);
 
+	printf("\n");
 	orig = printf("expect: [%%] [%%] [%%]");
 	putchar('\n');
 	mine = ft_printf("output: [%%] [%%] [%%]");
@@ -142,7 +145,7 @@ static void	p(void)
 	int *pnt;
 
 	pnt = &intnbr;
-	orig = printf("\n[%p]\n", pnt);
+	orig = printf("[%p]\n", pnt);
 	mine = ft_printf("[%p]\n", pnt);
 	print_result(orig, mine);
 }

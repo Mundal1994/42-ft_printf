@@ -31,115 +31,99 @@ static void	ft_initialize_flag(t_flag *flag)
 	flag->flags = FALSE;
 }
 
-static char	ft_hex_digit(int value)
+static void	ft_pntlen(uintptr_t addr, t_flag *flag)
 {
-	if (value >= 0 && value < 10)
-		return ('0' + value);
-	else
-		return ('a' + value - 10);
+	int	len;
+
+	len = 0;
+	if (addr == 0)
+		flag->index += 3;
+	while (addr != 0)
+	{
+		len++;
+		addr = addr / 16;
+	}
+	flag->index += len + 1;
 }
 
-static void	ft_hex_to_str(void* addr, char *str)
-{/*
-	int	i;
-	int count;
-	uintptr_t	pnt;
-	
-	pnt = (uintptr_t)addr;
-	i = (sizeof(pnt) << 3) - 4;
-	count = 2;
-	while (i >= 0)
+static void	ft_hex_to_str(uintptr_t addr, char *str, int i)
+{
+	int	index;
+
+	if (i == 0)
 	{
-		str[count++] = ft_hex_digit((pnt >> i) & 0xf);
-		i -= 4;
-	}*/
-	int	i;
-	int count;
-	uintptr_t	pnt;
-	
-	pnt = (uintptr_t)addr;
-	i = (sizeof(pnt) << 3) - 4;
-	count = 2;
-	while (i >= 0)
-	{
-		str[count++] = ft_hex_digit((pnt >> i) & 0xf);
-		i -= 4;
+		str[0] = '0';
+		str[1] = 'x';
 	}
-	/*
-	size_t printed = 0;
-	size_t i;
-	const unsigned char* pnt = addr;
-
-	i = 0;
-	while (++i < size)
+	if (addr >= 16)
 	{
-		int g;
-		g = (*(pnt + i) >> 4) & 0xf;
-		if (g >= 10)
-			g += 'a' - 10;
+		ft_hex_to_str(addr / 16, str, 1);
+		ft_hex_to_str(addr % 16, str, 1);
+	}
+	else
+	{
+		index = ft_strlen(str);
+		if (addr <= 9)
+			str[index] = addr + '0';
 		else
-			g += '0';
-		*str++ = g;
-		printed++;
-
-		g = *(pnt + i) & 0xf;
-		if (g >= 10)
-			g += 'a' - 10;
-		else
-			g += '0';
-		*str++ = g;
-		printed++;
-	}*/
+			str[index] = addr - 10 + 'a';
+	}
 }
 
 static void	ft_cspf_print(const char *format, char *str, t_flag *flag, va_list *arg)
 {
 	char * str_arg;
+	unsigned long long	long_arg;
 	int	i;
 
 	i = 0;
-	if (*format == 'c')
+	if (*format == 'c' && flag->flags == FALSE)
 		*str = (char)va_arg(*arg, int);
-	else if (*format == 's')
+	else if (*format == 's' && flag->flags == FALSE)
 	{
 		str_arg = va_arg(*arg, char*);
 		ft_strcpy(str, str_arg);
 		flag->index += ft_strlen(str_arg) - 1;
 	}
-	else if (*format == 'p')
+	else if (*format == 'p' && flag->flags == FALSE)
 	{
-		str_arg = va_arg(*arg, char*);
-		str[0] = '0';
-		str[1] = 'x';
-		ft_hex_to_str(str_arg, str);
-		flag->index += 13;
+		long_arg = va_arg(*arg, unsigned long long);
+		ft_hex_to_str(long_arg, str, 0);
+		ft_pntlen(long_arg, flag);
 	}
-	else
+	else if (*format == 'f')
 	{
 		//f
 	}
 }
-/*
+
 static void	ft_diu_print(const char *format, char *str, t_flag *flag, va_list *arg)
 {
-	char temp[20];
+	int	nbr;
 
 	if (*format == 'd')
 	{
-		ft_itoa_base(va_arg(*arg, int), temp, 10);
-		ft_putstr(temp);
-		ft_strcpy(str, temp);
-		flag->index = ft_strlen(temp);
+		nbr = va_arg(*arg, int);
+		ft_itoa_base(nbr, str, 10);
+		flag->index += ft_strlen(str) - 1;
 	}
 	else if (*format == 'i')
 	{
-		
+		nbr = va_arg(*arg, int);
+		// it doesn't recognize the octal because nbr doesnt keep the 0
+		if (ft_isxdigit(nbr) == 1)
+			ft_itoa_base(nbr, str, 16);
+		else if (ft_isoctal(nbr) == 1)
+			ft_itoa_base(nbr, str, 8);
+		else
+			ft_itoa_base(nbr, str, 10);
+		flag->index += ft_strlen(str) - 1;
 	}
 	else if (*format == 'u')
 	{
 		
 	}
-}*/
+}
 
 static int	ft_convert_symbol(const char *format, char *str, t_flag *flag, va_list *arg)
 {
@@ -150,7 +134,7 @@ static int	ft_convert_symbol(const char *format, char *str, t_flag *flag, va_lis
 	}
 	else if (*format == 'd' || *format == 'i' || *format == 'u')
 	{
-		//ft_diu_print(format, str, flag, arg);
+		ft_diu_print(format, str, flag, arg);
 		return (TRUE);
 	}
 	else if (*format == 'o' || *format == 'x' || *format == 'X')
@@ -204,7 +188,7 @@ int	ft_printf(const char *format, ...)
 	ft_initialize_flag(flag);
 	va_start(arg, format);
 	i = 0;
-	//str = ft_strnew(ft_strlen(format));
+	ft_bzero(str, 100);
 	if (format)
 	{
 		while (format[i] != '\0')
@@ -227,7 +211,6 @@ int	ft_printf(const char *format, ...)
 	ft_putstr(str);
 	va_end(arg);
 	return (ft_strlen(str)); 
-	//return (0);
 }
 
 
