@@ -93,11 +93,91 @@ static void	ft_csp_print(const char *format, char *str, t_flag *flag, va_list *a
 	}
 }
 
+static int	ft_pow(int x, int y)
+{
+	int	power;
+	int	i;
+
+	power = 1;
+	i = 1;
+	while (i <= y)
+	{
+		power *= x;
+		i++;
+	}
+	return (power);
+}
+
+static void	ft_strrev_len(char *str, int len)
+{
+	int	i;
+	int	j;
+	int	temp;
+
+	i = 0;
+	j = len - 1;
+	while (i < j)
+	{
+		temp = str[i];
+		str[i] = str[j];
+		str[j] = temp;
+		i++;
+		j--;
+	}
+}
+
+static void	ft_itoa_add_zeros(int nbr, char *str, int len)
+{
+	int	i;
+	int	neg;
+
+	i = 0;
+	neg = 1;
+	if (nbr < 0)
+	{
+		neg = -1;
+		nbr *= neg;
+	}
+	else if (nbr == 0 && len == 0)
+		str[i++] = '0';
+	while (nbr)
+	{
+		str[i++] = (nbr % 10) + '0';
+		nbr = nbr / 10;
+	}
+	while (i < len)
+		str[i++] =  '0';
+	if (neg == -1)
+		str[i++] = '-';
+	ft_strrev_len(str, i);
+	str[i] = '\0';
+}
+
+static void	ft_float_itoa(double number, char *str, int len)
+{
+	int	nbr;
+	long double	lnbr;
+	int	i;
+
+	nbr = (int)number;
+	lnbr = number - (long double)nbr;
+	ft_itoa_add_zeros(nbr, str, 0);
+	i = ft_strlen(str);
+	if (len != 0)
+	{
+		if (lnbr < 0)
+			lnbr *= -1;
+		str[i++] = '.';
+		lnbr = lnbr * ft_pow(10, len);
+		ft_itoa_add_zeros((int)lnbr, &str[i], len);
+	}
+}
+
 static void	ft_diuf_print(const char *format, char *str, t_flag *flag, va_list *arg)
 {
 	int	nbr;
 	unsigned int	var;
-	long double	number;
+	double	number;
 
 	if (*format == 'd' || *format == 'i')
 	{
@@ -118,11 +198,14 @@ static void	ft_diuf_print(const char *format, char *str, t_flag *flag, va_list *
 	}
 	else if (*format == 'f')
 	{
-		number = va_arg(*arg, long double);
-		
+		number = va_arg(*arg, double);
+		if (flag->prec != FALSE)
+			ft_float_itoa(number, str, flag->prec);
+		else
+			ft_float_itoa(number, str, 6);
 		flag->index += ft_strlen(str) - 1;
-		//f
 	}
+	//make sure to round up / down the number depending on len i have provided...
 }
 
 static void	ft_oxX_print(const char *format, char *str, t_flag *flag, va_list *arg)
@@ -165,12 +248,12 @@ static void	ft_oxX_print(const char *format, char *str, t_flag *flag, va_list *a
 
 static int	ft_convert_symbol(const char *format, char *str, t_flag *flag, va_list *arg)
 {
-	if (*format == 'c' || *format == 's' || *format == 'p' || *format == 'f')
+	if (*format == 'c' || *format == 's' || *format == 'p')
 	{
 		ft_csp_print(format, str, flag, arg);
 		return (TRUE);
 	}
-	else if (*format == 'd' || *format == 'i' || *format == 'u')
+	else if (*format == 'd' || *format == 'i' || *format == 'u' || *format == 'f')
 	{
 		ft_diuf_print(format, str, flag, arg);
 		return (TRUE);

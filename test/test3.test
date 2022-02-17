@@ -38,7 +38,7 @@ static void	compare_results_f(float number)
 	int	orig;
 	int	mine;
 
-	printf("Input: [%f]\n", number);
+	printf("\nInput: [%f]\n", number);
 	orig = printf("expect: [%f]\n", number);
 	mine = ft_printf("output: [%f]\n", number);
 	print_result(orig, mine);
@@ -70,7 +70,6 @@ static void	f(void)
 	// FLOAT
 	float flo = 25.02;
 
-	printf(PURPLE"\nFLOAT TEST\n"UNCOLOR);
 	compare_results_f(flo);
 
 	flo = 25.0250509999;
@@ -83,6 +82,18 @@ static void	f(void)
 	compare_results_f(flo);
 
 	flo = 0;
+	compare_results_f(flo);
+
+	flo = 25.2505;
+	compare_results_f(flo);
+
+	flo = 0.559499999;
+	compare_results_f(flo);
+
+	flo = 0.5595;
+	compare_results_f(flo);
+
+	flo = 0.5596;
 	compare_results_f(flo);
 	/*
 	printf(PURPLE"\nl TEST\n"UNCOLOR);
@@ -118,6 +129,6 @@ static void	f(void)
 
 int main(void)
 {
-	printf(PURPLE"f test\n"UNCOLOR);
+	printf(PURPLE"FLOAT TEST\n"UNCOLOR);
 	f();
 }
