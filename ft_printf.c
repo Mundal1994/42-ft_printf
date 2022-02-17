@@ -126,6 +126,65 @@ static void	ft_strrev_len(char *str, int len)
 	}
 }
 
+static void	ft_check_correct_end(char *str, int len)
+{
+	int	i;
+	int	j;
+	int	dot;
+	int	change;
+
+	dot = ft_strlen_stop(str, '.');
+	i = 0;
+	if (str[i] == '9')
+		str[i] = '0';
+	else if (str[i] > '5')
+		str[i] = str[i] + 1;
+	j = i;
+	i++;
+	change = FALSE;
+	while (str[i] && i < (dot - len))
+	{
+		ft_putnbr(5);
+		if (str[i] == '.')
+			i++;
+		if (str[j] > '5' || change == TRUE)
+		{
+			if (str[i] == '9')
+			{
+				str[i] = '0';
+				change = TRUE;
+			}
+			else
+			{
+				str[i] = str[i] + 1;
+				change = FALSE;
+			}
+		}
+		j = i;
+		i++;
+	}
+	while (change == TRUE)
+	{
+		if (str[i] == '.')
+			i++;
+		if (str[j] > '5' || change == TRUE)
+		{
+			if (str[i] == '9')
+			{
+				str[i] = '0';
+				change = TRUE;
+			}
+			else
+			{
+				str[i] = str[i] + 1;
+				change = FALSE;
+			}
+		}
+		j = i;
+		i++;
+	}
+}
+
 static void	ft_itoa_add_zeros(int nbr, char *str, int len)
 {
 	int	i;
@@ -149,15 +208,17 @@ static void	ft_itoa_add_zeros(int nbr, char *str, int len)
 		str[i++] =  '0';
 	if (neg == -1)
 		str[i++] = '-';
+	if (len != 0)
+		ft_check_correct_end(str, len);
 	ft_strrev_len(str, i);
 	str[i] = '\0';
 }
 
 static void	ft_float_itoa(double number, char *str, int len)
 {
-	int	nbr;
 	long double	lnbr;
-	int	i;
+	int			nbr;
+	int			i;
 
 	nbr = (int)number;
 	lnbr = number - (long double)nbr;
@@ -202,7 +263,7 @@ static void	ft_diuf_print(const char *format, char *str, t_flag *flag, va_list *
 		if (flag->prec != FALSE)
 			ft_float_itoa(number, str, flag->prec);
 		else
-			ft_float_itoa(number, str, 6);
+			ft_float_itoa(number, str, 3);
 		flag->index += ft_strlen(str) - 1;
 	}
 	//make sure to round up / down the number depending on len i have provided...

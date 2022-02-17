@@ -95,6 +95,9 @@ static void	f(void)
 
 	flo = 0.5596;
 	compare_results_f(flo);
+
+	flo = 0.9996;
+	compare_results_f(flo);
 	/*
 	printf(PURPLE"\nl TEST\n"UNCOLOR);
 	printf("l modifier: ignored does same as without it. takes in double\n");
