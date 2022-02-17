@@ -147,6 +147,14 @@ sig must always be placed before a number produced by a signed conversion. + ove
 
 
 
+
+ASK JEFF:
+- octal and hexadecimals... display negative value ? is printf doing it correctly or is it just printing something random??
+- unsigned int: if nbr isn't negative should it return an error og just print whatever?
+
+
+
+
 -------
 
 loop through string

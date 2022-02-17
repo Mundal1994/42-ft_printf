@@ -70,7 +70,7 @@ static void	ft_hex_to_str(uintptr_t addr, char *str, int i)
 	}
 }
 
-static void	ft_cspf_print(const char *format, char *str, t_flag *flag, va_list *arg)
+static void	ft_csp_print(const char *format, char *str, t_flag *flag, va_list *arg)
 {
 	char * str_arg;
 	unsigned long long	long_arg;
@@ -91,47 +91,37 @@ static void	ft_cspf_print(const char *format, char *str, t_flag *flag, va_list *
 		ft_hex_to_str(long_arg, str, 0);
 		ft_pntlen(long_arg, flag);
 	}
-	else if (*format == 'f')
-	{
-		//f
-	}
 }
 
-static void	ft_diu_print(const char *format, char *str, t_flag *flag, va_list *arg)
+static void	ft_diuf_print(const char *format, char *str, t_flag *flag, va_list *arg)
 {
 	int	nbr;
+	unsigned int	var;
+	long double	number;
 
-	if (*format == 'd')
+	if (*format == 'd' || *format == 'i')
 	{
 		nbr = va_arg(*arg, int);
 		ft_itoa_base(nbr, str, 10);
 		flag->index += ft_strlen(str) - 1;
 	}
-	else if (*format == 'i')
-	{
-		nbr = va_arg(*arg, int);
-
-		// it doesn't recognize the octal because nbr doesnt keep the 0
-		/*if (nbr >= 0 && ft_isxdigit(nbr) == 1)
-		{
-			ft_itoa_base(nbr, str, 16);
-			ft_putstr("hex");
-		}
-		else if (nbr >= 0 && ft_isoctal(nbr) == 1)
-		{
-			ft_putstr("octal");
-			ft_itoa_base(nbr, str, 8);
-		}
-		else
-		{*/
-			//ft_putstr("decimal");
-			ft_itoa_base(nbr, str, 10);
-		//}
-		flag->index += ft_strlen(str) - 1;
-	}
 	else if (*format == 'u')
 	{
+		var	 = va_arg(*arg, unsigned int);
+		if ((int)var < 0)
+		{
+			// return error if unsigned int isn't positive?
+			var = (int)var * -1;
+		}
+		ft_itoa_base(var, str, 10);
+		flag->index += ft_strlen(str) - 1;
+	}
+	else if (*format == 'f')
+	{
+		number = va_arg(*arg, long double);
 		
+		flag->index += ft_strlen(str) - 1;
+		//f
 	}
 }
 
@@ -149,11 +139,23 @@ static void	ft_oxX_print(const char *format, char *str, t_flag *flag, va_list *a
 	{
 		ft_itoa_base(nbr, str, 16);
 		flag->index += ft_strlen(str) - 1;
+		while (*str)
+		{
+			if (*str >= 'A' && *str <= 'Z')
+				*str = ft_tolower(*str);
+			str++;
+		}
 	}
 	else if (*format == 'X' && flag->flags == FALSE)
 	{
 		ft_itoa_base(nbr, str, 16);
 		flag->index += ft_strlen(str) - 1;
+		while (*str)
+		{
+			if (*str >= 'a' && *str <= 'z')
+				*str = ft_toupper(*str);
+			str++;
+		}
 	}
 	//if minus - problem with octal or doesn't return properly with the \0
 }
@@ -165,12 +167,12 @@ static int	ft_convert_symbol(const char *format, char *str, t_flag *flag, va_lis
 {
 	if (*format == 'c' || *format == 's' || *format == 'p' || *format == 'f')
 	{
-		ft_cspf_print(format, str, flag, arg);
+		ft_csp_print(format, str, flag, arg);
 		return (TRUE);
 	}
 	else if (*format == 'd' || *format == 'i' || *format == 'u')
 	{
-		ft_diu_print(format, str, flag, arg);
+		ft_diuf_print(format, str, flag, arg);
 		return (TRUE);
 	}
 	else if (*format == 'o' || *format == 'x' || *format == 'X')

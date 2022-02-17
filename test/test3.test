@@ -1,3 +1,4 @@
+# include "../ft_printf.h"
 # include <stdio.h>
 # include <unistd.h>
 # include <string.h>
@@ -18,53 +19,51 @@
 # define WHITE	"\033[37m"
 # define UNCOLOR	"\033[39m"
 
-void	print_result(int result)
-{
-	if (result == 1)
-		printf(CYAN"result...%d\n"UNCOLOR, result);
-	else if (result == -1)
-		printf(RED"result...%d\n"UNCOLOR, result);
-	else
-		printf(CYAN"result...%d\n"UNCOLOR, result);
-}
-
 void	print_OK(int result)
 {
 	if (result != 0)
-		printf(RED"				KO!\n\n"UNCOLOR);
+		printf(RED"KO!\n"UNCOLOR);
 	else
-		printf(GREEN"				OK!\n\n"UNCOLOR);
+		printf(GREEN"OK!\n"UNCOLOR);
+}
+
+void	print_result(int result, int mine)
+{
+	printf(CYAN"return expected [%d] : [%d]	"UNCOLOR, result, mine);
+	print_OK(result - mine);
 }
 
 static void	compare_results_f(float number)
 {
-	int orig;
+	int	orig;
+	int	mine;
 
 	printf("Input: [%f]\n", number);
-	printf("expected [%f] : ", number);
-	orig = printf("[%f]\n", number);
-	print_result(orig);
+	orig = printf("expect: [%f]\n", number);
+	mine = ft_printf("output: [%f]\n", number);
+	print_result(orig, mine);
 }
-
+/*
 static void	compare_results_f_l(double number)
 {
-	int orig;
+	int	orig;
+	int	mine;
 
 	printf("Input: [%lf]\n", number);
-	printf("expected [%lf] : ", number);
-	orig = printf("[%lf]\n", number);
-	print_result(orig);
-}
-
+	orig = printf("expect: [%lf]\n", number);
+	mine = ft_printf("output: [%lf]\n", number);
+	print_result(orig, mine);
+}*/
+/*
 static void	compare_results_f_L(long double number)
 {
-	int orig;
+	int	orig;
+	int	mine;
 
-	printf("Input: [%Lf]\n", number);
-	printf("expected [%Lf] : ", number);
-	orig = printf("[%Lf]\n", number);
-	print_result(orig);
-}
+	orig = printf("expect: [%Lf]\n", number);
+	mine = ft_printf("output: [%Lf]\n", number);
+	print_result(orig, mine);
+}*/
 
 static void	f(void)
 {
@@ -85,7 +84,7 @@ static void	f(void)
 
 	flo = 0;
 	compare_results_f(flo);
-	
+	/*
 	printf(PURPLE"\nl TEST\n"UNCOLOR);
 	printf("l modifier: ignored does same as without it. takes in double\n");
 	double doub = 25.20;
@@ -101,7 +100,7 @@ static void	f(void)
 
 	ldoub = 250520;
 	compare_results_f_L(ldoub);
-
+*/
 /*
 	printf("%f: ", 1234567.89);
 	orig = printf("%'.2f\n", 1234567.89);
@@ -117,7 +116,7 @@ static void	f(void)
 	//print_OK(strcmp(printf("%d", number), "5"));
 }
 
-int main(int argc, char **argv)
+int main(void)
 {
 	printf(PURPLE"f test\n"UNCOLOR);
 	f();

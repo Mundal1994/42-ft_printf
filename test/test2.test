@@ -276,11 +276,11 @@ static void	d(void)
 	// difference between %d and %i
 	printf(PURPLE"\ndifference between %%d and %%i TEST\n"UNCOLOR);
 	number = 012;
-	printf("Input: [012]\n");
+	printf("\nInput: [012]\n");
 	compare_results_d(number, 'd');
 
 	number = 033;
-	printf("Input: [033]\n");
+	printf("\nInput: [033]\n");
 	compare_results_d(number, 'd');
 /*
 	// with flags hh
@@ -292,42 +292,42 @@ static void	d(void)
 	print_result(orig);
 
 	c = 'M';
-	printf("Input: [%c]\n", c);
+	printf("\nInput: [%c]\n", c);
 	compare_results_d_hh(c, 'd');
 
 	c = 'a';
-	printf("Input: [%c]\n", c);
+	printf("\nInput: [%c]\n", c);
 	compare_results_d_hh(c, 'd');
 
 	c = 'z';
-	printf("Input: [%c]\n", c);
+	printf("\nInput: [%c]\n", c);
 	compare_results_d_hh(c, 'd');
 
 	c = ' ';
-	printf("Input: [%c]\n", c);
+	printf("\nInput: [%c]\n", c);
 	compare_results_d_hh(c, 'd');
 
 	// with flags h
 	short	shor = 5;
 	printf(PURPLE"\nh TEST\n"UNCOLOR);
 	printf("h modifier: converts short into int or unsigned int and the h makes sure it changes back to short int or unsigned short int\n");
-	printf("Input: [%c]\n", shor);
+	printf("\nInput: [%c]\n", shor);
 	compare_results_d_h(shor, 'd');
 
 	shor = -32768;
-	printf("Input: [%c]\n", shor);
+	printf("\nInput: [%c]\n", shor);
 	compare_results_d_h(shor, 'd');
 
 	shor = 32767;
-	printf("Input: [%c]\n", shor);
+	printf("\nInput: [%c]\n", shor);
 	compare_results_d_h(shor, 'd');
 
 	shor = 0;
-	printf("Input: [%c]\n", shor);
+	printf("\nInput: [%c]\n", shor);
 	compare_results_d_h(shor, 'd');
 
 	shor = 1234;
-	printf("Input: [%c]\n", shor);
+	printf("\nInput: [%c]\n", shor);
 	compare_results_d_h(shor, 'd');
 
 	// with flags l
@@ -389,41 +389,41 @@ static void	i(void)
 	int	number = 5;
 
 	printf(PURPLE"\nDEMICAL INTEGER (DETECTS THE BASE AUTOMATICALLY) TEST\n"UNCOLOR);
-	printf("Input: [%i]\n", number);
+	printf("\nInput: [%i]\n", number);
 	compare_results_d(number, 'i');
 
 	number = 2147483647;
-	printf("Input: [%i]\n", number);
+	printf("\nInput: [%i]\n", number);
 	compare_results_d(number, 'i');
 
 	number = -2147483648;
-	printf("Input: [%i]\n", number);
+	printf("\nInput: [%i]\n", number);
 	compare_results_d(number, 'i');
 
 	number = -1234;
-	printf("Input: [%i]\n", number);
+	printf("\nInput: [%i]\n", number);
 	compare_results_d(number, 'i');
 
 	number = 1234;
-	printf("Input: [%i]\n", number);
+	printf("\nInput: [%i]\n", number);
 	compare_results_d(number, 'i');
 
 	number = -0;
-	printf("Input: [%i]\n", number);
+	printf("\nInput: [%i]\n", number);
 	compare_results_d(number, 'i');
 
 	// difference between %d and %i
 	printf(PURPLE"\ndifference between %%d and %%i TEST\n"UNCOLOR);
 	number = 012;
-	printf("Input: [012]\n");
+	printf("\nInput: [012]\n");
 	compare_results_d(number, 'i');
 
 	number = 033;
-	printf("Input: [033]\n");
+	printf("\nInput: [033]\n");
 	compare_results_d(number, 'i');
 
 	number = 0x12;
-	printf("Input: [0x12]\n");
+	printf("\nInput: [0x12]\n");
 	compare_results_d(number, 'i');
 
 	number = 2550;
@@ -435,7 +435,7 @@ static void	i(void)
 	ft_printf("output: [%i]\n", number);
 
 	number = 021;
-	printf("Input: 021\n");
+	printf("\nInput: 021\n");
 	printf("%%d expect: [%d]\n", number);
 	//ft_printf("%%d output: [%d]\n", number);
 
@@ -447,69 +447,69 @@ static void	i(void)
 	unsigned char	c = '5';
 	printf(PURPLE"\nhh TEST\n"UNCOLOR);
 	printf("hh modifier: converts signed / usigned char into int or unsigned int and the hh makes sure it changes back to char\n");
-	printf("Input: [%c]\n", c);
+	printf("\nInput: [%c]\n", c);
 	compare_results_d_hh(c, 'i');
 
 	c = 'M';
-	printf("Input: [%c]\n", c);
+	printf("\nInput: [%c]\n", c);
 	compare_results_d_hh(c, 'i');
 
 	c = 'a';
-	printf("Input: [%c]\n", c);
+	printf("\nInput: [%c]\n", c);
 	compare_results_d_hh(c, 'i');
 
 	c = 'z';
-	printf("Input: [%c]\n", c);
+	printf("\nInput: [%c]\n", c);
 	compare_results_d_hh(c, 'i');
 
 	c = ' ';
-	printf("Input: [%c]\n", c);
+	printf("\nInput: [%c]\n", c);
 	compare_results_d_hh(c, 'i');
 
 	// with flags h
 	short int	shor = 5;
 	printf(PURPLE"\nh TEST\n"UNCOLOR);
 	printf("h modifier: converts short into int or unsigned int and the h makes sure it changes back to short int or unsigned short int\n");
-	printf("Input: [%d]\n", shor);
+	printf("\nInput: [%d]\n", shor);
 	compare_results_d_h(shor, 'i');
 
 	shor = -32768;
-	printf("Input: [%d]\n", shor);
+	printf("\nInput: [%d]\n", shor);
 	compare_results_d_h(shor, 'i');
 
 	shor = 32767;
-	printf("Input: [%d]\n", shor);
+	printf("\nInput: [%d]\n", shor);
 	compare_results_d_h(shor, 'i');
 
 	shor = 0;
-	printf("Input: [%d]\n", shor);
+	printf("\nInput: [%d]\n", shor);
 	compare_results_d_h(shor, 'i');
 
 	shor = 1234;
-	printf("Input: [%d]\n", shor);
+	printf("\nInput: [%d]\n", shor);
 	compare_results_d_h(shor, 'i');
 
 	// with flags l
 	long int	lon = 5;
 	printf(PURPLE"\nl TEST\n"UNCOLOR);
 	printf("l modifier: converts long int into int or unsigned int and the l makes sure it changes back to long int or unsigned long int\n");
-	printf("Input: [%lu]\n", lon);
+	printf("\nInput: [%lu]\n", lon);
 	compare_results_d_l(lon, 'i');
 
 	lon = -2147483648;
-	printf("Input: [%lu]\n", lon);
+	printf("\nInput: [%lu]\n", lon);
 	compare_results_d_l(lon, 'i');
 
 	lon = 2147483647;
-	printf("Input: [%lu]\n", lon);
+	printf("\nInput: [%lu]\n", lon);
 	compare_results_d_l(lon, 'i');
 
 	lon = 0;
-	printf("Input: [%lu]\n", lon);
+	printf("\nInput: [%lu]\n", lon);
 	compare_results_d_l(lon, 'i');
 
 	lon = 1234;
-	printf("Input: [%lu]\n", lon);
+	printf("\nInput: [%lu]\n", lon);
 	compare_results_d_l(lon, 'i');
 	//shouldn't work to put in long max value or min value
 
@@ -517,23 +517,23 @@ static void	i(void)
 	long long int	longlong = 5;
 	printf(PURPLE"\nll TEST\n"UNCOLOR);
 	printf("ll modifier: converts long long int into int or unsigned int and the ll makes sure it changes back to long int or unsigned long long int\n");
-	printf("Input: [%llu]\n", longlong);
+	printf("\nInput: [%llu]\n", longlong);
 	compare_results_d_ll(longlong, 'i');
 
 	longlong = -2147483648;
-	printf("Input: [%llu]\n", longlong);
+	printf("\nInput: [%llu]\n", longlong);
 	compare_results_d_ll(longlong, 'i');
 
 	longlong = 2147483647;
-	printf("Input: [%llu]\n", longlong);
+	printf("\nInput: [%llu]\n", longlong);
 	compare_results_d_ll(longlong, 'i');
 
 	longlong = 0;
-	printf("Input: [%llu]\n", longlong);
+	printf("\nInput: [%llu]\n", longlong);
 	compare_results_d_ll(longlong, 'i');
 
 	longlong = 1234;
-	printf("Input: [%llu]\n", longlong);
+	printf("\nInput: [%llu]\n", longlong);
 	compare_results_d_ll(longlong, 'i');*/
 }
 
@@ -541,96 +541,104 @@ static void	o(void)
 {
 	// OCTAL (base 8) integer
 	int	number = 150;
-	printf("Input: [%d]\n", number);
+	printf("\nInput: [%d]\n", number);
 	compare_results_d(number, 'o');
 
 	number = 31;
-	printf("Input: [%d]\n", number);
+	printf("\nInput: [%d]\n", number);
 	compare_results_d(number, 'o');
 
 	number = 0;
-	printf("Input: [%d]\n", number);
+	printf("\nInput: [%d]\n", number);
 	compare_results_d(number, 'o');
 
 	number = -1234;
-	printf("Input: [%d]\n", number);
+	printf("\nInput: [%d]\n", number);
 	compare_results_d(number, 'o');
 
 	number = 1234;
-	printf("Input: [%d]\n", number);
+	printf("\nInput: [%d]\n", number);
 	compare_results_d(number, 'o');
 
 	number = 15;
-	printf("Input: [%d]\n", number);
+	printf("\nInput: [%d]\n", number);
+	compare_results_d(number, 'o');
+
+	number = -10;
+	printf("\nInput: [%d]\n", number);
+	compare_results_d(number, 'o');
+
+	number = 10;
+	printf("\nInput: [%d]\n", number);
 	compare_results_d(number, 'o');
 /*
 	// with flags hh
 	unsigned char	c = '5';
 	printf(PURPLE"\nhh TEST\n"UNCOLOR);
 	printf("hh modifier: converts signed / usigned char into int or unsigned int and the hh makes sure it changes back to char\n");
-	printf("Input: [%c]\n", c);
+	printf("\nInput: [%c]\n", c);
 	compare_results_d_hh(c, 'o');
 
 	c = 'M';
-	printf("Input: [%c]\n", c);
+	printf("\nInput: [%c]\n", c);
 	compare_results_d_hh(c, 'o');
 
 	c = 'a';
-	printf("Input: [%c]\n", c);
+	printf("\nInput: [%c]\n", c);
 	compare_results_d_hh(c, 'o');
 
 	c = 'z';
-	printf("Input: [%c]\n", c);
+	printf("\nInput: [%c]\n", c);
 	compare_results_d_hh(c, 'o');
 
 	c = ' ';
-	printf("Input: [%c]\n", c);
+	printf("\nInput: [%c]\n", c);
 	compare_results_d_hh(c, 'o');
 
 	// with flags h
 	unsigned short	shor = 5;
 	printf(PURPLE"\nh TEST\n"UNCOLOR);
 	printf("h modifier: converts short into int or unsigned int and the h makes sure it changes back to short int or unsigned short int\n");
-	printf("Input: [%d]\n", shor);
+	printf("\nInput: [%d]\n", shor);
 	compare_results_d_h(shor, 'o');
 
 	shor = -32768;
-	printf("Input: [%d]\n", shor);
+	printf("\nInput: [%d]\n", shor);
 	compare_results_d_h(shor, 'o');
 
 	shor = 32767;
-	printf("Input: [%d]\n", shor);
+	printf("\nInput: [%d]\n", shor);
 	compare_results_d_h(shor, 'o');
 
 	shor = 0;
-	printf("Input: [%d]\n", shor);
+	printf("\nInput: [%d]\n", shor);
 	compare_results_d_h(shor, 'o');
 
 	shor = 1234;
-	printf("Input: [%d]\n", shor);
+	printf("\nInput: [%d]\n", shor);
 	compare_results_d_h(shor, 'o');
 
 	// with flags l
 	unsigned long	lon = 5;
 	printf(PURPLE"\nl TEST\n"UNCOLOR);
 	printf("l modifier: converts long int into int or unsigned int and the l makes sure it changes back to long int or unsigned long int\n");
-	printf("Input: [%lu]\n", lon);
+	printf("\nInput: [%lu]\n", lon);
 	compare_results_d_l(lon, 'o');
 
 	lon = -2147483648;
-	printf("Input: [%lu]\n", lon);
+	printf("\nInput: [%lu]\n", lon);
 	compare_results_d_l(lon, 'o');
 
 	lon = 2147483647;
-	printf("Input: [%lu]\n", lon);
+	printf("\nInput: [%lu]\n", lon);
 	compare_results_d_l(lon, 'o');
 
 	lon = 0;
-	printf("Input: [%lu]\n", lon);
+	printf("\nInput: [%lu]\n", lon);
 	compare_results_d_l(lon, 'o');
 
 	lon = 1234;
-	printf("Input: [%lu]\n", lon);
+	printf("\nInput: [%lu]\n", lon);
 	compare_results_d_l(lon, 'o');
 	//shouldn't work to put in long max value or min value
 
@@ -638,242 +646,267 @@ static void	o(void)
 	unsigned long long	longlong = 5;
 	printf(PURPLE"\nll TEST\n"UNCOLOR);
 	printf("ll modifier: converts unsigned long long int into int or unsigned int and the ll makes sure it changes back to long int or unsigned unsigned long long int\n");
-	printf("Input: [%llu]\n", longlong);
+	printf("\nInput: [%llu]\n", longlong);
 	compare_results_d_ll(longlong, 'o');
 
 	longlong = -2147483648;
-	printf("Input: [%llu]\n", longlong);
+	printf("\nInput: [%llu]\n", longlong);
 	compare_results_d_ll(longlong, 'o');
 
 	longlong = 2147483647;
-	printf("Input: [%llu]\n", longlong);
+	printf("\nInput: [%llu]\n", longlong);
 	compare_results_d_ll(longlong, 'o');
 
 	longlong = 0;
-	printf("Input: [%llu]\n", longlong);
+	printf("\nInput: [%llu]\n", longlong);
 	compare_results_d_ll(longlong, 'o');
 
 	longlong = 1234;
-	printf("Input: [%llu]\n", longlong);
+	printf("\nInput: [%llu]\n", longlong);
 	compare_results_d_ll(longlong, 'o');*/
 }
-/*
+
 static void	u(void)
 {
 	// INT UNSIGNED DECIMAL (non negative numbers)
 	unsigned int	number = 5;
 
-	printf("Input: [%i]\n", number);
+	printf("\nInput: [%i]\n", number);
 	compare_results_d(number, 'u');
 
 	number = 2147483647;
-	printf("Input: [%i]\n", number);
+	printf("\nInput: [%i]\n", number);
 	compare_results_d(number, 'u');
 
 	number = -2147483648;
-	printf("Input: [%i]\n", number);
+	printf("\nInput: [%i]\n", number);
 	compare_results_d(number, 'u');
 
 	number = -1234;
-	printf("Input: [%i]\n", number);
+	printf("\nInput: [%i]\n", number);
 	compare_results_d(number, 'u');
 
 	number = 1234;
-	printf("Input: [%i]\n", number);
+	printf("\nInput: [%i]\n", number);
 	compare_results_d(number, 'u');
 
 	number = -0;
-	printf("Input: [%i]\n", number);
+	printf("\nInput: [%i]\n", number);
 	compare_results_d(number, 'u');
-
-	// with flags hh
-	unsigned char	c = '5';
-	printf(PURPLE"\nhh TEST\n"UNCOLOR);
-	printf("hh modifier: converts signed / usigned char into int or unsigned int and the hh makes sure it changes back to char\n");
-	printf("Input: [%c]\n", c);
-	compare_results_d_hh(c, 'u');
-
-	c = 'M';
-	printf("Input: [%c]\n", c);
-	compare_results_d_hh(c, 'u');
-
-	c = 'a';
-	printf("Input: [%c]\n", c);
-	compare_results_d_hh(c, 'u');
-
-	c = 'z';
-	printf("Input: [%c]\n", c);
-	compare_results_d_hh(c, 'u');
-
-	c = ' ';
-	printf("Input: [%c]\n", c);
-	compare_results_d_hh(c, 'u');
-
-	// with flags h
-	short int	shor = 5;
-	printf(PURPLE"\nh TEST\n"UNCOLOR);
-	printf("h modifier: converts short into int or unsigned int and the h makes sure it changes back to short int or unsigned short int\n");
-	printf("Input: [%d]\n", shor);
-	compare_results_d_h(shor, 'u');
-
-	shor = -32768;
-	printf("Input: [%d]\n", shor);
-	compare_results_d_h(shor, 'u');
-
-	shor = 32767;
-	printf("Input: [%d]\n", shor);
-	compare_results_d_h(shor, 'u');
-
-	shor = 0;
-	printf("Input: [%d]\n", shor);
-	compare_results_d_h(shor, 'u');
-
-	shor = 1234;
-	printf("Input: [%d]\n", shor);
-	compare_results_d_h(shor, 'u');
-
-	// with flags l
-	long int	lon = 5;
-	printf(PURPLE"\nl TEST\n"UNCOLOR);
-	printf("l modifier: converts long int into int or unsigned int and the l makes sure it changes back to long int or unsigned long int\n");
-	printf("Input: [%lu]\n", lon);
-	compare_results_d_l(lon, 'u');
-
-	lon = -2147483648;
-	printf("Input: [%lu]\n", lon);
-	compare_results_d_l(lon, 'u');
-
-	lon = 2147483647;
-	printf("Input: [%lu]\n", lon);
-	compare_results_d_l(lon, 'u');
-
-	lon = 0;
-	printf("Input: [%lu]\n", lon);
-	compare_results_d_l(lon, 'u');
-
-	lon = 1234;
-	printf("Input: [%lu]\n", lon);
-	compare_results_d_l(lon, 'u');
-	//shouldn't work to put in long max value or min value
-
-	// with flags ll
-	long long int	longlong = 5;
-	printf(PURPLE"\nll TEST\n"UNCOLOR);
-	printf("ll modifier: converts long long int into int or unsigned int and the ll makes sure it changes back to long int or unsigned long long int\n");
-	printf("Input: [%llu]\n", longlong);
-	compare_results_d_ll(longlong, 'u');
-
-	longlong = -2147483648;
-	printf("Input: [%llu]\n", longlong);
-	compare_results_d_ll(longlong, 'u');
-
-	longlong = 2147483647;
-	printf("Input: [%llu]\n", longlong);
-	compare_results_d_ll(longlong, 'u');
-
-	longlong = 0;
-	printf("Input: [%llu]\n", longlong);
-	compare_results_d_ll(longlong, 'u');
-
-	longlong = 1234;
-	printf("Input: [%llu]\n", longlong);
-	compare_results_d_ll(longlong, 'u');
-}*/
-
-static void	x(void)
-{
-	// HEXADECIMAL (base 16) INTEGER (small characters)
-	int	number = 0x5;
-	printf("Input: [%i]\n", number);
-	compare_results_d(number, 'x');
-
-	number = 0x7fffffff;
-	printf("Input: [%i]\n", number);
-	compare_results_d(number, 'x');
-
-	number = -0x7fffffff;
-	printf("Input: [%i]\n", number);
-	compare_results_d(number, 'x');
-
-	number = -0x1234;
-	printf("Input: [%i]\n", number);
-	compare_results_d(number, 'x');
-
-	number = 0x1234;
-	printf("Input: [%i]\n", number);
-	compare_results_d(number, 'x');
-
-	number = -0x0;
-	printf("Input: [%i]\n", number);
-	compare_results_d(number, 'x');
 /*
 	// with flags hh
 	unsigned char	c = '5';
 	printf(PURPLE"\nhh TEST\n"UNCOLOR);
 	printf("hh modifier: converts signed / usigned char into int or unsigned int and the hh makes sure it changes back to char\n");
-	printf("Input: [%c]\n", c);
+	printf("\nInput: [%c]\n", c);
+	compare_results_d_hh(c, 'u');
+
+	c = 'M';
+	printf("\nInput: [%c]\n", c);
+	compare_results_d_hh(c, 'u');
+
+	c = 'a';
+	printf("\nInput: [%c]\n", c);
+	compare_results_d_hh(c, 'u');
+
+	c = 'z';
+	printf("\nInput: [%c]\n", c);
+	compare_results_d_hh(c, 'u');
+
+	c = ' ';
+	printf("\nInput: [%c]\n", c);
+	compare_results_d_hh(c, 'u');
+
+	// with flags h
+	short int	shor = 5;
+	printf(PURPLE"\nh TEST\n"UNCOLOR);
+	printf("h modifier: converts short into int or unsigned int and the h makes sure it changes back to short int or unsigned short int\n");
+	printf("\nInput: [%d]\n", shor);
+	compare_results_d_h(shor, 'u');
+
+	shor = -32768;
+	printf("\nInput: [%d]\n", shor);
+	compare_results_d_h(shor, 'u');
+
+	shor = 32767;
+	printf("\nInput: [%d]\n", shor);
+	compare_results_d_h(shor, 'u');
+
+	shor = 0;
+	printf("\nInput: [%d]\n", shor);
+	compare_results_d_h(shor, 'u');
+
+	shor = 1234;
+	printf("\nInput: [%d]\n", shor);
+	compare_results_d_h(shor, 'u');
+
+	// with flags l
+	long int	lon = 5;
+	printf(PURPLE"\nl TEST\n"UNCOLOR);
+	printf("l modifier: converts long int into int or unsigned int and the l makes sure it changes back to long int or unsigned long int\n");
+	printf("\nInput: [%lu]\n", lon);
+	compare_results_d_l(lon, 'u');
+
+	lon = -2147483648;
+	printf("\nInput: [%lu]\n", lon);
+	compare_results_d_l(lon, 'u');
+
+	lon = 2147483647;
+	printf("\nInput: [%lu]\n", lon);
+	compare_results_d_l(lon, 'u');
+
+	lon = 0;
+	printf("\nInput: [%lu]\n", lon);
+	compare_results_d_l(lon, 'u');
+
+	lon = 1234;
+	printf("\nInput: [%lu]\n", lon);
+	compare_results_d_l(lon, 'u');
+	//shouldn't work to put in long max value or min value
+
+	// with flags ll
+	long long int	longlong = 5;
+	printf(PURPLE"\nll TEST\n"UNCOLOR);
+	printf("ll modifier: converts long long int into int or unsigned int and the ll makes sure it changes back to long int or unsigned long long int\n");
+	printf("\nInput: [%llu]\n", longlong);
+	compare_results_d_ll(longlong, 'u');
+
+	longlong = -2147483648;
+	printf("\nInput: [%llu]\n", longlong);
+	compare_results_d_ll(longlong, 'u');
+
+	longlong = 2147483647;
+	printf("\nInput: [%llu]\n", longlong);
+	compare_results_d_ll(longlong, 'u');
+
+	longlong = 0;
+	printf("\nInput: [%llu]\n", longlong);
+	compare_results_d_ll(longlong, 'u');
+
+	longlong = 1234;
+	printf("\nInput: [%llu]\n", longlong);
+	compare_results_d_ll(longlong, 'u');*/
+}
+
+static void	x(void)
+{
+	// HEXADECIMAL (base 16) INTEGER (small characters)
+	int	number = 0x5;
+	printf("\nInput: [%x]\n", number);
+	compare_results_d(number, 'x');
+
+	number = 0x7fffffff;
+	printf("\nInput: [%x]\n", number);
+	compare_results_d(number, 'x');
+
+	number = -0x7fffffff;
+	printf("\nInput (neg): [%x]\n", number);
+	compare_results_d(number, 'x');
+
+	number = 2147483647;
+	printf("\nInput: [%d]\n", number);
+	compare_results_d(number, 'x');
+
+	number = -2147483648;
+	printf("\nInput (neg): [%d]\n", number);
+	compare_results_d(number, 'x');
+
+	number = -0x1234;
+	printf("\nInput (neg): [%x]\n", number);
+	compare_results_d(number, 'x');
+
+	number = 0x1234;
+	printf("\nInput: [%x]\n", number);
+	compare_results_d(number, 'x');
+
+	number =64;
+	printf("\nInput: [%d]\n", number);
+	compare_results_d(number, 'x');
+
+	number = -64;
+	printf("\nInput (neg): [%d]\n", number);
+	compare_results_d(number, 'x');
+
+	number = -0x0;
+	printf("\nInput: [%x]\n", number);
+	compare_results_d(number, 'x');
+
+	number = 10;
+	printf("\nInput: [%d]\n", number);
+	compare_results_d(number, 'x');
+
+	number = -10;
+	printf("\nInput (neg): [%d]\n", number);
+	compare_results_d(number, 'x');
+
+/*
+	// with flags hh
+	unsigned char	c = '5';
+	printf(PURPLE"\nhh TEST\n"UNCOLOR);
+	printf("hh modifier: converts signed / usigned char into int or unsigned int and the hh makes sure it changes back to char\n");
+	printf("\nInput: [%c]\n", c);
 	compare_results_d_hh(c, 'x');
 
 	c = 'M';
-	printf("Input: [%c]\n", c);
+	printf("\nInput: [%c]\n", c);
 	compare_results_d_hh(c, 'x');
 
 	c = 'a';
-	printf("Input: [%c]\n", c);
+	printf("\nInput: [%c]\n", c);
 	compare_results_d_hh(c, 'x');
 
 	c = 'z';
-	printf("Input: [%c]\n", c);
+	printf("\nInput: [%c]\n", c);
 	compare_results_d_hh(c, 'x');
 
 	c = ' ';
-	printf("Input: [%c]\n", c);
+	printf("\nInput: [%c]\n", c);
 	compare_results_d_hh(c, 'x');
 
 	// with flags h
 	short int	shor = 5;
 	printf(PURPLE"\nh TEST\n"UNCOLOR);
 	printf("h modifier: converts short into int or unsigned int and the h makes sure it changes back to short int or unsigned short int\n");
-	printf("Input: [%d]\n", shor);
+	printf("\nInput: [%d]\n", shor);
 	compare_results_d_h(shor, 'x');
 
 	shor = -32768;
-	printf("Input: [%d]\n", shor);
+	printf("\nInput: [%d]\n", shor);
 	compare_results_d_h(shor, 'x');
 
 	shor = 32767;
-	printf("Input: [%d]\n", shor);
+	printf("\nInput: [%d]\n", shor);
 	compare_results_d_h(shor, 'x');
 
 	shor = 0;
-	printf("Input: [%d]\n", shor);
+	printf("\nInput: [%d]\n", shor);
 	compare_results_d_h(shor, 'x');
 
 	shor = 1234;
-	printf("Input: [%d]\n", shor);
+	printf("\nInput: [%d]\n", shor);
 	compare_results_d_h(shor, 'x');
 
 	// with flags l
 	long int	lon = 5;
 	printf(PURPLE"\nl TEST\n"UNCOLOR);
 	printf("l modifier: converts long int into int or unsigned int and the l makes sure it changes back to long int or unsigned long int\n");
-	printf("Input: [%lu]\n", lon);
+	printf("\nInput: [%lu]\n", lon);
 	compare_results_d_l(lon, 'x');
 
 	lon = -2147483648;
-	printf("Input: [%lu]\n", lon);
+	printf("\nInput: [%lu]\n", lon);
 	compare_results_d_l(lon, 'x');
 
 	lon = 2147483647;
-	printf("Input: [%lu]\n", lon);
+	printf("\nInput: [%lu]\n", lon);
 	compare_results_d_l(lon, 'x');
 
 	lon = 0;
-	printf("Input: [%lu]\n", lon);
+	printf("\nInput: [%lu]\n", lon);
 	compare_results_d_l(lon, 'x');
 
 	lon = 1234;
-	printf("Input: [%lu]\n", lon);
+	printf("\nInput: [%lu]\n", lon);
 	compare_results_d_l(lon, 'x');
 	//shouldn't work to put in long max value or min value
 
@@ -881,23 +914,23 @@ static void	x(void)
 	long long int	longlong = 5;
 	printf(PURPLE"\nll TEST\n"UNCOLOR);
 	printf("ll modifier: converts long long int into int or unsigned int and the ll makes sure it changes back to long int or unsigned long long int\n");
-	printf("Input: [%llu]\n", longlong);
+	printf("\nInput: [%llu]\n", longlong);
 	compare_results_d_ll(longlong, 'x');
 
 	longlong = -2147483648;
-	printf("Input: [%llu]\n", longlong);
+	printf("\nInput: [%llu]\n", longlong);
 	compare_results_d_ll(longlong, 'x');
 
 	longlong = 2147483647;
-	printf("Input: [%llu]\n", longlong);
+	printf("\nInput: [%llu]\n", longlong);
 	compare_results_d_ll(longlong, 'x');
 
 	longlong = 0;
-	printf("Input: [%llu]\n", longlong);
+	printf("\nInput: [%llu]\n", longlong);
 	compare_results_d_ll(longlong, 'x');
 
 	longlong = 1234;
-	printf("Input: [%llu]\n", longlong);
+	printf("\nInput: [%llu]\n", longlong);
 	compare_results_d_ll(longlong, 'x');*/
 }
 
@@ -905,96 +938,121 @@ static void	X(void)
 {
 	// HEXADECIMAL (base 16) INTEGER (big characters)
 	int	number = 0x5;
-	printf("Input: [%i]\n", number);
+	printf("\nInput: [%x]\n", number);
 	compare_results_d(number, 'X');
 
-	number = 0x7FFFFFFF;
-	printf("Input: [%i]\n", number);
+	number = 0x7fffffff;
+	printf("\nInput: [%x]\n", number);
 	compare_results_d(number, 'X');
 
-	number = -0x7FFFFFFF;
-	printf("Input: [%i]\n", number);
+	number = -0x7fffffff;
+	printf("\nInput (neg): [%x]\n", number);
+	compare_results_d(number, 'X');
+
+	number = 2147483647;
+	printf("\nInput: [%d]\n", number);
+	compare_results_d(number, 'X');
+
+	number = -2147483648;
+	printf("\nInput (neg): [%d]\n", number);
 	compare_results_d(number, 'X');
 
 	number = -0x1234;
-	printf("Input: [%i]\n", number);
+	printf("\nInput (neg): [%x]\n", number);
 	compare_results_d(number, 'X');
 
 	number = 0x1234;
-	printf("Input: [%i]\n", number);
+	printf("\nInput: [%x]\n", number);
+	compare_results_d(number, 'X');
+
+	number =64;
+	printf("\nInput: [%d]\n", number);
+	compare_results_d(number, 'X');
+
+	number = -64;
+	printf("\nInput (neg): [%d]\n", number);
 	compare_results_d(number, 'X');
 
 	number = -0x0;
-	printf("Input: [%i]\n", number);
+	printf("\nInput: [%x]\n", number);
 	compare_results_d(number, 'X');
+
+	number = 10;
+	printf("\nInput: [%d]\n", number);
+	compare_results_d(number, 'X');
+
+	number = -10;
+	printf("\nInput (neg): [%d]\n", number);
+	compare_results_d(number, 'X');
+
 /*
 	// with flags hh
 	unsigned char	c = '5';
 	printf(PURPLE"\nhh TEST\n"UNCOLOR);
 	printf("hh modifier: converts signed / usigned char into int or unsigned int and the hh makes sure it changes back to char\n");
-	printf("Input: [%c]\n", c);
+	printf("\nInput: [%c]\n", c);
 	compare_results_d_hh(c, 'X');
 
 	c = 'M';
-	printf("Input: [%c]\n", c);
+	printf("\nInput: [%c]\n", c);
 	compare_results_d_hh(c, 'X');
 
 	c = 'a';
-	printf("Input: [%c]\n", c);
+	printf("\nInput: [%c]\n", c);
 	compare_results_d_hh(c, 'X');
 
 	c = 'z';
-	printf("Input: [%c]\n", c);
+	printf("\nInput: [%c]\n", c);
 	compare_results_d_hh(c, 'X');
 
 	c = ' ';
-	printf("Input: [%c]\n", c);
+	printf("\nInput: [%c]\n", c);
 	compare_results_d_hh(c, 'X');
 
 	// with flags h
 	short int	shor = 5;
 	printf(PURPLE"\nh TEST\n"UNCOLOR);
 	printf("h modifier: converts short into int or unsigned int and the h makes sure it changes back to short int or unsigned short int\n");
-	printf("Input: [%d]\n", shor);
+	printf("\nInput: [%d]\n", shor);
 	compare_results_d_h(shor, 'X');
 
 	shor = -32768;
-	printf("Input: [%d]\n", shor);
+	printf("\nInput: [%d]\n", shor);
 	compare_results_d_h(shor, 'X');
 
 	shor = 32767;
-	printf("Input: [%d]\n", shor);
+	printf("\nInput: [%d]\n", shor);
 	compare_results_d_h(shor, 'X');
 
 	shor = 0;
-	printf("Input: [%d]\n", shor);
+	printf("\nInput: [%d]\n", shor);
 	compare_results_d_h(shor, 'X');
 
 	shor = 1234;
-	printf("Input: [%d]\n", shor);
+	printf("\nInput: [%d]\n", shor);
 	compare_results_d_h(shor, 'X');
 
 	// with flags l
 	long int	lon = 5;
 	printf(PURPLE"\nl TEST\n"UNCOLOR);
 	printf("l modifier: converts long int into int or unsigned int and the l makes sure it changes back to long int or unsigned long int\n");
-	printf("Input: [%lu]\n", lon);
+	printf("\nInput: [%lu]\n", lon);
 	compare_results_d_l(lon, 'X');
 
 	lon = -2147483648;
-	printf("Input: [%lu]\n", lon);
+	printf("\nInput: [%lu]\n", lon);
 	compare_results_d_l(lon, 'X');
 
 	lon = 2147483647;
-	printf("Input: [%lu]\n", lon);
+	printf("\nInput: [%lu]\n", lon);
 	compare_results_d_l(lon, 'X');
 
 	lon = 0;
-	printf("Input: [%lu]\n", lon);
+	printf("\nInput: [%lu]\n", lon);
 	compare_results_d_l(lon, 'X');
 
 	lon = 1234;
-	printf("Input: [%lu]\n", lon);
+	printf("\nInput: [%lu]\n", lon);
 	compare_results_d_l(lon, 'X');
 	//shouldn't work to put in long max value or min value
 
@@ -1002,23 +1060,23 @@ static void	X(void)
 	long long int	longlong = 5;
 	printf(PURPLE"\nll TEST\n"UNCOLOR);
 	printf("ll modifier: converts long long int into int or unsigned int and the ll makes sure it changes back to long int or unsigned long long int\n");
-	printf("Input: [%llu]\n", longlong);
+	printf("\nInput: [%llu]\n", longlong);
 	compare_results_d_ll(longlong, 'X');
 
 	longlong = -2147483648;
-	printf("Input: [%llu]\n", longlong);
+	printf("\nInput: [%llu]\n", longlong);
 	compare_results_d_ll(longlong, 'X');
 
 	longlong = 2147483647;
-	printf("Input: [%llu]\n", longlong);
+	printf("\nInput: [%llu]\n", longlong);
 	compare_results_d_ll(longlong, 'X');
 
 	longlong = 0;
-	printf("Input: [%llu]\n", longlong);
+	printf("\nInput: [%llu]\n", longlong);
 	compare_results_d_ll(longlong, 'X');
 
 	longlong = 1234;
-	printf("Input: [%llu]\n", longlong);
+	printf("\nInput: [%llu]\n", longlong);
 	compare_results_d_ll(longlong, 'X');*/
 }
 
@@ -1037,7 +1095,7 @@ int main(void)
 
 	printf(PURPLE"\n-------\n\n"UNCOLOR);
 	printf(PURPLE"int unsigned decimal test\n"UNCOLOR);
-	//u();
+	u();
 
 	printf(PURPLE"\n-------\n\n"UNCOLOR);
 	printf(PURPLE"hexadecimal (base 16) integer (small char) test\n"UNCOLOR);
