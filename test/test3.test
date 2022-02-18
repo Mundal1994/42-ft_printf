@@ -39,7 +39,7 @@ static void	compare_results_f(float number)
 	int	mine;
 
 	printf("\nInput: [%f]\n", number);
-	orig = printf("expect: [%.3f]\n", number);
+	orig = printf("expect: [%f]\n", number);
 	mine = ft_printf("output: [%f]\n", number);
 	print_result(orig, mine);
 }
