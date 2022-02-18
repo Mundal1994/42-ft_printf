@@ -129,60 +129,41 @@ static void	ft_strrev_len(char *str, int len)
 static void	ft_check_correct_end(char *str, int len)
 {
 	int	i;
-	int	j;
-	int	dot;
-	int	change;
+	int	add;
 
-	dot = ft_strlen_stop(str, '.');
-	i = 0;
-	if (str[i] == '9')
-		str[i] = '0';
-	else if (str[i] > '5')
-		str[i] = str[i] + 1;
-	j = i;
-	i++;
-	change = FALSE;
-	while (str[i] && i < (dot - len))
+	i = ft_strlen(str) - 1;
+	add = 0;
+	ft_putstr(str);
+	ft_putchar('\n');
+	while (str[i] && (i > len || add == 1))
 	{
-		ft_putnbr(5);
 		if (str[i] == '.')
-			i++;
-		if (str[j] > '5' || change == TRUE)
+			i--;
+		if (add == 1)
 		{
 			if (str[i] == '9')
 			{
 				str[i] = '0';
-				change = TRUE;
+				add = 1;
 			}
 			else
 			{
 				str[i] = str[i] + 1;
-				change = FALSE;
+				add = 0;
 			}
 		}
-		j = i;
-		i++;
-	}
-	while (change == TRUE)
-	{
-		if (str[i] == '.')
-			i++;
-		if (str[j] > '5' || change == TRUE)
+		if (str[i] > '5' && i > len)
 		{
-			if (str[i] == '9')
-			{
-				str[i] = '0';
-				change = TRUE;
-			}
-			else
-			{
-				str[i] = str[i] + 1;
-				change = FALSE;
-			}
+			ft_putchar(str[i]);
+			ft_putchar(str[i]);
+			str[i] = str[i] - 1;
+			add = 1;
 		}
-		j = i;
-		i++;
+		i--;
 	}
+	ft_putchar('\n');
+	ft_putstr(str);
+	ft_putchar('\n');
 }
 
 static void	ft_itoa_add_zeros(int nbr, char *str, int len)
@@ -208,8 +189,6 @@ static void	ft_itoa_add_zeros(int nbr, char *str, int len)
 		str[i++] =  '0';
 	if (neg == -1)
 		str[i++] = '-';
-	if (len != 0)
-		ft_check_correct_end(str, len);
 	ft_strrev_len(str, i);
 	str[i] = '\0';
 }
@@ -219,19 +198,23 @@ static void	ft_float_itoa(double number, char *str, int len)
 	long double	lnbr;
 	int			nbr;
 	int			i;
+	char		temp[100];
 
 	nbr = (int)number;
 	lnbr = number - (long double)nbr;
-	ft_itoa_add_zeros(nbr, str, 0);
-	i = ft_strlen(str);
+	ft_itoa_add_zeros(nbr, temp, 0);
+	i = ft_strlen(temp);
 	if (len != 0)
 	{
 		if (lnbr < 0)
 			lnbr *= -1;
-		str[i++] = '.';
-		lnbr = lnbr * ft_pow(10, len);
-		ft_itoa_add_zeros((int)lnbr, &str[i], len);
+		temp[i++] = '.';
+		lnbr = lnbr * ft_pow(10, 9);
+		ft_itoa_add_zeros((int)lnbr, &temp[i], 9);
 	}
+	if (len != 0)
+		ft_check_correct_end(temp, len);
+	ft_strncpy(str, temp, i + len);
 }
 
 static void	ft_diuf_print(const char *format, char *str, t_flag *flag, va_list *arg)
