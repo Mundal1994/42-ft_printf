@@ -28,6 +28,7 @@ static void	ft_initialize_flag(t_flag *flag)
 	flag->s_l = FALSE;
 	flag->b_l = FALSE;
 	flag->index = 0;
+	flag->i = 0;
 	flag->flags = FALSE;
 }
 
@@ -70,15 +71,61 @@ static void	ft_hex_to_str(uintptr_t addr, char *str, int i)
 	}
 }
 
+static void	ft_c_flag_calc(char *temp, t_flag *flag)
+{
+	char	*pnt;
+	int		i;
+	int		len;
+
+	pnt = NULL;
+	i = 0;
+	if (flag->width > 1)
+	{
+		pnt = ft_strnew(flag->width);
+		if (!pnt)
+			exit (1);
+		if (flag->minus == TRUE)
+		{
+			len = ft_strlen(temp);
+			ft_strcpy(pnt, temp);
+			i = len;
+			while (i < flag->width)
+				pnt[i++] = ' ';
+			temp = pnt;
+			ft_putstr(temp);
+		}
+		else
+		{
+			len = ft_strlen(temp) - 1;
+			while (i < (flag->width - len))
+				pnt[i++] = ' ';
+			ft_strcpy(temp, &pnt[i]);
+		}
+	}
+}
+
 static void	ft_csp_print(const char *format, char *str, t_flag *flag, va_list *arg)
 {
 	char * str_arg;
+	char	*temp;
 	unsigned long long	long_arg;
 	int	i;
 
 	i = 0;
-	if (*format == 'c' && flag->flags == FALSE)
-		*str = (char)va_arg(*arg, int);
+	temp = NULL;
+	if (*format == 'c')
+	{
+		temp = (char *)malloc(sizeof(char) * 2);
+		if (!temp)
+			exit (1);
+		*temp = (char)va_arg(*arg, int);
+		if (flag->flags == TRUE)
+			ft_c_flag_calc(temp, flag);
+		ft_strcpy(str, temp);
+		flag->index += ft_strlen(str) - 1;
+		//ft_putnbr(ft_strlen(str));
+		//not finishing printed str - error in how i handle it
+	}
 	else if (*format == 's' && flag->flags == FALSE)
 	{
 		str_arg = va_arg(*arg, char*);
@@ -304,6 +351,23 @@ static int	ft_convert_symbol(const char *format, char *str, t_flag *flag, va_lis
 	return (FALSE);
 }
 
+static int	ft_hhll_flag_check(const char *format, t_flag *flag, int on)
+{
+	if (*format == 'h' && format[1] == 'h')
+		flag->hh = on;
+	else if (*format == 'h')
+		flag->h = on;
+	else if (*format == 'l' && format[1] == 'l')
+		flag->ll = on;
+	else if (*format == 'l')
+		flag->l = on;
+	else if (*format == 'L')
+		flag->b_l = on;
+	else
+		return (FALSE);
+	return (TRUE);
+}
+
 static int	ft_flag_check(const char *format, t_flag *flag, int on)
 {
 	if (*format == '-')
@@ -316,40 +380,45 @@ static int	ft_flag_check(const char *format, t_flag *flag, int on)
 		flag->zero = on;
 	else if (*format == '#')
 		flag->hash = on;
-	else if (ft_isdigit(*format) == 1)//width
-		flag->width = *format + '0';
+	else if (ft_isdigit(*format) == 1)
+		flag->width = *format - '0';
 	else if (*format == '.' && ft_isdigit(format[1]) == 1)
-		flag->hash = on//precision)
-	else if ()
-		//ll hh flag
+	{
+		flag->hash = on;
+		ft_flag_check("0", flag, FALSE);
+		ft_flag_check("#", flag, FALSE);
+		ft_flag_check("+", flag, FALSE);
+		ft_flag_check(" ", flag, FALSE);
+		flag->i++;
+	}
 	else
 	{
-		ft_putstr("error\n");
-		exit (1);
+		if (ft_hhll_flag_check(format, flag, TRUE) == FALSE)
+		{
+			ft_putstr("error\n");
+			exit (1);
+		}
 	}
+	flag->i++;
+	ft_putnbr(flag->i);
+	ft_putchar('\n');
+	//i think the flag->i count might be wrong
 	return (on);
 }
 
 static void	ft_find_flags(const char *format, char *str, t_flag *flag, va_list *arg)
 {
 	int	i;
-	//char * str_arg;
 
 	i = 0;
-	if (ft_convert_symbol(&format[i], &str[i], flag, arg) == TRUE)
-		return ;
-	else
+	if (ft_convert_symbol(&format[i], &str[i], flag, arg) == FALSE)
 	{
 		while (ft_convert_symbol(&format[i], &str[i], flag, arg) == FALSE)
 		{
 			flag->flags = TRUE;
-			ft_flag_check(&format[i], flag, TRUE));
+			ft_flag_check(&format[i], flag, TRUE);
 			i++;
 		}
-		/*if (*format == '#')
-		str_arg = va_arg(*arg, char*);
-		ft_strcpy(str, str_arg);
-		flag->index += ft_strlen(str_arg) - 1;*/
 	}
 }
 
@@ -359,8 +428,6 @@ static int	ft_convert_checker(const char *format, char *str, t_flag *flag, va_li
 
 	count = 0;
 	ft_find_flags(format, str, flag, arg);
-	if (flag->flags == FALSE)
-		return ;
 	//ft_str_convert(str, flag);
 	//return the new string length added - changes i's number.
 	return (count);
@@ -368,33 +435,33 @@ static int	ft_convert_checker(const char *format, char *str, t_flag *flag, va_li
 
 int	ft_printf(const char *format, ...)
 {
-	int		i;
 	char	str[100];
+	//char	*stri;
 	va_list	arg;
 	t_flag	*flag;
 
+	//stri = str;
 	flag = (t_flag *) malloc(sizeof(t_flag));
 	if (!flag)
 		ft_putstr("error");
 	ft_initialize_flag(flag);
 	va_start(arg, format);
-	i = 0;
 	ft_bzero(str, 100);
 	if (format)
 	{
-		while (format[i] != '\0')
+		while (format[flag->i] != '\0')
 		{
-			if (format[i] != '%')
-				str[flag->index] = format[i];
+			if (format[flag->i] != '%')
+				str[flag->index] = format[flag->i];
 			else
 			{
-				i++;
-				if (format[i] == '%')
+				flag->i++;
+				if (format[flag->i] == '%')
 					str[flag->index] = '%';
 				else
-					i += ft_convert_checker(&format[i], &str[flag->index], flag, &arg);
+					ft_convert_checker(&format[flag->i], &str[flag->index], flag, &arg);
 			}
-			i++;
+			flag->i++;
 			flag->index++;
 		}
 	}

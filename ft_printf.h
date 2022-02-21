@@ -20,6 +20,7 @@ typedef struct	s_flag
 	int			s_l;
 	int			b_l;
 	int			index;
+	int			i;
 	int			flags;
 }				t_flag;
 

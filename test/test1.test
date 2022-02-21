@@ -47,15 +47,15 @@ static void	compare_char_flag(char c, char flag)
 
 	if (flag == '-')
 	{
-		printf(YELLOW"\n[%c]\n"UNCOLOR, c);
+		printf(YELLOW"\n[%%-c]\n"UNCOLOR);
 		orig = printf("expect: [%-c]\n", c);
 		mine = ft_printf("output: [%-c]\n", c);
 		print_result(orig, mine);
 	}
 	else
 	{
-		printf(YELLOW"\n[%c]\n"UNCOLOR, c);
-		orig = printf("expect : [undefined behaviour\n");
+		printf(YELLOW"\nwith flags [+0 #][%c]\n"UNCOLOR, c);
+		orig = printf("expect : [undefined behaviour]\n");
 		mine = ft_printf("output: [%+c]\n", c);
 		print_result(orig, mine);
 	}
@@ -113,6 +113,9 @@ static void	percentage_print(void)
 
 static void	c(void)
 {
+	int	orig;
+	int	mine;
+
 	char c = 'H';
 	compare_char(c);
 
@@ -128,17 +131,44 @@ static void	c(void)
 	c = 'm';
 	compare_char(c);
 
-	//compare_char_flag(c, '#');
+	compare_char_flag(c, '#');
+
+	compare_char_flag(c, '+');
+
+	compare_char_flag(c, '0');
+
+	compare_char_flag(c, ' ');
 
 	compare_char_flag(c, '-');
 
-	//compare_char_flag(c, '+');
+	c = 'n';
+	compare_char_flag(c, '-');
 
-	//compare_char_flag(c, '0');
+	c = ' ';
+	compare_char_flag(c, '-');
 
-	//compare_char_flag(c, ' ');
+	c = 'L';
+	compare_char_flag(c, '-');
 
+	c = '9';
+	compare_char_flag(c, '-');
 
+	printf(YELLOW"\n[%%-4c]\n"UNCOLOR);
+	orig = printf("expect: [%-4c]\n", c);
+	mine = ft_printf("output: [%-4c]\n", c);
+	print_result(orig, mine);
+
+	printf(YELLOW"\n[%%4c]\n"UNCOLOR);
+	orig = printf("expect: [%4c]\n", c);
+	mine = ft_printf("output: [%4c]\n", c);
+	print_result(orig, mine);
+
+	/*
+	printf(YELLOW"\n[%%-4.3c]\n"UNCOLOR);
+	orig = printf("expect: [%-4.3c]\n", c);
+	mine = ft_printf("output: [%-4.3c]\n", c);
+	print_result(orig, mine);
+	*/
 }
 
 static void	s(void)
