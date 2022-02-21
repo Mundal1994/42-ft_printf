@@ -6,7 +6,7 @@
 /*   By: molesen <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 11:28:12 by molesen           #+#    #+#             */
-/*   Updated: 2022/02/14 16:23:13 by molesen          ###   ########.fr       */
+/*   Updated: 2022/02/21 13:28:27 by molesen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -304,6 +304,32 @@ static int	ft_convert_symbol(const char *format, char *str, t_flag *flag, va_lis
 	return (FALSE);
 }
 
+static int	ft_flag_check(const char *format, t_flag *flag, int on)
+{
+	if (*format == '-')
+		flag->minus = on;
+	else if (*format == '+')
+		flag->plus = on;
+	else if (*format == ' ')
+		flag->space = on;
+	else if (*format == '0')
+		flag->zero = on;
+	else if (*format == '#')
+		flag->hash = on;
+	else if (ft_isdigit(*format) == 1)//width
+		flag->width = *format + '0';
+	else if (*format == '.' && ft_isdigit(format[1]) == 1)
+		flag->hash = on//precision)
+	else if ()
+		//ll hh flag
+	else
+	{
+		ft_putstr("error\n");
+		exit (1);
+	}
+	return (on);
+}
+
 static void	ft_find_flags(const char *format, char *str, t_flag *flag, va_list *arg)
 {
 	int	i;
@@ -314,7 +340,12 @@ static void	ft_find_flags(const char *format, char *str, t_flag *flag, va_list *
 		return ;
 	else
 	{
-		flag->flags = TRUE;
+		while (ft_convert_symbol(&format[i], &str[i], flag, arg) == FALSE)
+		{
+			flag->flags = TRUE;
+			ft_flag_check(&format[i], flag, TRUE));
+			i++;
+		}
 		/*if (*format == '#')
 		str_arg = va_arg(*arg, char*);
 		ft_strcpy(str, str_arg);
@@ -322,17 +353,18 @@ static void	ft_find_flags(const char *format, char *str, t_flag *flag, va_list *
 	}
 }
 
-static void	ft_convert_checker(const char *format, char *str, t_flag *flag, va_list *arg)
+static int	ft_convert_checker(const char *format, char *str, t_flag *flag, va_list *arg)
 {
-	
+	int	count;
+
+	count = 0;
 	ft_find_flags(format, str, flag, arg);
 	if (flag->flags == FALSE)
 		return ;
 	//ft_str_convert(str, flag);
+	//return the new string length added - changes i's number.
+	return (count);
 }
-
-//write char imidiately or store in a string
-//exactly how to use va_start etc... and why is it good to use
 
 int	ft_printf(const char *format, ...)
 {
@@ -360,7 +392,7 @@ int	ft_printf(const char *format, ...)
 				if (format[i] == '%')
 					str[flag->index] = '%';
 				else
-					ft_convert_checker(&format[i], &str[flag->index], flag, &arg);
+					i += ft_convert_checker(&format[i], &str[flag->index], flag, &arg);
 			}
 			i++;
 			flag->index++;
@@ -371,6 +403,3 @@ int	ft_printf(const char *format, ...)
 	va_end(arg);
 	return (ft_strlen(str)); 
 }
-
-
-//stuck on trying to make it get the string from va_argv

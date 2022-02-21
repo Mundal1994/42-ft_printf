@@ -40,6 +40,27 @@ static void	compare_char(char c)
 	print_result(orig, mine);
 }
 
+static void	compare_char_flag(char c, char flag)
+{
+	int orig;
+	int mine;
+
+	if (flag == '-')
+	{
+		printf(YELLOW"\n[%c]\n"UNCOLOR, c);
+		orig = printf("expect: [%-c]\n", c);
+		mine = ft_printf("output: [%-c]\n", c);
+		print_result(orig, mine);
+	}
+	else
+	{
+		printf(YELLOW"\n[%c]\n"UNCOLOR, c);
+		orig = printf("expect : [undefined behaviour\n");
+		mine = ft_printf("output: [%+c]\n", c);
+		print_result(orig, mine);
+	}
+}
+
 static void	compare_string(char *str)
 {
 	int orig;
@@ -106,6 +127,18 @@ static void	c(void)
 
 	c = 'm';
 	compare_char(c);
+
+	//compare_char_flag(c, '#');
+
+	compare_char_flag(c, '-');
+
+	//compare_char_flag(c, '+');
+
+	//compare_char_flag(c, '0');
+
+	//compare_char_flag(c, ' ');
+
+
 }
 
 static void	s(void)
