@@ -62,13 +62,13 @@ static void	ft_i_reset(const char *format, t_flag *flag)
 	i *= -1;
 	flag->i += i;
 }
-static void	ft_c_flag_calc(const char *format, char *str, t_flag *flag)
+static void	ft_c_flag_calc(const char *format, char *str, t_flag *flag, int c)
 {
 	int		i;
 	int		len;
 
 	i = 0;
-	len = 0;
+	len = ft_strlen(str);
 	if (flag->width > 1)
 	{
 		if (flag->minus == TRUE)
@@ -81,16 +81,23 @@ static void	ft_c_flag_calc(const char *format, char *str, t_flag *flag)
 		}
 		else
 		{
-			len = ft_strlen(str);
 			while (i++ < (flag->width - len))
 				ft_putchar(' ');
-			ft_putchar(*str);
+			if (c == 'c')
+				ft_putchar(*str);
+			else
+				ft_putstr(str);
 			i += len - 2;
 		}
 		flag->len += i;
 	}
 	else
-		ft_putchar(*str);
+	{
+		if (c == 'c')
+			ft_putchar(*str);
+		else
+			ft_putstr(str);
+	}
 	ft_i_reset(format, flag);
 }
 
@@ -102,12 +109,11 @@ static void	ft_csp_print(const char *format, t_flag *flag, va_list *arg)
 	int		i;
 
 	i = 0;
-	//temp = NULL;
 	if (*format == 'c')
 	{
 		c = (char)va_arg(*arg, int);
 		if (flag->flags == TRUE)
-			ft_c_flag_calc(format, &c, flag);
+			ft_c_flag_calc(format, &c, flag, 'c');
 		else
 			ft_putchar(c);
 	}/*
