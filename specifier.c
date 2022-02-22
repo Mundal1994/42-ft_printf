@@ -11,46 +11,39 @@
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-/*
+
 static void	ft_pntlen(uintptr_t addr, t_flag *flag)
 {
 	int	len;
 
 	len = 0;
 	if (addr == 0)
-		flag->index += 3;
+		flag->len += 3;
 	while (addr != 0)
 	{
 		len++;
 		addr = addr / 16;
 	}
-	flag->index += len + 1;
+	flag->len += len + 1;
 }
 
-static void	ft_hex_to_str(uintptr_t addr, char *str, int i)
+static void	ft_hex_to_str(uintptr_t addr, int i)
 {
-	int	index;
-
 	if (i == 0)
-	{
-		str[0] = '0';
-		str[1] = 'x';
-	}
+		ft_putstr("0x");
 	if (addr >= 16)
 	{
-		ft_hex_to_str(addr / 16, str, 1);
-		ft_hex_to_str(addr % 16, str, 1);
+		ft_hex_to_str(addr / 16, 1);
+		ft_hex_to_str(addr % 16, 1);
 	}
 	else
 	{
-		index = ft_strlen(str);
 		if (addr <= 9)
-			str[index] = addr + '0';
+			ft_putchar(addr + '0');
 		else
-			str[index] = addr - 10 + 'a';
+			ft_putchar(addr - 10 + 'a');
 	}
 }
-*/
 
 static void	ft_i_reset(const char *format, t_flag *flag)
 {
@@ -103,9 +96,9 @@ static void	ft_c_flag_calc(const char *format, char *str, t_flag *flag, int c)
 
 static void	ft_csp_print(const char *format, t_flag *flag, va_list *arg)
 {
-	//char * str_arg;
+	char * str_arg;
 	char	c;
-	//unsigned long long	long_arg;
+	unsigned long long	long_arg;
 	int		i;
 
 	i = 0;
@@ -116,19 +109,29 @@ static void	ft_csp_print(const char *format, t_flag *flag, va_list *arg)
 			ft_c_flag_calc(format, &c, flag, 'c');
 		else
 			ft_putchar(c);
-	}/*
-	else if (*format == 's' && flag->flags == FALSE)
+	}
+	else if (*format == 's')
 	{
 		str_arg = va_arg(*arg, char*);
-		ft_strcpy(str, str_arg);
-		flag->index += ft_strlen(str_arg) - 1;
+		if (flag->flags == TRUE)
+			ft_c_flag_calc(format, str_arg, flag, 's');
+		else
+		{
+			ft_putstr(str_arg);
+			flag->len += ft_strlen(str_arg) - 1;
+		}
 	}
-	else if (*format == 'p' && flag->flags == FALSE)
+	else if (*format == 'p')
 	{
 		long_arg = va_arg(*arg, unsigned long long);
-		ft_hex_to_str(long_arg, str, 0);
-		ft_pntlen(long_arg, flag);
-	}*/
+		//if (flag->flags == TRUE)
+			//ft_c_flag_calc(format, long_arg, flag, 'p');
+		//else
+		//{
+			ft_hex_to_str(long_arg, 0);
+			ft_pntlen(long_arg, flag);
+		//}
+	}
 }
 /*
 static int	ft_pow(int x, int y)
