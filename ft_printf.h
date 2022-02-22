@@ -19,11 +19,13 @@ typedef struct	s_flag
 	int			ll;
 	int			s_l;
 	int			b_l;
-	int			index;
-	int			i;
 	int			flags;
+	int			len;
+	int			i;
 }				t_flag;
 
 int	ft_printf(const char *format, ...);
+int	ft_flag_check(const char *format, t_flag *flag, int on);
+int	ft_convert_symbol(const char *format, t_flag *flag, va_list *arg);
 
 #endif

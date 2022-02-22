@@ -15,12 +15,14 @@ NAME = libftprintf.a
 CC = gcc -Wall -Wextra -Werror -I ./libft
 
 SRC = ft_printf.c
+SRC += flags.c
+SRC += specifier.c
 
-OBJ = $(SRCS:.c=.o)
+OBJ = $(SRC:.c=.o)
 
 all: $(NAME)
 $(NAME):
-	$(CC) -c $(SRC)
+	$(CC) -c -I ./includes $(SRC)
 	ar rc $(NAME) $(OBJ)
 	ranlib $(NAME)
 

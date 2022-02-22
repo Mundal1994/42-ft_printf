@@ -50,7 +50,7 @@ static void	compare_char_flag(char c, char flag)
 		printf(YELLOW"\n[%%-c]\n"UNCOLOR);
 		orig = printf("expect: [%-c]\n", c);
 		mine = ft_printf("output: [%-c]\n", c);
-		print_result(orig, mine);
+		//print_result(orig, mine);
 	}
 	else
 	{
