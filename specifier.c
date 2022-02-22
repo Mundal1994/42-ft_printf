@@ -51,41 +51,47 @@ static void	ft_hex_to_str(uintptr_t addr, char *str, int i)
 	}
 }
 */
+
+static void	ft_i_reset(const char *format, t_flag *flag)
+{
+	int		i;
+
+	i = 0;
+	while (format[i - 1] != '%')
+		i--;
+	i *= -1;
+	flag->i += i;
+}
 static void	ft_c_flag_calc(const char *format, char *str, t_flag *flag)
 {
 	int		i;
-	int		j;
 	int		len;
 
 	i = 0;
-	j = 0;
 	len = 0;
 	if (flag->width > 1)
 	{
 		if (flag->minus == TRUE)
 		{
 			i = ft_strlen(str);
+			ft_putchar(*str);
 			while (i++ < flag->width)
 				ft_putchar(' ');
+			i += - 2;
 		}
 		else
 		{
-			len = ft_strlen(str) - 1;
-			while (i++ < (flag->width - len - 1))
+			len = ft_strlen(str);
+			while (i++ < (flag->width - len))
 				ft_putchar(' ');
-			ft_putchar(str[j++]);
-			i += j;
+			ft_putchar(*str);
+			i += len - 2;
 		}
 		flag->len += i;
-		flag->i += i;
 	}
 	else
-	{
-		while (format[i] != '%')
-			i--;
-		i *= -1;
-		flag->i += i + 1;
-	}
+		ft_putchar(*str);
+	ft_i_reset(format, flag);
 }
 
 static void	ft_csp_print(const char *format, t_flag *flag, va_list *arg)
@@ -103,9 +109,7 @@ static void	ft_csp_print(const char *format, t_flag *flag, va_list *arg)
 		if (flag->flags == TRUE)
 			ft_c_flag_calc(format, &c, flag);
 		else
-		{
 			ft_putchar(c);
-		}
 	}/*
 	else if (*format == 's' && flag->flags == FALSE)
 	{
