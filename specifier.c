@@ -112,6 +112,9 @@ static void	ft_csp_print(const char *format, t_flag *flag, va_list *arg)
 	}
 	else if (*format == 's')
 	{
+		/*
+		**need to make this work with the flag of width
+		*/
 		str_arg = va_arg(*arg, char*);
 		if (flag->flags == TRUE)
 			ft_c_flag_calc(format, str_arg, flag, 's');
@@ -123,6 +126,9 @@ static void	ft_csp_print(const char *format, t_flag *flag, va_list *arg)
 	}
 	else if (*format == 'p')
 	{
+		/*
+		**need to make this work with the flag of width
+		*/
 		long_arg = va_arg(*arg, unsigned long long);
 		//if (flag->flags == TRUE)
 			//ft_c_flag_calc(format, long_arg, flag, 'p');
