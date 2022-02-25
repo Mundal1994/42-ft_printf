@@ -61,6 +61,27 @@ static void	compare_char_flag(char c, char flag)
 	}
 }
 
+static void	compare_str_flag(char *s, char flag)
+{
+	int orig;
+	int mine;
+
+	if (flag == '-')
+	{
+		printf(YELLOW"\n[%%-s]\n"UNCOLOR);
+		orig = printf("expect: [%-s]\n", s);
+		mine = ft_printf("output: [%-s]\n", s);
+		print_result(orig, mine);
+	}
+	else
+	{
+		printf(YELLOW"\nwith flags [+0 #][%s]\n"UNCOLOR, s);
+		orig = printf("expect : [undefined behaviour]\n");
+		mine = ft_printf("output: [%+s]\n", s);
+		print_result(orig, mine);
+	}
+}
+
 static void	compare_string(char *str)
 {
 	int orig;
@@ -173,6 +194,9 @@ static void	c(void)
 
 static void	s(void)
 {
+	int	orig;
+	int	mine;
+
 	char *str = "hello";
 
 	compare_string(str);
@@ -188,6 +212,32 @@ static void	s(void)
 
 	str = "123456789";
 	compare_string(str);
+
+	compare_str_flag(str, '-');
+
+	compare_str_flag("hello", '-');
+
+	compare_str_flag("hi my name is james", '-');
+
+	compare_str_flag("this is a very very very very very long string -!", '-');
+
+	compare_str_flag(" ", '-');
+
+	str = "hi my name is james";
+	printf(YELLOW"\n[%%-4s]\n"UNCOLOR);
+	orig = printf("expect: [%-35s]\n", str);
+	mine = ft_printf("output: [%-35s]\n", str);
+	print_result(orig, mine);
+
+	printf(YELLOW"\n[%%4s]\n"UNCOLOR);
+	orig = printf("expect: [%35s]\n", str);
+	mine = ft_printf("output: [%35s]\n", str);
+	print_result(orig, mine);
+
+	printf(YELLOW"\n[%%4s]\n"UNCOLOR);
+	orig = printf("expect: [%3s]\n", str);
+	mine = ft_printf("output: [%3s]\n", str);
+	print_result(orig, mine);
 /*
 	int orig;
 	int mine;
