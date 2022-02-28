@@ -77,12 +77,12 @@ static void	ft_prec_calc(char *str, t_flag *flag, int c)
 			ft_putchar(*str);
 		else
 		{
-			while (i <= flag->prec && str[i] != '\0')
+			while (i < flag->prec && str[i] != '\0')
 				ft_putchar(str[i++]);
-			if (flag->width > 1)
+			if (flag->width >= 0 && flag->prec < flag->width)
 				flag->len += flag->width - 1;
 			else
-				flag->len += flag->prec;
+				flag->len += flag->prec - 1;
 		}
 	}
 }
@@ -95,10 +95,17 @@ static void	ft_c_flag_calc(const char *format, char *str, t_flag *flag, int c)
 	if (c == 'c')
 		len = 1;
 	else
-		len = ft_strlen(str);
-	if (flag->width > 1)
 	{
-		if (flag->width >= len)
+		if (flag->prec == -1)
+			len = ft_strlen(str);
+		else
+			len = flag->prec;
+	}
+	if (flag->prec >= 0 && flag->prec >= flag->width)
+		ft_prec_calc(str, flag, c);
+	else if (flag->width >= 0)
+	{
+		if (flag->width >= len && flag->prec == -1)
 			flag->len += flag->width - len;
 		if (flag->minus == TRUE)
 		{
@@ -114,8 +121,6 @@ static void	ft_c_flag_calc(const char *format, char *str, t_flag *flag, int c)
 			ft_prec_calc(str, flag, c);
 		}
 	}
-	else if (flag->prec >= 0)
-		ft_prec_calc(str, flag, c);
 	else
 		ft_prec_calc(str, flag, c);
 	ft_i_reset(format, flag);
@@ -126,44 +131,23 @@ static void	ft_csp_print(const char *format, t_flag *flag, va_list *arg)
 	char * str_arg;
 	char	c;
 	unsigned long long	long_arg;
-	int		i;
 
-	i = 0;
 	if (*format == 'c')
 	{
 		c = (char)va_arg(*arg, int);
-		if (flag->flags == TRUE)
-			ft_c_flag_calc(format, &c, flag, 'c');
-		else
-			ft_putchar(c);
+		ft_c_flag_calc(format, &c, flag, 'c');
 	}
 	else if (*format == 's')
 	{
-		/*
-		**need to make this work with the flag of width
-		*/
 		str_arg = va_arg(*arg, char*);
-		if (flag->flags == TRUE)
-			ft_c_flag_calc(format, str_arg, flag, 's');
-		else
-		{
-			ft_putstr(str_arg);
-			flag->len += ft_strlen(str_arg) - 1;
-		}
+		ft_c_flag_calc(format, str_arg, flag, 's');
 	}
 	else if (*format == 'p')
 	{
-		/*
-		**need to make this work with the flag of width
-		*/
 		long_arg = va_arg(*arg, unsigned long long);
-		//if (flag->flags == TRUE)
-			//ft_c_flag_calc(format, long_arg, flag, 'p');
-		//else
-		//{
-			ft_hex_to_str(long_arg, 0);
-			ft_pntlen(long_arg, flag);
-		//}
+		ft_hex_to_str(long_arg, 0);
+		ft_i_reset(format, flag);
+		ft_pntlen(long_arg, flag);
 	}
 }
 /*

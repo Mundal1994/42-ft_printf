@@ -20,7 +20,7 @@ static void	ft_initialize_flag(t_flag *flag, int first)
 	flag->minus = FALSE;
 	flag->plus = FALSE;
 	flag->zero = FALSE;
-	flag->width = FALSE;
+	flag->width = -1;
 	flag->prec = -1;
 	flag->hh = FALSE;
 	flag->h = FALSE;

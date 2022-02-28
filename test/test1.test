@@ -297,6 +297,16 @@ static void	s(void)
 	mine = ft_printf("output: [%10.0s]\n", str);
 	print_result(orig, mine);
 
+	printf(YELLOW"\n[%%10.12s]\n"UNCOLOR);
+	orig = printf("expect: [%10.12s]\n", str);
+	mine = ft_printf("output: [%10.12s]\n", str);
+	print_result(orig, mine);
+
+	printf(YELLOW"\n[%%10.10s]\n"UNCOLOR);
+	orig = printf("expect: [%10.10s]\n", str);
+	mine = ft_printf("output: [%10.10s]\n", str);
+	print_result(orig, mine);
+
 /*
 	int orig;
 	int mine;
@@ -317,9 +327,31 @@ static void	p(void)
 	int *pnt;
 
 	pnt = &intnbr;
-	orig = printf("[%p]\n", pnt);
-	mine = ft_printf("[%p]\n", pnt);
+	orig = printf("expect: [%p]\n", pnt);
+	mine = ft_printf("output: [%p]\n", pnt);
 	print_result(orig, mine);
+
+	/* WIDTH TEST */
+
+	printf(YELLOW"\n[%%-50p]\n"UNCOLOR);
+	orig = printf("expect: [%-1p]\n", pnt);
+	mine = ft_printf("output: [%-1p]\n", pnt);
+	print_result(orig, mine);
+/*
+	printf(YELLOW"\n[%%+p]\n"UNCOLOR);
+	orig = printf("expect: [%+p]\n", pnt);
+	mine = ft_printf("output: [%+p]\n", pnt);
+	print_result(orig, mine);
+
+	printf(YELLOW"\n[%%#p]\n"UNCOLOR);
+	orig = printf("expect: [%#p]\n", pnt);
+	mine = ft_printf("output: [%#p]\n", pnt);
+	print_result(orig, mine);
+
+	printf(YELLOW"\n[%%0p]\n"UNCOLOR);
+	orig = printf("expect: [%0p]\n", pnt);
+	mine = ft_printf("output: [%0p]\n", pnt);
+	print_result(orig, mine);*/
 }
 
 int main(void)

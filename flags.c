@@ -38,6 +38,7 @@ static void	ft_width_calc(const char *format, int *digit, int *pnt)
 
 	i = 0;
 	first = TRUE;
+	*digit = 0;
 	while (ft_isdigit(format[i]) == 1)
 	{
 		if (first == FALSE)
@@ -63,7 +64,7 @@ static int	ft_flag_check(const char *format, t_flag *flag, int on, int *pnt)
 		flag->plus = on;
 	else if (*format == ' ')
 		flag->space = on;
-	else if (*format == '0')
+	else if (*format == '0' && format[-1] != '0')
 		flag->zero = on;
 	else if (*format == '#')
 		flag->hash = on;
