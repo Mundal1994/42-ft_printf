@@ -60,29 +60,33 @@ static void	ft_c_flag_calc(const char *format, char *str, t_flag *flag, int c)
 	int		i;
 	int		len;
 
-	i = 0;
-	len = ft_strlen(str);
+	if (c == 'c')
+		len = 1;
+	else
+		len = ft_strlen(str);
 	if (flag->width > 1)
 	{
+		if (flag->width >= len)
+			flag->len += flag->width - len;
 		if (flag->minus == TRUE)
 		{
-			i = ft_strlen(str);
-			ft_putchar(*str);
-			while (i++ < flag->width)
+			if (c == 'c')
+				ft_putchar(*str);
+			else
+				ft_putstr(str);
+			while (len++ < flag->width)
 				ft_putchar(' ');
-			i += - 2;
 		}
 		else
 		{
+			i = 0;
 			while (i++ < (flag->width - len))
 				ft_putchar(' ');
 			if (c == 'c')
 				ft_putchar(*str);
 			else
 				ft_putstr(str);
-			i += len - 2;
 		}
-		flag->len += i;
 	}
 	else
 	{
@@ -119,10 +123,8 @@ static void	ft_csp_print(const char *format, t_flag *flag, va_list *arg)
 		if (flag->flags == TRUE)
 			ft_c_flag_calc(format, str_arg, flag, 's');
 		else
-		{
 			ft_putstr(str_arg);
-			flag->len += ft_strlen(str_arg) - 1;
-		}
+		flag->len += ft_strlen(str_arg) - 1;
 	}
 	else if (*format == 'p')
 	{

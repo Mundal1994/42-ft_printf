@@ -184,6 +184,16 @@ static void	c(void)
 	mine = ft_printf("output: [%4c]\n", c);
 	print_result(orig, mine);
 
+	printf(YELLOW"\n[%%300c]\n"UNCOLOR);
+	orig = printf("expect: [%300c]\n", c);
+	mine = ft_printf("output: [%300c]\n", c);
+	print_result(orig, mine);
+
+	printf(YELLOW"\n[%%-1000c]\n"UNCOLOR);
+	orig = printf("expect: [%-1000c]\n", c);
+	mine = ft_printf("output: [%-1000c]\n", c);
+	print_result(orig, mine);
+
 	/*
 	printf(YELLOW"\n[%%-4.3c]\n"UNCOLOR);
 	orig = printf("expect: [%-4.3c]\n", c);
@@ -224,19 +234,34 @@ static void	s(void)
 	compare_str_flag(" ", '-');
 
 	str = "hi my name is james";
-	printf(YELLOW"\n[%%-4s]\n"UNCOLOR);
+	printf(YELLOW"\n[%%-35s]\n"UNCOLOR);
 	orig = printf("expect: [%-35s]\n", str);
 	mine = ft_printf("output: [%-35s]\n", str);
 	print_result(orig, mine);
 
-	printf(YELLOW"\n[%%4s]\n"UNCOLOR);
+	printf(YELLOW"\n[%%35s]\n"UNCOLOR);
 	orig = printf("expect: [%35s]\n", str);
 	mine = ft_printf("output: [%35s]\n", str);
 	print_result(orig, mine);
 
-	printf(YELLOW"\n[%%4s]\n"UNCOLOR);
+	printf(YELLOW"\n[%%3s]\n"UNCOLOR);
 	orig = printf("expect: [%3s]\n", str);
 	mine = ft_printf("output: [%3s]\n", str);
+	print_result(orig, mine);
+
+	printf(YELLOW"\n[%%300s]\n"UNCOLOR);
+	orig = printf("expect: [%300s]\n", str);
+	mine = ft_printf("output: [%300s]\n", str);
+	print_result(orig, mine);
+
+	printf(YELLOW"\n[%%1000s]\n"UNCOLOR);
+	orig = printf("expect: [%1000s]\n", str);
+	mine = ft_printf("output: [%1000s]\n", str);
+	print_result(orig, mine);
+
+	printf(YELLOW"\n[%%09s] & [%%9s] in orig because this is undefined behaviour\n"UNCOLOR);
+	orig = printf("expect: [%9s]\n", str);
+	mine = ft_printf("output: [%09s]\n", str);
 	print_result(orig, mine);
 /*
 	int orig;

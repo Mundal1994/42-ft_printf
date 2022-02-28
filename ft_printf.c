@@ -35,24 +35,6 @@ static void	ft_initialize_flag(t_flag *flag, int first)
 	}
 }
 
-static void	ft_convert_checker(const char *format, t_flag *flag, va_list *arg)
-{
-	int	i;
-
-	i = 0;
-	if (ft_convert_symbol(&format[i], flag, arg) == FALSE)
-	{
-		while (ft_convert_symbol(&format[i], flag, arg) == FALSE)
-		{
-			flag->flags = TRUE;
-			ft_flag_check(&format[i], flag, TRUE);
-			i++;
-		}
-	}
-	//ft_str_convert(str, flag);
-	//return the new string length added - changes i's number.
-}
-
 int	ft_printf(const char *format, ...)
 {
 	va_list	arg;
