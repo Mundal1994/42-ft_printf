@@ -233,6 +233,7 @@ static void	s(void)
 
 	compare_str_flag(" ", '-');
 
+	/* WIDTH TEST */
 	str = "hi my name is james";
 	printf(YELLOW"\n[%%-35s]\n"UNCOLOR);
 	orig = printf("expect: [%-35s]\n", str);
@@ -263,6 +264,39 @@ static void	s(void)
 	orig = printf("expect: [%9s]\n", str);
 	mine = ft_printf("output: [%09s]\n", str);
 	print_result(orig, mine);
+
+	/* PRECISION TEST */
+
+	printf(YELLOW"\n[%%.5s]\n"UNCOLOR);
+	orig = printf("expect: [%.5s]\n", str);
+	mine = ft_printf("output: [%.5s]\n", str);
+	print_result(orig, mine);
+
+	printf(YELLOW"\n[%%10.5s]\n"UNCOLOR);
+	orig = printf("expect: [%10.5s]\n", str);
+	mine = ft_printf("output: [%10.5s]\n", str);
+	print_result(orig, mine);
+
+	printf(YELLOW"\n[%%-10.5s]\n"UNCOLOR);
+	orig = printf("expect: [%-10.5s]\n", str);
+	mine = ft_printf("output: [%-10.5s]\n", str);
+	print_result(orig, mine);
+
+	printf(YELLOW"\n[%%10.1s]\n"UNCOLOR);
+	orig = printf("expect: [%10.1s]\n", str);
+	mine = ft_printf("output: [%10.1s]\n", str);
+	print_result(orig, mine);
+
+	printf(YELLOW"\n[%%-10.1s]\n"UNCOLOR);
+	orig = printf("expect: [%-10.1s]\n", str);
+	mine = ft_printf("output: [%-10.1s]\n", str);
+	print_result(orig, mine);
+
+	printf(YELLOW"\n[%%10.0s]\n"UNCOLOR);
+	orig = printf("expect: [%10.0s]\n", str);
+	mine = ft_printf("output: [%10.0s]\n", str);
+	print_result(orig, mine);
+
 /*
 	int orig;
 	int mine;
