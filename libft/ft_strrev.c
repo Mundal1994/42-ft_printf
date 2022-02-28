@@ -6,7 +6,7 @@
 /*   By: molesen <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 11:17:47 by molesen           #+#    #+#             */
-/*   Updated: 2022/02/15 11:18:00 by molesen          ###   ########.fr       */
+/*   Updated: 2022/02/28 15:24:50 by molesen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 char	*ft_strrev(char *str)
 {
-	int	i;
-	int	len;
+	int		i;
+	int		len;
 	char	temp;
 
 	if (!str)

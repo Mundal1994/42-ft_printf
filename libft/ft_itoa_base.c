@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: molesen <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/15 11:08:25 by molesen           #+#    #+#             */
-/*   Updated: 2022/02/15 11:16:40 by molesen          ###   ########.fr       */
+/*   Created: 2022/02/28 16:25:29 by molesen           #+#    #+#             */
+/*   Updated: 2022/02/28 16:26:42 by molesen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,13 @@ static void	ft_itoa_helper(char *str, long var, int base, int neg)
 	*str = '\0';
 }
 
-char	*ft_itoa_base(int nbr, char *strout, int base)
+char	*ft_itoa_base(int nbr, int len, int base)
 {
 	char	*str;
 	int		neg;
 	long	var;
 
-	str = strout;
+	str = ft_strnew(len);
 	neg = 1;
 	var = (long)nbr;
 	if (nbr < 0)
@@ -52,6 +52,6 @@ char	*ft_itoa_base(int nbr, char *strout, int base)
 		var *= neg;
 	}
 	ft_itoa_helper(str, var, base, neg);
-	ft_strrev(strout);
-	return (strout);
+	ft_strrev(str);
+	return (str);
 }

@@ -63,6 +63,7 @@ char	*ft_strrchr(const char *str, int c);
 char	*ft_strstr(char const *haystack, const char *needle);
 int		ft_tolower(int ch);
 int		ft_toupper(int ch);
+int		ft_int_len(int n);
 char	*ft_itoa(int n);
 void	*ft_memalloc(size_t size);
 void	ft_memdel(void **ap);
@@ -102,7 +103,7 @@ void	ft_lstprint(t_list **alst);
 void	ft_lstprint_size(t_list **alst);
 char	**ft_free2d(char **dest);
 int		get_next_line(const int fd, char **line);
-char	*ft_itoa_base(int nbr, char *strout, int base);
+char	*ft_itoa_base(int nbr, int len, int base);
 char	*ft_strrev(char *str);
 
 #endif

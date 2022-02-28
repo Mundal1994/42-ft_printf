@@ -87,6 +87,7 @@ SRCS += ft_free2d.c
 SRCS += get_next_line.c
 SRCS += ft_itoa_base.c
 SRCS += ft_strrev.c
+SRCS += ft_int_len.c
 
 OBJS = $(SRCS:.c=.o)
 

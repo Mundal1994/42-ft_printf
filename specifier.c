@@ -60,12 +60,21 @@ static void	ft_prec_calc(char *str, t_flag *flag, int c)
 {
 	int	i;
 
+	if (flag->plus == TRUE && flag->prec != -1 && c != 'c' && c != 's' && c != 'p')
+		ft_putchar('+');
 	if (flag->prec == -1)
 	{
 		if (c == 'c')
 			ft_putchar(*str);
 		else
 		{
+			if (flag->plus == TRUE && flag->width == -1 && c != 'c' && c != 's' && c != 'p')
+			{
+				ft_putchar('+');
+				flag->len++;
+			}
+			else if (flag->plus == TRUE && c != 'c' && c != 's' && c != 'p')
+				ft_putchar('+');
 			ft_putstr(str);
 			flag->len += ft_strlen(str) - 1;
 		}
@@ -87,9 +96,24 @@ static void	ft_prec_calc(char *str, t_flag *flag, int c)
 	}
 }
 
+static void	ft_space_zero_calc(t_flag *flag, int len)
+{
+	if (flag->plus == TRUE)
+				len++;
+	if (flag->zero == TRUE && flag->prec == -1 && flag->minus == FALSE)
+	{
+		while (len++ < flag->width)
+		ft_putchar('0');
+	}
+	else
+	{
+		while (len++ < flag->width)
+		ft_putchar(' ');
+	}
+}
+
 static void	ft_c_flag_calc(const char *format, char *str, t_flag *flag, int c)
 {
-	int		i;
 	int		len;
 
 	if (c == 'c')
@@ -107,17 +131,19 @@ static void	ft_c_flag_calc(const char *format, char *str, t_flag *flag, int c)
 	{
 		if (flag->width >= len && flag->prec == -1)
 			flag->len += flag->width - len;
+		/*if (flag->plus == TRUE && c != 'c' && c != 's' && c != 'p')
+		{
+			ft_putchar('+');
+			len++;
+		}*/
 		if (flag->minus == TRUE)
 		{
 			ft_prec_calc(str, flag, c);
-			while (len++ < flag->width)
-				ft_putchar(' ');
+			ft_space_zero_calc(flag, len);
 		}
 		else
 		{
-			i = 0;
-			while (i++ < (flag->width - len))
-				ft_putchar(' ');
+			ft_space_zero_calc(flag, len);
 			ft_prec_calc(str, flag, c);
 		}
 	}
@@ -165,7 +191,7 @@ static int	ft_pow(int x, int y)
 	}
 	return (power);
 }
-
+*//*
 static void	ft_strrev_len(char *str, int len)
 {
 	int	i;
@@ -183,7 +209,7 @@ static void	ft_strrev_len(char *str, int len)
 		j--;
 	}
 }
-
+*//*
 static void	ft_check_correct_end(char *str, int len)
 {
 	int	i;
@@ -218,7 +244,7 @@ static void	ft_check_correct_end(char *str, int len)
 		i--;
 	}
 }
-
+*//*
 static void	ft_itoa_add_zeros(int nbr, char *str, int len)
 {
 	int	i;
@@ -245,7 +271,7 @@ static void	ft_itoa_add_zeros(int nbr, char *str, int len)
 	ft_strrev_len(str, i);
 	str[i] = '\0';
 }
-
+*//*
 static void	ft_float_itoa(double number, char *str, int len)
 {
 	long double	lnbr;
@@ -268,19 +294,21 @@ static void	ft_float_itoa(double number, char *str, int len)
 	}
 	ft_strncpy(str, temp, i + len);
 }
-
-static void	ft_diuf_print(const char *format, char *str, t_flag *flag, va_list *arg)
+*/
+static void	ft_diuf_print(const char *format, t_flag *flag, va_list *arg)
 {
 	int	nbr;
-	unsigned int	var;
-	double	number;
+	//unsigned int	var;
+	//double	number;
+	char	*str;
 
+	str = NULL;
 	if (*format == 'd' || *format == 'i')
 	{
 		nbr = va_arg(*arg, int);
-		ft_itoa_base(nbr, str, 10);
-		flag->index += ft_strlen(str) - 1;
-	}
+		str = ft_itoa_base(nbr, ft_int_len(nbr), 10);
+		ft_c_flag_calc(format, str, flag, 'd');
+	}/*
 	else if (*format == 'u')
 	{
 		var	 = va_arg(*arg, unsigned int);
@@ -300,10 +328,10 @@ static void	ft_diuf_print(const char *format, char *str, t_flag *flag, va_list *
 		else
 			ft_float_itoa(number, str, 6);
 		flag->index += ft_strlen(str) - 1;
-	}
+	}*/
 	//make sure to round up / down the number depending on len i have provided...
 }
-
+/*
 static void	ft_oxX_print(const char *format, char *str, t_flag *flag, va_list *arg)
 {
 	int	nbr;
@@ -339,18 +367,19 @@ static void	ft_oxX_print(const char *format, char *str, t_flag *flag, va_list *a
 	//if minus - problem with octal or doesn't return properly with the \0
 }
 */
+
 int	ft_convert_symbol(const char *format, t_flag *flag, va_list *arg)
 {
 	if (*format == 'c' || *format == 's' || *format == 'p')
 	{
 		ft_csp_print(format, flag, arg);
 		return (TRUE);
-	}/*
+	}
 	else if (*format == 'd' || *format == 'i' || *format == 'u' || *format == 'f')
 	{
 		ft_diuf_print(format, flag, arg);
 		return (TRUE);
-	}
+	}/*
 	else if (*format == 'o' || *format == 'x' || *format == 'X')
 	{
 		ft_oxX_print(format, flag, arg);
