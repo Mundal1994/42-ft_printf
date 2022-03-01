@@ -15,22 +15,49 @@
 
 static void	ft_space_zero_calc(t_flag *flag, int len)
 {
-	if (flag->plus == TRUE)
+	if ((flag->plus == TRUE || flag->space == TRUE) && flag->prec == -1)
 		len++;
 	if (flag->prec >= 0 && flag->prec > len)
 	{
 		while (len++ < flag->prec)
-		ft_putchar('0');
+			ft_putchar('0');
 	}
 	else if (flag->zero == TRUE && flag->prec == -1 && flag->minus == FALSE)
 	{
 		while (len++ < flag->width)
-		ft_putchar('0');
+			ft_putchar('0');
 	}
 	else
 	{
 		while (len++ < flag->width)
 			ft_putchar(' ');
+	}
+}
+
+static void	ft_plus_print(t_flag *flag)
+{
+	if (flag->width == -1 && flag->prec == -1)
+	{
+		if (flag->plus == TRUE)
+			ft_putchar('+');
+		else
+			ft_putchar(' ');
+		flag->len++;
+	}
+	else if (flag->prec == -1)
+	{
+		if (flag->plus == TRUE)
+			ft_putchar('+');
+		else
+			ft_putchar(' ');
+	}
+	else
+	{
+		if (flag->plus == TRUE)
+			ft_putchar('+');
+		else
+			ft_putchar(' ');
+		flag->len++;
 	}
 }
 
@@ -41,17 +68,10 @@ static void	ft_prec_calc(char *str, t_flag *flag, int c)
 	if (c)
 		str_len = 0;
 	str_len = ft_strlen(str);
-	if (flag->plus == TRUE && flag->prec != -1)
-		ft_putchar('+');
+	if (flag->plus == TRUE || (flag->space == TRUE && flag->minus == TRUE))
+		ft_plus_print(flag);
 	if (flag->prec == -1)
 	{
-		if (flag->plus == TRUE && flag->width == -1)
-		{
-			ft_putchar('+');
-			flag->len++;
-		}
-		else if (flag->plus == TRUE)
-			ft_putchar('+');
 		ft_putstr(str);
 		flag->len += str_len - 1;
 	}
@@ -76,6 +96,8 @@ static void	ft_d_flag_calc(const char *format, char *str, t_flag *flag, int c)
 	len = ft_strlen(str);
 	if (flag->prec != -1 && flag->prec > len)
 		len = flag->prec;
+	if (flag->space == TRUE && flag->minus == FALSE)
+		ft_plus_print(flag);
 	if (flag->width >= 0)
 	{
 		if (flag->width >= len && flag->prec == -1)

@@ -71,6 +71,8 @@ static int	ft_flag_check(const char *format, t_flag *flag, int on, int *pnt)
 	else
 		return (FALSE);
 	*pnt += 1;
+	if (flag->plus == TRUE)
+		flag->space = FALSE;
 	return (on);
 }
 
