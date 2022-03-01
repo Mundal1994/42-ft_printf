@@ -20,10 +20,14 @@ MAKELIB = make -C $(SL)libft/ fclean && make -C $(SL)libft/
 COMP1 = $(CL) $(CC) $(LIB) -o $(SL)ft_printf.o -c $(SL)ft_printf.c
 COMP2 = $(CL) $(CC) $(LIB) -o $(SL)flags.o -c $(SL)flags.c
 COMP3 = $(CL) $(CC) $(LIB) -o $(SL)specifier.o -c $(SL)specifier.c
+COMP4 = $(CL) $(CC) $(LIB) -o $(SL)char_calc.o -c $(SL)char_calc.c
+COMP5 = $(CL) $(CC) $(LIB) -o $(SL)int_calc.o -c $(SL)int_calc.c
 
 OBJ = $(SL)ft_printf.o
 OBJ += $(SL)flags.o
 OBJ += $(SL)specifier.o
+OBJ += $(SL)char_calc.o
+OBJ += $(SL)int_calc.o
 
 lib:
 	$(MAKELIB)
@@ -32,6 +36,8 @@ t1:
 	$(COMP1)
 	$(COMP2)
 	$(COMP3)
+	$(COMP4)
+	$(COMP5)
 	$(CL) $(CC) $(LIB) -o test1.o -c -x c test1.test
 	$(CL) -o t1.out test1.o $(OBJ) $(LIBFT)
 
@@ -39,6 +45,8 @@ t2:
 	$(COMP1)
 	$(COMP2)
 	$(COMP3)
+	$(COMP4)
+	$(COMP5)
 	$(CL) $(CC) $(LIB) -o test2.o -c -x c test2.test
 	$(CL) -o t2.out test2.o $(OBJ) $(LIBFT)
 
@@ -46,6 +54,8 @@ t3:
 	$(COMP1)
 	$(COMP2)
 	$(COMP3)
+	$(COMP4)
+	$(COMP5)
 	$(CL) $(CC) $(LIB) -o test3.o -c -x c test3.test
 	$(CL) -o t3.out test3.o $(OBJ) $(LIBFT)
 
@@ -60,6 +70,8 @@ t5:
 	$(COMP1)
 	$(COMP2)
 	$(COMP3)
+	$(COMP4)
+	$(COMP5)
 	$(CL) $(CC) $(LIB) -o test5.o -c -x c test5.test
 	$(CL) -o t5.out test5.o $(OBJ) $(LIBFT)
 
@@ -67,6 +79,8 @@ t6:
 	$(COMP1)
 	$(COMP2)
 	$(COMP3)
+	$(COMP4)
+	$(COMP5)
 	$(CL) $(CC) $(LIB) -o test6.o -c -x c test6.test
 	$(CL) -o t6.out test6.o $(OBJ) $(LIBFT)
 
@@ -74,6 +88,8 @@ b:
 	$(COMP1)
 	$(COMP2)
 	$(COMP3)
+	$(COMP4)
+	$(COMP5)
 	$(CL) $(CC) $(LIB) -o bonus.o -c -x c bonus.test
 	$(CL) -o b.out bonus.o $(OBJ) $(LIBFT)
 

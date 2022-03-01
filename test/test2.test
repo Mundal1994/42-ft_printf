@@ -286,7 +286,7 @@ static void	d(void)
 	printf("\nInput: [033]\n");
 	compare_results_d(number, 'd');
 
-	/* 0 */
+	/* 0 && WIDTH*/
 	printf(YELLOW"\nInput: [%%05d] number: [%d]\n"UNCOLOR, 5);
 	orig = printf("expect: [%05d]\n", 5);
 	mine = ft_printf("output: [%05d]\n", 5);
@@ -327,8 +327,31 @@ static void	d(void)
 	print_result(orig, mine);
 
 	/* WIDTH */
+	printf(YELLOW"\nInput: [%%100d] number: [%d]\n"UNCOLOR, 900999);
+	orig = printf("expect: [%100d]\n", 900999);
+	mine = ft_printf("output: [%100d]\n", 900999);
+	print_result(orig, mine);
 
 	/* PRECISION */
+	printf(YELLOW"\nInput: [%%.5d] number: [%d]\n"UNCOLOR, 900999);
+	orig = printf("expect: [%.5d]\n", 900999);
+	mine = ft_printf("output: [%.5d]\n", 900999);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%%.10d] number: [%d]\n"UNCOLOR, 900999);
+	orig = printf("expect: [%.10d]\n", 900999);
+	mine = ft_printf("output: [%.10d]\n", 900999);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%%10.5d] number: [%d]\n"UNCOLOR, 900999);
+	orig = printf("expect: [%10.5d]\n", 900999);
+	mine = ft_printf("output: [%10.5d]\n", 900999);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%%-10.5d] number: [%d]\n"UNCOLOR, 9009999);
+	orig = printf("expect: [%10.9d]\n", 9009999);
+	mine = ft_printf("output: [%-10.5d]\n", 9009999);
+	print_result(orig, mine);
 /*
 	// with flags hh
 	unsigned char	c = '5';
@@ -436,59 +459,62 @@ static void	i(void)
 	int	number = 5;
 
 	printf(PURPLE"\nDEMICAL INTEGER (DETECTS THE BASE AUTOMATICALLY) TEST\n"UNCOLOR);
-	printf("\nInput: [%i]\n", number);
+	printf(YELLOW"\nInput: [%i]\n"UNCOLOR, number);
 	compare_results_d(number, 'i');
 
 	number = 2147483647;
-	printf("\nInput: [%i]\n", number);
+	printf(YELLOW"\nInput: [%i]\n"UNCOLOR, number);
 	compare_results_d(number, 'i');
 
 	number = -2147483648;
-	printf("\nInput: [%i]\n", number);
+	printf(YELLOW"\nInput: [%i]\n"UNCOLOR, number);
 	compare_results_d(number, 'i');
 
 	number = -1234;
-	printf("\nInput: [%i]\n", number);
+	printf(YELLOW"\nInput: [%i]\n"UNCOLOR, number);
 	compare_results_d(number, 'i');
 
 	number = 1234;
-	printf("\nInput: [%i]\n", number);
+	printf(YELLOW"\nInput: [%i]\n"UNCOLOR, number);
 	compare_results_d(number, 'i');
 
 	number = -0;
-	printf("\nInput: [%i]\n", number);
+	printf(YELLOW"\nInput: [%i]\n"UNCOLOR, number);
 	compare_results_d(number, 'i');
 
 	// difference between %d and %i
 	printf(PURPLE"\ndifference between %%d and %%i TEST\n"UNCOLOR);
 	number = 012;
-	printf("\nInput: [012]\n");
+	printf(YELLOW"\nInput: [012]\n"UNCOLOR);
 	compare_results_d(number, 'i');
 
 	number = 033;
-	printf("\nInput: [033]\n");
+	printf(YELLOW"\nInput: [033]\n"UNCOLOR);
 	compare_results_d(number, 'i');
 
 	number = 0x12;
-	printf("\nInput: [0x12]\n");
+	printf(YELLOW"\nInput: [0x12]\n"UNCOLOR);
 	compare_results_d(number, 'i');
 
 	number = 2550;
+	printf(YELLOW"\nInput: 2550 with [%%d]\n"UNCOLOR);
 	printf("expect: [%d]\n", number);
 	ft_printf("output: [%d]\n", number);
 
 	number = 0x2550;
+	printf(YELLOW"\nInput: 0x2550 with [%%i]\n"UNCOLOR);
 	printf("expect: [%i]\n", number);
 	ft_printf("output: [%i]\n", number);
 
 	number = 021;
-	printf("\nInput: 021\n");
+	printf(YELLOW"\nInput: 021 with [%%d]\n"UNCOLOR);
 	printf("%%d expect: [%d]\n", number);
-	//ft_printf("%%d output: [%d]\n", number);
+	ft_printf("%%d output: [%d]\n", number);
 
 	number = 021;
+	printf(YELLOW"\nInput: 021 with [%%i]\n"UNCOLOR);
 	printf("%%i expect: [%i]\n", number);
-	//ft_printf("%%i output: [%i]\n", number);
+	ft_printf("%%i output: [%i]\n", number);
 /*
 	// with flags hh
 	unsigned char	c = '5';

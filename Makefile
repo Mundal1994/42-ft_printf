@@ -17,6 +17,8 @@ CC = gcc -Wall -Wextra -Werror -I ./libft
 SRC = ft_printf.c
 SRC += flags.c
 SRC += specifier.c
+SRC += char_calc.c
+SRC += int_calc.c
 
 OBJ = $(SRC:.c=.o)
 
