@@ -30,7 +30,7 @@ static void	ft_space_zero_calc(t_flag *flag, int len)
 	else
 	{
 		while (len++ < flag->width)
-		ft_putchar(' ');
+			ft_putchar(' ');
 	}
 }
 
@@ -69,17 +69,14 @@ static void	ft_prec_calc(char *str, t_flag *flag, int c)
 	}
 }
 
-static void	ft_c_flag_calc(const char *format, char *str, t_flag *flag, int c)
+static void	ft_d_flag_calc(const char *format, char *str, t_flag *flag, int c)
 {
 	int		len;
 
-	if (flag->prec == -1)
-		len = ft_strlen(str);
-	else
+	len = ft_strlen(str);
+	if (flag->prec != -1 && flag->prec > len)
 		len = flag->prec;
-	if (flag->prec >= 0 && flag->prec >= flag->width)
-		ft_prec_calc(str, flag, c);
-	else if (flag->width >= 0)
+	if (flag->width >= 0)
 	{
 		if (flag->width >= len && flag->prec == -1)
 			flag->len += flag->width - len;
@@ -230,7 +227,7 @@ void	ft_diuf_print(const char *format, t_flag *flag, va_list *arg)
 	{
 		nbr = va_arg(*arg, int);
 		str = ft_itoa_base(nbr, ft_int_len(nbr), 10);
-		ft_c_flag_calc(format, str, flag, 'd');
+		ft_d_flag_calc(format, str, flag, 'd');
 	}/*
 	else if (*format == 'u')
 	{

@@ -349,7 +349,7 @@ static void	d(void)
 	print_result(orig, mine);
 
 	printf(YELLOW"\nInput: [%%-10.5d] number: [%d]\n"UNCOLOR, 9009999);
-	orig = printf("expect: [%10.9d]\n", 9009999);
+	orig = printf("expect: [%-10.5d]\n", 9009999);
 	mine = ft_printf("output: [%-10.5d]\n", 9009999);
 	print_result(orig, mine);
 /*

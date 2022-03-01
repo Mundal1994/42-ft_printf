@@ -102,9 +102,7 @@ static void	ft_c_flag_calc(const char *format, char *str, t_flag *flag, int c)
 		else
 			len = flag->prec;
 	}
-	if (flag->prec >= 0 && flag->prec >= flag->width)
-		ft_prec_calc(str, flag, c, 0);
-	else if (flag->width >= 0)
+	if (flag->width >= 0)
 	{
 		if (flag->width >= len && flag->prec == -1)
 			flag->len += flag->width - len;
