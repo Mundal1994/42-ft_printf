@@ -237,7 +237,7 @@ static char	*ft_float_itoa(double number, int len)
 		ft_itoa_add_zeros((int)lnbr, &temp[i], 9);
 		ft_check_correct_end(temp, len);
 	}
-	str = ft_strnew(i + len);
+	str = ft_strnew(ft_strlen(temp));
 	ft_strncpy(str, temp, i + len);
 	return (str);
 }
@@ -295,12 +295,11 @@ void	ft_diuf_print(const char *format, t_flag *flag, va_list *arg)
 	else if (*format == 'f')
 	{
 		number = va_arg(*arg, double);
-		if (flag->prec != FALSE)
+		if (flag->prec != -1)
 			str = ft_float_itoa(number, flag->prec);
 		else
 			str = ft_float_itoa(number, 6);
-		ft_putstr(str);
-		//ft_d_flag_calc(format, str, flag, 'f');
+		ft_d_flag_calc(format, str, flag, 'f');
 	}
 	//make sure to round up / down the number depending on len i have provided...
 }
