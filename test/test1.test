@@ -126,7 +126,7 @@ static void	percentage_print(void)
 
 	printf("\n");
 	orig = printf("expect: [%%] [%%] [%%]");
-	putchar('\n');
+	ft_putchar('\n');
 	mine = ft_printf("output: [%%] [%%] [%%]");
 	ft_putchar('\n');
 	print_result(orig, mine);

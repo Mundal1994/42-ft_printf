@@ -14,84 +14,47 @@ SL = ../
 CL = clang
 CC = -g -Wall -Wextra -Werror
 LIB = -I $(SL)libft
-LIBFT = -I $(SL)libft -L $(SL)libft/ -lft
+LIBPRINT = $(SL)$(SL)ft_printf/libftprintf.a
 MAKELIB = make -C $(SL)libft/ fclean && make -C $(SL)libft/
-
-COMP1 = $(CL) $(CC) $(LIB) -o $(SL)ft_printf.o -c $(SL)ft_printf.c
-COMP2 = $(CL) $(CC) $(LIB) -o $(SL)flags.o -c $(SL)flags.c
-COMP3 = $(CL) $(CC) $(LIB) -o $(SL)specifier.o -c $(SL)specifier.c
-COMP4 = $(CL) $(CC) $(LIB) -o $(SL)char_calc.o -c $(SL)char_calc.c
-COMP5 = $(CL) $(CC) $(LIB) -o $(SL)int_calc.o -c $(SL)int_calc.c
-
-OBJ = $(SL)ft_printf.o
-OBJ += $(SL)flags.o
-OBJ += $(SL)specifier.o
-OBJ += $(SL)char_calc.o
-OBJ += $(SL)int_calc.o
+MAKEPRINT = make -C $(SL)$(SL)ft_printf/ fclean && make -C $(SL)$(SL)ft_printf/
 
 lib:
 	$(MAKELIB)
 
 t1:
-	$(COMP1)
-	$(COMP2)
-	$(COMP3)
-	$(COMP4)
-	$(COMP5)
+	$(MAKEPRINT)
 	$(CL) $(CC) $(LIB) -o test1.o -c -x c test1.test
-	$(CL) -o t1.out test1.o $(OBJ) $(LIBFT)
+	$(CL) -o t1.out test1.o $(LIBPRINT)
 
 t2:
-	$(COMP1)
-	$(COMP2)
-	$(COMP3)
-	$(COMP4)
-	$(COMP5)
+	$(MAKEPRINT)
 	$(CL) $(CC) $(LIB) -o test2.o -c -x c test2.test
-	$(CL) -o t2.out test2.o $(OBJ) $(LIBFT)
+	$(CL) -o t2.out test2.o $(LIBPRINT)
 
 t3:
-	$(COMP1)
-	$(COMP2)
-	$(COMP3)
-	$(COMP4)
-	$(COMP5)
+	$(MAKEPRINT)
 	$(CL) $(CC) $(LIB) -o test3.o -c -x c test3.test
-	$(CL) -o t3.out test3.o $(OBJ) $(LIBFT)
+	$(CL) -o t3.out test3.o $(LIBPRINT)
 
 t4:
-	$(COMP1)
-	$(COMP2)
-	$(COMP3)
+	$(MAKEPRINT)
 	$(CL) $(CC) $(LIB) -o test4.o -c -x c test4.test
-	$(CL) -o t4.out test4.o $(OBJ) $(LIBFT)
+	$(CL) -o t4.out test4.o $(LIBPRINT)
 
 t5:
-	$(COMP1)
-	$(COMP2)
-	$(COMP3)
-	$(COMP4)
-	$(COMP5)
+	$(MAKEPRINT)
 	$(CL) $(CC) $(LIB) -o test5.o -c -x c test5.test
-	$(CL) -o t5.out test5.o $(OBJ) $(LIBFT)
+	$(CL) -o t5.out test5.o $(LIBPRINT)
 
 t6:
-	$(COMP1)
-	$(COMP2)
-	$(COMP3)
-	$(COMP4)
-	$(COMP5)
+	$(MAKEPRINT)
 	$(CL) $(CC) $(LIB) -o test6.o -c -x c test6.test
-	$(CL) -o t6.out test6.o $(OBJ) $(LIBFT)
+	$(CL) -o t6.out test6.o $(LIBPRINT)
 
 b:
-	$(COMP1)
-	$(COMP2)
-	$(COMP3)
-	$(COMP4)
-	$(COMP5)
+	$(MAKEPRINT)
 	$(CL) $(CC) $(LIB) -o bonus.o -c -x c bonus.test
-	$(CL) -o b.out bonus.o $(OBJ) $(LIBFT)
+	$(CL) -o b.out bonus.o $(LIBPRINT)
 
 clean:
 	/bin/rm -f $(DEL)
