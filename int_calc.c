@@ -295,10 +295,14 @@ void	ft_diuf_print(const char *format, t_flag *flag, va_list *arg)
 	else if (*format == 'f')
 	{
 		number = va_arg(*arg, double);
+		ft_putnbr(number);
+		ft_putchar('\n');
 		if (flag->prec != -1)
 			str = ft_float_itoa(number, flag->prec);
 		else
 			str = ft_float_itoa(number, 6);
+		//ft_putstr(str);
+		//ft_putchar('\n');
 		ft_d_flag_calc(format, str, flag, 'f');
 	}
 	//make sure to round up / down the number depending on len i have provided...

@@ -38,7 +38,7 @@ static void	compare_results_f(float number)
 	int	orig;
 	int	mine;
 
-	printf("\nInput: [%f]\n", number);
+	printf(YELLOW"\nInput: [%f]\n"UNCOLOR, number);
 	orig = printf("expect: [%f]\n", number);
 	mine = ft_printf("output: [%f]\n", number);
 	print_result(orig, mine);
@@ -49,7 +49,7 @@ static void	compare_results_f_l(double number)
 	int	orig;
 	int	mine;
 
-	printf("Input: [%lf]\n", number);
+	printf(YELLOW"Input: [%lf]\n"UNCOLOR, number);
 	orig = printf("expect: [%lf]\n", number);
 	mine = ft_printf("output: [%lf]\n", number);
 	print_result(orig, mine);
@@ -67,6 +67,9 @@ static void	compare_results_f_L(long double number)
 
 static void	f(void)
 {
+	int orig;
+	int mine;
+
 	// FLOAT
 	float flo = 25.02;
 
@@ -98,6 +101,108 @@ static void	f(void)
 
 	flo = 0.9996;
 	compare_results_f(flo);
+
+	printf(PURPLE"\nFLAG TEST\n"UNCOLOR);
+
+	/* space */
+	printf(YELLOW"\nInput: [%% f] number: [%f]\n"UNCOLOR, 900999.10256);
+	orig = printf("expect: [% f]\n", 900999.10256);
+	mine = ft_printf("output: [% f]\n", 900999.10256);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%% 16f] number: [%f]\n"UNCOLOR, 900999.10256);
+	orig = printf("expect: [% 16f]\n", 900999.10256);
+	mine = ft_printf("output: [% 16f]\n", 900999.10256);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%% 016f] number: [%f]\n"UNCOLOR, 900999.10256);
+	orig = printf("expect: [% 016f]\n", 900999.10256);
+	mine = ft_printf("output: [% 016f]\n", 900999.10256);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%% +16f] number: [%f]\n"UNCOLOR, 900999.10256);
+	orig = printf("expect: [%+16f]\n", 900999.10256);
+	mine = ft_printf("output: [% +16f]\n", 900999.10256);
+	print_result(orig, mine);
+
+	/* - */
+	printf(YELLOW"\nInput: [%%-016f] number: [%f]\n"UNCOLOR, 900999.10256);
+	orig = printf("expect: [%-16f]\n", 900999.10256);
+	mine = ft_printf("output: [%-016f]\n", 900999.10256);
+	print_result(orig, mine);
+
+	/* + */
+	printf(YELLOW"\nInput: [%%+f] number: [%f]\n"UNCOLOR, 900999.10256);
+	orig = printf("expect: [%+f]\n", 900999.10256);
+	mine = ft_printf("output: [%+f]\n", 900999.10256);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%%+-016f] number: [%f]\n"UNCOLOR, 900999.10256);
+	orig = printf("expect: [%+-16f]\n", 900999.10256);
+	mine = ft_printf("output: [%+-016f]\n", 900999.10256);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%%+-16f] number: [%f]\n"UNCOLOR, 900999.10256);
+	orig = printf("expect: [%+-16f]\n", 900999.10256);
+	mine = ft_printf("output: [%+-16f]\n", 900999.10256);
+	print_result(orig, mine);
+
+	/* WIDTH */
+	printf(YELLOW"\nInput: [%%100f] number: [%f]\n"UNCOLOR, 900999.10256);
+	orig = printf("expect: [%100f]\n", 900999.10256);
+	mine = ft_printf("output: [%100f]\n", 900999.10256);
+	print_result(orig, mine);
+
+	/* PRECISION */
+	printf(YELLOW"\nInput: [%%.3f] number: [%f]\n"UNCOLOR, 900999.10256);
+	orig = printf("expect: [%.3f]\n", 900999.10256);
+	mine = ft_printf("output: [%.3f]\n", 900999.10256);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%%.16f] number: [%f]\n"UNCOLOR, 900999.10256);
+	orig = printf("expect: [%.16f]\n", 900999.10256);
+	mine = ft_printf("output: [%.16f]\n", 900999.10256);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%%.60f] number: [%.16f]\n"UNCOLOR, 0.1234567890123456);
+	orig = printf("expect: [%.60f]\n", 0.1234567890123456);
+	mine = ft_printf("output: [%.60f]\n", 0.1234567890123456);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%%10.3f] number: [%f]\n"UNCOLOR, 900999.10256);
+	orig = printf("expect: [%10.3f]\n", 900999.10256);
+	mine = ft_printf("output: [%10.3f]\n", 900999.10256);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%%-10.5f] number: [%f]\n"UNCOLOR, 900999.102569);
+	orig = printf("expect: [%-10.5f]\n", 900999.102569);
+	mine = ft_printf("output: [%-10.5f]\n", 900999.102569);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%%-10.0f] number: [%f]\n"UNCOLOR, 900999.102569);
+	orig = printf("expect: [%-10.0f]\n", 900999.102569);
+	mine = ft_printf("output: [%-10.0f]\n", 900999.102569);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%%+-10.15f] number: [%f]\n"UNCOLOR, 900999.102569);
+	orig = printf("expect: [%+-10.15f]\n", 900999.102569);
+	mine = ft_printf("output: [%+-10.15f]\n", 900999.102569);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%%+-10f] number: [%f]\n"UNCOLOR, 900999.102569);
+	orig = printf("expect: [%+-10f]\n", 900999.102569);
+	mine = ft_printf("output: [%+-10f]\n", 900999.102569);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%%+-15f] number: [%f]\n"UNCOLOR, 900999.102569);
+	orig = printf("expect: [%+-15f]\n", 900999.102569);
+	mine = ft_printf("output: [%+-15f]\n", 900999.102569);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%%+-.15f] number: [%f]\n"UNCOLOR, 900999.102569);
+	orig = printf("expect: [%+-.15f]\n", 900999.102569);
+	mine = ft_printf("output: [%+-.15f]\n", 900999.102569);
+	print_result(orig, mine);
 	/*
 	printf(PURPLE"\nl TEST\n"UNCOLOR);
 	printf("l modifier: ignored does same as without it. takes in double\n");
