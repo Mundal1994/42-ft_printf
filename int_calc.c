@@ -189,7 +189,7 @@ static void	ft_check_correct_end(char *str, int len)
 	}
 }
 
-static void	ft_itoa_add_zeros(int nbr, char *str, int len)
+static void	ft_itoa_add_zeros(long nbr, char *str, int len)
 {
 	int	i;
 	int	neg;
@@ -219,12 +219,12 @@ static void	ft_itoa_add_zeros(int nbr, char *str, int len)
 static char	*ft_float_itoa(double number, int len)
 {
 	long double	lnbr;
-	int			nbr;
+	long		nbr;
 	int			i;
 	char		temp[100];
 	char		*str;
 
-	nbr = (int)number;
+	nbr = (long)number;
 	lnbr = number - (long double)nbr;
 	ft_itoa_add_zeros(nbr, temp, 0);
 	i = ft_strlen(temp);
@@ -234,14 +234,53 @@ static char	*ft_float_itoa(double number, int len)
 			lnbr *= -1;
 		temp[i++] = '.';
 		lnbr = lnbr * ft_pow(10, 9);
-		ft_itoa_add_zeros((int)lnbr, &temp[i], 9);
+		ft_itoa_add_zeros(lnbr, &temp[i], 9);
 		ft_check_correct_end(temp, len);
 	}
 	str = ft_strnew(ft_strlen(temp));
 	ft_strncpy(str, temp, i + len);
 	return (str);
 }
+/*
+static uintmax_t	ft_countdec(long double nbr, long double base_len)
+{
+	long double		f;
+	uintmax_t	ret;
+	int			i;
 
+	f = nbr;
+	i = 0;
+	ret = 0;
+	while ((nbr - ret) != 0)
+	{
+		nbr *= base_len;
+		ret = (uintmax_t)nbr;
+		i++;
+		ft_putnbr(ret);
+	ft_putchar('\n');
+	ft_putnbr(nbr);
+	ft_putchar('\n');
+	}
+	return (ret);
+}
+
+static char	*ft_dtoa(long double nbr)
+{
+	uintmax_t	nbr_first;
+	uintmax_t	nbr_second;
+	char		*ret;
+
+	nbr_first = (uintmax_t)nbr;
+	ft_putnbr(nbr_first);
+	ft_putchar('\n');
+	nbr_second = ft_countdec((nbr - nbr_first), 10);
+	ft_putnbr(nbr_second);
+	ft_putchar('\n');
+	ret = ft_strjoin(ft_itoa_base(nbr_first, ft_int_len(nbr_first), 10), ".");
+	ret = ft_strjoin(ret, ft_itoa_base(nbr_second, ft_int_len(nbr_second), 10));
+	return (ret);
+}
+*/
 static char	*ft_utoa(unsigned int nbr)
 {
 	char			*result;
@@ -271,7 +310,7 @@ void	ft_diuf_print(const char *format, t_flag *flag, va_list *arg)
 {
 	int	nbr;
 	unsigned int	var;
-	double	number;
+	long double	number;
 	char	*str;
 
 	str = NULL;
@@ -295,12 +334,15 @@ void	ft_diuf_print(const char *format, t_flag *flag, va_list *arg)
 	else if (*format == 'f')
 	{
 		number = va_arg(*arg, double);
-		ft_putnbr(number);
-		ft_putchar('\n');
+	
+		//printf("\npintf: %.11Lf\n", number);
+		//ft_putstr("\n\n");
 		if (flag->prec != -1)
 			str = ft_float_itoa(number, flag->prec);
 		else
-			str = ft_float_itoa(number, 6);
+			str = ft_float_itoa(number, 11);
+			//str = ft_dtoa(number);//ft_float_itoa(number, 6);
+		//ft_putstr("str: ");
 		//ft_putstr(str);
 		//ft_putchar('\n');
 		ft_d_flag_calc(format, str, flag, 'f');
