@@ -824,6 +824,11 @@ static void	X(void)
 	mine = ft_printf("output: [%#X]\n", 0);
 	print_result(orig, mine);
 
+	printf(YELLOW"\nInput: [%%#X] number: [%X]\n"UNCOLOR, 000);
+	orig = printf("expect: [%#X]\n", 000);
+	mine = ft_printf("output: [%#X]\n", 000);
+	print_result(orig, mine);
+
 	printf(YELLOW"\nInput: [%%#X] number: [%X]\n"UNCOLOR, 999);
 	orig = printf("expect: [%#X]\n", 999);
 	mine = ft_printf("output: [%#X]\n", 999);
