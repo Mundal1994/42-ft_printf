@@ -34,12 +34,12 @@ int	ft_convert_symbol(const char *format, t_flag *flag, va_list *arg)
 	{
 		ft_diuf_print(format, flag, arg);
 		return (TRUE);
-	}/*
+	}
 	else if (*format == 'o' || *format == 'x' || *format == 'X')
 	{
 		ft_oxX_print(format, flag, arg);
 		return (TRUE);
-	}*/
+	}
 	return (FALSE);
 }
 

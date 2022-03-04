@@ -184,10 +184,14 @@ static void	compare_results_d_ll(long long number, char c)
 	}
 }
 */
-/*
+
 static void	o(void)
 {
+	int orig;
+	int mine;
+
 	// OCTAL (base 8) integer
+
 	int	number = 150;
 	printf(YELLOW"\nInput: [%d]\n"UNCOLOR, number);
 	compare_results_d(number, 'o');
@@ -218,7 +222,123 @@ static void	o(void)
 
 	number = 10;
 	printf(YELLOW"\nInput: [%d]\n"UNCOLOR, number);
-	compare_results_d(number, 'o');*/
+	compare_results_d(number, 'o');
+
+	/* space */
+	printf(YELLOW"\nInput: [%% o] number: [%o] UNDEFINED BEHAVIOUR\n"UNCOLOR, 900999);
+	orig = printf("expect: [%o]\n", 900999);
+	mine = ft_printf("output: [% o]\n", 900999);
+	print_result(orig, mine);
+
+	/* - */
+	printf(YELLOW"\nInput: [%%-010o] number: [%o]\n"UNCOLOR, 900999);
+	orig = printf("expect: [%-10o]\n", 900999);
+	mine = ft_printf("output: [%-010o]\n", 900999);
+	print_result(orig, mine);
+
+	/* + */
+	printf(YELLOW"\nInput: [%%+o] number: [%o] UNDEFINED BEHAVIOUR\n"UNCOLOR, 900999);
+	orig = printf("expect: [%o]\n", 900999);
+	mine = ft_printf("output: [%+o]\n", 900999);
+	print_result(orig, mine);
+
+	/* WIDTH */
+	printf(YELLOW"\nInput: [%%100o] number: [%o]\n"UNCOLOR, 900999);
+	orig = printf("expect: [%100o]\n", 900999);
+	mine = ft_printf("output: [%100o]\n", 900999);
+	print_result(orig, mine);
+
+	/* PRECISION */
+	printf(YELLOW"\nInput: [%%.5o] number: [%o]\n"UNCOLOR, 900999);
+	orig = printf("expect: [%.5o]\n", 900999);
+	mine = ft_printf("output: [%.5o]\n", 900999);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%%.10o] number: [%o]\n"UNCOLOR, 900999);
+	orig = printf("expect: [%.10o]\n", 900999);
+	mine = ft_printf("output: [%.10o]\n", 900999);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%%10.5o] number: [%o]\n"UNCOLOR, 900999);
+	orig = printf("expect: [%10.5o]\n", 900999);
+	mine = ft_printf("output: [%10.5o]\n", 900999);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%%-10.5o] number: [%o]\n"UNCOLOR, 9009999);
+	orig = printf("expect: [%-10.5o]\n", 9009999);
+	mine = ft_printf("output: [%-10.5o]\n", 9009999);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%%-10.0o] number: [%o]\n"UNCOLOR, 9009999);
+	orig = printf("expect: [%-10.0o]\n", 9009999);
+	mine = ft_printf("output: [%-10.0o]\n", 9009999);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%%-10.15o] number: [%o]\n"UNCOLOR, 9009999);
+	orig = printf("expect: [%-10.15o]\n", 9009999);
+	mine = ft_printf("output: [%-10.15o]\n", 9009999);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%%-10o] number: [%o]\n"UNCOLOR, 9009999);
+	orig = printf("expect: [%-10o]\n", 9009999);
+	mine = ft_printf("output: [%-10o]\n", 9009999);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%%-.15o] number: [%o]\n"UNCOLOR, 9009999);
+	orig = printf("expect: [%-.15o]\n", 9009999);
+	mine = ft_printf("output: [%-.15o]\n", 9009999);
+	print_result(orig, mine);
+
+	/* # */
+	printf(YELLOW"\nInput: [%%#o] number: [%o]\n"UNCOLOR, 0);
+	orig = printf("expect: [%#o]\n", 0);
+	mine = ft_printf("output: [%#o]\n", 0);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%%#o] number: [%o]\n"UNCOLOR, 999);
+	orig = printf("expect: [%#o]\n", 999);
+	mine = ft_printf("output: [%#o]\n", 999);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%%#o] number: [%o]\n"UNCOLOR, 900999);
+	orig = printf("expect: [%#o]\n", 900999);
+	mine = ft_printf("output: [%#o]\n", 900999);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%%#.10o] number: [%o]\n"UNCOLOR, 900999);
+	orig = printf("expect: [%#.10o]\n", 900999);
+	mine = ft_printf("output: [%#.10o]\n", 900999);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%%#10.5o] number: [%o]\n"UNCOLOR, 900999);
+	orig = printf("expect: [%#10.5o]\n", 900999);
+	mine = ft_printf("output: [%#10.5o]\n", 900999);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%%#5.10o] number: [%o]\n"UNCOLOR, 900999);
+	orig = printf("expect: [%#5.10o]\n", 900999);
+	mine = ft_printf("output: [%#5.10o]\n", 900999);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%%#-10.5o] number: [%o]\n"UNCOLOR, 9009999);
+	orig = printf("expect: [%#-10.5o]\n", 9009999);
+	mine = ft_printf("output: [%#-10.5o]\n", 9009999);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%%#-8.8o] number: [%o]\n"UNCOLOR, 9009999);
+	orig = printf("expect: [%#-8.8o]\n", 9009999);
+	mine = ft_printf("output: [%#-8.8o]\n", 9009999);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%%#-9.9o] number: [%o]\n"UNCOLOR, 9009999);
+	orig = printf("expect: [%#-9.9o]\n", 9009999);
+	mine = ft_printf("output: [%#-9.9o]\n", 9009999);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%%#-7.7o] number: [%o]\n"UNCOLOR, 9009999);
+	orig = printf("expect: [%#-7.7o]\n", 9009999);
+	mine = ft_printf("output: [%#-7.7o]\n", 9009999);
+	print_result(orig, mine);
 /*
 	// with flags hh
 	unsigned char	c = '5';
@@ -312,10 +432,13 @@ static void	o(void)
 	longlong = 1234;
 	printf("\nInput: [%llu]\n", longlong);
 	compare_results_d_ll(longlong, 'o');*/
-//}
-/*
+}
+
 static void	x(void)
 {
+	int orig;
+	int mine;
+
 	// HEXADECIMAL (base 16) INTEGER (small characters)
 	int	number = 0x5;
 	printf("\nInput: [%x]\n", number);
@@ -363,7 +486,124 @@ static void	x(void)
 
 	number = -10;
 	printf("\nInput (neg): [%d]\n", number);
-	compare_results_d(number, 'x');*/
+	compare_results_d(number, 'x');
+
+	/* space */
+	printf(YELLOW"\nInput: [%% x] number: [%x] UNDEFINED BEHAVIOUR\n"UNCOLOR, 900999);
+	orig = printf("expect: [%x]\n", 900999);
+	mine = ft_printf("output: [% x]\n", 900999);
+	print_result(orig, mine);
+
+	/* - */
+	printf(YELLOW"\nInput: [%%-010x] number: [%x]\n"UNCOLOR, 900999);
+	orig = printf("expect: [%-10x]\n", 900999);
+	mine = ft_printf("output: [%-010x]\n", 900999);
+	print_result(orig, mine);
+
+	/* + */
+	printf(YELLOW"\nInput: [%%+x] number: [%x] UNDEFINED BEHAVIOUR\n"UNCOLOR, 900999);
+	orig = printf("expect: [%x]\n", 900999);
+	mine = ft_printf("output: [%+x]\n", 900999);
+	print_result(orig, mine);
+
+	/* WIDTH */
+	printf(YELLOW"\nInput: [%%100x] number: [%x]\n"UNCOLOR, 900999);
+	orig = printf("expect: [%100x]\n", 900999);
+	mine = ft_printf("output: [%100x]\n", 900999);
+	print_result(orig, mine);
+
+	/* PRECISION */
+	printf(YELLOW"\nInput: [%%.5x] number: [%x]\n"UNCOLOR, 900999);
+	orig = printf("expect: [%.5x]\n", 900999);
+	mine = ft_printf("output: [%.5x]\n", 900999);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%%.10x] number: [%x]\n"UNCOLOR, 900999);
+	orig = printf("expect: [%.10x]\n", 900999);
+	mine = ft_printf("output: [%.10x]\n", 900999);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%%10.5x] number: [%x]\n"UNCOLOR, 900999);
+	orig = printf("expect: [%10.5x]\n", 900999);
+	mine = ft_printf("output: [%10.5x]\n", 900999);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%%-10.5x] number: [%x]\n"UNCOLOR, 9009999);
+	orig = printf("expect: [%-10.5x]\n", 9009999);
+	mine = ft_printf("output: [%-10.5x]\n", 9009999);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%%-10.0x] number: [%x]\n"UNCOLOR, 9009999);
+	orig = printf("expect: [%-10.0x]\n", 9009999);
+	mine = ft_printf("output: [%-10.0x]\n", 9009999);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%%-10.15x] number: [%x]\n"UNCOLOR, 9009999);
+	orig = printf("expect: [%-10.15x]\n", 9009999);
+	mine = ft_printf("output: [%-10.15x]\n", 9009999);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%%-10x] number: [%x]\n"UNCOLOR, 9009999);
+	orig = printf("expect: [%-10x]\n", 9009999);
+	mine = ft_printf("output: [%-10x]\n", 9009999);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%%-.15x] number: [%x]\n"UNCOLOR, 9009999);
+	orig = printf("expect: [%-.15x]\n", 9009999);
+	mine = ft_printf("output: [%-.15x]\n", 9009999);
+	print_result(orig, mine);
+
+	/* # */
+	printf(YELLOW"\nInput: [%%#x] number: [%x]\n"UNCOLOR, 0);
+	orig = printf("expect: [%#x]\n", 0);
+	mine = ft_printf("output: [%#x]\n", 0);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%%#x] number: [%x]\n"UNCOLOR, 999);
+	orig = printf("expect: [%#x]\n", 999);
+	mine = ft_printf("output: [%#x]\n", 999);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%%#x] number: [%x]\n"UNCOLOR, 900999);
+	orig = printf("expect: [%#x]\n", 900999);
+	mine = ft_printf("output: [%#x]\n", 900999);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%%#.10x] number: [%x]\n"UNCOLOR, 900999);
+	orig = printf("expect: [%#.10x]\n", 900999);
+	mine = ft_printf("output: [%#.10x]\n", 900999);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%%#10.5x] number: [%x]\n"UNCOLOR, 900999);
+	orig = printf("expect: [%#10.5x]\n", 900999);
+	mine = ft_printf("output: [%#10.5x]\n", 900999);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%%#5.10x] number: [%x]\n"UNCOLOR, 900999);
+	orig = printf("expect: [%#5.10x]\n", 900999);
+	mine = ft_printf("output: [%#5.10x]\n", 900999);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%%#-10.5x] number: [%x]\n"UNCOLOR, 9009999);
+	orig = printf("expect: [%#-10.5x]\n", 9009999);
+	mine = ft_printf("output: [%#-10.5x]\n", 9009999);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%%#-8.8x] number: [%x]\n"UNCOLOR, 9009999);
+	orig = printf("expect: [%#-8.8x]\n", 9009999);
+	mine = ft_printf("output: [%#-8.8x]\n", 9009999);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%%#-9.9x] number: [%x]\n"UNCOLOR, 9009999);
+	orig = printf("expect: [%#-9.9x]\n", 9009999);
+	mine = ft_printf("output: [%#-9.9x]\n", 9009999);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%%#-7.7x] number: [%x]\n"UNCOLOR, 9009999);
+	orig = printf("expect: [%#-7.7x]\n", 9009999);
+	mine = ft_printf("output: [%#-7.7x]\n", 9009999);
+	print_result(orig, mine);
+
 /*
 	// with flags hh
 	unsigned char	c = '5';
@@ -457,10 +697,13 @@ static void	x(void)
 	longlong = 1234;
 	printf("\nInput: [%llu]\n", longlong);
 	compare_results_d_ll(longlong, 'x');*/
-//}
-/*
+}
+
 static void	X(void)
 {
+	int orig;
+	int mine;
+
 	// HEXADECIMAL (base 16) INTEGER (big characters)
 	int	number = 0x5;
 	printf("\nInput: [%x]\n", number);
@@ -508,7 +751,123 @@ static void	X(void)
 
 	number = -10;
 	printf("\nInput (neg): [%d]\n", number);
-	compare_results_d(number, 'X');*/
+	compare_results_d(number, 'X');
+
+	/* space */
+	printf(YELLOW"\nInput: [%% X] number: [%X] UNDEFINED BEHAVIOUR\n"UNCOLOR, 900999);
+	orig = printf("expect: [%X]\n", 900999);
+	mine = ft_printf("output: [% X]\n", 900999);
+	print_result(orig, mine);
+
+	/* - */
+	printf(YELLOW"\nInput: [%%-010X] number: [%X]\n"UNCOLOR, 900999);
+	orig = printf("expect: [%-10X]\n", 900999);
+	mine = ft_printf("output: [%-010X]\n", 900999);
+	print_result(orig, mine);
+
+	/* + */
+	printf(YELLOW"\nInput: [%%+X] number: [%X] UNDEFINED BEHAVIOUR\n"UNCOLOR, 900999);
+	orig = printf("expect: [%X]\n", 900999);
+	mine = ft_printf("output: [%+X]\n", 900999);
+	print_result(orig, mine);
+
+	/* WIDTH */
+	printf(YELLOW"\nInput: [%%100X] number: [%X]\n"UNCOLOR, 900999);
+	orig = printf("expect: [%100X]\n", 900999);
+	mine = ft_printf("output: [%100X]\n", 900999);
+	print_result(orig, mine);
+
+	/* PRECISION */
+	printf(YELLOW"\nInput: [%%.5X] number: [%X]\n"UNCOLOR, 900999);
+	orig = printf("expect: [%.5X]\n", 900999);
+	mine = ft_printf("output: [%.5X]\n", 900999);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%%.10X] number: [%X]\n"UNCOLOR, 900999);
+	orig = printf("expect: [%.10X]\n", 900999);
+	mine = ft_printf("output: [%.10X]\n", 900999);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%%10.5X] number: [%X]\n"UNCOLOR, 900999);
+	orig = printf("expect: [%10.5X]\n", 900999);
+	mine = ft_printf("output: [%10.5X]\n", 900999);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%%-10.5X] number: [%X]\n"UNCOLOR, 9009999);
+	orig = printf("expect: [%-10.5X]\n", 9009999);
+	mine = ft_printf("output: [%-10.5X]\n", 9009999);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%%-10.0X] number: [%X]\n"UNCOLOR, 9009999);
+	orig = printf("expect: [%-10.0X]\n", 9009999);
+	mine = ft_printf("output: [%-10.0X]\n", 9009999);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%%-10.15X] number: [%X]\n"UNCOLOR, 9009999);
+	orig = printf("expect: [%-10.15X]\n", 9009999);
+	mine = ft_printf("output: [%-10.15X]\n", 9009999);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%%-10X] number: [%X]\n"UNCOLOR, 9009999);
+	orig = printf("expect: [%-10X]\n", 9009999);
+	mine = ft_printf("output: [%-10X]\n", 9009999);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%%-.15X] number: [%X]\n"UNCOLOR, 9009999);
+	orig = printf("expect: [%-.15X]\n", 9009999);
+	mine = ft_printf("output: [%-.15X]\n", 9009999);
+	print_result(orig, mine);
+
+	/* # */
+	printf(YELLOW"\nInput: [%%#X] number: [%X]\n"UNCOLOR, 0);
+	orig = printf("expect: [%#X]\n", 0);
+	mine = ft_printf("output: [%#X]\n", 0);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%%#X] number: [%X]\n"UNCOLOR, 999);
+	orig = printf("expect: [%#X]\n", 999);
+	mine = ft_printf("output: [%#X]\n", 999);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%%#X] number: [%X]\n"UNCOLOR, 900999);
+	orig = printf("expect: [%#X]\n", 900999);
+	mine = ft_printf("output: [%#X]\n", 900999);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%%#.10X] number: [%X]\n"UNCOLOR, 900999);
+	orig = printf("expect: [%#.10X]\n", 900999);
+	mine = ft_printf("output: [%#.10X]\n", 900999);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%%#10.5X] number: [%X]\n"UNCOLOR, 900999);
+	orig = printf("expect: [%#10.5X]\n", 900999);
+	mine = ft_printf("output: [%#10.5X]\n", 900999);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%%#5.10X] number: [%X]\n"UNCOLOR, 900999);
+	orig = printf("expect: [%#5.10X]\n", 900999);
+	mine = ft_printf("output: [%#5.10X]\n", 900999);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%%#-10.5X] number: [%X]\n"UNCOLOR, 9009999);
+	orig = printf("expect: [%#-10.5X]\n", 9009999);
+	mine = ft_printf("output: [%#-10.5X]\n", 9009999);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%%#-8.8X] number: [%X]\n"UNCOLOR, 9009999);
+	orig = printf("expect: [%#-8.8X]\n", 9009999);
+	mine = ft_printf("output: [%#-8.8X]\n", 9009999);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%%#-9.9X] number: [%X]\n"UNCOLOR, 9009999);
+	orig = printf("expect: [%#-9.9X]\n", 9009999);
+	mine = ft_printf("output: [%#-9.9X]\n", 9009999);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%%#-7.7X] number: [%X]\n"UNCOLOR, 9009999);
+	orig = printf("expect: [%#-7.7X]\n", 9009999);
+	mine = ft_printf("output: [%#-7.7X]\n", 9009999);
+	print_result(orig, mine);
 /*
 	// with flags hh
 	unsigned char	c = '5';
@@ -602,21 +961,20 @@ static void	X(void)
 	longlong = 1234;
 	printf("\nInput: [%llu]\n", longlong);
 	compare_results_d_ll(longlong, 'X');*/
-//}
+}
 
 int main(void)
 {
-/*
+
 	printf(PURPLE"\n-------\n\n"UNCOLOR);
 	printf(PURPLE"octal (base 8) integer test\n"UNCOLOR);
 	o();
-*/
-/*
+
 	printf(PURPLE"\n-------\n\n"UNCOLOR);
 	printf(PURPLE"hexadecimal (base 16) integer (small char) test\n"UNCOLOR);
 	x();
 
 	printf(PURPLE"\n-------\n\n"UNCOLOR);
 	printf(PURPLE"hexadecimal (base 16) integer (big char) test\n"UNCOLOR);
-	X();*/
+	X();
 }

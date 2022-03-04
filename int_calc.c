@@ -38,29 +38,16 @@ static void	ft_plus_print(t_flag *flag, int c)
 {
 	if (c != 'u')
 	{
-		if (flag->width == -1 && flag->prec == -1)
-		{
-			if (flag->plus == TRUE)
-				ft_putchar('+');
-			else
-				ft_putchar(' ');
-			flag->len++;
-		}
-		else if (flag->prec == -1)
-		{
-			if (flag->plus == TRUE)
-				ft_putchar('+');
-			else
-				ft_putchar(' ');
-		}
+		if (flag->plus == TRUE)
+			ft_putchar('+');
 		else
-		{
-			if (flag->plus == TRUE)
-				ft_putchar('+');
-			else
-				ft_putchar(' ');
+			ft_putchar(' ');
+		if (flag->width == -1 && flag->prec == -1)
 			flag->len++;
-		}
+		else if (flag->prec == -1)
+			return ;
+		else
+			flag->len++;
 	}
 }
 
@@ -308,7 +295,7 @@ static char	*ft_utoa(unsigned int nbr)
 
 void	ft_diuf_print(const char *format, t_flag *flag, va_list *arg)
 {
-	int	nbr;
+	long	nbr;
 	unsigned int	var;
 	long double	number;
 	char	*str;
@@ -316,9 +303,11 @@ void	ft_diuf_print(const char *format, t_flag *flag, va_list *arg)
 	str = NULL;
 	if (*format == 'd' || *format == 'i')
 	{
-		nbr = va_arg(*arg, int);
+		nbr = va_arg(*arg, long);
+		ft_putnbr(nbr);
+		/*
 		str = ft_itoa_base(nbr, ft_int_len(nbr), 10);
-		ft_d_flag_calc(format, str, flag, 'd');
+		ft_d_flag_calc(format, str, flag, 'd');*/
 	}
 	else if (*format == 'u')
 	{
@@ -349,40 +338,3 @@ void	ft_diuf_print(const char *format, t_flag *flag, va_list *arg)
 	}
 	//make sure to round up / down the number depending on len i have provided...
 }
-/*
-void	ft_oxX_print(const char *format, t_flag *flag, va_list *arg)
-{
-	int	nbr;
-	char	*str;
-
-	nbr = va_arg(*arg, int);
-	if (*format == 'o' && flag->flags == FALSE)
-	{
-		str = ft_itoa_base(nbr, ft_int_len(nbr), 8);
-		ft_c_flag_calc(format, str, flag, 'd');
-		//flag->index += ft_strlen(str) - 1;
-	}
-	else if (*format == 'x' && flag->flags == FALSE)
-	{
-		ft_itoa_base(nbr, str, 16);
-		flag->index += ft_strlen(str) - 1;
-		while (*str)
-		{
-			if (*str >= 'A' && *str <= 'Z')
-				*str = ft_tolower(*str);
-			str++;
-		}
-	}
-	else if (*format == 'X' && flag->flags == FALSE)
-	{
-		ft_itoa_base(nbr, str, 16);
-		flag->index += ft_strlen(str) - 1;
-		while (*str)
-		{
-			if (*str >= 'a' && *str <= 'z')
-				*str = ft_toupper(*str);
-			str++;
-		}
-	}*/
-	//if minus - problem with octal or doesn't return properly with the \0
-//}

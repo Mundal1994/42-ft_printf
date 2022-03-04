@@ -29,6 +29,7 @@ void	ft_convert_checker(const char *format, t_flag *flag, va_list *arg);
 int		ft_convert_symbol(const char *format, t_flag *flag, va_list *arg);
 void	ft_csp_print(const char *format, t_flag *flag, va_list *arg);
 void	ft_diuf_print(const char *format, t_flag *flag, va_list *arg);
+void	ft_oxX_print(const char *format, t_flag *flag, va_list *arg);
 void	ft_i_reset(const char *format, t_flag *flag);
 
 #endif
