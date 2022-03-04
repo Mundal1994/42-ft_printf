@@ -55,9 +55,9 @@ static void	ft_prec_calc(char *str, t_flag *flag, int c)
 {
 	int	str_len;
 
-	if (c)
-		str_len = 0;
 	str_len = ft_strlen(str);
+	if (str[0] == '0' && flag->prec != -1)
+		str_len = 0;
 	if (flag->plus == TRUE || (flag->space == TRUE && flag->minus == TRUE))
 		ft_plus_print(flag, c);
 	if (flag->prec == -1)
@@ -67,10 +67,13 @@ static void	ft_prec_calc(char *str, t_flag *flag, int c)
 	}
 	else
 	{
-		if (flag->prec > str_len && str[0] != '0')
+		if (flag->prec > str_len)
 			ft_space_zero_calc(flag, str_len, c);
-		ft_putstr(str);
-		if (flag->width >= 0 && flag->prec < flag->width)
+		if (str_len == 0)
+			ft_putchar(' ');
+		else
+			ft_putstr(str);
+		if (flag->width >= 0 && flag->prec < flag->width && flag->width > str_len)
 			flag->len += flag->width - 1;
 		else if (flag->prec <= str_len)
 			flag->len += str_len - 1;
@@ -304,10 +307,8 @@ void	ft_diuf_print(const char *format, t_flag *flag, va_list *arg)
 	if (*format == 'd' || *format == 'i')
 	{
 		nbr = va_arg(*arg, long);
-		ft_putnbr(nbr);
-		/*
 		str = ft_itoa_base(nbr, ft_int_len(nbr), 10);
-		ft_d_flag_calc(format, str, flag, 'd');*/
+		ft_d_flag_calc(format, str, flag, 'd');
 	}
 	else if (*format == 'u')
 	{
@@ -323,17 +324,11 @@ void	ft_diuf_print(const char *format, t_flag *flag, va_list *arg)
 	else if (*format == 'f')
 	{
 		number = va_arg(*arg, double);
-	
-		//printf("\npintf: %.11Lf\n", number);
-		//ft_putstr("\n\n");
 		if (flag->prec != -1)
 			str = ft_float_itoa(number, flag->prec);
 		else
 			str = ft_float_itoa(number, 11);
 			//str = ft_dtoa(number);//ft_float_itoa(number, 6);
-		//ft_putstr("str: ");
-		//ft_putstr(str);
-		//ft_putchar('\n');
 		ft_d_flag_calc(format, str, flag, 'f');
 	}
 	//make sure to round up / down the number depending on len i have provided...

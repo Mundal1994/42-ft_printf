@@ -212,6 +212,11 @@ static void	d(void)
 	mine = ft_printf("output: [%010d]\n", 900999);
 	print_result(orig, mine);
 
+	printf(YELLOW"\nInput: [%%05.d] number: [%u]\n"UNCOLOR, 0);
+	orig = printf("expect: [%05.d]\n", 0);
+	mine = ft_printf("output: [%05.d]\n", 0);
+	print_result(orig, mine);
+
 	/* space */
 	printf(YELLOW"\nInput: [%% d] number: [%d]\n"UNCOLOR, 900999);
 	orig = printf("expect: [% d]\n", 900999);
@@ -615,6 +620,11 @@ static void	u(void)
 	mine = ft_printf("output: [%05.u]\n", 0);
 	print_result(orig, mine);
 
+	printf(YELLOW"\nInput: [%%05.u] number: [%u]\n"UNCOLOR, 1);
+	orig = printf("expect: [%05.u]\n", 1);
+	mine = ft_printf("output: [%05.u]\n", 1);
+	print_result(orig, mine);
+
 	/* space */
 	printf(YELLOW"\nInput: [%% u] number: [%u] UNDEFINED BEHAVIOUR\n"UNCOLOR, 900999);
 	orig = printf("expect: [%u]\n", 900999);
@@ -662,6 +672,11 @@ static void	u(void)
 	printf(YELLOW"\nInput: [%%-10.0u] number: [%u]\n"UNCOLOR, 9009999);
 	orig = printf("expect: [%-10.0u]\n", 9009999);
 	mine = ft_printf("output: [%-10.0u]\n", 9009999);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%%-1.10u] number: [%u]\n"UNCOLOR, 9009999);
+	orig = printf("expect: [%-1.10u]\n", 9009999);
+	mine = ft_printf("output: [%-1.10u]\n", 9009999);
 	print_result(orig, mine);
 
 /*
