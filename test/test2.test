@@ -605,6 +605,16 @@ static void	u(void)
 	mine = ft_printf("output: [%010u]\n", 900999);
 	print_result(orig, mine);
 
+	printf(YELLOW"\nInput: [%%05.u] number: [%u]\n"UNCOLOR, 900999);
+	orig = printf("expect: [%05.u]\n", 900999);
+	mine = ft_printf("output: [%05.u]\n", 900999);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%%05.u] number: [%u]\n"UNCOLOR, 0);
+	orig = printf("expect: [%05.u]\n", 0);
+	mine = ft_printf("output: [%05.u]\n", 0);
+	print_result(orig, mine);
+
 	/* space */
 	printf(YELLOW"\nInput: [%% u] number: [%u] UNDEFINED BEHAVIOUR\n"UNCOLOR, 900999);
 	orig = printf("expect: [%u]\n", 900999);

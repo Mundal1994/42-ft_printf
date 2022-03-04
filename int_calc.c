@@ -67,7 +67,7 @@ static void	ft_prec_calc(char *str, t_flag *flag, int c)
 	}
 	else
 	{
-		if (flag->prec > str_len)
+		if (flag->prec > str_len && str[0] != '0')
 			ft_space_zero_calc(flag, str_len, c);
 		ft_putstr(str);
 		if (flag->width >= 0 && flag->prec < flag->width)
