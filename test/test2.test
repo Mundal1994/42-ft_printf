@@ -57,30 +57,34 @@ static void	compare_results_d(int number, char c)
 		print_result(orig, mine);
 	}
 }
-/*
+
 static void	compare_results_d_hh(signed char number, char c)
 {
 	int orig;
+	int mine;
 
 	if (c == 'd')
 	{
-		printf("expected [%hhd] : ", number);
-		orig = printf("[%hhd]\n", number);
-		print_result(orig);
+		printf(YELLOW"\nInput: [%c]\n"UNCOLOR, number);
+		orig = printf("expect: [%hhd]\n", number);
+		mine = printf("output: [%hhd]\n", number);
+		print_result(orig, mine);
 	}
 	else if (c == 'i')
 	{
-		printf("expected [%hhi] : ", number);
-		orig = printf("[%hhi]\n", number);
-		print_result(orig);
+		printf(YELLOW"\nInput: [%c]\n"UNCOLOR, number);
+		orig = printf("expect: [%hhi]\n", number);
+		mine = printf("output: [%hhi]\n", number);
+		print_result(orig, mine);
 	}
 	else if (c == 'u')
 	{
-		printf("expected [%hhu] : ", number);
-		orig = printf("[%hhu]\n", number);
-		print_result(orig);
+		printf(YELLOW"\nInput: [%c]\n"UNCOLOR, number);
+		orig = printf("expect: [%hhu]\n", number);
+		mine = printf("output: [%hhu]\n", number);
+		print_result(orig, mine);
 	}
-}*/
+}
 /*
 static void	compare_results_d_h(short number, char c)
 {
@@ -306,31 +310,28 @@ static void	d(void)
 	orig = printf("expect: [%+-.15d]\n", 9009999);
 	mine = ft_printf("output: [%+-.15d]\n", 9009999);
 	print_result(orig, mine);
-/*
+
 	// with flags hh
 	unsigned char	c = '5';
 	printf(PURPLE"\nhh TEST\n"UNCOLOR);
-	printf("hh modifier: converts signed / usigned char into int or unsigned int and the hh makes sure it changes back to char\n");
-	printf("[%hhd]: ", c);
-	orig = printf("[%hhd]\n", c);
-	print_result(orig);
+	printf("hh modifier: converts signed / unsigned char into int or unsigned int and the hh makes sure it changes back to char\n");
+	printf(YELLOW"Input: [5]\n"UNCOLOR);
+	orig = printf("expect: [%hhd]\n", c);
+	mine = printf("output: [%hhd]\n", c);
+	print_result(orig, mine);
 
 	c = 'M';
-	printf("\nInput: [%c]\n", c);
 	compare_results_d_hh(c, 'd');
 
 	c = 'a';
-	printf("\nInput: [%c]\n", c);
 	compare_results_d_hh(c, 'd');
 
 	c = 'z';
-	printf("\nInput: [%c]\n", c);
 	compare_results_d_hh(c, 'd');
 
 	c = ' ';
-	printf("\nInput: [%c]\n", c);
 	compare_results_d_hh(c, 'd');
-
+/*
 	// with flags h
 	short	shor = 5;
 	printf(PURPLE"\nh TEST\n"UNCOLOR);

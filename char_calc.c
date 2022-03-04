@@ -52,12 +52,12 @@ static void	ft_space_zero_calc(t_flag *flag, int len)
 	else if (flag->zero == TRUE && flag->prec == -1 && flag->minus == FALSE)
 	{
 		while (len++ < flag->width)
-		ft_putchar('0');
+			ft_putchar('0');
 	}
 	else
 	{
 		while (len++ < flag->width)
-		ft_putchar(' ');
+			ft_putchar(' ');
 	}
 }
 
