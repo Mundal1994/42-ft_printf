@@ -368,10 +368,10 @@ static void	d(void)
 	printf("l modifier: converts long int into int or unsigned int and the l makes sure it changes back to long int or unsigned long int\n");
 	compare_results_d_l(lon, 'd');
 
-	lon = -2147483648;
+	lon = -9223372036854775807;
 	compare_results_d_l(lon, 'd');
 
-	lon = 2147483647;
+	lon = 9223372036854775807;
 	compare_results_d_l(lon, 'd');
 
 	lon = 0;
@@ -382,15 +382,15 @@ static void	d(void)
 	//shouldn't work to put in long max value or min value
 
 	// with flags ll
-	long long int	longlong = 5;
+	long long	longlong = 5;
 	printf(PURPLE"\nll TEST\n"UNCOLOR);
 	printf("ll modifier: converts long long int into int or unsigned int and the ll makes sure it changes back to long int or unsigned long long int\n");
 	compare_results_d_ll(longlong, 'd');
 
-	longlong = -2147483648;
+	longlong = -9223372036854775807;
 	compare_results_d_ll(longlong, 'd');
 
-	longlong = 2147483647;
+	longlong = 9223372036854775807;
 	compare_results_d_ll(longlong, 'd');
 
 	longlong = 0;
