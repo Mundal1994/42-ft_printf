@@ -62,12 +62,6 @@ int	ft_printf(const char *format, ...)
 					ft_initialize_flag(flag, FALSE);
 				}
 			}
-			/*ft_putchar('\n');
-			ft_putnbr(flag->i);
-			ft_putchar('\n');
-			ft_putnbr(flag->len);
-			ft_putchar('\n');
-			*/
 			flag->i++;
 			flag->len++;
 		}

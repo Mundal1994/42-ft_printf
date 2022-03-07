@@ -15,11 +15,17 @@
 static int	ft_hhll_flag_check(const char *format, t_flag *flag, int on, int *pnt)
 {
 	if (*format == 'h' && format[1] == 'h')
+	{
 		flag->hh = on;
+		*pnt += 1;
+	}
 	else if (*format == 'h')
 		flag->h = on;
 	else if (*format == 'l' && format[1] == 'l')
+	{
 		flag->ll = on;
+		*pnt += 1;
+	}
 	else if (*format == 'l')
 		flag->l = on;
 	else if (*format == 'L')
@@ -100,7 +106,7 @@ void	ft_convert_checker(const char *format, t_flag *flag, va_list *arg)
 			ft_precision_calc(&format[i], flag, pnt);
 			specifier = ft_convert_symbol(&format[i], flag, arg);
 		}
-		while (specifier == FALSE && ft_hhll_flag_check(&format[i], flag, TRUE, pnt) == TRUE)
+		if (specifier == FALSE && ft_hhll_flag_check(&format[i], flag, TRUE, pnt) == TRUE)
 			specifier = ft_convert_symbol(&format[i], flag, arg);
 	}
 }

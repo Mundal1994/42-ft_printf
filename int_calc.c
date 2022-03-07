@@ -296,9 +296,40 @@ static char	*ft_utoa(unsigned int nbr)
 	return (result);
 }
 
+static void	ft_convert_length(char *str, t_flag *flag, int nbr)
+{
+	signed char	c;
+	short		sh;
+	long		lo;
+	long long	ll;
+
+	if (flag->hh == TRUE)
+	{
+		c = (signed char)nbr;
+		//ft_strcpy(str, &c);
+	}
+	else if (flag->h == TRUE)
+	{
+		sh = (short)nbr;
+		str = ft_itoa_base(sh, ft_int_len(nbr), 10);
+	}
+	else if (flag->l == TRUE)
+	{
+		lo = (long)nbr;
+		str = ft_itoa_base(lo, ft_int_len(nbr), 10);
+	}
+	else if (flag->ll == TRUE)
+	{
+		ll = (long long)nbr;
+		str = ft_itoa_base(ll, ft_int_len(nbr), 10);
+	}
+	else
+		str = NULL;
+}
+
 void	ft_diuf_print(const char *format, t_flag *flag, va_list *arg)
 {
-	long	nbr;
+	int	nbr;
 	unsigned int	var;
 	long double	number;
 	char	*str;
@@ -306,8 +337,12 @@ void	ft_diuf_print(const char *format, t_flag *flag, va_list *arg)
 	str = NULL;
 	if (*format == 'd' || *format == 'i')
 	{
-		nbr = va_arg(*arg, long);
-		str = ft_itoa_base(nbr, ft_int_len(nbr), 10);
+		nbr = va_arg(*arg, int);
+		ft_convert_length(str, flag, nbr);
+		ft_putstr(str);
+		ft_putchar('\n');
+		if (!str)
+			str = ft_itoa_base(nbr, ft_int_len(nbr), 10);
 		ft_d_flag_calc(format, str, flag, 'd');
 	}
 	else if (*format == 'u')
