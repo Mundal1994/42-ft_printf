@@ -3,6 +3,7 @@
 # include <unistd.h>
 # include <string.h>
 # include <assert.h>
+# include <limits.h>
 
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -63,127 +64,146 @@ static void	compare_results_d(int number, char c)
 		print_result(orig, mine);
 	}
 }
-/*
+
 static void	compare_results_d_hh(signed char number, char c)
 {
 	int orig;
+	int mine;
 
 	if (c == 'd')
 	{
-		printf("expected [%hhd] : ", number);
-		orig = printf("[%hhd]\n", number);
-		print_result(orig);
+		printf(YELLOW"\nInput: [%hhd]\n"UNCOLOR, number);
+		orig = printf("expect: [%hhd]\n", number);
+		mine = ft_printf("output: [%hhd]\n", number);
+		print_result(orig, mine);
 	}
 	else if (c == 'o')
 	{
-		printf("expected [%hho] : ", number);
-		orig = printf("[%hho]\n", number);
-		print_result(orig);
+		printf(YELLOW"\nInput: [%hho]\n"UNCOLOR, number);
+		orig = printf("expect: [%hho]\n", number);
+		mine = ft_printf("output: [%hho]\n", number);
+		print_result(orig, mine);
 	}
 	else if (c == 'x')
 	{
-		printf("expected [%hhx] : ", number);
-		orig = printf("[%hhx]\n", number);
-		print_result(orig);
+		printf(YELLOW"\nInput: [%hhx]\n"UNCOLOR, number);
+		orig = printf("expect: [%hhx]\n", number);
+		mine = ft_printf("output: [%hhx]\n", number);
+		print_result(orig, mine);
 	}
 	else if (c == 'X')
 	{
-		printf("expected [%hhX] : ", number);
-		orig = printf("[%hhX]\n", number);
-		print_result(orig);
+		printf(YELLOW"\nInput: [%hhX]\n"UNCOLOR, number);
+		orig = printf("expect: [%hhX]\n", number);
+		mine = ft_printf("output: [%hhX]\n", number);
+		print_result(orig, mine);
 	}
-}*/
-/*
+}
+
 static void	compare_results_d_h(short number, char c)
 {
 	int orig;
+	int mine;
 
 	if (c == 'd')
 	{
-		printf("expected [%hd] : ", number);
-		orig = printf("[%hd]\n", number);
-		print_result(orig);
+		printf(YELLOW"\nInput: [%hd]\n"UNCOLOR, number);
+		orig = printf("expect: [%hd]\n", number);
+		mine = ft_printf("output: [%hd]\n", number);
+		print_result(orig, mine);
 	}
 	else if (c == 'o')
 	{
-		printf("expected [%ho] : ", number);
-		orig = printf("[%ho]\n", number);
-		print_result(orig);
+		printf(YELLOW"\nInput: [%ho]\n"UNCOLOR, number);
+		orig = printf("expect: [%ho]\n", number);
+		mine = ft_printf("output: [%ho]\n", number);
+		print_result(orig, mine);
 	}
 	else if (c == 'x')
 	{
-		printf("expected [%hx] : ", number);
-		orig = printf("[%hx]\n", number);
-		print_result(orig);
+		printf(YELLOW"\nInput: [%hx]\n"UNCOLOR, number);
+		orig = printf("expect: [%hx]\n", number);
+		mine = ft_printf("output: [%hx]\n", number);
+		print_result(orig, mine);
 	}
 	else if (c == 'X')
 	{
-		printf("expected [%hX] : ", number);
-		orig = printf("[%hX]\n", number);
-		print_result(orig);
+		printf(YELLOW"\nInput: [%hX]\n"UNCOLOR, number);
+		orig = printf("expect: [%hX]\n", number);
+		mine = ft_printf("output: [%hX]\n", number);
+		print_result(orig, mine);
 	}
-}*/
-/*
+}
+
 static void	compare_results_d_l(long number, char c)
 {
 	int orig;
+	int mine;
 
 	if (c == 'd')
 	{
-		printf("expected [%ld] : ", number);
-		orig = printf("[%ld]\n", number);
-		print_result(orig);
+		printf(YELLOW"\nInput: [%lo]\n"UNCOLOR, number);
+		orig = printf("expect: [%lo]\n", number);
+		mine = ft_printf("output: [%lo]\n", number);
+		print_result(orig, mine);
 	}
 	else if (c == 'o')
 	{
-		printf("expected [%lo] : ", number);
-		orig = printf("[%lo]\n", number);
-		print_result(orig);
+		printf(YELLOW"\nInput: [%lo]\n"UNCOLOR, number);
+		orig = printf("expect: [%lo]\n", number);
+		mine = ft_printf("output: [%lo]\n", number);
+		print_result(orig, mine);
 	}
 	else if (c == 'x')
 	{
-		printf("expected [%lx] : ", number);
-		orig = printf("[%lx]\n", number);
-		print_result(orig);
+		printf(YELLOW"\nInput: [%lx]\n"UNCOLOR, number);
+		orig = printf("expect: [%lx]\n", number);
+		mine = ft_printf("output: [%lx]\n", number);
+		print_result(orig, mine);
 	}
 	else if (c == 'X')
 	{
-		printf("expected [%lX] : ", number);
-		orig = printf("[%lX]\n", number);
-		print_result(orig);
+		printf(YELLOW"\nInput: [%lX]\n"UNCOLOR, number);
+		orig = printf("expect: [%lX]\n", number);
+		mine = ft_printf("output: [%lX]\n", number);
+		print_result(orig, mine);
 	}
-}*/
-/*
+}
+
 static void	compare_results_d_ll(long long number, char c)
 {
 	int orig;
+	int mine;
 
 	if (c == 'd')
 	{
-		printf("expected [%lld] : ", number);
-		orig = printf("[%lld]\n", number);
-		print_result(orig);
+		printf(YELLOW"\nInput: [%lld]\n"UNCOLOR, number);
+		orig = printf("expect: [%lld]\n", number);
+		mine = ft_printf("output: [%lld]\n", number);
+		print_result(orig, mine);
 	}
 	else if (c == 'o')
 	{
-		printf("expected [%llo] : ", number);
-		orig = printf("[%llo]\n", number);
-		print_result(orig);
+		printf(YELLOW"\nInput: [%llo]\n"UNCOLOR, number);
+		orig = printf("expect: [%llo]\n", number);
+		mine = ft_printf("output: [%llo]\n", number);
+		print_result(orig, mine);
 	}
 	else if (c == 'x')
 	{
-		printf("expected [%llx] : ", number);
-		orig = printf("[%llx]\n", number);
-		print_result(orig);
+		printf(YELLOW"\nInput: [%llx]\n"UNCOLOR, number);
+		orig = printf("expect: [%llx]\n", number);
+		mine = ft_printf("output: [%llx]\n", number);
+		print_result(orig, mine);
 	}
 	else if (c == 'X')
 	{
-		printf("expected [%llX] : ", number);
-		orig = printf("[%llX]\n", number);
-		print_result(orig);
+		printf(YELLOW"\nInput: [%llX]\n"UNCOLOR, number);
+		orig = printf("expect: [%llX]\n", number);
+		mine = ft_printf("output: [%llX]\n", number);
+		print_result(orig, mine);
 	}
 }
-*/
 
 static void	o(void)
 {
@@ -339,74 +359,59 @@ static void	o(void)
 	orig = printf("expect: [%#-7.7o]\n", 9009999);
 	mine = ft_printf("output: [%#-7.7o]\n", 9009999);
 	print_result(orig, mine);
-/*
+
 	// with flags hh
 	unsigned char	c = '5';
 	printf(PURPLE"\nhh TEST\n"UNCOLOR);
 	printf("hh modifier: converts signed / usigned char into int or unsigned int and the hh makes sure it changes back to char\n");
-	printf("\nInput: [%c]\n", c);
 	compare_results_d_hh(c, 'o');
 
 	c = 'M';
-	printf("\nInput: [%c]\n", c);
 	compare_results_d_hh(c, 'o');
 
 	c = 'a';
-	printf("\nInput: [%c]\n", c);
 	compare_results_d_hh(c, 'o');
 
 	c = 'z';
-	printf("\nInput: [%c]\n", c);
 	compare_results_d_hh(c, 'o');
 
 	c = ' ';
-	printf("\nInput: [%c]\n", c);
 	compare_results_d_hh(c, 'o');
 
 	// with flags h
 	unsigned short	shor = 5;
 	printf(PURPLE"\nh TEST\n"UNCOLOR);
 	printf("h modifier: converts short into int or unsigned int and the h makes sure it changes back to short int or unsigned short int\n");
-	printf("\nInput: [%d]\n", shor);
 	compare_results_d_h(shor, 'o');
 
 	shor = -32768;
-	printf("\nInput: [%d]\n", shor);
 	compare_results_d_h(shor, 'o');
 
 	shor = 32767;
-	printf("\nInput: [%d]\n", shor);
 	compare_results_d_h(shor, 'o');
 
 	shor = 0;
-	printf("\nInput: [%d]\n", shor);
 	compare_results_d_h(shor, 'o');
 
 	shor = 1234;
-	printf("\nInput: [%d]\n", shor);
 	compare_results_d_h(shor, 'o');
 
 	// with flags l
 	unsigned long	lon = 5;
 	printf(PURPLE"\nl TEST\n"UNCOLOR);
 	printf("l modifier: converts long int into int or unsigned int and the l makes sure it changes back to long int or unsigned long int\n");
-	printf("\nInput: [%lu]\n", lon);
 	compare_results_d_l(lon, 'o');
 
-	lon = -2147483648;
-	printf("\nInput: [%lu]\n", lon);
+	lon = ULONG_MAX;
 	compare_results_d_l(lon, 'o');
 
 	lon = 2147483647;
-	printf("\nInput: [%lu]\n", lon);
 	compare_results_d_l(lon, 'o');
 
 	lon = 0;
-	printf("\nInput: [%lu]\n", lon);
 	compare_results_d_l(lon, 'o');
 
 	lon = 1234;
-	printf("\nInput: [%lu]\n", lon);
 	compare_results_d_l(lon, 'o');
 	//shouldn't work to put in long max value or min value
 
@@ -414,24 +419,19 @@ static void	o(void)
 	unsigned long long	longlong = 5;
 	printf(PURPLE"\nll TEST\n"UNCOLOR);
 	printf("ll modifier: converts unsigned long long int into int or unsigned int and the ll makes sure it changes back to long int or unsigned unsigned long long int\n");
-	printf("\nInput: [%llu]\n", longlong);
 	compare_results_d_ll(longlong, 'o');
 
-	longlong = -2147483648;
-	printf("\nInput: [%llu]\n", longlong);
+	longlong = ULLONG_MAX;
 	compare_results_d_ll(longlong, 'o');
 
 	longlong = 2147483647;
-	printf("\nInput: [%llu]\n", longlong);
 	compare_results_d_ll(longlong, 'o');
 
 	longlong = 0;
-	printf("\nInput: [%llu]\n", longlong);
 	compare_results_d_ll(longlong, 'o');
 
 	longlong = 1234;
-	printf("\nInput: [%llu]\n", longlong);
-	compare_results_d_ll(longlong, 'o');*/
+	compare_results_d_ll(longlong, 'o');
 }
 
 static void	x(void)
@@ -604,74 +604,58 @@ static void	x(void)
 	mine = ft_printf("output: [%#-7.7x]\n", 9009999);
 	print_result(orig, mine);
 
-/*
 	// with flags hh
 	unsigned char	c = '5';
 	printf(PURPLE"\nhh TEST\n"UNCOLOR);
 	printf("hh modifier: converts signed / usigned char into int or unsigned int and the hh makes sure it changes back to char\n");
-	printf("\nInput: [%c]\n", c);
 	compare_results_d_hh(c, 'x');
 
 	c = 'M';
-	printf("\nInput: [%c]\n", c);
 	compare_results_d_hh(c, 'x');
 
 	c = 'a';
-	printf("\nInput: [%c]\n", c);
 	compare_results_d_hh(c, 'x');
 
 	c = 'z';
-	printf("\nInput: [%c]\n", c);
 	compare_results_d_hh(c, 'x');
 
 	c = ' ';
-	printf("\nInput: [%c]\n", c);
 	compare_results_d_hh(c, 'x');
 
 	// with flags h
 	short int	shor = 5;
 	printf(PURPLE"\nh TEST\n"UNCOLOR);
 	printf("h modifier: converts short into int or unsigned int and the h makes sure it changes back to short int or unsigned short int\n");
-	printf("\nInput: [%d]\n", shor);
 	compare_results_d_h(shor, 'x');
 
 	shor = -32768;
-	printf("\nInput: [%d]\n", shor);
 	compare_results_d_h(shor, 'x');
 
 	shor = 32767;
-	printf("\nInput: [%d]\n", shor);
 	compare_results_d_h(shor, 'x');
 
 	shor = 0;
-	printf("\nInput: [%d]\n", shor);
 	compare_results_d_h(shor, 'x');
 
 	shor = 1234;
-	printf("\nInput: [%d]\n", shor);
 	compare_results_d_h(shor, 'x');
 
 	// with flags l
 	long int	lon = 5;
 	printf(PURPLE"\nl TEST\n"UNCOLOR);
 	printf("l modifier: converts long int into int or unsigned int and the l makes sure it changes back to long int or unsigned long int\n");
-	printf("\nInput: [%lu]\n", lon);
 	compare_results_d_l(lon, 'x');
 
-	lon = -2147483648;
-	printf("\nInput: [%lu]\n", lon);
+	lon = ULONG_MAX;
 	compare_results_d_l(lon, 'x');
 
 	lon = 2147483647;
-	printf("\nInput: [%lu]\n", lon);
 	compare_results_d_l(lon, 'x');
 
 	lon = 0;
-	printf("\nInput: [%lu]\n", lon);
 	compare_results_d_l(lon, 'x');
 
 	lon = 1234;
-	printf("\nInput: [%lu]\n", lon);
 	compare_results_d_l(lon, 'x');
 	//shouldn't work to put in long max value or min value
 
@@ -679,24 +663,19 @@ static void	x(void)
 	long long int	longlong = 5;
 	printf(PURPLE"\nll TEST\n"UNCOLOR);
 	printf("ll modifier: converts long long int into int or unsigned int and the ll makes sure it changes back to long int or unsigned long long int\n");
-	printf("\nInput: [%llu]\n", longlong);
 	compare_results_d_ll(longlong, 'x');
 
-	longlong = -2147483648;
-	printf("\nInput: [%llu]\n", longlong);
+	longlong = ULLONG_MAX;
 	compare_results_d_ll(longlong, 'x');
 
 	longlong = 2147483647;
-	printf("\nInput: [%llu]\n", longlong);
 	compare_results_d_ll(longlong, 'x');
 
 	longlong = 0;
-	printf("\nInput: [%llu]\n", longlong);
 	compare_results_d_ll(longlong, 'x');
 
 	longlong = 1234;
-	printf("\nInput: [%llu]\n", longlong);
-	compare_results_d_ll(longlong, 'x');*/
+	compare_results_d_ll(longlong, 'x');
 }
 
 static void	X(void)
@@ -873,99 +852,79 @@ static void	X(void)
 	orig = printf("expect: [%#-7.7X]\n", 9009999);
 	mine = ft_printf("output: [%#-7.7X]\n", 9009999);
 	print_result(orig, mine);
-/*
+
 	// with flags hh
 	unsigned char	c = '5';
 	printf(PURPLE"\nhh TEST\n"UNCOLOR);
 	printf("hh modifier: converts signed / usigned char into int or unsigned int and the hh makes sure it changes back to char\n");
-	printf("\nInput: [%c]\n", c);
 	compare_results_d_hh(c, 'X');
 
 	c = 'M';
-	printf("\nInput: [%c]\n", c);
 	compare_results_d_hh(c, 'X');
 
 	c = 'a';
-	printf("\nInput: [%c]\n", c);
 	compare_results_d_hh(c, 'X');
 
 	c = 'z';
-	printf("\nInput: [%c]\n", c);
 	compare_results_d_hh(c, 'X');
 
 	c = ' ';
-	printf("\nInput: [%c]\n", c);
 	compare_results_d_hh(c, 'X');
 
 	// with flags h
 	short int	shor = 5;
 	printf(PURPLE"\nh TEST\n"UNCOLOR);
 	printf("h modifier: converts short into int or unsigned int and the h makes sure it changes back to short int or unsigned short int\n");
-	printf("\nInput: [%d]\n", shor);
 	compare_results_d_h(shor, 'X');
 
 	shor = -32768;
-	printf("\nInput: [%d]\n", shor);
 	compare_results_d_h(shor, 'X');
 
 	shor = 32767;
-	printf("\nInput: [%d]\n", shor);
 	compare_results_d_h(shor, 'X');
 
 	shor = 0;
-	printf("\nInput: [%d]\n", shor);
 	compare_results_d_h(shor, 'X');
 
 	shor = 1234;
-	printf("\nInput: [%d]\n", shor);
 	compare_results_d_h(shor, 'X');
 
 	// with flags l
 	long int	lon = 5;
 	printf(PURPLE"\nl TEST\n"UNCOLOR);
 	printf("l modifier: converts long int into int or unsigned int and the l makes sure it changes back to long int or unsigned long int\n");
-	printf("\nInput: [%lu]\n", lon);
 	compare_results_d_l(lon, 'X');
 
-	lon = -2147483648;
-	printf("\nInput: [%lu]\n", lon);
+	lon = 125425;
 	compare_results_d_l(lon, 'X');
 
-	lon = 2147483647;
-	printf("\nInput: [%lu]\n", lon);
+	lon = ULONG_MAX;
 	compare_results_d_l(lon, 'X');
 
 	lon = 0;
-	printf("\nInput: [%lu]\n", lon);
 	compare_results_d_l(lon, 'X');
 
 	lon = 1234;
-	printf("\nInput: [%lu]\n", lon);
 	compare_results_d_l(lon, 'X');
 	//shouldn't work to put in long max value or min value
 
 	// with flags ll
-	long long int	longlong = 5;
+	unsigned long long	longlong = 5;
 	printf(PURPLE"\nll TEST\n"UNCOLOR);
 	printf("ll modifier: converts long long int into int or unsigned int and the ll makes sure it changes back to long int or unsigned long long int\n");
-	printf("\nInput: [%llu]\n", longlong);
 	compare_results_d_ll(longlong, 'X');
 
-	longlong = -2147483648;
-	printf("\nInput: [%llu]\n", longlong);
+	longlong = 125411;
 	compare_results_d_ll(longlong, 'X');
 
-	longlong = 2147483647;
-	printf("\nInput: [%llu]\n", longlong);
+	longlong = ULLONG_MAX;
 	compare_results_d_ll(longlong, 'X');
 
 	longlong = 0;
-	printf("\nInput: [%llu]\n", longlong);
 	compare_results_d_ll(longlong, 'X');
 
 	longlong = 1234;
-	printf("\nInput: [%llu]\n", longlong);
-	compare_results_d_ll(longlong, 'X');*/
+	compare_results_d_ll(longlong, 'X');
 }
 
 int main(void)

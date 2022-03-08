@@ -128,28 +128,82 @@ static void	ft_striter_uplow(char *str, int (*f)(int))
 	}
 }
 
-void	ft_oxX_print(const char *format, t_flag *flag, va_list *arg)
+static void	ft_oxtoa_helper(char *str, unsigned long long nbr, int base)
 {
-	int		nbr;
+	int	digit;
+
+	digit = 0;
+	if (nbr == 0)
+		*str++ = '0';
+	else
+	{
+		while (nbr)
+		{
+			digit = nbr % base;
+			if (digit > 9)
+				*str = 'A' + digit - 10;
+			else
+				*str = '0' + digit;
+			nbr = nbr / base;
+			str++;
+		}
+	}
+	*str = '\0';
+}
+
+char	*ft_oxtoa_base(unsigned long long nbr, int len, int base)
+{
 	char	*str;
 
-	nbr = va_arg(*arg, int);
+	str = ft_strnew(len);
+	ft_oxtoa_helper(str, nbr, base);
+	ft_strrev(str);
+	return (str);
+}
+
+static char	*ft_convert_length_ox(char *str, t_flag *flag, unsigned long long nbr, int c)
+{
+	int	specifier;
+
+	if (c == 'o')
+		specifier = 8;
+	else
+		specifier = 16;
+	if (flag->hh == TRUE)
+		str = ft_oxtoa_base((unsigned char)nbr, ft_ulong_len(nbr), specifier);
+	else if (flag->h == TRUE)
+		str = ft_oxtoa_base((unsigned short)nbr, ft_ulong_len(nbr), specifier);
+	else if (flag->l == TRUE)
+		str = ft_oxtoa_base((unsigned long)nbr, ft_ulong_len(nbr), specifier);
+	else if (flag->ll == TRUE)
+		str = ft_oxtoa_base(nbr, ft_ulong_len(nbr), specifier);
+	else
+		str = ft_oxtoa_base((unsigned int)nbr, ft_ulong_len(nbr), specifier);
+	return (str);
+}
+
+void	ft_oxX_print(const char *format, t_flag *flag, va_list *arg)
+{
+	unsigned long long	nbr;
+	char				*str;
+
+	nbr = va_arg(*arg, unsigned long long);
+	str = ft_strnew(ft_ulong_len(nbr));
 	if (*format == 'o')
 	{
-		str = ft_itoa_base(nbr, ft_int_len(nbr), 8);
+		str = ft_convert_length_ox(str, flag, nbr, 'o');
 		ft_ox_flag_calc(format, str, flag, 'o');
 	}
 	else if (*format == 'x')
 	{
-		str = ft_itoa_base(nbr, ft_int_len(nbr), 16);
+		str = ft_convert_length_ox(str, flag, nbr, 'x');
 		ft_striter_uplow(str, &ft_tolower);
 		ft_ox_flag_calc(format, str, flag, 'x');
 	}
 	else if (*format == 'X')
 	{
-		str = ft_itoa_base(nbr, ft_int_len(nbr), 16);
+		str = ft_convert_length_ox(str, flag, nbr, 'X');
 		ft_striter_uplow(str, &ft_toupper);
 		ft_ox_flag_calc(format, str, flag, 'X');
 	}
-	//if minus - problem with octal or doesn't return properly with the \0
 }

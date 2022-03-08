@@ -105,5 +105,7 @@ char	**ft_free2d(char **dest);
 int		get_next_line(const int fd, char **line);
 char	*ft_itoa_base(long long nbr, int len, int base);
 char	*ft_strrev(char *str);
+int		ft_long_len(long long nbr);
+int		ft_ulong_len(unsigned long long nbr);
 
 #endif

@@ -232,51 +232,7 @@ static char	*ft_ftoa(double number, int len)
 	return (str);
 }
 
-static int	ft_len_ulong_min(unsigned long long i)
-{
-	if (i >= 1000000000)
-		return (10);
-	if (i >= 100000000)
-		return (9);
-	if (i >= 10000000)
-		return (8);
-	if (i >= 1000000)
-		return (7);
-	if (i >= 100000)
-		return (6);
-	if (i >= 10000)
-		return (5);
-	if (i >= 1000)
-		return (4);
-	if (i >= 100)
-		return (3);
-	if (i >= 10)
-		return (2);
-	return (1);
-}
 
-static int	ft_len_ulong_max(unsigned long long i)
-{
-	//if (i >= 10000000000000000000)
-	//	return (20);
-	if (i >= 1000000000000000000)
-		return (19);
-	if (i >= 100000000000000000)
-		return (18);
-	if (i >= 10000000000000000)
-		return (17);
-	if (i >= 1000000000000000)
-		return (16);
-	if (i >= 100000000000000)
-		return (15);
-	if (i >= 10000000000000)
-		return (14);
-	if (i >= 1000000000000)
-		return (13);
-	if (i >= 100000000000)
-		return (12);
-	return (11);
-}
 
 static char	*ft_ulltoa(unsigned long long nbr, char *str)
 {
@@ -292,69 +248,6 @@ static char	*ft_ulltoa(unsigned long long nbr, char *str)
 	}
 	ft_strrev(str);
 	return (str);
-}
-
-static int	ft_len_long_min(long long i)
-{
-	if (i >= 1000000000)
-		return (10);
-	if (i >= 100000000)
-		return (9);
-	if (i >= 10000000)
-		return (8);
-	if (i >= 1000000)
-		return (7);
-	if (i >= 100000)
-		return (6);
-	if (i >= 10000)
-		return (5);
-	if (i >= 1000)
-		return (4);
-	if (i >= 100)
-		return (3);
-	if (i >= 10)
-		return (2);
-	return (1);
-}
-
-static int	ft_len_long_max(long long i)
-{
-	if (i >= 1000000000000000000)
-		return (19);
-	if (i >= 100000000000000000)
-		return (18);
-	if (i >= 10000000000000000)
-		return (17);
-	if (i >= 1000000000000000)
-		return (16);
-	if (i >= 100000000000000)
-		return (15);
-	if (i >= 10000000000000)
-		return (14);
-	if (i >= 1000000000000)
-		return (13);
-	if (i >= 100000000000)
-		return (12);
-	return (11);
-}
-
-static int	ft_long_len(long long nbr)
-{
-	if (nbr < 0)
-	{
-		if (nbr == -9223372036854775807)
-			return (20);
-		else
-		{
-			nbr *= -1;
-			if (nbr >= 10000000000)
-				return (ft_len_long_max(nbr) + 1);
-			return (ft_len_long_min(nbr) + 1);
-		}
-	}
-	if (nbr >= 10000000000)
-		return (ft_len_long_max(nbr));
-	return (ft_len_long_min(nbr));
 }
 
 static char	*ft_convert_length(char *str, t_flag *flag, long long nbr)
@@ -374,10 +267,7 @@ static char	*ft_convert_length(char *str, t_flag *flag, long long nbr)
 
 static char	*ft_convert_length_u(char *str, t_flag *flag, unsigned long long nbr)
 {
-	if (nbr >= 10000000000)
-		str = ft_strnew(ft_len_ulong_max(nbr));
-	else
-		str = ft_strnew(ft_len_ulong_min(nbr));
+	str = ft_strnew(ft_ulong_len(nbr));
 	if (flag->hh == TRUE)
 		str = ft_ulltoa((unsigned char)nbr, str);
 	else if (flag->h == TRUE)
@@ -409,12 +299,12 @@ static char	*ft_convert_length_f(char *str, t_flag *flag, double number)
 	}
 	return (str);
 }
-#include <stdio.h>
+
 void	ft_diuf_print(const char *format, t_flag *flag, va_list *arg)
 {
 	long long			nbr;
 	unsigned long long	var;
-	double			number;
+	double				number;
 	char				*str;
 
 	str = NULL;

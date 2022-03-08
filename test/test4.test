@@ -72,24 +72,29 @@ static void	f(void)
 	int mine;
 
 	// FLOAT
-	float flo = 25.02;
-
+	float flo = FLT_MAX;
 	compare_results_f(flo);
 
 	flo = 25.0250509999;
 	compare_results_f(flo);
 
-	flo = 25.0;
+	flo = FLT_MIN;
 	compare_results_f(flo);
 
 	flo = -25.02505;
 	compare_results_f(flo);
 
-	flo = 0;
-	compare_results_f(flo);
+	flo = DBL_MAX;
+	printf(YELLOW"\nInput: [%lf]\n"UNCOLOR, flo);
+	orig = printf("expect: [%lf]\n", flo);
+	mine = ft_printf("output: [%lf]\n", flo);
+	print_result(orig, mine);
 
-	flo = 25.2505;
-	compare_results_f(flo);
+	flo = DBL_MIN;
+	printf(YELLOW"\nInput: [%lf]\n"UNCOLOR, flo);
+	orig = printf("expect: [%lf]\n", flo);
+	mine = ft_printf("output: [%lf]\n", flo);
+	print_result(orig, mine);
 
 	flo = 0.559499999;
 	compare_results_f(flo);
