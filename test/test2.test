@@ -3,6 +3,7 @@
 # include <unistd.h>
 # include <string.h>
 # include <assert.h>
+# include <limits.h>
 
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -384,16 +385,13 @@ static void	d(void)
 	printf("l modifier: converts long int into int or unsigned int and the l makes sure it changes back to long int or unsigned long int\n");
 	compare_results_d_l(lon, 'd');
 
-	lon = -9223372036854775807;
-	compare_results_d_l(lon, 'd');
-
-	lon = 9223372036854775807;
-	compare_results_d_l(lon, 'd');
-
 	lon = 0;
 	compare_results_d_l(lon, 'd');
 
-	lon = 1234;
+	lon = LONG_MIN;
+	compare_results_d_l(lon, 'd');
+
+	lon = LONG_MAX;
 	compare_results_d_l(lon, 'd');
 	//shouldn't work to put in long max value or min value
 
@@ -403,18 +401,17 @@ static void	d(void)
 	printf("ll modifier: converts long long int into int or unsigned int and the ll makes sure it changes back to long int or unsigned long long int\n");
 	compare_results_d_ll(longlong, 'd');
 
-	longlong = -9223372036854775807;
-	compare_results_d_ll(longlong, 'd');
-
-	longlong = 9223372036854775807;
-	compare_results_d_ll(longlong, 'd');
-
 	longlong = 0;
 	compare_results_d_ll(longlong, 'd');
 
 	longlong = 1234;
 	compare_results_d_ll(longlong, 'd');
 
+	longlong = LLONG_MIN;
+	compare_results_d_ll(longlong, 'd');
+
+	longlong = LLONG_MAX;
+	compare_results_d_ll(longlong, 'd');
 	//mine = ft_printf("%d", number);
 	//printf("Expected: [%d]	output: [%s]\n", , "5");
 	//print_OK(strcmp(printf("%d", number), "5"));
@@ -488,69 +485,57 @@ static void	i(void)
 	signed char	c = '5';
 	printf(PURPLE"\nhh TEST\n"UNCOLOR);
 	printf("hh modifier: converts signed / usigned char into int or unsigned int and the hh makes sure it changes back to char\n");
-	printf("\nInput: [%c]\n", c);
 	compare_results_d_hh(c, 'i');
 
 	c = 'M';
-	printf("\nInput: [%c]\n", c);
 	compare_results_d_hh(c, 'i');
 
 	c = 'a';
-	printf("\nInput: [%c]\n", c);
 	compare_results_d_hh(c, 'i');
 
 	c = 'z';
-	printf("\nInput: [%c]\n", c);
 	compare_results_d_hh(c, 'i');
 
 	c = ' ';
-	printf("\nInput: [%c]\n", c);
 	compare_results_d_hh(c, 'i');
 
 	// with flags h
 	short int	shor = 5;
 	printf(PURPLE"\nh TEST\n"UNCOLOR);
 	printf("h modifier: converts short into int or unsigned int and the h makes sure it changes back to short int or unsigned short int\n");
-	printf("\nInput: [%d]\n", shor);
 	compare_results_d_h(shor, 'i');
 
 	shor = -32768;
-	printf("\nInput: [%d]\n", shor);
 	compare_results_d_h(shor, 'i');
 
 	shor = 32767;
-	printf("\nInput: [%d]\n", shor);
 	compare_results_d_h(shor, 'i');
 
 	shor = 0;
-	printf("\nInput: [%d]\n", shor);
 	compare_results_d_h(shor, 'i');
 
 	shor = 1234;
-	printf("\nInput: [%d]\n", shor);
 	compare_results_d_h(shor, 'i');
 
 	// with flags l
 	long int	lon = 5;
 	printf(PURPLE"\nl TEST\n"UNCOLOR);
 	printf("l modifier: converts long int into int or unsigned int and the l makes sure it changes back to long int or unsigned long int\n");
-	printf("\nInput: [%lu]\n", lon);
 	compare_results_d_l(lon, 'i');
 
 	lon = -2147483648;
-	printf("\nInput: [%lu]\n", lon);
 	compare_results_d_l(lon, 'i');
 
 	lon = 2147483647;
-	printf("\nInput: [%lu]\n", lon);
 	compare_results_d_l(lon, 'i');
 
 	lon = 0;
-	printf("\nInput: [%lu]\n", lon);
 	compare_results_d_l(lon, 'i');
 
-	lon = 1234;
-	printf("\nInput: [%lu]\n", lon);
+	lon = LONG_MAX;
+	compare_results_d_l(lon, 'i');
+
+	lon = LONG_MIN;
 	compare_results_d_l(lon, 'i');
 	//shouldn't work to put in long max value or min value
 
@@ -558,23 +543,21 @@ static void	i(void)
 	long long int	longlong = 5;
 	printf(PURPLE"\nll TEST\n"UNCOLOR);
 	printf("ll modifier: converts long long int into int or unsigned int and the ll makes sure it changes back to long int or unsigned long long int\n");
-	printf("\nInput: [%llu]\n", longlong);
 	compare_results_d_ll(longlong, 'i');
 
 	longlong = -2147483648;
-	printf("\nInput: [%llu]\n", longlong);
 	compare_results_d_ll(longlong, 'i');
 
 	longlong = 2147483647;
-	printf("\nInput: [%llu]\n", longlong);
 	compare_results_d_ll(longlong, 'i');
 
 	longlong = 0;
-	printf("\nInput: [%llu]\n", longlong);
 	compare_results_d_ll(longlong, 'i');
 
-	longlong = 1234;
+	longlong = LLONG_MAX;
 	printf("\nInput: [%llu]\n", longlong);
+
+	longlong = LLONG_MIN;
 	compare_results_d_ll(longlong, 'i');
 }
 

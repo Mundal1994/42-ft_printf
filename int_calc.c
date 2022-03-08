@@ -329,3 +329,6 @@ void	ft_diuf_print(const char *format, t_flag *flag, va_list *arg)
 	}
 	//make sure to round up / down the number depending on len i have provided...
 }
+/*
+** still some issues with the minimum size of d and i. it prinntts carbage value
+*/
