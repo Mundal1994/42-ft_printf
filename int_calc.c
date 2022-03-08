@@ -215,7 +215,7 @@ static char	*ft_ftoa(double number, int len)
 	char		*str;
 
 	nbr = (long)number;
-	lnbr = number - (long double)nbr;
+	lnbr = number - (double)nbr;
 	ft_itoa_add_zeros(nbr, temp, 0);
 	i = ft_strlen(temp);
 	if (len != 0)
@@ -414,7 +414,7 @@ void	ft_diuf_print(const char *format, t_flag *flag, va_list *arg)
 {
 	long long			nbr;
 	unsigned long long	var;
-	long double			number;
+	double			number;
 	char				*str;
 
 	str = NULL;
@@ -433,9 +433,9 @@ void	ft_diuf_print(const char *format, t_flag *flag, va_list *arg)
 	}
 	else if (*format == 'f')
 	{
-		number = va_arg(*arg, long double);
+		number = va_arg(*arg, double);
 		str = ft_convert_length_f(str, flag, number);
-		//ft_d_flag_calc(format, str, flag, 'f');
+		ft_d_flag_calc(format, str, flag, 'f');
 	}
 	//make sure to round up / down the number depending on len i have provided...
 }
