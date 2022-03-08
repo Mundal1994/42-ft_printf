@@ -206,7 +206,7 @@ static void	ft_itoa_add_zeros(long nbr, char *str, int len)
 	str[i] = '\0';
 }
 
-static char	*ft_float_itoa(double number, int len)
+static char	*ft_ftoa(double number, int len)
 {
 	long double	lnbr;
 	long		nbr;
@@ -231,68 +231,66 @@ static char	*ft_float_itoa(double number, int len)
 	ft_strncpy(str, temp, i + len);
 	return (str);
 }
-/*
-static uintmax_t	ft_countdec(long double nbr, long double base_len)
-{
-	long double		f;
-	uintmax_t	ret;
-	int			i;
 
-	f = nbr;
-	i = 0;
-	ret = 0;
-	while ((nbr - ret) != 0)
-	{
-		nbr *= base_len;
-		ret = (uintmax_t)nbr;
-		i++;
-		ft_putnbr(ret);
-	ft_putchar('\n');
-	ft_putnbr(nbr);
-	ft_putchar('\n');
-	}
-	return (ret);
+static int	ft_len_ulong_min(unsigned long long i)
+{
+	if (i >= 1000000000)
+		return (10);
+	if (i >= 100000000)
+		return (9);
+	if (i >= 10000000)
+		return (8);
+	if (i >= 1000000)
+		return (7);
+	if (i >= 100000)
+		return (6);
+	if (i >= 10000)
+		return (5);
+	if (i >= 1000)
+		return (4);
+	if (i >= 100)
+		return (3);
+	if (i >= 10)
+		return (2);
+	return (1);
 }
 
-static char	*ft_dtoa(long double nbr)
+static int	ft_len_ulong_max(unsigned long long i)
 {
-	uintmax_t	nbr_first;
-	uintmax_t	nbr_second;
-	char		*ret;
-
-	nbr_first = (uintmax_t)nbr;
-	ft_putnbr(nbr_first);
-	ft_putchar('\n');
-	nbr_second = ft_countdec((nbr - nbr_first), 10);
-	ft_putnbr(nbr_second);
-	ft_putchar('\n');
-	ret = ft_strjoin(ft_itoa_base(nbr_first, ft_int_len(nbr_first), 10), ".");
-	ret = ft_strjoin(ret, ft_itoa_base(nbr_second, ft_int_len(nbr_second), 10));
-	return (ret);
+	//if (i >= 10000000000000000000)
+	//	return (20);
+	if (i >= 1000000000000000000)
+		return (19);
+	if (i >= 100000000000000000)
+		return (18);
+	if (i >= 10000000000000000)
+		return (17);
+	if (i >= 1000000000000000)
+		return (16);
+	if (i >= 100000000000000)
+		return (15);
+	if (i >= 10000000000000)
+		return (14);
+	if (i >= 1000000000000)
+		return (13);
+	if (i >= 100000000000)
+		return (12);
+	return (11);
 }
-*/
-static char	*ft_utoa(unsigned long long nbr)
-{
-	char			*str;
-	char			buf[30];
-	unsigned int	i;
-	unsigned int	count;
 
-	count = 0;
+static char	*ft_ulltoa(unsigned long long nbr, char *str)
+{
+	int	i;
+
 	i = 0;
-	if (nbr == 0)
-		buf[count++] = '0';
+	if (!nbr)
+		str[i] = '0';
 	while (nbr)
 	{
-		buf[count++] = "0123456789"[nbr % 10];
+		str[i++] = nbr % 10 + '0';
 		nbr /= 10;
 	}
-	str = ft_strnew(count);
-	while (i < count)
-	{
-		str[i] = buf[count - i - 1];
-		i++;
-	}
+	ft_strrev(str);
 	return (str);
 }
 
@@ -376,16 +374,20 @@ static char	*ft_convert_length(char *str, t_flag *flag, long long nbr)
 
 static char	*ft_convert_length_u(char *str, t_flag *flag, unsigned long long nbr)
 {
-	if (flag->hh == TRUE)
-		str = ft_utoa((unsigned char)nbr);
-	else if (flag->h == TRUE)
-		str = ft_utoa((unsigned short)nbr);
-	else if (flag->l == TRUE)
-		str = ft_utoa((unsigned long)nbr);
-	else if (flag->ll == TRUE)
-		str = ft_utoa(nbr);
+	if (nbr >= 10000000000)
+		str = ft_strnew(ft_len_ulong_max(nbr));
 	else
-		str = ft_utoa((unsigned int)nbr);
+		str = ft_strnew(ft_len_ulong_min(nbr));
+	if (flag->hh == TRUE)
+		str = ft_ulltoa((unsigned char)nbr, str);
+	else if (flag->h == TRUE)
+		str = ft_ulltoa((unsigned short)nbr, str);
+	else if (flag->l == TRUE)
+		str = ft_ulltoa((unsigned long)nbr, str);
+	else if (flag->ll == TRUE)
+		str = ft_ulltoa(nbr, str);
+	else
+		str = ft_ulltoa((unsigned int)nbr, str);
 	return (str);
 }
 
@@ -407,23 +409,17 @@ void	ft_diuf_print(const char *format, t_flag *flag, va_list *arg)
 	else if (*format == 'u')
 	{
 		var	 = va_arg(*arg, unsigned long long);
-		str = ft_convert_length_u(str, flag, nbr);
-		/*if ((int)var < 0)
-		{
-			// return error if unsigned int isn't positive?
-			var = (int)var * -1;
-		}*/
-		//str = ft_utoa(var);
+		str = ft_convert_length_u(str, flag, var);
 		ft_d_flag_calc(format, str, flag, 'u');
 	}
 	else if (*format == 'f')
 	{
 		number = va_arg(*arg, double);
 		if (flag->prec != -1)
-			str = ft_float_itoa(number, flag->prec);
+			str = ft_ftoa(number, flag->prec);
 		else
-			str = ft_float_itoa(number, 11);
-			//str = ft_dtoa(number);//ft_float_itoa(number, 6);
+			str = ft_ftoa(number, 11);
+			//ft_ftoa(number, 6);
 		ft_d_flag_calc(format, str, flag, 'f');
 	}
 	//make sure to round up / down the number depending on len i have provided...
