@@ -735,7 +735,7 @@ static void	u(void)
 	printf("l modifier: converts long int into int or unsigned int and the l makes sure it changes back to long int or unsigned long int\n");
 	compare_results_lu(lon);
 
-	lon = 18446744073709551615U;
+	lon = 18446744073709551615ULL;
 	compare_results_lu(lon);
 
 	lon = 9223372036854775807;
@@ -754,7 +754,7 @@ static void	u(void)
 	printf("ll modifier: converts long long int into int or unsigned int and the ll makes sure it changes back to long int or unsigned long long int\n");
 	compare_results_llu(longlong);
 
-	longlong = 18446744073709551615U;
+	longlong = 18446744073709551615ULL;
 	compare_results_llu(longlong);
 
 	longlong = 9223372036854775807;

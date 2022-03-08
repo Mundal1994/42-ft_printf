@@ -391,6 +391,25 @@ static char	*ft_convert_length_u(char *str, t_flag *flag, unsigned long long nbr
 	return (str);
 }
 
+static char	*ft_convert_length_f(char *str, t_flag *flag, double number)
+{
+	if (flag->prec != -1)
+	{
+		if (flag->b_l)
+			str = ft_ftoa(number, flag->prec);
+		else
+			str = ft_ftoa((double)number, flag->prec);
+	}
+	else
+	{
+		if (flag->b_l)
+			str = ft_ftoa(number, 6);
+		else
+			str = ft_ftoa((double)number, 6);
+	}
+	return (str);
+}
+#include <stdio.h>
 void	ft_diuf_print(const char *format, t_flag *flag, va_list *arg)
 {
 	long long			nbr;
@@ -414,13 +433,9 @@ void	ft_diuf_print(const char *format, t_flag *flag, va_list *arg)
 	}
 	else if (*format == 'f')
 	{
-		number = va_arg(*arg, double);
-		if (flag->prec != -1)
-			str = ft_ftoa(number, flag->prec);
-		else
-			str = ft_ftoa(number, 11);
-			//ft_ftoa(number, 6);
-		ft_d_flag_calc(format, str, flag, 'f');
+		number = va_arg(*arg, long double);
+		str = ft_convert_length_f(str, flag, number);
+		//ft_d_flag_calc(format, str, flag, 'f');
 	}
 	//make sure to round up / down the number depending on len i have provided...
 }

@@ -3,6 +3,7 @@
 # include <unistd.h>
 # include <string.h>
 # include <assert.h>
+# include <float.h>
 
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -43,7 +44,7 @@ static void	compare_results_f(float number)
 	mine = ft_printf("output: [%f]\n", number);
 	print_result(orig, mine);
 }
-/*
+
 static void	compare_results_f_l(double number)
 {
 	int	orig;
@@ -53,8 +54,8 @@ static void	compare_results_f_l(double number)
 	orig = printf("expect: [%lf]\n", number);
 	mine = ft_printf("output: [%lf]\n", number);
 	print_result(orig, mine);
-}*/
-/*
+}
+
 static void	compare_results_f_L(long double number)
 {
 	int	orig;
@@ -63,7 +64,7 @@ static void	compare_results_f_L(long double number)
 	orig = printf("expect: [%Lf]\n", number);
 	mine = ft_printf("output: [%Lf]\n", number);
 	print_result(orig, mine);
-}*/
+}
 
 static void	f(void)
 {
@@ -203,23 +204,28 @@ static void	f(void)
 	orig = printf("expect: [%+-.15f]\n", 900999.102569);
 	mine = ft_printf("output: [%+-.15f]\n", 900999.102569);
 	print_result(orig, mine);
-	/*
+	
 	printf(PURPLE"\nl TEST\n"UNCOLOR);
 	printf("l modifier: ignored does same as without it. takes in double\n");
 	double doub = 25.20;
 	compare_results_f_l(doub);
 
-	doub = 12322;
+	doub = DBL_MAX;
 	compare_results_f_l(doub);
-	
+
+	doub = DBL_MIN;
+	compare_results_f_l(doub);
+
 	printf(PURPLE"\nL TEST\n"UNCOLOR);
 	printf("L modifier: converts long double into int or unsigned int and the L makes sure it changes back to orig\n");
-	long double ldoub = 25.205;
+	long double ldoub = 11119007199254740992.0L;
 	compare_results_f_L(ldoub);
 
-	ldoub = 250520;
+	ldoub = LDBL_MAX;
 	compare_results_f_L(ldoub);
-*/
+
+	ldoub = LDBL_MIN;
+	compare_results_f_L(ldoub);
 /*
 	printf("%f: ", 1234567.89);
 	orig = printf("%'.2f\n", 1234567.89);
