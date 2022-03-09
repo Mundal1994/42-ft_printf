@@ -41,15 +41,24 @@ char	*ft_itoa_base(long long nbr, int len, int base)
 {
 	char	*str;
 	int		neg;
+	int		i;
 
 	str = ft_strnew(len);
 	neg = 1;
+	i = 0;
 	if (nbr < 0)
 	{
+		if (nbr < -9223372036854775807)
+		{
+			str[i++] = '8';
+			nbr = -922337203685477580;
+		}
 		neg = -1;
 		nbr *= neg;
+		ft_itoa_helper(&str[i], nbr, base, neg);
 	}
-	ft_itoa_helper(str, nbr, base, neg);
+	else
+		ft_itoa_helper(str, nbr, base, neg);
 	ft_strrev(str);
 	return (str);
 }

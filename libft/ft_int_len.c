@@ -12,27 +12,19 @@
 
 #include "libft.h"
 
-static int	ft_len_of_int(unsigned int i)
+static int	ft_len_calc(int nbr)
 {
-	if (i >= 1000000000)
-		return (10);
-	if (i >= 100000000)
-		return (9);
-	if (i >= 10000000)
-		return (8);
-	if (i >= 1000000)
-		return (7);
-	if (i >= 100000)
-		return (6);
-	if (i >= 10000)
-		return (5);
-	if (i >= 1000)
-		return (4);
-	if (i >= 100)
-		return (3);
-	if (i >= 10)
-		return (2);
-	return (1);
+	int	counter;
+
+	counter = 0;
+	if (nbr == 0)
+		return (1);
+	while (nbr > 0)
+	{
+		nbr /= 10;
+		counter++;
+	}
+	return (counter);
 }
 
 int	ft_int_len(int n)
@@ -44,8 +36,8 @@ int	ft_int_len(int n)
 		else
 		{
 			n *= -1;
-			return (ft_len_of_int(n) + 1);
+			return (ft_len_calc(n) + 1);
 		}
 	}
-	return (ft_len_of_int(n));
+	return (ft_len_calc(n));
 }

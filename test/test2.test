@@ -555,7 +555,7 @@ static void	i(void)
 	compare_results_d_ll(longlong, 'i');
 
 	longlong = LLONG_MAX;
-	printf("\nInput: [%llu]\n", longlong);
+	compare_results_d_ll(longlong, 'i');
 
 	longlong = LLONG_MIN;
 	compare_results_d_ll(longlong, 'i');

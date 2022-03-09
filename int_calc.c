@@ -211,7 +211,7 @@ static char	*ft_ftoa(double number, int len)
 	long double	lnbr;
 	long		nbr;
 	int			i;
-	char		temp[100];
+	char		temp[len];
 	char		*str;
 
 	nbr = (long)number;
