@@ -111,9 +111,24 @@ static void	ft_d_flag_calc(const char *format, char *str, t_flag *flag, int c)
 	ft_i_reset(format, flag);
 }
 
-static int	ft_pow(int x, int y)
+static long long	ft_pow(long long x, int y)
 {
-	int	power;
+	long long	power;
+	int	i;
+
+	power = 1;
+	i = 1;
+	while (i <= y)
+	{
+		power *= x;
+		i++;
+	}
+	return (power);
+}
+
+static double	ft_dpow(double x, int y)
+{
+	double	power;
 	int	i;
 
 	power = 1;
@@ -178,7 +193,7 @@ static void	ft_check_correct_end(char *str, int len)
 		i--;
 	}
 }
-
+/*
 static void	ft_itoa_add_zeros(long nbr, char *str, int len)
 {
 	int	i;
@@ -205,7 +220,152 @@ static void	ft_itoa_add_zeros(long nbr, char *str, int len)
 	ft_strrev_len(str, i);
 	str[i] = '\0';
 }
+*/
 
+static void	ft_itoa_add_zeros(long long nbr, char *str, int len, int big)
+{
+	int	i;
+	int	neg;
+
+	i = 0;
+	neg = 1;
+	if (nbr < 0)
+	{
+		neg = -1;
+		nbr *= neg;
+	}
+	else if (nbr == 0 && len == 0)
+		str[i++] = '0';
+	while (nbr)
+	{
+		str[i++] = (nbr % 10) + '0';
+		nbr = nbr / 10;
+		if (big == TRUE)
+			break ;
+	}
+	while (i < len)
+		str[i++] =  '0';
+	if (neg == -1)
+		str[i++] = '-';
+	ft_strrev_len(str, i);
+	str[i] = '\0';
+}
+
+static int	ft_flong_len(double nbr)
+{
+	int	counter;
+
+	counter = 0;
+	if (nbr == 0)
+		return (1);
+	while (nbr >= 1)
+	{
+		nbr /= 10;
+		counter++;
+	}
+	return (counter);
+}
+#include <stdio.h>
+
+static double	ft_fcalc(double number, char *temp, double lnbr)
+{
+	long long	nbr;
+	char		*collect;
+	long long	current;
+	double		tem;
+	double		orig;
+	double	minus;
+
+	if ((int)number == 0)
+	{
+		temp[0] = '0';
+		return (lnbr);
+	}
+	collect = ft_strnew(ft_flong_len(number));
+	while (lnbr >= 1 || lnbr <= -1)
+	{
+		if (number < 9223372036854775807 && number >= -9223372036854775807)
+		{
+			nbr = (long long)number;
+			lnbr -= (double)nbr;
+			ft_itoa_add_zeros(nbr, collect, 0, FALSE);
+			ft_strcat(temp, collect);
+		}
+		else
+		{
+			int i = ft_flong_len(number) - 1;
+			current = 0;
+			int j = 0;
+			double temtem = 0;
+			orig = number;
+			minus = 0;
+			while (i >= 0)
+			{
+				tem = orig / ft_dpow(10, i);
+				minus = current * ft_dpow(10, j++);
+				ft_putstr("tem: ");
+				ft_putnbr(tem);
+				ft_putchar('\n');
+				ft_putstr("minus: ");
+				ft_putnbr(minus);
+				ft_putchar('\n');
+				current = tem - minus;
+				//temtem += minus;
+				ft_putstr("temtem: ");
+				ft_putnbr(temtem);
+				ft_putchar('\n');
+				ft_putstr("current: ");
+				ft_putnbr(current);
+				ft_putchar('\n');
+				ft_putchar('\n');
+				ft_putstr("i: ");
+				ft_putnbr(i);
+				ft_putchar('\n');
+				ft_itoa_add_zeros(current, collect, 0, TRUE);
+				ft_putstr("collect: ");
+				ft_putstr(collect);
+				ft_putchar('\n');
+				ft_strcat(temp, collect);
+				ft_putstr("temp: ");
+				ft_putstr(temp);
+				ft_putchar('\n');
+				ft_bzero(collect, ft_long_len(current));
+				i--;
+			}
+		}
+		break ;
+		ft_bzero(collect, ft_long_len(nbr));
+		// need to make the loop if number is bigger than in if statement. create loop to make nbr smaller and smaller.
+	}
+	ft_strdel(&collect);
+	return (lnbr);
+}
+
+static char	*ft_ftoa(double number, int len)
+{
+	double	lnbr;
+	int		i;
+	char	*temp;
+	char	*str;
+
+	lnbr = number;
+	temp = ft_strnew(ft_flong_len(number) + 10);
+	lnbr = ft_fcalc(number, temp, lnbr);
+	i = ft_strlen(temp);
+	if (len != 0)
+	{
+		if (lnbr < 0)
+			lnbr *= -1;
+		temp[i++] = '.';
+		lnbr = lnbr * ft_pow(10, 9);
+		ft_itoa_add_zeros(lnbr, &temp[i], 9, FALSE);
+		ft_check_correct_end(temp, len);
+	}
+	str = ft_strnew(ft_strlen(temp));
+	ft_strncpy(str, temp, i + len);
+	return (str);
+}
+/*
 static char	*ft_ftoa(double number, int len)
 {
 	long double	lnbr;
@@ -230,9 +390,7 @@ static char	*ft_ftoa(double number, int len)
 	str = ft_strnew(ft_strlen(temp));
 	ft_strncpy(str, temp, i + len);
 	return (str);
-}
-
-
+}*/
 
 static char	*ft_ulltoa(unsigned long long nbr, char *str)
 {

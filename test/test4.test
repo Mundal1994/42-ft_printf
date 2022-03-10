@@ -72,6 +72,16 @@ static void	f(void)
 	int mine;
 
 	// FLOAT
+	printf(YELLOW"\nInput: [%.9f]\n"UNCOLOR,(float)2.3);
+	orig = printf("expect: [%.9f]\n", (float)2.3);
+	mine = ft_printf("output: [%.9f]\n", (float)2.3);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%.9f]\n"UNCOLOR,2.3);
+	orig = printf("expect: [%.9f]\n", 2.3);
+	mine = ft_printf("output: [%.9f]\n", 2.3);
+	print_result(orig, mine);
+
 	float flo = FLT_MAX;
 	compare_results_f(flo);
 
