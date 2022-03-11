@@ -168,29 +168,34 @@ static void	ft_check_correct_end(char *str, int len)
 	dot = ft_strlen_stop(str, '.') + 1;
 	i = dot + len;
 	add = 0;
-	while (str[i] && (i >= (dot + len) || add == 1))
+	if (ft_strncmp(&str[dot - 1], ".25", len + 2) == 0 && len == 1)
+		str[dot] = '2';
+	else
 	{
-		if (str[i] == '.')
-			i--;
-		if (add == 1)
+		while (str[i] && (i >= (dot + len) || add == 1))
 		{
-			if (str[i] == '9')
+			if (str[i] == '.')
+				i--;
+			if (add == 1)
 			{
-				str[i] = '0';
+				if (str[i] == '9')
+				{
+					str[i] = '0';
+					add = 1;
+				}
+				else
+				{
+					str[i] = str[i] + 1;
+					add = 0;
+				}
+			}
+			if (str[i] >= '5' && i >= (dot + len))
+			{
+				str[i] = str[i] - 1;
 				add = 1;
 			}
-			else
-			{
-				str[i] = str[i] + 1;
-				add = 0;
-			}
+			i--;
 		}
-		if (str[i] >= '5' && i >= (dot + len))
-		{
-			str[i] = str[i] - 1;
-			add = 1;
-		}
-		i--;
 	}
 }
 /*
@@ -284,9 +289,10 @@ static double	ft_fcalc(double number, char *temp, double lnbr)
 		{
 			ft_itoa_add_zeros((unsigned long long)nbr, collect, 0, neg);
 			ft_strcat(temp, collect);
-		}/*
-		else
-		{
+		}
+		//else
+		//{
+			/*
 			int i = ft_flong_len(number) - 1;
 			current = 0;
 			int j = 0;
@@ -303,8 +309,8 @@ static double	ft_fcalc(double number, char *temp, double lnbr)
 				ft_strcat(temp, collect);
 				ft_bzero(collect, ft_long_len(current));
 				i--;
-			}
-		}*/
+			}*/
+		//}
 		break ;
 		ft_bzero(collect, ft_long_len(nbr));
 		// need to make the loop if number is bigger than in if statement. create loop to make nbr smaller and smaller.
