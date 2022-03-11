@@ -111,6 +111,7 @@ static void	ft_ox_flag_calc(const char *format, char *str, t_flag *flag, int c)
 	else
 		ft_prec_calc(str, flag, c);
 	ft_i_reset(format, flag);
+	ft_strdel(&str);
 }
 
 static void	ft_striter_uplow(char *str, int (*f)(int))
@@ -188,7 +189,7 @@ void	ft_oxX_print(const char *format, t_flag *flag, va_list *arg)
 	char				*str;
 
 	nbr = va_arg(*arg, unsigned long long);
-	str = ft_strnew(ft_ulong_len(nbr));
+	str = NULL;
 	if (*format == 'o')
 	{
 		str = ft_convert_length_ox(str, flag, nbr, 'o');

@@ -126,6 +126,7 @@ void	ft_csp_print(const char *format, t_flag *flag, va_list *arg)
 	char * str_arg;
 	char	c;
 	unsigned long long	long_arg;
+	char	*str;
 
 	if (*format == 'c')
 	{
@@ -135,7 +136,18 @@ void	ft_csp_print(const char *format, t_flag *flag, va_list *arg)
 	else if (*format == 's')
 	{
 		str_arg = va_arg(*arg, char*);
-		ft_c_flag_calc(format, str_arg, flag, 's');
+		if (!str_arg)
+		{
+			str = ft_strnew(5);
+			ft_strcpy(str, "(null)");
+		}
+		else
+		{
+			str = ft_strnew(ft_strlen(str_arg));
+			ft_strcpy(str, str_arg);
+		}
+		ft_c_flag_calc(format, str, flag, 's');
+		ft_strdel(&str);
 	}
 	else if (*format == 'p')
 	{

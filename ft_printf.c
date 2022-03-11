@@ -67,5 +67,6 @@ int	ft_printf(const char *format, ...)
 		}
 	}
 	va_end(arg);
+	free(flag);
 	return (flag->len); 
 }

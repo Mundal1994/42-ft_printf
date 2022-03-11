@@ -3,6 +3,7 @@
 # include <unistd.h>
 # include <string.h>
 # include <assert.h>
+# include <limits.h>
 
 # define RESET	"\033[0m"
 # define BOLD	"\033[1m"
@@ -307,6 +308,27 @@ static void	s(void)
 	mine = ft_printf("output: [%10.10s]\n", str);
 	print_result(orig, mine);
 
+	str = "hello";
+	printf(YELLOW"\n[%%10.10s]\n"UNCOLOR);
+	orig = printf("expect: [%10.10s]\n", str);
+	mine = ft_printf("output: [%10.10s]\n", str);
+	print_result(orig, mine);
+
+	printf(YELLOW"\n[%%10.10s]\n"UNCOLOR);
+	orig = printf("expect: [%10.10s]\n", NULL);
+	mine = ft_printf("output: [%10.10s]\n", NULL);
+	print_result(orig, mine);
+
+	printf(YELLOW"\n[%%10.5s]\n"UNCOLOR);
+	orig = printf("expect: [%10.5s]\n", NULL);
+	mine = ft_printf("output: [%10.5s]\n", NULL);
+	print_result(orig, mine);
+
+	printf(YELLOW"\n[%%10.2s]\n"UNCOLOR);
+	orig = printf("expect: [%10.2s]\n", NULL);
+	mine = ft_printf("output: [%10.2s]\n", NULL);
+	print_result(orig, mine);
+
 /*
 	int orig;
 	int mine;
@@ -325,6 +347,8 @@ static void	p(void)
 	// POINTER
 	int intnbr = 25;
 	int *pnt;
+	unsigned long uint = ULONG_MAX;
+	unsigned long *pnt2 = &uint;
 
 	pnt = &intnbr;
 	orig = printf("expect: [%p]\n", pnt);
@@ -337,21 +361,29 @@ static void	p(void)
 	orig = printf("expect: [%-1p]\n", pnt);
 	mine = ft_printf("output: [%-1p]\n", pnt);
 	print_result(orig, mine);
-/*
-	printf(YELLOW"\n[%%+p]\n"UNCOLOR);
-	orig = printf("expect: [%+p]\n", pnt);
-	mine = ft_printf("output: [%+p]\n", pnt);
+
+	printf(YELLOW"\n[%lu]\n"UNCOLOR,  ULONG_MAX);
+	orig = printf("expect: [%p]\n", pnt2);
+	mine = ft_printf("output: [%p]\n", pnt2);
 	print_result(orig, mine);
 
-	printf(YELLOW"\n[%%#p]\n"UNCOLOR);
-	orig = printf("expect: [%#p]\n", pnt);
-	mine = ft_printf("output: [%#p]\n", pnt);
+	uint = -1;
+	printf(YELLOW"\n[%d]\n"UNCOLOR, -1);
+	orig = printf("expect: [%p]\n", pnt2);
+	mine = ft_printf("output: [%p]\n", pnt2);
 	print_result(orig, mine);
 
-	printf(YELLOW"\n[%%0p]\n"UNCOLOR);
-	orig = printf("expect: [%0p]\n", pnt);
-	mine = ft_printf("output: [%0p]\n", pnt);
-	print_result(orig, mine);*/
+	uint = 0;
+	printf(YELLOW"\n[%d]\n"UNCOLOR, 0);
+	orig = printf("expect: [%p]\n", pnt2);
+	mine = ft_printf("output: [%p]\n", pnt2);
+	print_result(orig, mine);
+
+	uint = 17;
+	printf(YELLOW"\n[%d]\n"UNCOLOR, 17);
+	orig = printf("expect: [%p]\n", pnt2);
+	mine = ft_printf("output: [%p]\n", pnt2);
+	print_result(orig, mine);
 }
 
 int main(void)

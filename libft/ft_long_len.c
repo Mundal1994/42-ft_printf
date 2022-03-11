@@ -31,7 +31,7 @@ int	ft_long_len(long long nbr)
 {
 	if (nbr < 0)
 	{
-		if (nbr > -9223372036854775800)
+		if (nbr < -9223372036854775800)
 			return (20);
 		else
 		{

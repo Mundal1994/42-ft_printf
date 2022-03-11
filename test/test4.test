@@ -50,7 +50,7 @@ static void	compare_results_f_l(double number)
 	int	orig;
 	int	mine;
 
-	printf(YELLOW"Input: [%lf]\n"UNCOLOR, number);
+	printf(YELLOW"\nInput: [%lf]\n"UNCOLOR, number);
 	orig = printf("expect: [%lf]\n", number);
 	mine = ft_printf("output: [%lf]\n", number);
 	print_result(orig, mine);
@@ -61,6 +61,7 @@ static void	compare_results_f_L(long double number)
 	int	orig;
 	int	mine;
 
+	printf(YELLOW"\nInput: [%Lf]\n"UNCOLOR, number);
 	orig = printf("expect: [%Lf]\n", number);
 	mine = ft_printf("output: [%Lf]\n", number);
 	print_result(orig, mine);
@@ -372,22 +373,30 @@ static void	f(void)
 	double doub = 25.20;
 	compare_results_f_l(doub);
 
-	doub = DBL_MAX;
-	compare_results_f_l(doub);
+	//doub = DBL_MAX;
+	//compare_results_f_l(doub);
 
 	doub = DBL_MIN;
 	compare_results_f_l(doub);
 
 	printf(PURPLE"\nL TEST\n"UNCOLOR);
 	printf("L modifier: converts long double into int or unsigned int and the L makes sure it changes back to orig\n");
-	long double ldoub = 11119007199254740992.0L;
+	long double ldoub = 740992.051452552;
 	compare_results_f_L(ldoub);
 
-	ldoub = LDBL_MAX;
+	//ldoub = LDBL_MAX;
+	//compare_results_f_L(ldoub);
+
+	ldoub = 1.0000000000000000000000000000000001926;
 	compare_results_f_L(ldoub);
 
-	ldoub = LDBL_MIN;
+	ldoub = 0.9999999999999999999999999999999999037;
 	compare_results_f_L(ldoub);
+
+	printf(YELLOW"\nInput: [%.37Lf]\n"UNCOLOR, ldoub);
+	orig = printf("expect: [%.37Lf]\n", ldoub);
+	mine = ft_printf("output: [%.37Lf]\n", ldoub);
+	print_result(orig, mine);
 /*
 	printf("%f: ", 1234567.89);
 	orig = printf("%'.2f\n", 1234567.89);
