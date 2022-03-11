@@ -34,7 +34,7 @@ static void	ft_space_zero_calc(t_flag *flag, int len, int c)
 	}
 }
 
-static void	ft_plus_print(t_flag *flag, int c)
+static void	ft_plus_print(t_flag *flag, int len, int c)
 {
 	if (c != 'u')
 	{
@@ -42,7 +42,7 @@ static void	ft_plus_print(t_flag *flag, int c)
 			ft_putchar('+');
 		else
 			ft_putchar(' ');
-		if (flag->width == -1 && flag->prec == -1)
+		if (flag->width < len && flag->prec == -1)
 			flag->len++;
 		else if (flag->prec == -1)
 			return ;
@@ -59,7 +59,7 @@ static void	ft_prec_calc(char *str, t_flag *flag, int c)
 	if (str[0] == '0' && flag->prec != -1)
 		str_len = 0;
 	if (flag->plus == TRUE || (flag->space == TRUE && flag->minus == TRUE))
-		ft_plus_print(flag, c);
+		ft_plus_print(flag, str_len, c);
 	if (flag->prec == -1)
 	{
 		ft_putstr(str);
@@ -90,7 +90,7 @@ static void	ft_d_flag_calc(const char *format, char *str, t_flag *flag, int c)
 	if (flag->prec != -1 && flag->prec > len)
 		len = flag->prec;
 	if (flag->space == TRUE && flag->minus == FALSE)
-		ft_plus_print(flag, c);
+		ft_plus_print(flag, len, c);
 	if (flag->width >= 0)
 	{
 		if (flag->width >= len && flag->prec == -1)
@@ -111,9 +111,9 @@ static void	ft_d_flag_calc(const char *format, char *str, t_flag *flag, int c)
 	ft_i_reset(format, flag);
 }
 
-static long long	ft_pow(long long x, int y)
+static unsigned long long	ft_pow(unsigned long long x, int y)
 {
-	long long	power;
+	unsigned long long	power;
 	int	i;
 
 	power = 1;
@@ -125,7 +125,7 @@ static long long	ft_pow(long long x, int y)
 	}
 	return (power);
 }
-
+/*
 static double	ft_dpow(double x, int y)
 {
 	double	power;
@@ -139,7 +139,7 @@ static double	ft_dpow(double x, int y)
 		i++;
 	}
 	return (power);
-}
+}*/
 
 static void	ft_strrev_len(char *str, int len)
 {
@@ -185,7 +185,7 @@ static void	ft_check_correct_end(char *str, int len)
 				add = 0;
 			}
 		}
-		if (str[i] > '5' && i >= (dot + len))
+		if (str[i] >= '5' && i >= (dot + len))
 		{
 			str[i] = str[i] - 1;
 			add = 1;
@@ -222,26 +222,17 @@ static void	ft_itoa_add_zeros(long nbr, char *str, int len)
 }
 */
 
-static void	ft_itoa_add_zeros(long long nbr, char *str, int len, int big)
+static void	ft_itoa_add_zeros(unsigned long long nbr, char *str, int len, int neg)
 {
 	int	i;
-	int	neg;
 
 	i = 0;
-	neg = 1;
-	if (nbr < 0)
-	{
-		neg = -1;
-		nbr *= neg;
-	}
-	else if (nbr == 0 && len == 0)
+	if (nbr == 0 && len == 0)
 		str[i++] = '0';
 	while (nbr)
 	{
 		str[i++] = (nbr % 10) + '0';
 		nbr = nbr / 10;
-		if (big == TRUE)
-			break ;
 	}
 	while (i < len)
 		str[i++] =  '0';
@@ -271,10 +262,11 @@ static double	ft_fcalc(double number, char *temp, double lnbr)
 {
 	long long	nbr;
 	char		*collect;
-	long long	current;
-	double		tem;
-	double		orig;
-	double	minus;
+	int			neg;
+	//long long	current;
+	//double		tem;
+	//double		orig;
+	//double	minus;
 
 	if ((int)number == 0)
 	{
@@ -284,13 +276,19 @@ static double	ft_fcalc(double number, char *temp, double lnbr)
 	collect = ft_strnew(ft_flong_len(number));
 	while (lnbr >= 1 || lnbr <= -1)
 	{
+		neg = 1;
 		if (number < 9223372036854775807 && number >= -9223372036854775807)
 		{
 			nbr = (long long)number;
 			lnbr -= (double)nbr;
-			ft_itoa_add_zeros(nbr, collect, 0, FALSE);
+			if (nbr < 0)
+			{
+				neg = -1;
+				nbr *= neg;
+			}
+			ft_itoa_add_zeros((unsigned long long)nbr, collect, 0, neg);
 			ft_strcat(temp, collect);
-		}
+		}/*
 		else
 		{
 			int i = ft_flong_len(number) - 1;
@@ -332,7 +330,7 @@ static double	ft_fcalc(double number, char *temp, double lnbr)
 				ft_bzero(collect, ft_long_len(current));
 				i--;
 			}
-		}
+		}*/
 		break ;
 		ft_bzero(collect, ft_long_len(nbr));
 		// need to make the loop if number is bigger than in if statement. create loop to make nbr smaller and smaller.
@@ -357,8 +355,8 @@ static char	*ft_ftoa(double number, int len)
 		if (lnbr < 0)
 			lnbr *= -1;
 		temp[i++] = '.';
-		lnbr = lnbr * ft_pow(10, 9);
-		ft_itoa_add_zeros(lnbr, &temp[i], 9, FALSE);
+		lnbr = lnbr * ft_pow(10, 19);
+		ft_itoa_add_zeros(lnbr, &temp[i], 19, 1);
 		ft_check_correct_end(temp, len);
 	}
 	str = ft_strnew(ft_strlen(temp));
