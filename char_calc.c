@@ -98,7 +98,7 @@ static void	ft_c_flag_calc(const char *format, char *str, t_flag *flag, int c)
 	else
 	{
 		len = flag->prec;
-		if (flag->prec == -1)
+		if (flag->prec == -1 || flag->prec == flag->width)
 			len = ft_strlen(str);
 	}
 	if (flag->width >= 0)
@@ -121,6 +121,15 @@ static void	ft_c_flag_calc(const char *format, char *str, t_flag *flag, int c)
 	ft_i_reset(format, flag);
 }
 
+static char	*ft_str_creater(char *str_arg)
+{
+	char *str;
+
+	str = ft_strnew(ft_strlen(str_arg));
+	ft_strcpy(str, str_arg);
+	return (str);
+}
+
 void	ft_csp_print(const char *format, t_flag *flag, va_list *arg)
 {
 	char * str_arg;
@@ -137,15 +146,9 @@ void	ft_csp_print(const char *format, t_flag *flag, va_list *arg)
 	{
 		str_arg = va_arg(*arg, char*);
 		if (!str_arg)
-		{
-			str = ft_strnew(5);
-			ft_strcpy(str, "(null)");
-		}
+			str = ft_str_creater("(null)");
 		else
-		{
-			str = ft_strnew(ft_strlen(str_arg));
-			ft_strcpy(str, str_arg);
-		}
+			str = ft_str_creater(str_arg);
 		ft_c_flag_calc(format, str, flag, 's');
 		ft_strdel(&str);
 	}

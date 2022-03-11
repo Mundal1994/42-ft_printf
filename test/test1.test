@@ -319,6 +319,16 @@ static void	s(void)
 	mine = ft_printf("output: [%10.10s]\n", NULL);
 	print_result(orig, mine);
 
+	printf(YELLOW"\n[%%4.4s]\n"UNCOLOR);
+	orig = printf("expect: [%4.4s]\n", NULL);
+	mine = ft_printf("output: [%4.4s]\n", NULL);
+	print_result(orig, mine);
+
+	printf(YELLOW"\n[%%5.5s]\n"UNCOLOR);
+	orig = printf("expect: [%5.5s]\n", NULL);
+	mine = ft_printf("output: [%5.5s]\n", NULL);
+	print_result(orig, mine);
+
 	printf(YELLOW"\n[%%10.5s]\n"UNCOLOR);
 	orig = printf("expect: [%10.5s]\n", NULL);
 	mine = ft_printf("output: [%10.5s]\n", NULL);
