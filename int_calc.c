@@ -242,9 +242,9 @@ static void	ft_itoa_add_zeros(unsigned long long nbr, char *str, int len, int ne
 	str[i] = '\0';
 }
 
-static int	ft_flong_len(double nbr)
+static long	ft_flong_len(double nbr)
 {
-	int	counter;
+	long	counter;
 
 	counter = 0;
 	if (nbr == 0)
@@ -341,10 +341,11 @@ static double	ft_fcalc(double number, char *temp, double lnbr)
 
 static char	*ft_ftoa(double number, int len)
 {
-	double	lnbr;
-	int		i;
-	char	*temp;
-	char	*str;
+	double				lnbr;
+	int					i;
+	char				*temp;
+	char				*str;
+	unsigned long long	ulnbr;
 
 	lnbr = number;
 	temp = ft_strnew(ft_flong_len(number) + 10);
@@ -355,8 +356,8 @@ static char	*ft_ftoa(double number, int len)
 		if (lnbr < 0)
 			lnbr *= -1;
 		temp[i++] = '.';
-		lnbr = lnbr * ft_pow(10, 19);
-		ft_itoa_add_zeros(lnbr, &temp[i], 19, 1);
+		ulnbr = lnbr * ft_pow(10, 19);
+		ft_itoa_add_zeros(ulnbr, &temp[i], 19, 1);
 		ft_check_correct_end(temp, len);
 	}
 	str = ft_strnew(ft_strlen(temp));
