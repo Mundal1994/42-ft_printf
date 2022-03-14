@@ -12,9 +12,9 @@
 
 #include "ft_printf.h"
 
-static void	ft_space_zero_calc(t_flag *flag, int len, int c)
+static void	ft_space_zero_calc(t_flag *flag, int len)
 {
-	if ((flag->plus == TRUE || flag->space == TRUE) && flag->prec == -1 && c != 'u')
+	if ((flag->plus == TRUE || flag->space == TRUE) && flag->prec == -1 && flag->spec != 'u')
 		len++;
 	if (flag->prec >= 0 && flag->prec > len)
 	{
@@ -33,24 +33,7 @@ static void	ft_space_zero_calc(t_flag *flag, int len, int c)
 	}
 }
 
-static void	ft_plus_print(t_flag *flag, int len, int c)
-{
-	if (c != 'u')
-	{
-		if (flag->plus == TRUE)
-			ft_putchar('+');
-		else
-			ft_putchar(' ');
-		if (flag->width < len && flag->prec == -1)
-			flag->len++;
-		else if (flag->prec == -1)
-			return ;
-		else
-			flag->len++;
-	}
-}
-
-static void	ft_prec_calc(char *str, t_flag *flag, int c)
+static void	ft_prec_calc(char *str, t_flag *flag)
 {
 	int	str_len;
 
@@ -58,7 +41,7 @@ static void	ft_prec_calc(char *str, t_flag *flag, int c)
 	if (str[0] == '0' && flag->prec != -1)
 		str_len = 0;
 	if (flag->plus == TRUE || (flag->space == TRUE && flag->minus == TRUE))
-		ft_plus_print(flag, str_len, c);
+		ft_plus_print(flag, str_len);
 	if (flag->prec == -1)
 	{
 		ft_putstr(str);
@@ -67,7 +50,7 @@ static void	ft_prec_calc(char *str, t_flag *flag, int c)
 	else
 	{
 		if (flag->prec > str_len)
-			ft_space_zero_calc(flag, str_len, c);
+			ft_space_zero_calc(flag, str_len);
 		if (str_len == 0)
 			ft_putchar(' ');
 		else
@@ -79,36 +62,6 @@ static void	ft_prec_calc(char *str, t_flag *flag, int c)
 		else
 			flag->len += flag->prec - 1;
 	}
-}
-
-static void	ft_d_flag_calc(const char *format, char *str, t_flag *flag, int c)
-{
-	int		len;
-
-	len = ft_strlen(str);
-	if (flag->prec != -1 && flag->prec > len)
-		len = flag->prec;
-	if (flag->space == TRUE && flag->minus == FALSE)
-		ft_plus_print(flag, len, c);
-	if (flag->width >= 0)
-	{
-		if (flag->width >= len && flag->prec == -1)
-			flag->len += flag->width - len;
-		if (flag->minus == TRUE)
-		{
-			ft_prec_calc(str, flag, c);
-			ft_space_zero_calc(flag, len, c);
-		}
-		else
-		{
-			ft_space_zero_calc(flag, len, c);
-			ft_prec_calc(str, flag, c);
-		}
-	}
-	else
-		ft_prec_calc(str, flag, c);
-	ft_i_reset(format, flag);
-	ft_strdel(&str);
 }
 
 static unsigned long long	ft_pow(unsigned long long x, int y)
@@ -450,18 +403,21 @@ void	ft_diuf_print(const char *format, t_flag *flag, va_list *arg)
 	{
 		nbr = va_arg(*arg, long long);
 		str = ft_convert_length(str, flag, nbr);
-		ft_d_flag_calc(format, str, flag, 'd');
+		flag->spec = 'd';
+		ft_print_calc(str, flag, &ft_prec_calc, &ft_space_zero_calc);
 	}
 	else if (*format == 'u')
 	{
 		var	 = va_arg(*arg, unsigned long long);
 		str = ft_convert_length_u(str, flag, var);
-		ft_d_flag_calc(format, str, flag, 'u');
+		flag->spec = 'u';
+		ft_print_calc(str, flag, &ft_prec_calc, &ft_space_zero_calc);
 	}
 	else if (*format == 'f')
 	{
 		b_number = -1;
 		number = -1;
+		flag->spec = 'f';
 		if (flag->b_l == TRUE)
 		{
 			b_number = va_arg(*arg, long double);
@@ -472,7 +428,7 @@ void	ft_diuf_print(const char *format, t_flag *flag, va_list *arg)
 			number = va_arg(*arg, double);
 			str = ft_convert_length_f(str, flag, number, b_number);
 		}
-		ft_d_flag_calc(format, str, flag, 'f');
+		ft_print_calc(str, flag, &ft_prec_calc, &ft_space_zero_calc);
 	}
 	//make sure to round up / down the number depending on len i have provided...
 }

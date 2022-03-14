@@ -126,10 +126,8 @@ static void	percentage_print(void)
 	print_result(orig, mine);
 
 	printf("\n");
-	orig = printf("expect: [%%] [%%] [%%]");
-	ft_putchar('\n');
-	mine = ft_printf("output: [%%] [%%] [%%]");
-	ft_putchar('\n');
+	orig = printf("expect: [%%] [%%] [%%]\n");
+	mine = ft_printf("output: [%%] [%%] [%%]\n");
 	print_result(orig, mine);
 }
 
@@ -210,7 +208,7 @@ static void	s(void)
 
 	char *str = "hello";
 	printf("hello {cyan}%s{uncolor}\n", str);
-	ft_printf("hello {  cyan}%s{uncolor  } my name is {bold}%s{reset} \n", "my", "james");
+	ft_printf("hello {red}%s{yellow} my name is {bold}%s{reset} \n", "my", "james");
 
 	//char *str = "hello";
 

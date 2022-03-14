@@ -82,7 +82,7 @@ static int	ft_flag_check(const char *format, t_flag *flag, int on, int *pnt)
 	return (on);
 }
 
-void	ft_convert_checker(const char *format, t_flag *flag, va_list *arg)
+void	ft_flag_checker(const char *format, t_flag *flag, va_list *arg)
 {
 	int	i;
 	int	*pnt;
@@ -90,23 +90,23 @@ void	ft_convert_checker(const char *format, t_flag *flag, va_list *arg)
 
 	i = 0;
 	pnt = &i;
-	specifier = ft_convert_symbol(&format[i], flag, arg);
+	specifier = ft_specifier_check(&format[i], flag, arg);
 	if (specifier == FALSE)
 	{
 		flag->flags = TRUE;
 		while (specifier == FALSE && ft_flag_check(&format[i], flag, TRUE, pnt) == TRUE)
-			specifier = ft_convert_symbol(&format[i], flag, arg);
+			specifier = ft_specifier_check(&format[i], flag, arg);
 		while (specifier == FALSE && ft_isdigit(format[i]) == 1)
 		{
 			ft_width_calc(&format[i], &flag->width, pnt);
-			specifier = ft_convert_symbol(&format[i], flag, arg);
+			specifier = ft_specifier_check(&format[i], flag, arg);
 		}
 		while (specifier == FALSE && format[i] == '.')
 		{
 			ft_precision_calc(&format[i], flag, pnt);
-			specifier = ft_convert_symbol(&format[i], flag, arg);
+			specifier = ft_specifier_check(&format[i], flag, arg);
 		}
 		if (specifier == FALSE && ft_hhll_flag_check(&format[i], flag, TRUE, pnt) == TRUE)
-			specifier = ft_convert_symbol(&format[i], flag, arg);
+			specifier = ft_specifier_check(&format[i], flag, arg);
 	}
 }

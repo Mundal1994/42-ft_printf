@@ -61,11 +61,14 @@ static void	ft_space_zero_calc(t_flag *flag, int len)
 	}
 }
 
-static void	ft_prec_calc(char *str, t_flag *flag, int c, int i)
+static void	ft_prec_calc(char *str, t_flag *flag)
 {
+	int	i;
+
+	i = 0;
 	if (flag->prec == -1)
 	{
-		if (c == 'c')
+		if (flag->spec == 'c')
 			ft_putchar(*str);
 		else
 		{
@@ -75,7 +78,7 @@ static void	ft_prec_calc(char *str, t_flag *flag, int c, int i)
 	}
 	else
 	{
-		if (c == 'c')
+		if (flag->spec == 'c')
 			ft_putchar(*str);
 		else
 		{
@@ -89,44 +92,28 @@ static void	ft_prec_calc(char *str, t_flag *flag, int c, int i)
 	}
 }
 
-static void	ft_c_flag_calc(const char *format, char *str, t_flag *flag, int c)
-{
-	int		len;
-
-	if (c == 'c')
-		len = 1;
-	else
-	{
-		len = flag->prec;
-		if (flag->prec == -1 || flag->prec == flag->width)
-			len = ft_strlen(str);
-	}
-	if (flag->width >= 0)
-	{
-		if (flag->width >= len && flag->prec == -1)
-			flag->len += flag->width - len;
-		if (flag->minus == TRUE)
-		{
-			ft_prec_calc(str, flag, c, 0);
-			ft_space_zero_calc(flag, len);
-		}
-		else
-		{
-			ft_space_zero_calc(flag, len);
-			ft_prec_calc(str, flag, c, 0);
-		}
-	}
-	else
-		ft_prec_calc(str, flag, c, 0);
-	ft_i_reset(format, flag);
-}
-
-static char	*ft_str_creater(char *str_arg)
+static char	*ft_str_creater(char *str_arg, char c)
 {
 	char *str;
 
-	str = ft_strnew(ft_strlen(str_arg));
-	ft_strcpy(str, str_arg);
+	if (c == 'c')
+	{
+		str = ft_strnew(1);
+		ft_strncpy(str, str_arg, 1);
+	}
+	else
+	{
+		if (!str_arg)
+		{
+			str = ft_strnew(ft_strlen("(null)"));
+			ft_strcpy(str, "(null)");
+		}
+		else
+		{
+			str = ft_strnew(ft_strlen(str_arg));
+			ft_strcpy(str, str_arg);
+		}
+	}
 	return (str);
 }
 
@@ -140,23 +127,22 @@ void	ft_csp_print(const char *format, t_flag *flag, va_list *arg)
 	if (*format == 'c')
 	{
 		c = (char)va_arg(*arg, int);
-		ft_c_flag_calc(format, &c, flag, 'c');
+		flag->spec = 'c';
+		str = ft_str_creater(&c, flag->spec);
+		ft_print_calc(str, flag, &ft_prec_calc, &ft_space_zero_calc);
 	}
 	else if (*format == 's')
 	{
 		str_arg = va_arg(*arg, char*);
-		if (!str_arg)
-			str = ft_str_creater("(null)");
-		else
-			str = ft_str_creater(str_arg);
-		ft_c_flag_calc(format, str, flag, 's');
-		ft_strdel(&str);
+		flag->spec = 's';
+		str = ft_str_creater(str_arg, flag->spec);
+		ft_print_calc(str, flag, &ft_prec_calc, &ft_space_zero_calc);
 	}
 	else if (*format == 'p')
 	{
 		long_arg = va_arg(*arg, unsigned long long);
+		flag->spec = 'p';
 		ft_hex_to_str(long_arg, 0);
-		ft_i_reset(format, flag);
 		ft_pntlen(long_arg, flag);
 	}
 }

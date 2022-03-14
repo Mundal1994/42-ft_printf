@@ -12,13 +12,13 @@
 
 #include "ft_printf.h"
 
-static void	ft_space_zero_calc(t_flag *flag, int len, int c)
+static void	ft_space_zero_calc(t_flag *flag, int len)
 {
 	if (flag->hash == TRUE && (flag->width <= len || flag->prec <= len))
 	{
-		if (c == 'o')
+		if (flag->spec == 'o')
 			len++;
-		else if (c != 'o' && flag->width > len)
+		else if (flag->spec != 'o' && flag->width > len)
 			len += 2;
 	}
 	if (flag->prec >= 0 && flag->prec > len)
@@ -38,9 +38,9 @@ static void	ft_space_zero_calc(t_flag *flag, int len, int c)
 	}
 }
 
-static void	ft_hash_print(t_flag *flag, int len, int c)
+static void	ft_hash_print(t_flag *flag, int len)
 {
-	if (c == 'o')
+	if (flag->spec == 'o')
 	{
 		if (flag->width <= len || flag->prec <= len)
 			ft_putchar('0');
@@ -51,7 +51,7 @@ static void	ft_hash_print(t_flag *flag, int len, int c)
 	}
 	else
 	{
-		if (c == 'x')
+		if (flag->spec == 'x')
 			ft_putstr("0x");
 		else
 			ft_putstr("0X");
@@ -60,13 +60,13 @@ static void	ft_hash_print(t_flag *flag, int len, int c)
 	}
 }
 
-static void	ft_prec_calc(char *str, t_flag *flag, int c)
+static void	ft_prec_calc(char *str, t_flag *flag)
 {
 	int	str_len;
 
 	str_len = ft_strlen(str);
 	if (flag->hash == TRUE && str[0] != '0')
-		ft_hash_print(flag, str_len, c);
+		ft_hash_print(flag, str_len);
 	if (flag->prec == -1)
 	{
 		ft_putstr(str);
@@ -75,7 +75,7 @@ static void	ft_prec_calc(char *str, t_flag *flag, int c)
 	else
 	{
 		if (flag->prec > str_len)
-			ft_space_zero_calc(flag, str_len, c);
+			ft_space_zero_calc(flag, str_len);
 		ft_putstr(str);
 		if (flag->width >= 0 && flag->prec < flag->width)
 			flag->len += flag->width - 1;
@@ -84,34 +84,6 @@ static void	ft_prec_calc(char *str, t_flag *flag, int c)
 		else
 			flag->len += flag->prec - 1;
 	}
-}
-
-static void	ft_ox_flag_calc(const char *format, char *str, t_flag *flag, int c)
-{
-	int	len;
-
-	len = ft_strlen(str);
-	if (flag->prec != -1 && flag->prec > len)
-		len = flag->prec;
-	if (flag->width >= 0)
-	{
-		if (flag->width >= len && flag->prec == -1)
-			flag->len += flag->width - len;
-		if (flag->minus == TRUE)
-		{
-			ft_prec_calc(str, flag, c);
-			ft_space_zero_calc(flag, len, c);
-		}
-		else
-		{
-			ft_space_zero_calc(flag, len, c);
-			ft_prec_calc(str, flag, c);
-		}
-	}
-	else
-		ft_prec_calc(str, flag, c);
-	ft_i_reset(format, flag);
-	ft_strdel(&str);
 }
 
 static void	ft_striter_uplow(char *str, int (*f)(int))
@@ -192,19 +164,22 @@ void	ft_oxX_print(const char *format, t_flag *flag, va_list *arg)
 	str = NULL;
 	if (*format == 'o')
 	{
+		flag->spec = 'o';
 		str = ft_convert_length_ox(str, flag, nbr, 'o');
-		ft_ox_flag_calc(format, str, flag, 'o');
+		ft_print_calc(str, flag, &ft_prec_calc, &ft_space_zero_calc);
 	}
 	else if (*format == 'x')
 	{
+		flag->spec = 'x';
 		str = ft_convert_length_ox(str, flag, nbr, 'x');
 		ft_striter_uplow(str, &ft_tolower);
-		ft_ox_flag_calc(format, str, flag, 'x');
+		ft_print_calc(str, flag, &ft_prec_calc, &ft_space_zero_calc);
 	}
 	else if (*format == 'X')
 	{
+		flag->spec = 'X';
 		str = ft_convert_length_ox(str, flag, nbr, 'X');
 		ft_striter_uplow(str, &ft_toupper);
-		ft_ox_flag_calc(format, str, flag, 'X');
+		ft_print_calc(str, flag, &ft_prec_calc, &ft_space_zero_calc);
 	}
 }
