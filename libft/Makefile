@@ -90,6 +90,7 @@ SRCS += ft_strrev.c
 SRCS += ft_int_len.c
 SRCS += ft_long_len.c
 SRCS += ft_ulong_len.c
+SRCS += ft_htoa.c
 
 OBJS = $(SRCS:.c=.o)
 

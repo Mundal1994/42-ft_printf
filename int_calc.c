@@ -12,27 +12,14 @@
 
 #include "ft_printf.h"
 
-static void	ft_space_zero_calc(t_flag *flag, int len)
+void	ft_space_calc_digit(t_flag *flag, int len)
 {
 	if ((flag->plus == TRUE || flag->space == TRUE) && flag->prec == -1 && flag->spec != 'u')
 		len++;
-	if (flag->prec >= 0 && flag->prec > len)
-	{
-		while (len++ < flag->prec)
-			ft_putchar('0');
-	}
-	else if (flag->zero == TRUE && flag->prec == -1 && flag->minus == FALSE)
-	{
-		while (len++ < flag->width)
-			ft_putchar('0');
-	}
-	else
-	{
-		while (len++ < flag->width)
-			ft_putchar(' ');
-	}
+	ft_space_zero_calc_digit(flag, len);
 }
 
+/*
 static void	ft_prec_calc(char *str, t_flag *flag)
 {
 	int	str_len;
@@ -62,7 +49,7 @@ static void	ft_prec_calc(char *str, t_flag *flag)
 		else
 			flag->len += flag->prec - 1;
 	}
-}
+}*/
 
 static unsigned long long	ft_pow(unsigned long long x, int y)
 {
@@ -404,14 +391,14 @@ void	ft_diuf_print(const char *format, t_flag *flag, va_list *arg)
 		nbr = va_arg(*arg, long long);
 		str = ft_convert_length(str, flag, nbr);
 		flag->spec = 'd';
-		ft_print_calc(str, flag, &ft_prec_calc, &ft_space_zero_calc);
+		ft_print_calc(str, flag, &ft_space_calc_digit);
 	}
 	else if (*format == 'u')
 	{
 		var	 = va_arg(*arg, unsigned long long);
 		str = ft_convert_length_u(str, flag, var);
 		flag->spec = 'u';
-		ft_print_calc(str, flag, &ft_prec_calc, &ft_space_zero_calc);
+		ft_print_calc(str, flag, &ft_space_calc_digit);
 	}
 	else if (*format == 'f')
 	{
@@ -428,7 +415,7 @@ void	ft_diuf_print(const char *format, t_flag *flag, va_list *arg)
 			number = va_arg(*arg, double);
 			str = ft_convert_length_f(str, flag, number, b_number);
 		}
-		ft_print_calc(str, flag, &ft_prec_calc, &ft_space_zero_calc);
+		ft_print_calc(str, flag, &ft_space_calc_digit);
 	}
 	//make sure to round up / down the number depending on len i have provided...
 }

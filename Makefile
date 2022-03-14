@@ -20,6 +20,7 @@ SRC += specifier.c
 SRC += char_calc.c
 SRC += int_calc.c
 SRC += ox_calc.c
+SRC += prec_calc.c
 SRC += bonus.c
 
 OBJ = $(SRC:.c=.o)

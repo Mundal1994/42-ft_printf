@@ -93,3 +93,7 @@ int	ft_printf(const char *format, ...)
 	free(flag);
 	return (flag->len); 
 }
+
+//can work on error handling ex if someone writes something incorreeclty with %kf;ls,
+//ask jeff:
+// pointers do they do anything with any of the flags if you do %p?

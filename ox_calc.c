@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-static void	ft_space_zero_calc(t_flag *flag, int len)
+void	ft_space_calc_ox(t_flag *flag, int len)
 {
 	if (flag->hash == TRUE && (flag->width <= len || flag->prec <= len))
 	{
@@ -21,45 +21,10 @@ static void	ft_space_zero_calc(t_flag *flag, int len)
 		else if (flag->spec != 'o' && flag->width > len)
 			len += 2;
 	}
-	if (flag->prec >= 0 && flag->prec > len)
-	{
-		while (len++ < flag->prec)
-			ft_putchar('0');
-	}
-	else if (flag->zero == TRUE && flag->prec == -1 && flag->minus == FALSE)
-	{
-		while (len++ < flag->width)
-			ft_putchar('0');
-	}
-	else
-	{
-		while (len++ < flag->width)
-			ft_putchar(' ');
-	}
+	ft_space_zero_calc_digit(flag, len);
 }
 
-static void	ft_hash_print(t_flag *flag, int len)
-{
-	if (flag->spec == 'o')
-	{
-		if (flag->width <= len || flag->prec <= len)
-			ft_putchar('0');
-		if (flag->width == -1 && flag->prec == -1)
-			flag->len++;
-		else if (flag->width <= len && flag->prec <= len)
-			flag->len++;
-	}
-	else
-	{
-		if (flag->spec == 'x')
-			ft_putstr("0x");
-		else
-			ft_putstr("0X");
-		if ((flag->width <= len && flag->prec > len) || flag->width <= flag->prec)
-			flag->len += 2;
-	}
-}
-
+/*
 static void	ft_prec_calc(char *str, t_flag *flag)
 {
 	int	str_len;
@@ -84,7 +49,7 @@ static void	ft_prec_calc(char *str, t_flag *flag)
 		else
 			flag->len += flag->prec - 1;
 	}
-}
+}*/
 
 static void	ft_striter_uplow(char *str, int (*f)(int))
 {
@@ -166,20 +131,20 @@ void	ft_oxX_print(const char *format, t_flag *flag, va_list *arg)
 	{
 		flag->spec = 'o';
 		str = ft_convert_length_ox(str, flag, nbr, 'o');
-		ft_print_calc(str, flag, &ft_prec_calc, &ft_space_zero_calc);
+		ft_print_calc(str, flag, &ft_space_calc_ox);
 	}
 	else if (*format == 'x')
 	{
 		flag->spec = 'x';
 		str = ft_convert_length_ox(str, flag, nbr, 'x');
 		ft_striter_uplow(str, &ft_tolower);
-		ft_print_calc(str, flag, &ft_prec_calc, &ft_space_zero_calc);
+		ft_print_calc(str, flag, &ft_space_calc_ox);
 	}
 	else if (*format == 'X')
 	{
 		flag->spec = 'X';
 		str = ft_convert_length_ox(str, flag, nbr, 'X');
 		ft_striter_uplow(str, &ft_toupper);
-		ft_print_calc(str, flag, &ft_prec_calc, &ft_space_zero_calc);
+		ft_print_calc(str, flag, &ft_space_calc_ox);
 	}
 }

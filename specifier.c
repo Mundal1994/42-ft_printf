@@ -12,6 +12,25 @@
 
 #include "ft_printf.h"
 
+void	ft_space_zero_calc_digit(t_flag *flag, int len)
+{
+	if (flag->prec >= 0 && flag->prec > len)
+	{
+		while (len++ < flag->prec)
+			ft_putchar('0');
+	}
+	else if (flag->zero == TRUE && flag->prec == -1 && flag->minus == FALSE)
+	{
+		while (len++ < flag->width)
+			ft_putchar('0');
+	}
+	else
+	{
+		while (len++ < flag->width)
+			ft_putchar(' ');
+	}
+}
+
 void	ft_plus_print(t_flag *flag, int len)
 {
 	if (flag->spec != 'u')
@@ -48,7 +67,7 @@ static int	ft_len_calc(char *str, t_flag *flag)
 	return (len);
 }
 
-void	ft_print_calc(char *str, t_flag *flag, void (*prec)(char *, t_flag *), void (*space)(t_flag *, int))
+void	ft_print_calc(char *str, t_flag *flag, void (*f)(t_flag *, int))
 {
 	int	len;
 
@@ -61,17 +80,17 @@ void	ft_print_calc(char *str, t_flag *flag, void (*prec)(char *, t_flag *), void
 			flag->len += flag->width - len;
 		if (flag->minus == TRUE)
 		{
-			prec(str, flag);
-			space(flag, len);
+			ft_prec_calc(str, flag);
+			f(flag, len);
 		}
 		else
 		{
-			space(flag, len);
-			prec(str, flag);
+			f(flag, len);
+			ft_prec_calc(str, flag);
 		}
 	}
 	else
-		prec(str, flag);
+		ft_prec_calc(str, flag);
 	ft_strdel(&str);
 }
 
