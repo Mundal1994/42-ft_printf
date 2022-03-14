@@ -152,7 +152,7 @@ static void	c(void)
 
 	c = 'm';
 	compare_char(c);
-
+/*
 	compare_char_flag(c, '#');
 
 	compare_char_flag(c, '+');
@@ -160,7 +160,7 @@ static void	c(void)
 	compare_char_flag(c, '0');
 
 	compare_char_flag(c, ' ');
-
+*/
 	compare_char_flag(c, '-');
 
 	c = 'n';
@@ -209,6 +209,10 @@ static void	s(void)
 	int	mine;
 
 	char *str = "hello";
+	printf("hello {cyan}%s{uncolor}\n", str);
+	ft_printf("hello {  cyan}%s{uncolor  } my name is {bold}%s{reset} \n", "my", "james");
+
+	//char *str = "hello";
 
 	compare_string(str);
 

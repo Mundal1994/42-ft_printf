@@ -393,9 +393,9 @@ static void	f(void)
 	ldoub = 0.9999999999999999999999999999999999037;
 	compare_results_f_L(ldoub);
 
-	printf(YELLOW"\nInput: [%.37Lf]\n"UNCOLOR, ldoub);
-	orig = printf("expect: [%.37Lf]\n", ldoub);
-	mine = ft_printf("output: [%.37Lf]\n", ldoub);
+	printf(YELLOW"\nInput: [%.18Lf]\n"UNCOLOR, ldoub);
+	orig = printf("expect: [%.18Lf]\n", ldoub);
+	mine = ft_printf("output: [%.18Lf]\n", ldoub);
 	print_result(orig, mine);
 /*
 	printf("%f: ", 1234567.89);
