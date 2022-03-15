@@ -29,7 +29,8 @@ static void	ft_hash_print(t_flag *flag, int len)
 			ft_putstr("0x");
 		else
 			ft_putstr("0X");
-		if ((flag->width <= len && flag->prec > len) || flag->width <= flag->prec)
+		if ((flag->width <= len && flag->prec > len) || \
+			flag->width <= flag->prec)
 			flag->len += 2;
 	}
 }
@@ -72,7 +73,8 @@ static void	ft_prec_calc_digit(char *str, t_flag *flag, int *str_len, int first)
 			ft_putchar(' ');
 		else
 			ft_putstr(str);
-		if (flag->width >= 0 && flag->prec < flag->width && flag->width > *str_len)
+		if (flag->width >= 0 && flag->prec < flag->width && \
+			flag->width > *str_len)
 			flag->len += flag->width - 1;
 		else if (flag->prec <= *str_len)
 			flag->len += *str_len - 1;

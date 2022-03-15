@@ -39,7 +39,8 @@ static void	ft_striter_uplow(char *str, int (*f)(int))
 	}
 }
 
-static char	*ft_convert_length_ox(char *str, t_flag *flag, unsigned long long nbr, int c)
+static char	*ft_convert_length_ox(char *str, t_flag *flag,
+			unsigned long long nbr, int c)
 {
 	int	specifier;
 
@@ -60,7 +61,7 @@ static char	*ft_convert_length_ox(char *str, t_flag *flag, unsigned long long nb
 	return (str);
 }
 
-void	ft_oxX_print(const char *format, t_flag *flag, va_list *arg)
+void	ft_ox_print(const char *format, t_flag *flag, va_list *arg)
 {
 	unsigned long long	nbr;
 	char				*str;

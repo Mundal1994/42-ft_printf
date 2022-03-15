@@ -94,7 +94,6 @@ int	ft_printf(const char *format, ...)
 	}
 	va_end(arg);
 	free(flag);
-	return (flag->len); 
+	return (flag->len);
 }
-
-//can work on error handling ex if someone writes something incorreeclty with %kf;ls,
+//error handling ex if someone writes something incorreeclty with %kf;l

@@ -15,7 +15,7 @@
 unsigned long long	ft_pow(unsigned long long x, int y)
 {
 	unsigned long long	power;
-	int	i;
+	int					i;
 
 	power = 1;
 	i = 1;

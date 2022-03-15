@@ -30,7 +30,7 @@ void	ft_space_calc_csp(t_flag *flag, int len)
 
 static char	*ft_str_creater(char *str_arg, char c)
 {
-	char *str;
+	char	*str;
 
 	if (c == 'c')
 		str = ft_strnew(1);
@@ -67,10 +67,10 @@ static char	*ft_address_to_str(uintptr_t addr)
 
 void	ft_csp_print(const char *format, t_flag *flag, va_list *arg)
 {
-	char * str_arg;
-	char	c;
+	char				*str_arg;
+	char				c;
 	unsigned long long	long_arg;
-	char	*str;
+	char				*str;
 
 	str = NULL;
 	if (*format == 'c')
@@ -81,7 +81,7 @@ void	ft_csp_print(const char *format, t_flag *flag, va_list *arg)
 	}
 	else if (*format == 's')
 	{
-		str_arg = va_arg(*arg, char*);
+		str_arg = va_arg(*arg, char *);
 		flag->spec = 's';
 		str = ft_str_creater(str_arg, flag->spec);
 	}

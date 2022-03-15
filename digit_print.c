@@ -14,7 +14,8 @@
 
 void	ft_space_calc_digit(t_flag *flag, int len)
 {
-	if ((flag->plus == TRUE || flag->space == TRUE) && flag->prec == -1 && flag->spec != 'u')
+	if ((flag->plus == TRUE || flag->space == TRUE) && flag->prec == -1 && \
+		flag->spec != 'u')
 		len++;
 	ft_space_zero_calc_digit(flag, len);
 }
@@ -34,7 +35,8 @@ static char	*ft_convert_length(char *str, t_flag *flag, long long nbr)
 	return (str);
 }
 
-static char	*ft_convert_length_u(char *str, t_flag *flag, unsigned long long nbr)
+static char	*ft_convert_length_u(char *str, t_flag *flag, unsigned long long \
+nbr)
 {
 	str = ft_strnew(ft_ulong_len(nbr));
 	if (flag->hh == TRUE)
@@ -67,7 +69,7 @@ void	ft_diu_print(const char *format, t_flag *flag, va_list *arg)
 	}
 	else if (*format == 'u')
 	{
-		var	 = va_arg(*arg, unsigned long long);
+		var = va_arg(*arg, unsigned long long);
 		str = ft_convert_length_u(str, flag, var);
 		flag->spec = 'u';
 		ft_print_calc(str, flag, &ft_space_calc_digit);

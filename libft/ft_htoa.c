@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-static unsigned	ft_count(uintptr_t addr)
+static unsigned int	ft_count(uintptr_t addr)
 {
 	int	count;
 
@@ -27,9 +27,9 @@ static unsigned	ft_count(uintptr_t addr)
 
 char	*ft_htoa(char *dst, uintptr_t addr)
 {
-	unsigned	len;
-	unsigned	i;
-	unsigned	mod;
+	unsigned int	len;
+	unsigned int	i;
+	unsigned int	mod;
 
 	len = ft_count(addr) + 1;
 	i = len - 2;

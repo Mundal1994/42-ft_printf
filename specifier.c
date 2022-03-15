@@ -72,7 +72,8 @@ void	ft_print_calc(char *str, t_flag *flag, void (*f)(t_flag *, int))
 	int	len;
 
 	len = ft_len_calc(str, flag);
-	if (flag->space == TRUE && flag->minus == FALSE && (flag->spec == 'd' || flag->spec == 'f' || flag->spec == 'u'))
+	if (flag->space == TRUE && flag->minus == FALSE && \
+		(flag->spec == 'd' || flag->spec == 'f' || flag->spec == 'u'))
 		ft_plus_print(flag, len);
 	if (flag->width >= 0)
 	{

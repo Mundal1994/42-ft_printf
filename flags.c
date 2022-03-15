@@ -12,7 +12,8 @@
 
 #include "ft_printf.h"
 
-static int	ft_hhll_flag_check(const char *format, t_flag *flag, int on, int *pnt)
+static int	ft_hhll_flag_check(const char *format, t_flag *flag, int on,
+			int *pnt)
 {
 	if (*format == 'h' && format[1] == 'h')
 	{
@@ -76,12 +77,14 @@ static int	ft_flag_check(const char *format, t_flag *flag, int on, int *pnt)
 	return (on);
 }
 
-static int	ft_flag_loop(const char *format, t_flag *flag, va_list *arg, int *pnt)
+static int	ft_flag_loop(const char *format, t_flag *flag, va_list *arg,
+			int *pnt)
 {
 	int	specifier;
 
 	specifier = FALSE;
-	while (specifier == FALSE && ft_flag_check(&format[*pnt], flag, TRUE, pnt) == TRUE)
+	while (specifier == FALSE && ft_flag_check(&format[*pnt], flag, TRUE, pnt) \
+		== TRUE)
 		specifier = ft_specifier_check(&format[*pnt], flag, arg);
 	while (specifier == FALSE && ft_isdigit(format[*pnt]) == 1)
 	{
@@ -94,7 +97,8 @@ static int	ft_flag_loop(const char *format, t_flag *flag, va_list *arg, int *pnt
 		ft_width_calc(&format[*pnt], &flag->prec, pnt);
 		specifier = ft_specifier_check(&format[*pnt], flag, arg);
 	}
-	if (specifier == FALSE && ft_hhll_flag_check(&format[*pnt], flag, TRUE, pnt) == TRUE)
+	if (specifier == FALSE && ft_hhll_flag_check(&format[*pnt], flag, TRUE, \
+		pnt) == TRUE)
 		specifier = ft_specifier_check(&format[*pnt], flag, arg);
 	return (specifier);
 }
