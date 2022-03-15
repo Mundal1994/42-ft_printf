@@ -45,7 +45,7 @@ static void error_test(void)
 	ft_printf("hello {red}%s{yellow} my name is {bold}%s{reset} \n\n", "mine");
 
 	printf("hello {red}%%s{yellow} my name is {bold}%%s{reset} \n");
-	ft_printf("hello {red}%s{yellow} my name is {bold}%s{reset} \n\n");
+	//ft_printf("hello {red}%s{yellow} my name is {bold}%s{reset} \n\n");
 
 	printf(PURPLE"no argument test - p\n\n"UNCOLOR);
 	printf("hello {red}%%p{yellow} my name is {bold}%%p{reset} \n");
@@ -74,6 +74,11 @@ static void error_test(void)
 	printf(PURPLE"no argument test - X\n\n"UNCOLOR);
 	printf("hello {red}%%X{yellow} my name is {bold}%%X{reset} \n");
 	ft_printf("hello {red}%X{yellow} my name is {bold}%X{reset} \n\n");
+
+
+	printf(PURPLE"wierd combination of flag test - X\n\n"UNCOLOR);
+	printf("hello %%.5-d{yellow} my name is {bold}%%.5-d{reset} \n");
+	ft_printf("hello %.5-d{yellow} my name is {bold}%.5-d{reset} \n\n");
 	
 }
 

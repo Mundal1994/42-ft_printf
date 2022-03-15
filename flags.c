@@ -109,4 +109,9 @@ void	ft_flag_checker(const char *format, t_flag *flag, va_list *arg)
 		if (specifier == FALSE && ft_hhll_flag_check(&format[i], flag, TRUE, pnt) == TRUE)
 			specifier = ft_specifier_check(&format[i], flag, arg);
 	}
+	if (specifier == FALSE)
+	{
+		ft_putchar('%');
+		flag->i -= 1;
+	}
 }
