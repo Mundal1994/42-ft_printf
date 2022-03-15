@@ -58,26 +58,34 @@ static char	*ft_binary_to_str(unsigned int number)
 
 	start = number;
 	count = 0;
-	while (number >> 1)
-		count++;
-	str = ft_strnew(count);
-	count = 0;
-	number = start;
+	ft_putnbr(5);
 	while (start >> 1)
 	{
-		if (count > 0)
-			number = start;
-		while (number >> 1);
+		ft_putnbr(count);
+		ft_putchar('\n');
+		count++;
+	}
+	str = ft_strnew(count);
+	count = 0;
+	ft_putnbr(5);
+	start = number;
+	while (start)
+	{
+		number = start;
+		while (number >> 1)
 		if (number & 1)
 		{
 			str[count] = '1';
 			count++;
+			ft_putnbr(5);
 		}
 		else
 		{
 			str[count] = '0';
 			count++;
 		}
+		ft_putnbr(4);
+		start = start >> 1;
 	}
 	return (str);
 	/*if (number & 1)
@@ -106,3 +114,4 @@ void	ft_b_print(const char *format, t_flag *flag, va_list *arg)
 		ft_print_calc(str, flag, &ft_space_calc_digit);*/
 	}
 }
+/*need to fix binary but also new test case with float*/

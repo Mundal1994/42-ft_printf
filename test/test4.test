@@ -367,6 +367,21 @@ static void	f(void)
 	orig = printf("expect: [%.3f]\n", 1.02);
 	mine = ft_printf("output: [%.3f]\n", 1.02);
 	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%.1f]\n"UNCOLOR,0.05);
+	orig = printf("expect: [%.1f]\n", 0.05);
+	mine = ft_printf("output: [%.1f]\n", 0.05);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%.1f]\n"UNCOLOR,0.04);
+	orig = printf("expect: [%.1f]\n", 0.04);
+	mine = ft_printf("output: [%.1f]\n", 0.04);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%f]\n"UNCOLOR,2.5555525);
+	orig = printf("expect: [%f]\n", 2.5555525);
+	mine = ft_printf("output: [%f]\n", 2.5555525);
+	print_result(orig, mine);
 	
 	printf(PURPLE"\nl TEST\n"UNCOLOR);
 	printf("l modifier: ignored does same as without it. takes in double\n");
