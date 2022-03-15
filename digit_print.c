@@ -75,6 +75,3 @@ void	ft_diu_print(const char *format, t_flag *flag, va_list *arg)
 		ft_print_calc(str, flag, &ft_space_calc_digit);
 	}
 }
-/*
-** still some issues with the minimum size of d and i. it prinntts carbage value
-*/

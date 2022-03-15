@@ -50,18 +50,57 @@ int	ft_color_print(const char *str, t_flag *flag)
 	return (TRUE);
 }
 
+static char	*ft_binary_to_str(unsigned int number)
+{
+	unsigned int	start;
+	char			*str;
+	int				count;
+
+	start = number;
+	count = 0;
+	while (number >> 1)
+		count++;
+	str = ft_strnew(count);
+	count = 0;
+	number = start;
+	while (start >> 1)
+	{
+		if (count > 0)
+			number = start;
+		while (number >> 1);
+		if (number & 1)
+		{
+			str[count] = '1';
+			count++;
+		}
+		else
+		{
+			str[count] = '0';
+			count++;
+		}
+	}
+	return (str);
+	/*if (number & 1)
+		ft_putnbr(1);
+	else
+		ft_putnbr(0);*/
+	//ft_putnbr((number & 1) ? '1' : '0');
+}
+
 void	ft_b_print(const char *format, t_flag *flag, va_list *arg)
 {
-	long long			nbr;
+	unsigned int		nbr;
 	char				*str;
 
 	str = NULL;
 	nbr = 0;
 	if (*format == 'b')
 	{
-		nbr = va_arg(*arg, long long);
+		nbr = va_arg(*arg, unsigned int);
 		if (flag)
 			flag->spec = 'b';
+		str = ft_binary_to_str(nbr);
+		ft_putstr(str);
 		/*str = ft_convert_length(str, flag, nbr);
 		flag->spec = 'd';
 		ft_print_calc(str, flag, &ft_space_calc_digit);*/

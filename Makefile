@@ -21,6 +21,7 @@ SRC += str_print.c
 SRC += digit_print.c
 SRC += ox_print.c
 SRC += f_print.c
+SRC += ftoa.c
 SRC += prec_calc.c
 SRC += bonus.c
 

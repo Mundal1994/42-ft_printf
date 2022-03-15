@@ -111,7 +111,7 @@ int	ft_specifier_check(const char *format, t_flag *flag, va_list *arg)
 	}
 	else if (*format == 'o' || *format == 'x' || *format == 'X')
 	{
-		ft_oxX_print(format, flag, arg);
+		ft_ox_print(format, flag, arg);
 		ft_i_reset(format, flag);
 		return (TRUE);
 	}
