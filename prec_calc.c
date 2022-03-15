@@ -34,19 +34,6 @@ static void	ft_hash_print(t_flag *flag, int len)
 	}
 }
 
-static void	ft_prec_calc_csp(char *str, t_flag *flag)
-{
-	int	i;
-
-	i = 0;
-	while (i < flag->prec && str[i] != '\0')
-		ft_putchar(str[i++]);
-	if (flag->width >= 0 && flag->prec < flag->width)
-		flag->len += flag->width - 1;
-	else
-		flag->len += flag->prec - 1;
-}
-
 static void	ft_prec_calc_ox(char *str, t_flag *flag, int *str_len, int first)
 {
 	if (first == TRUE)
@@ -92,6 +79,19 @@ static void	ft_prec_calc_digit(char *str, t_flag *flag, int *str_len, int first)
 		else
 			flag->len += flag->prec - 1;
 	}
+}
+
+static void	ft_prec_calc_csp(char *str, t_flag *flag)
+{
+	int	i;
+
+	i = 0;
+	while (i < flag->prec && str[i] != '\0')
+		ft_putchar(str[i++]);
+	if (flag->width >= 0 && flag->prec < flag->width)
+		flag->len += flag->width - 1;
+	else
+		flag->len += flag->prec - 1;
 }
 
 void	ft_prec_calc(char *str, t_flag *flag)

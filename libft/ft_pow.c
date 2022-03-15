@@ -1,47 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_htoa.c                                          :+:      :+:    :+:   */
+/*   ft_pow.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: molesen <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/14 18:29:06 by molesen           #+#    #+#             */
-/*   Updated: 2022/03/14 18:29:09 by molesen          ###   ########.fr       */
+/*   Created: 2022/03/15 09:45:56 by molesen           #+#    #+#             */
+/*   Updated: 2022/03/15 09:46:06 by molesen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static unsigned	ft_count(uintptr_t addr)
+unsigned long long	ft_pow(unsigned long long x, int y)
 {
-	int	count;
+	unsigned long long	power;
+	int	i;
 
-	count = 0;
-	while (addr > 0)
+	power = 1;
+	i = 1;
+	while (i <= y)
 	{
-		++count;
-		addr /= 16;
+		power *= x;
+		i++;
 	}
-	return (count);
-}
-
-char	*ft_htoa(char *dst, uintptr_t addr)
-{
-	unsigned	len;
-	unsigned	i;
-	unsigned	mod;
-
-	len = ft_count(addr) + 1;
-	i = len - 2;
-	while (addr > 0)
-	{
-		mod = addr % 16;
-		if (mod >= 10)
-			dst[i--] = (mod - 10) + 'a';
-		else
-			dst[i--] = mod + '0';
-		addr /= 16;
-	}
-	dst[len - 1] = '\0';
-	return (dst);
+	return (power);
 }

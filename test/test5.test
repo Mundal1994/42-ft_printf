@@ -1,0 +1,77 @@
+# include "../ft_printf.h"
+# include <stdio.h>
+# include <unistd.h>
+# include <string.h>
+# include <assert.h>
+# include <limits.h>
+
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+
+# define RESET	"\033[0m"
+# define BOLD	"\033[1m"
+# define RED		"\033[31m"
+# define GREEN	"\033[32m"
+# define YELLOW		"\033[33m"
+# define BLUE	"\033[34m"
+# define PURPLE		"\033[35m"
+# define CYAN	"\033[36m"
+# define WHITE	"\033[37m"
+# define UNCOLOR	"\033[39m"
+
+void	print_OK(int result)
+{
+	if (result != 0)
+		printf(RED"KO!\n"UNCOLOR);
+	else
+		printf(GREEN"OK!\n"UNCOLOR);
+}
+
+void	print_result(int result, int mine)
+{
+	printf(CYAN"return expected [%d] : [%d]	"UNCOLOR, result, mine);
+	print_OK(result - mine);
+}
+
+static void	color(void)
+{
+	printf("hello {red}%%s{yellow} my name is {bold}%%s{reset} \n");
+	ft_printf("hello {red}%s{yellow} my name is {bold}%s{reset} \n\n", "my", "james");
+
+	char *str = "hello";
+	printf("input: {cyan}[%.5s]{uncolor}\n", str);
+	ft_printf("color: {cyan}[%.5s]{uncolor}\n\n", str);
+
+	printf("input: {red}[%.5s]\n", str);
+	ft_printf("color: {red}[%.5s]\n\n", str);
+
+	printf("input: {bold}[% 16f]{reset}\n", 900999.10256);
+	ft_printf("output: {bold}[% 16f]{reset}\n\n", 900999.10256);
+
+	printf("input: {blue}[% 016f]{uncolor}\n", 900999.10256);
+	ft_printf("output: {blue}[% 016f]{uncolor}\n\n", 900999.10256);
+
+	printf("input: {yellow}[%+16f]{uncolor}\n", 900999.10256);
+	ft_printf("output: {yellow}[%+16f]{uncolor}\n\n", 900999.10256);
+
+	printf("input: {green}[%-10.0d]{uncolor}\n", 9009999);
+	ft_printf("output: {green}[%-10.0d]{uncolor}\n\n", 9009999);
+
+	printf("{{red}input: {purple}{bold}[%+-10.15d]{reset}\n", 9009999);
+	ft_printf("{{red}output: {purple}{bold}[%+-10.15d]{reset}\n\n", 9009999);
+}
+
+static void	binary(void)
+{
+//lol
+}
+
+int main(void)
+{
+	printf(PURPLE"color test\n"UNCOLOR);
+	color();
+
+	printf(PURPLE"binary test\n"UNCOLOR);
+	binary();
+}

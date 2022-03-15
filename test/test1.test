@@ -207,11 +207,6 @@ static void	s(void)
 	int	mine;
 
 	char *str = "hello";
-	printf("hello {cyan}%s{uncolor}\n", str);
-	ft_printf("hello {red}%s{yellow} my name is {bold}%s{reset} \n", "my", "james");
-
-	//char *str = "hello";
-
 	compare_string(str);
 
 	str = "hi my name is james";
@@ -380,21 +375,21 @@ static void	p(void)
 	print_result(orig, mine);
 
 	uint = -1;
-	printf(YELLOW"\n[%d]\n"UNCOLOR, -1);
-	orig = printf("expect: [%p]\n", pnt2);
-	mine = ft_printf("output: [%p]\n", pnt2);
+	printf(YELLOW"\n[%%-1]\n"UNCOLOR);
+	orig = printf("expect: [%-500p]\n", pnt2);
+	mine = ft_printf("output: [%-500p]\n", pnt2);
 	print_result(orig, mine);
 
 	uint = 0;
-	printf(YELLOW"\n[%d]\n"UNCOLOR, 0);
-	orig = printf("expect: [%p]\n", pnt2);
-	mine = ft_printf("output: [%p]\n", pnt2);
+	printf(YELLOW"\n[%%0]\n"UNCOLOR);
+	orig = printf("expect: [%5p]\n", pnt2);
+	mine = ft_printf("output: [%5p]\n", pnt2);
 	print_result(orig, mine);
 
 	uint = 17;
-	printf(YELLOW"\n[%d]\n"UNCOLOR, 17);
-	orig = printf("expect: [%p]\n", pnt2);
-	mine = ft_printf("output: [%p]\n", pnt2);
+	printf(YELLOW"\n[%%17]\n"UNCOLOR);
+	orig = printf("expect: [%20p]\n", pnt2);
+	mine = ft_printf("output: [%20p]\n", pnt2);
 	print_result(orig, mine);
 }
 

@@ -36,8 +36,10 @@ void	ft_space_calc_csp(t_flag *flag, int len);
 void	ft_space_calc_digit(t_flag *flag, int len);
 void	ft_space_calc_ox(t_flag *flag, int len);
 void	ft_csp_print(const char *format, t_flag *flag, va_list *arg);
-void	ft_diuf_print(const char *format, t_flag *flag, va_list *arg);
+void	ft_diu_print(const char *format, t_flag *flag, va_list *arg);
 void	ft_oxX_print(const char *format, t_flag *flag, va_list *arg);
+void	ft_f_print(const char *format, t_flag *flag, va_list *arg);
+void	ft_b_print(const char *format, t_flag *flag, va_list *arg);
 void	ft_i_reset(const char *format, t_flag *flag);
 int		ft_color_print(const char *str, t_flag *flag);
 

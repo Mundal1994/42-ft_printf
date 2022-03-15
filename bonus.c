@@ -14,25 +14,25 @@
 
 static int	ft_color_check(const char *str, int len)
 {
-	if (ft_strncmp(&str[1], "reset", len) == 0)
+	if (ft_strncmp(str, "reset", len) == 0)
 		ft_putstr("\033[0m");
-	else if (ft_strncmp(&str[1], "bold", len) == 0)
+	else if (ft_strncmp(str, "bold", len) == 0)
 		ft_putstr("\033[1m");
-	else if (ft_strncmp(&str[1], "red", len) == 0)
+	else if (ft_strncmp(str, "red", len) == 0)
 		ft_putstr("\033[31m");
-	else if (ft_strncmp(&str[1], "green", len) == 0)
+	else if (ft_strncmp(str, "green", len) == 0)
 		ft_putstr("\033[32m");
-	else if (ft_strncmp(&str[1], "yellow", len) == 0)
+	else if (ft_strncmp(str, "yellow", len) == 0)
 		ft_putstr("\033[33m");
-	else if (ft_strncmp(&str[1], "blue", len) == 0)
+	else if (ft_strncmp(str, "blue", len) == 0)
 		ft_putstr("\033[34m");
-	else if (ft_strncmp(&str[1], "purple", len) == 0)
+	else if (ft_strncmp(str, "purple", len) == 0)
 		ft_putstr("\033[35m");
-	else if (ft_strncmp(&str[1], "cyan", len) == 0)
+	else if (ft_strncmp(str, "cyan", len) == 0)
 		ft_putstr("\033[36m");
-	else if (ft_strncmp(&str[1], "white", len) == 0)
+	else if (ft_strncmp(str, "white", len) == 0)
 		ft_putstr("\033[37m");
-	else if (ft_strncmp(&str[1], "uncolor", len) == 0)
+	else if (ft_strncmp(str, "uncolor", len) == 0)
 		ft_putstr("\033[39m");
 	else
 		return (FALSE);
@@ -43,9 +43,27 @@ int	ft_color_print(const char *str, t_flag *flag)
 {
 	int	len;
 
-	len = ft_strlen_stop((char *)&str[1], '}');
+	len = ft_strlen_stop((char *)str, '}');
 	if (ft_color_check(str, len) == FALSE)
 		return (FALSE);
-	flag->i += len + 1;
+	flag->i += len;
 	return (TRUE);
+}
+
+void	ft_b_print(const char *format, t_flag *flag, va_list *arg)
+{
+	long long			nbr;
+	char				*str;
+
+	str = NULL;
+	nbr = 0;
+	if (*format == 'b')
+	{
+		nbr = va_arg(*arg, long long);
+		if (flag)
+			flag->spec = 'b';
+		/*str = ft_convert_length(str, flag, nbr);
+		flag->spec = 'd';
+		ft_print_calc(str, flag, &ft_space_calc_digit);*/
+	}
 }

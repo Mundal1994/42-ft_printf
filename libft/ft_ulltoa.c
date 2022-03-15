@@ -1,47 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_htoa.c                                          :+:      :+:    :+:   */
+/*   ft_ulltoa.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: molesen <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/14 18:29:06 by molesen           #+#    #+#             */
-/*   Updated: 2022/03/14 18:29:09 by molesen          ###   ########.fr       */
+/*   Created: 2022/03/15 09:47:39 by molesen           #+#    #+#             */
+/*   Updated: 2022/03/15 09:47:46 by molesen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static unsigned	ft_count(uintptr_t addr)
+char	*ft_ulltoa(unsigned long long nbr, char *str)
 {
-	int	count;
+	int	i;
 
-	count = 0;
-	while (addr > 0)
+	i = 0;
+	if (!nbr)
+		str[i] = '0';
+	while (nbr)
 	{
-		++count;
-		addr /= 16;
+		str[i++] = nbr % 10 + '0';
+		nbr /= 10;
 	}
-	return (count);
-}
-
-char	*ft_htoa(char *dst, uintptr_t addr)
-{
-	unsigned	len;
-	unsigned	i;
-	unsigned	mod;
-
-	len = ft_count(addr) + 1;
-	i = len - 2;
-	while (addr > 0)
-	{
-		mod = addr % 16;
-		if (mod >= 10)
-			dst[i--] = (mod - 10) + 'a';
-		else
-			dst[i--] = mod + '0';
-		addr /= 16;
-	}
-	dst[len - 1] = '\0';
-	return (dst);
+	ft_strrev(str);
+	return (str);
 }

@@ -102,15 +102,21 @@ int	ft_specifier_check(const char *format, t_flag *flag, va_list *arg)
 		ft_i_reset(format, flag);
 		return (TRUE);
 	}
-	else if (*format == 'd' || *format == 'i' || *format == 'u' || *format == 'f')
+	else if (*format == 'd' || *format == 'i' || *format == 'u')
 	{
-		ft_diuf_print(format, flag, arg);
+		ft_diu_print(format, flag, arg);
 		ft_i_reset(format, flag);
 		return (TRUE);
 	}
 	else if (*format == 'o' || *format == 'x' || *format == 'X')
 	{
 		ft_oxX_print(format, flag, arg);
+		ft_i_reset(format, flag);
+		return (TRUE);
+	}
+	else if (*format == 'f' || *format == 'b')
+	{
+		ft_f_print(format, flag, arg);
 		ft_i_reset(format, flag);
 		return (TRUE);
 	}
