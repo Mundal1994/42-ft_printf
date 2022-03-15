@@ -56,12 +56,6 @@ static void	ft_width_calc(const char *format, int *digit, int *pnt)
 	*pnt += i;
 }
 
-static void	ft_precision_calc(const char *format, t_flag *flag, int *pnt)
-{
-	*pnt += 1;
-	ft_width_calc(&format[1], &flag->prec, pnt);
-}
-
 static int	ft_flag_check(const char *format, t_flag *flag, int on, int *pnt)
 {
 	if (*format == '-')
@@ -82,6 +76,29 @@ static int	ft_flag_check(const char *format, t_flag *flag, int on, int *pnt)
 	return (on);
 }
 
+static int	ft_flag_loop(const char *format, t_flag *flag, va_list *arg, int *pnt)
+{
+	int	specifier;
+
+	specifier = FALSE;
+	while (specifier == FALSE && ft_flag_check(&format[*pnt], flag, TRUE, pnt) == TRUE)
+		specifier = ft_specifier_check(&format[*pnt], flag, arg);
+	while (specifier == FALSE && ft_isdigit(format[*pnt]) == 1)
+	{
+		ft_width_calc(&format[*pnt], &flag->width, pnt);
+		specifier = ft_specifier_check(&format[*pnt], flag, arg);
+	}
+	while (specifier == FALSE && format[*pnt] == '.')
+	{
+		*pnt += 1;
+		ft_width_calc(&format[*pnt], &flag->prec, pnt);
+		specifier = ft_specifier_check(&format[*pnt], flag, arg);
+	}
+	if (specifier == FALSE && ft_hhll_flag_check(&format[*pnt], flag, TRUE, pnt) == TRUE)
+		specifier = ft_specifier_check(&format[*pnt], flag, arg);
+	return (specifier);
+}
+
 void	ft_flag_checker(const char *format, t_flag *flag, va_list *arg)
 {
 	int	i;
@@ -92,23 +109,7 @@ void	ft_flag_checker(const char *format, t_flag *flag, va_list *arg)
 	pnt = &i;
 	specifier = ft_specifier_check(&format[i], flag, arg);
 	if (specifier == FALSE)
-	{
-		flag->flags = TRUE;
-		while (specifier == FALSE && ft_flag_check(&format[i], flag, TRUE, pnt) == TRUE)
-			specifier = ft_specifier_check(&format[i], flag, arg);
-		while (specifier == FALSE && ft_isdigit(format[i]) == 1)
-		{
-			ft_width_calc(&format[i], &flag->width, pnt);
-			specifier = ft_specifier_check(&format[i], flag, arg);
-		}
-		while (specifier == FALSE && format[i] == '.')
-		{
-			ft_precision_calc(&format[i], flag, pnt);
-			specifier = ft_specifier_check(&format[i], flag, arg);
-		}
-		if (specifier == FALSE && ft_hhll_flag_check(&format[i], flag, TRUE, pnt) == TRUE)
-			specifier = ft_specifier_check(&format[i], flag, arg);
-	}
+		specifier = ft_flag_loop(format, flag, arg, pnt);
 	if (specifier == FALSE)
 	{
 		ft_putchar('%');

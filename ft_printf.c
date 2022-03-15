@@ -26,7 +26,6 @@ void	ft_i_reset(const char *format, t_flag *flag)
 static void	ft_initialize_flag(t_flag *flag, int first)
 {
 	flag->spec = '0';
-	flag->flags = FALSE;
 	flag->hash = FALSE;
 	flag->space = FALSE;
 	flag->minus = FALSE;
@@ -38,7 +37,6 @@ static void	ft_initialize_flag(t_flag *flag, int first)
 	flag->h = FALSE;
 	flag->l = FALSE;
 	flag->ll = FALSE;
-	flag->s_l = FALSE;
 	flag->b_l = FALSE;
 	if (first == TRUE)
 	{

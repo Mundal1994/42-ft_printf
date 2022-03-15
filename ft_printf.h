@@ -18,9 +18,7 @@ typedef struct	s_flag
 	int			h;
 	int			l;
 	int			ll;
-	int			s_l;
 	int			b_l;
-	int			flags;
 	int			len;
 	int			i;
 }				t_flag;
