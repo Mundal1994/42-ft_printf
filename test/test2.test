@@ -340,6 +340,21 @@ static void	d(void)
 	mine = ft_printf("output: [%+-.15d]\n", 9009999);
 	print_result(orig, mine);
 
+	printf(YELLOW"\nInput: [%% d] number: [%d]\n"UNCOLOR, -42);
+	orig = printf("expect: [% d]\n", -42);
+	mine = ft_printf("output: [% d]\n", -42);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%% d] number: [%d]\n"UNCOLOR, 42);
+	orig = printf("expect: [% d]\n", 42);
+	mine = ft_printf("output: [% d]\n", 42);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%%+d] number: [%d]\n"UNCOLOR, 42);
+	orig = printf("expect: [%+d]\n", 42);
+	mine = ft_printf("output: [%+d]\n", 42);
+	print_result(orig, mine);
+
 	// with flags hh
 	signed char	c = '5';
 	printf(PURPLE"\nhh TEST\n"UNCOLOR);
@@ -674,6 +689,21 @@ static void	u(void)
 	printf(YELLOW"\nInput: [%%-1.10u] number: [%u]\n"UNCOLOR, 9009999);
 	orig = printf("expect: [%-1.10u]\n", 9009999);
 	mine = ft_printf("output: [%-1.10u]\n", 9009999);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%% d] number: [%d]\n"UNCOLOR, -42);
+	orig = printf("expect: [% d]\n", -42);
+	mine = ft_printf("output: [% d]\n", -42);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%% d] number: [%d]\n"UNCOLOR, 42);
+	orig = printf("expect: [% d]\n", 42);
+	mine = ft_printf("output: [% d]\n", 42);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%%+d] number: [%d]\n"UNCOLOR, 42);
+	orig = printf("expect: [%+d]\n", 42);
+	mine = ft_printf("output: [%+d]\n", 42);
 	print_result(orig, mine);
 
 	// with flags hh

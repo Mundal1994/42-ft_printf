@@ -14,17 +14,20 @@
 
 void	ft_space_calc_csp(t_flag *flag, int len)
 {
-	if (flag->plus == TRUE)
+	char	space = ' ';
+/*
+	if (flag->plus == '+')
 		len++;
-	else if (flag->zero == TRUE && flag->prec == -1 && flag->minus == FALSE)
+	else */
+	if (flag->zero == '0' && flag->prec == -1 && flag->minus == '-')
 	{
 		while (len++ < flag->width)
-			ft_putchar('0');
+			flag->ret += write(1, &flag->zero, 1);
 	}
 	else
 	{
 		while (len++ < flag->width)
-			ft_putchar(' ');
+			flag->ret += write(1, &space, 1);
 	}
 }
 
@@ -58,7 +61,10 @@ static char	*ft_address_to_str(uintptr_t addr)
 	str = ft_strnew(12);
 	if (!str && !dest)
 		return (NULL);
-	str = ft_htoa(str, addr);
+	if (addr == 0)
+		ft_strcpy(str, "0");
+	else
+		str = ft_htoa(str, addr);
 	ft_strcpy(dest, "0x");
 	ft_strcpy(&dest[2], str);
 	ft_strdel(&str);

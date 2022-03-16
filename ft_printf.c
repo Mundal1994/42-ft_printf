@@ -25,12 +25,12 @@ void	ft_i_reset(const char *format, t_flag *flag)
 
 static void	ft_initialize_flag(t_flag *flag, int first)
 {
-	flag->spec = '0';
+	flag->spec = '1';
 	flag->hash = FALSE;
-	flag->space = FALSE;
-	flag->minus = FALSE;
-	flag->plus = FALSE;
-	flag->zero = FALSE;
+	flag->space = '1';
+	flag->minus = '1';
+	flag->plus = '1';
+	flag->zero = '1';
 	flag->width = -1;
 	flag->prec = -1;
 	flag->hh = FALSE;
@@ -41,35 +41,33 @@ static void	ft_initialize_flag(t_flag *flag, int first)
 	if (first == TRUE)
 	{
 		flag->i = 0;
-		flag->len = 0;
+		flag->ret = 0;
 	}
 }
 
 static void	ft_check_char(const char *format, t_flag *flag, va_list *arg)
 {
+	char	c;
+
+	c = '{';
 	if (format[flag->i] != '%')
 	{
 		if (format[flag->i] == '{')
 		{
 			flag->i++;
 			if (format[flag->i] == '{')
-				ft_putchar('{');
+				flag->ret += write(1, &c, 1);
 			else if (ft_color_print(&format[flag->i], flag) == FALSE)
-				ft_putchar(format[--flag->i]);
+				flag->ret += write(1, &format[--flag->i], 1);
 		}
 		else
-			ft_putchar(format[flag->i]);
+			flag->ret += write(1, &format[flag->i], 1);
 	}
 	else
 	{
 		flag->i++;
-		if (format[flag->i] == '%')
-			ft_putchar('%');
-		else
-		{
-			ft_flag_checker(&format[flag->i], flag, arg);
-			ft_initialize_flag(flag, FALSE);
-		}
+		ft_flag_checker(&format[flag->i], flag, arg);
+		ft_initialize_flag(flag, FALSE);
 	}
 }
 
@@ -77,6 +75,7 @@ int	ft_printf(const char *format, ...)
 {
 	va_list	arg;
 	t_flag	*flag;
+	int	ret;
 
 	flag = (t_flag *) malloc(sizeof(t_flag));
 	if (!flag)
@@ -89,11 +88,11 @@ int	ft_printf(const char *format, ...)
 		{
 			ft_check_char(format, flag, &arg);
 			flag->i++;
-			flag->len++;
 		}
 	}
 	va_end(arg);
+	ret = flag->ret;
 	free(flag);
-	return (flag->len);
+	return (ret);
 }
 //error handling ex if someone writes something incorreeclty with %kf;l

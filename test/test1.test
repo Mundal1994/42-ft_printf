@@ -109,6 +109,9 @@ static void	basic(void)
 	ft_printf("hi");
 	ft_printf("\n");
 	ft_printf("");
+	ft_printf("%");
+	ft_printf("");
+	ft_printf("h\n");
 }
 
 static void	percentage_print(void)
@@ -128,6 +131,31 @@ static void	percentage_print(void)
 	printf("\n");
 	orig = printf("expect: [%%] [%%] [%%]\n");
 	mine = ft_printf("output: [%%] [%%] [%%]\n");
+	print_result(orig, mine);
+
+	printf("\n");
+	orig = printf("expect: [%5%]\n");
+	mine = ft_printf("output: [%5%]\n");
+	print_result(orig, mine);
+
+	printf("\n");
+	orig = printf("expect: [% 50%]\n");
+	mine = ft_printf("output: [% 50%]\n");
+	print_result(orig, mine);
+
+	printf("\n");
+	orig = printf("expect: [%+10%]\n");
+	mine = ft_printf("output: [%+10%]\n");
+	print_result(orig, mine);
+
+	printf("\n");
+	orig = printf("expect: [%-10%]\n");
+	mine = ft_printf("output: [%-10%]\n");
+	print_result(orig, mine);
+
+	printf("\n");
+	orig = printf("expect: [%- 10%]\n");
+	mine = ft_printf("output: [%- 10%]\n");
 	print_result(orig, mine);
 }
 
@@ -391,6 +419,12 @@ static void	p(void)
 	orig = printf("expect: [%20p]\n", pnt2);
 	mine = ft_printf("output: [%20p]\n", pnt2);
 	print_result(orig, mine);
+
+	pnt = NULL;
+	printf(YELLOW"\n[%%0x0]\n"UNCOLOR);
+	orig = printf("expect: [%p]\n", pnt);
+	mine = ft_printf("output: [%p]\n", pnt);
+	print_result(orig, mine);
 }
 
 int main(void)
@@ -415,6 +449,12 @@ int main(void)
 	printf(PURPLE"\n-------\n\n"UNCOLOR);
 	printf(PURPLE"POINTER TEST\n"UNCOLOR);
 	p();
+int orig;
+int mine;
+	printf(YELLOW"\n[%%c]\n"UNCOLOR);
+	orig = printf("expect: [%c]\n", 0);
+	mine = ft_printf("output: [%c]\n", 0);
+	print_result(orig, mine);
 
 	return (0);
 }

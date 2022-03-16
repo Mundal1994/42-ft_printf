@@ -382,6 +382,66 @@ static void	f(void)
 	orig = printf("expect: [%f]\n", 2.5555525);
 	mine = ft_printf("output: [%f]\n", 2.5555525);
 	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%f]\n"UNCOLOR,0.0);
+	orig = printf("expect: [%f]\n", 0.0);
+	mine = ft_printf("output: [%f]\n", 0.0);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%.1f]\n"UNCOLOR,0.0);
+	orig = printf("expect: [%.1f]\n", 0.0);
+	mine = ft_printf("output: [%.1f]\n", 0.0);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%.1f]\n"UNCOLOR,0.8);
+	orig = printf("expect: [%.1f]\n", 0.8);
+	mine = ft_printf("output: [%.1f]\n", 0.8);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%.3f]\n"UNCOLOR,0.0005);
+	orig = printf("expect: [%.3f]\n", 0.0005);
+	mine = ft_printf("output: [%.3f]\n", 0.0005);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%.15f]\n"UNCOLOR,0.0005);
+	orig = printf("expect: [%.15f]\n", 0.0005);
+	mine = ft_printf("output: [%.15f]\n", 0.0005);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%f]\n"UNCOLOR,2.5555545);
+	orig = printf("expect: [%f]\n", 2.5555545);
+	mine = ft_printf("output: [%f]\n", 2.5555545);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%.18f]\n"UNCOLOR,2.5555545);
+	orig = printf("expect: [%.18f]\n", 2.5555545);
+	mine = ft_printf("output: [%.18f]\n", 2.5555545);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%.17f]\n"UNCOLOR,2.5555545);
+	orig = printf("expect: [%.17f]\n", 2.5555545);
+	mine = ft_printf("output: [%.17f]\n", 2.5555545);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%f]\n"UNCOLOR,9.9999999);
+	orig = printf("expect: [%f]\n", 9.9999999);
+	mine = ft_printf("output: [%f]\n", 9.9999999);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%0.4f]\n"UNCOLOR,0.00035);
+	orig = printf("expect: [%0.4f]\n", 0.00035);
+	mine = ft_printf("output: [%0.4f]\n", 0.00035);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%0.4f]\n"UNCOLOR,0.00045);
+	orig = printf("expect: [%0.4f]\n", 0.00045);
+	mine = ft_printf("output: [%0.4f]\n", 0.00045);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%0.4f]\n"UNCOLOR,0.00025);
+	orig = printf("expect: [%0.4f]\n", 0.00025);
+	mine = ft_printf("output: [%0.4f]\n", 0.00025);
+	print_result(orig, mine);
 	
 	printf(PURPLE"\nl TEST\n"UNCOLOR);
 	printf("l modifier: ignored does same as without it. takes in double\n");

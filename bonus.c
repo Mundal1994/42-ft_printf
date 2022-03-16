@@ -113,5 +113,12 @@ void	ft_b_print(const char *format, t_flag *flag, va_list *arg)
 		flag->spec = 'd';
 		ft_print_calc(str, flag, &ft_space_calc_digit);*/
 	}
+	else if (*format == '%')
+	{
+		flag->spec = 'u';
+		str = ft_strnew(1);
+		str[0] = '%';
+		ft_print_calc(str, flag, &ft_space_calc_digit);
+	}
 }
 /*need to fix binary but also new test case with float*/

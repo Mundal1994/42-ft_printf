@@ -60,20 +60,20 @@ static void	ft_width_calc(const char *format, int *digit, int *pnt)
 static int	ft_flag_check(const char *format, t_flag *flag, int on, int *pnt)
 {
 	if (*format == '-')
-		flag->minus = on;
+		flag->minus = '-';
 	else if (*format == '+')
-		flag->plus = on;
+		flag->plus = '+';
 	else if (*format == ' ')
-		flag->space = on;
+		flag->space = ' ';
 	else if (*format == '0' && format[-1] != '0')
-		flag->zero = on;
+		flag->zero = '0';
 	else if (*format == '#')
 		flag->hash = on;
 	else
 		return (FALSE);
 	*pnt += 1;
-	if (flag->plus == TRUE)
-		flag->space = FALSE;
+	if (flag->plus == '+')
+		flag->space = '1';
 	return (on);
 }
 
@@ -108,15 +108,17 @@ void	ft_flag_checker(const char *format, t_flag *flag, va_list *arg)
 	int	i;
 	int	*pnt;
 	int	specifier;
+	char	c;
 
 	i = 0;
 	pnt = &i;
+	c = '%';
 	specifier = ft_specifier_check(&format[i], flag, arg);
 	if (specifier == FALSE)
 		specifier = ft_flag_loop(format, flag, arg, pnt);
 	if (specifier == FALSE)
 	{
-		ft_putchar('%');
+		flag->ret += write(1, &c, 1);
 		flag->i -= 1;
 	}
 }

@@ -14,37 +14,39 @@
 
 void	ft_space_zero_calc_digit(t_flag *flag, int len)
 {
-	if (flag->prec >= 0 && flag->prec > len)
+	char	zero;
+	char	space;
+
+	zero = '0';
+	space = ' ';
+	if (flag->prec >= 0 && flag->prec > len && flag->spec != 'f')
 	{
 		while (len++ < flag->prec)
-			ft_putchar('0');
+			flag->ret += write(1, &zero, 1);
 	}
-	else if (flag->zero == TRUE && flag->prec == -1 && flag->minus == FALSE)
+	else if (flag->zero == '0' && flag->prec == -1 && flag->minus == '1')
 	{
 		while (len++ < flag->width)
-			ft_putchar('0');
+			flag->ret += write(1, &zero, 1);
 	}
 	else
 	{
 		while (len++ < flag->width)
-			ft_putchar(' ');
+			flag->ret += write(1, &space, 1);
 	}
 }
 
-void	ft_plus_print(t_flag *flag, int len)
+void	ft_plus_print(char *str, t_flag *flag)
 {
+	char	space;
+
+	space = ' ';
 	if (flag->spec != 'u')
 	{
-		if (flag->plus == TRUE)
-			ft_putchar('+');
-		else
-			ft_putchar(' ');
-		if (flag->width < len && flag->prec == -1)
-			flag->len++;
-		else if (flag->prec == -1)
-			return ;
-		else
-			flag->len++;
+		if (flag->plus == '+')
+			flag->ret += write(1, &flag->plus, 1);
+		else if (flag->width != -1 || (flag->space == ' ' && str[0] != '-'))
+			flag->ret += write(1, &space, 1);
 	}
 }
 
@@ -72,14 +74,13 @@ void	ft_print_calc(char *str, t_flag *flag, void (*f)(t_flag *, int))
 	int	len;
 
 	len = ft_len_calc(str, flag);
-	if (flag->space == TRUE && flag->minus == FALSE && \
+	if (flag->space == ' ' && flag->minus == '1' && \
 		(flag->spec == 'd' || flag->spec == 'f' || flag->spec == 'u'))
-		ft_plus_print(flag, len);
+		ft_plus_print(str, flag);
 	if (flag->width >= 0)
 	{
-		if (flag->width >= len && flag->prec == -1)
-			flag->len += flag->width - len;
-		if (flag->minus == TRUE)
+
+		if (flag->minus == '-')
 		{
 			ft_prec_calc(str, flag);
 			f(flag, len);
@@ -115,7 +116,7 @@ int	ft_specifier_check(const char *format, t_flag *flag, va_list *arg)
 		ft_i_reset(format, flag);
 		return (TRUE);
 	}
-	else if (*format == 'f' || *format == 'b')
+	else if (*format == 'f' || *format == 'b' || *format == '%')
 	{
 		ft_f_print(format, flag, arg);
 		ft_i_reset(format, flag);
