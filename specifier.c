@@ -79,7 +79,6 @@ void	ft_print_calc(char *str, t_flag *flag, void (*f)(t_flag *, int))
 		ft_plus_print(str, flag);
 	if (flag->width >= 0)
 	{
-
 		if (flag->minus == '-')
 		{
 			ft_prec_calc(str, flag);

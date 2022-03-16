@@ -36,11 +36,7 @@ static void	ft_prec_calc_ox(char *str, t_flag *flag, int first)
 			ft_hash_print(flag);
 	}
 	else
-	{
-		//if (flag->prec > *str_len)
-		//	ft_space_calc_ox(flag, *str_len);
 		flag->ret += write(1, str, ft_strlen(str));
-	}
 }
 
 static void	ft_prec_calc_digit(char *str, t_flag *flag, int first)
@@ -50,16 +46,12 @@ static void	ft_prec_calc_digit(char *str, t_flag *flag, int first)
 	space = ' ';
 	if (first == TRUE)
 	{
-		//if (str[0] == '0' && flag->prec != -1)
-		//	*str_len = 0;
 		if (flag->plus == '+' || (flag->space == ' ' && flag->minus == '-'))
 			ft_plus_print(str, flag);
 	}
 	else
 	{
-		//if (flag->prec > *str_len)
-		//	ft_space_calc_digit(flag, *str_len);
-		if (ft_strlen(str) == 0 && flag->spec != 'f')//*str_len == 0 && flag->spec != 'f')
+		if (ft_strlen(str) == 0 && flag->spec != 'f')
 			flag->ret += write(1, &space, 1);
 		else
 			flag->ret += write(1, str, ft_strlen(str));
