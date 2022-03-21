@@ -157,6 +157,11 @@ static void	percentage_print(void)
 	orig = printf("expect: [%- 10%]\n");
 	mine = ft_printf("output: [%- 10%]\n");
 	print_result(orig, mine);
+
+	printf("\n");
+	orig = printf("expect: [%010%]\n");
+	mine = ft_printf("output: [%010%]\n");
+	print_result(orig, mine);
 }
 
 static void	c(void)
@@ -424,6 +429,11 @@ static void	p(void)
 	printf(YELLOW"\n[%%0x0]\n"UNCOLOR);
 	orig = printf("expect: [%p]\n", pnt);
 	mine = ft_printf("output: [%p]\n", pnt);
+	print_result(orig, mine);
+
+	printf(YELLOW"\n[%%.p  0x0]\n"UNCOLOR);
+	orig = printf("expect: [%.p]\n", pnt);
+	mine = ft_printf("output: [%.p]\n", pnt);
 	print_result(orig, mine);
 }
 

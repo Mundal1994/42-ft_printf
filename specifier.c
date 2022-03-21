@@ -72,11 +72,11 @@ void	ft_print_calc(char *str, t_flag *flag, void (*f)(t_flag *, int))
 	int	len;
 
 	len = ft_len_calc(str, flag);
-	//if (flag->plus == '+')
-	//	len++;
 	if (((flag->space == ' ' && flag->minus == '1') || flag->prec > flag->width) && \
 		(flag->spec == 'd' || flag->spec == 'f' || flag->spec == 'u'))
 		ft_plus_print(str, flag);
+	else if ((flag->spec == 'o' || flag->spec == 'x' || flag->spec == 'X') && flag->width <= flag->prec)
+		ft_prec_calc_ox(str, flag, TRUE);
 	if (flag->width >= 0 || flag->prec >= 0)
 	{
 		if (flag->minus == '-' && flag->prec < flag->width)
@@ -100,26 +100,29 @@ int	ft_specifier_check(const char *format, t_flag *flag, va_list *arg)
 	if (*format == 'c' || *format == 's' || *format == 'p')
 	{
 		ft_csp_print(format, flag, arg);
-		ft_i_reset(format, flag);
-		return (TRUE);
+		//ft_i_reset(format, flag);
+		//return (TRUE);
 	}
 	else if (*format == 'd' || *format == 'i' || *format == 'u')
 	{
 		ft_diu_print(format, flag, arg);
-		ft_i_reset(format, flag);
-		return (TRUE);
+		//ft_i_reset(format, flag);
+		//return (TRUE);
 	}
 	else if (*format == 'o' || *format == 'x' || *format == 'X')
 	{
 		ft_ox_print(format, flag, arg);
-		ft_i_reset(format, flag);
-		return (TRUE);
+		//ft_i_reset(format, flag);
+		//return (TRUE);
 	}
 	else if (*format == 'f' || *format == 'b' || *format == '%')
 	{
 		ft_f_print(format, flag, arg);
-		ft_i_reset(format, flag);
-		return (TRUE);
+		//ft_i_reset(format, flag);
+		//return (TRUE);
 	}
-	return (FALSE);
+	else
+		return (FALSE);
+	ft_i_reset(format, flag);
+	return (TRUE);
 }

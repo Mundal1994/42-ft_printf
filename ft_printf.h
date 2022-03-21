@@ -45,6 +45,7 @@ void	ft_prec_calc(char *str, t_flag *flag);
 void	ft_space_calc_csp(t_flag *flag, int len);
 void	ft_space_calc_digit(t_flag *flag, int len);
 void	ft_space_calc_ox(t_flag *flag, int len);
+void	ft_prec_calc_ox(char *str, t_flag *flag, int first);
 void	ft_csp_print(const char *format, t_flag *flag, va_list *arg);
 void	ft_diu_print(const char *format, t_flag *flag, va_list *arg);
 void	ft_ox_print(const char *format, t_flag *flag, va_list *arg);
