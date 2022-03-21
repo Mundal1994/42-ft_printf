@@ -54,11 +54,12 @@ static void	ft_prec_calc_digit(char *str, t_flag *flag, int first)
 	if (first == TRUE)
 	{
 		if (flag->plus == '+' && ((flag->space == ' ' && flag->minus == '-') || flag->prec <= flag->width))
-			ft_plus_print(str, flag);
+			if (flag->zero == '1')
+				ft_plus_print(str, flag);
 	}
 	else
 	{
-		if ((ft_strlen(str) == 0 || (str[0] == '0' && str[1] == '\0'))&& flag->spec != 'f')
+		if ((ft_strlen(str) == 0 || (str[0] == '0' && str[1] == '\0')) && flag->spec != 'f')
 			flag->ret += write(1, &space, 1);
 		else
 			flag->ret += write(1, str, ft_strlen(str));
@@ -70,6 +71,8 @@ static void	ft_prec_calc_csp(char *str, t_flag *flag)
 	int	i;
 
 	i = 0;
+	if (flag->prec < 2 && flag->spec == 'p')
+		flag->prec = 2;
 	while (i < flag->prec && str[i] != '\0')
 		flag->ret += write(1, &str[i++], 1);
 }
@@ -80,6 +83,8 @@ void	ft_prec_calc(char *str, t_flag *flag)
 		ft_prec_calc_digit(str, flag, TRUE);
 	else if ((flag->spec == 'o' || flag->spec == 'x' || flag->spec == 'X') && flag->width > flag->prec)
 		ft_prec_calc_ox(str, flag, TRUE);
+	if (str[0] == '-')
+		str++;
 	if (flag->prec == -1)
 		flag->ret += write(1, str, ft_strlen(str));
 	else

@@ -39,14 +39,21 @@ void	ft_space_zero_calc_digit(t_flag *flag, int len)
 void	ft_plus_print(char *str, t_flag *flag)
 {
 	char	space;
+	char	minus;
 
 	space = ' ';
-	if (flag->spec != 'u')
+	minus = '-';
+	if (flag->spec != 'u' && str[0] != '-')
 	{
 		if (flag->plus == '+')
 			flag->ret += write(1, &flag->plus, 1);
-		else if (flag->width != -1 || (flag->space == ' ' && str[0] != '-'))
+		else if ((flag->width != -1 && flag->zero != '0') || flag->space == ' ')
 			flag->ret += write(1, &space, 1);
+	}
+	else if (str[0] == '-' && flag->spec != 'u')
+	{
+		flag->ret += write(1, &minus, 1);
+		flag->plus = '1';
 	}
 }
 
@@ -72,7 +79,9 @@ void	ft_print_calc(char *str, t_flag *flag, void (*f)(t_flag *, int))
 	int	len;
 
 	len = ft_len_calc(str, flag);
-	if (((flag->space == ' ' && flag->minus == '1') || flag->prec > flag->width) && \
+	if (str[0] == '-')
+		flag->plus = '+';
+	if (((flag->space == ' ' && flag->minus == '1') || flag->prec > flag->width || flag->zero == '0') && \
 		(flag->spec == 'd' || flag->spec == 'f' || flag->spec == 'u'))
 		ft_plus_print(str, flag);
 	else if ((flag->spec == 'o' || flag->spec == 'x' || flag->spec == 'X') && flag->width <= flag->prec)
@@ -97,30 +106,16 @@ void	ft_print_calc(char *str, t_flag *flag, void (*f)(t_flag *, int))
 
 int	ft_specifier_check(const char *format, t_flag *flag, va_list *arg)
 {
+	if (flag->prec >= 0)
+		flag->zero = '1';
 	if (*format == 'c' || *format == 's' || *format == 'p')
-	{
 		ft_csp_print(format, flag, arg);
-		//ft_i_reset(format, flag);
-		//return (TRUE);
-	}
 	else if (*format == 'd' || *format == 'i' || *format == 'u')
-	{
 		ft_diu_print(format, flag, arg);
-		//ft_i_reset(format, flag);
-		//return (TRUE);
-	}
 	else if (*format == 'o' || *format == 'x' || *format == 'X')
-	{
 		ft_ox_print(format, flag, arg);
-		//ft_i_reset(format, flag);
-		//return (TRUE);
-	}
 	else if (*format == 'f' || *format == 'b' || *format == '%')
-	{
 		ft_f_print(format, flag, arg);
-		//ft_i_reset(format, flag);
-		//return (TRUE);
-	}
 	else
 		return (FALSE);
 	ft_i_reset(format, flag);

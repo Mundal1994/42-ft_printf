@@ -74,6 +74,8 @@ static int	ft_flag_check(const char *format, t_flag *flag, int on, int *pnt)
 	*pnt += 1;
 	if (flag->plus == '+')
 		flag->space = '1';
+	if (flag->minus == '-' || flag->space == '0')
+		flag->zero = '1';
 	return (on);
 }
 

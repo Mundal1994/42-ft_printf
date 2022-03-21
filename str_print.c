@@ -102,6 +102,7 @@ void	ft_csp_print(const char *format, t_flag *flag, va_list *arg)
 	else if (*format == 'p')
 	{
 		long_arg = va_arg(*arg, unsigned long long);
+		flag->spec = 'p';
 		str = ft_address_to_str(long_arg);
 	}
 	ft_print_str(str, flag);
