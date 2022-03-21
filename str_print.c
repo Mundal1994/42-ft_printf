@@ -71,6 +71,14 @@ static char	*ft_address_to_str(uintptr_t addr)
 	return (dest);
 }
 
+static void	ft_print_str(char *str, t_flag *flag)
+{
+	if (str)
+		ft_print_calc(str, flag, &ft_space_calc_csp);
+	if (*str == '\0' && flag->spec == 'c')
+		flag->ret += 1;
+}
+
 void	ft_csp_print(const char *format, t_flag *flag, va_list *arg)
 {
 	char				*str_arg;
@@ -96,6 +104,5 @@ void	ft_csp_print(const char *format, t_flag *flag, va_list *arg)
 		long_arg = va_arg(*arg, unsigned long long);
 		str = ft_address_to_str(long_arg);
 	}
-	if (str)
-		ft_print_calc(str, flag, &ft_space_calc_csp);
+	ft_print_str(str, flag);
 }

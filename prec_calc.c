@@ -46,12 +46,12 @@ static void	ft_prec_calc_digit(char *str, t_flag *flag, int first)
 	space = ' ';
 	if (first == TRUE)
 	{
-		if (flag->plus == '+' || (flag->space == ' ' && flag->minus == '-'))
+		if (flag->plus == '+' && ((flag->space == ' ' && flag->minus == '-') || flag->prec <= flag->width))
 			ft_plus_print(str, flag);
 	}
 	else
 	{
-		if (ft_strlen(str) == 0 && flag->spec != 'f')
+		if ((ft_strlen(str) == 0 || (str[0] == '0' && str[1] == '\0'))&& flag->spec != 'f')
 			flag->ret += write(1, &space, 1);
 		else
 			flag->ret += write(1, str, ft_strlen(str));

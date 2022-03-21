@@ -14,7 +14,7 @@
 
 void	ft_space_calc_digit(t_flag *flag, int len)
 {
-	if ((flag->plus == TRUE || flag->space == TRUE) && flag->prec == -1 && \
+	if ((flag->plus == '+' || flag->space == ' ') && flag->prec < len && \
 		flag->spec != 'u')
 		len++;
 	ft_space_zero_calc_digit(flag, len);

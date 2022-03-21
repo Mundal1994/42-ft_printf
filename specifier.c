@@ -63,8 +63,6 @@ static int	ft_len_calc(char *str, t_flag *flag)
 	else
 	{
 		len = ft_strlen(str);
-		if (flag->prec != -1 && flag->prec > len)
-			len = flag->prec;
 	}
 	return (len);
 }
@@ -74,12 +72,14 @@ void	ft_print_calc(char *str, t_flag *flag, void (*f)(t_flag *, int))
 	int	len;
 
 	len = ft_len_calc(str, flag);
-	if (flag->space == ' ' && flag->minus == '1' && \
+	//if (flag->plus == '+')
+	//	len++;
+	if (((flag->space == ' ' && flag->minus == '1') || flag->prec > flag->width) && \
 		(flag->spec == 'd' || flag->spec == 'f' || flag->spec == 'u'))
 		ft_plus_print(str, flag);
-	if (flag->width >= 0)
+	if (flag->width >= 0 || flag->prec >= 0)
 	{
-		if (flag->minus == '-')
+		if (flag->minus == '-' && flag->prec < flag->width)
 		{
 			ft_prec_calc(str, flag);
 			f(flag, len);

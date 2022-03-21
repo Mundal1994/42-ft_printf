@@ -310,9 +310,9 @@ static void	d(void)
 	mine = ft_printf("output: [%.10d]\n", 900999);
 	print_result(orig, mine);
 
-	printf(YELLOW"\nInput: [%%10.5d] number: [%d]\n"UNCOLOR, 900999);
-	orig = printf("expect: [%10.5d]\n", 900999);
-	mine = ft_printf("output: [%10.5d]\n", 900999);
+	printf(YELLOW"\nInput: [%%+10.5d] number: [%d]\n"UNCOLOR, 900999);
+	orig = printf("expect: [%+10.5d]\n", 900999);
+	mine = ft_printf("output: [%+10.5d]\n", 900999);
 	print_result(orig, mine);
 
 	printf(YELLOW"\nInput: [%%-10.5d] number: [%d]\n"UNCOLOR, 9009999);
@@ -338,6 +338,11 @@ static void	d(void)
 	printf(YELLOW"\nInput: [%%+-.15d] number: [%d]\n"UNCOLOR, 9009999);
 	orig = printf("expect: [%+-.15d]\n", 9009999);
 	mine = ft_printf("output: [%+-.15d]\n", 9009999);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%%+.15d] number: [%d]\n"UNCOLOR, 9009999);
+	orig = printf("expect: [%+.15d]\n", 9009999);
+	mine = ft_printf("output: [%+.15d]\n", 9009999);
 	print_result(orig, mine);
 
 	printf(YELLOW"\nInput: [%% d] number: [%d]\n"UNCOLOR, -42);
