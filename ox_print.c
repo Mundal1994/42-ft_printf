@@ -12,9 +12,9 @@
 
 #include "ft_printf.h"
 
-void	ft_space_calc_ox(t_flag *flag, int len)
+void	ft_space_calc_ox(t_flag *flag, int len, char *str)
 {
-	if (flag->hash == TRUE)// && (flag->width <= len || flag->prec <= len))
+	if (flag->hash == TRUE && str)// && (flag->width <= len || flag->prec <= len))
 	{
 		if (flag->spec == 'o')
 			len++;

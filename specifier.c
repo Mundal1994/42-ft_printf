@@ -16,14 +16,12 @@ void	ft_space_zero_calc_digit(t_flag *flag, int len)
 {
 	char	zero;
 	char	space;
-	int		dif;
 
 	zero = '0';
 	space = ' ';
-	dif = flag->prec - len;
-	if (flag->prec < flag->width && flag->prec != -1 && dif > 0 && (flag->spec == 'o' || flag->spec == 'd' || flag->spec == 'u'))
+	if (flag->prec < flag->width && flag->prec != -1 && (flag->spec == 'o' || flag->spec == 'd'))
 	{
-		while (len++ < flag->width - dif)
+		while (len++ < flag->width)
 			flag->ret += write(1, &space, 1);
 	}
 	else if (flag->prec >= 0 && flag->prec > len && flag->spec != 'f')
@@ -81,7 +79,7 @@ static int	ft_len_calc(char *str, t_flag *flag)
 	return (len);
 }
 
-void	ft_print_calc(char *str, t_flag *flag, void (*f)(t_flag *, int))
+void	ft_print_calc(char *str, t_flag *flag, void (*f)(t_flag *, int, char *))
 {
 	int	len;
 
@@ -89,7 +87,8 @@ void	ft_print_calc(char *str, t_flag *flag, void (*f)(t_flag *, int))
 	if (str[0] == '-')
 	{
 		flag->plus = '+';
-		len++;
+		if (flag->prec != -1 && (flag->prec < flag->width || flag->prec >= len))
+			len--;
 	}
 	if (((flag->space == ' ' && flag->minus == '1') || flag->prec > flag->width || flag->zero == '0') && \
 		(flag->spec == 'd' || flag->spec == 'f' || flag->spec == 'u'))
@@ -101,11 +100,11 @@ void	ft_print_calc(char *str, t_flag *flag, void (*f)(t_flag *, int))
 		if (flag->minus == '-' && flag->prec < flag->width)
 		{
 			ft_prec_calc(str, flag);
-			f(flag, len);
+			f(flag, len, str);
 		}
 		else
 		{
-			f(flag, len);
+			f(flag, len, str);
 			ft_prec_calc(str, flag);
 		}
 	}
@@ -124,13 +123,13 @@ int	ft_specifier_check(const char *format, t_flag *flag, va_list *arg)
 	{
 		if (flag->prec >= flag->width)
 			flag->width = -1;
-		if (flag->zero == '0')
-		{
-			if (flag->width > 0)
-				flag->prec = flag->width;
-			flag->zero = '1';
-			flag->width = -1;
-		}
+		//if (flag->zero == '0')
+		//{
+			//if (flag->width > 0)
+			//	flag->prec = flag->width;
+			//flag->zero = '1';
+			//flag->width = -1;
+		//}
 		ft_diu_print(format, flag, arg);
 	}
 	else if (*format == 'o' || *format == 'x' || *format == 'X')

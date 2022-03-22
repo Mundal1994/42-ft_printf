@@ -12,11 +12,11 @@
 
 #include "ft_printf.h"
 
-void	ft_space_calc_csp(t_flag *flag, int len)
+void	ft_space_calc_csp(t_flag *flag, int len, char *str)
 {
 	char	space = ' ';
 
-	if (flag->zero == '0' && flag->prec == -1 && flag->minus == '-')
+	if (flag->zero == '0' && flag->prec == -1 && flag->minus == '-' && str)
 	{
 		while (len++ < flag->width)
 			flag->ret += write(1, &flag->zero, 1);

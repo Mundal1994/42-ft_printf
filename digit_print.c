@@ -12,12 +12,22 @@
 
 #include "ft_printf.h"
 
-void	ft_space_calc_digit(t_flag *flag, int len)
+void	ft_space_calc_digit(t_flag *flag, int len, char *str)
 {
-	if (flag->plus == '+' && flag->spec != 'u')
+	int		dif;
+
+	if (str[0] == '-' && flag->prec > len)
+		dif = flag->prec - len + 1;
+	else
+		dif = flag->prec - len;
+	if (flag->plus == '+' && flag->spec != 'u' && str[0] != '-' && (flag->prec < len || flag->width > flag->prec))
 		len++;
-	if (flag->space == ' ' && flag->spec != 'u')
+	if (flag->space == ' ' && flag->spec != 'u' && (flag->prec < len || flag->width > flag->prec))
 		len++;
+	if (str[0] == '-' && (flag->prec < len || flag->width > flag->prec) && flag->prec != -1)
+		len++;
+	if (flag->prec < flag->width && flag->prec != -1 && dif > 0 && (flag->spec == 'o' || flag->spec == 'd'))
+		len += dif;
 	ft_space_zero_calc_digit(flag, len);
 }
 

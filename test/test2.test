@@ -441,6 +441,16 @@ static void	d(void)
 	mine = ft_printf("output: [%03.2d]\n", -1);
 	print_result(orig, mine);
 
+	printf(YELLOW"\nInput: [%%03.1d] number: [%d]\n"UNCOLOR, -1);
+	orig = printf("expect: [%03.1d]\n", -1);
+	mine = ft_printf("output: [%03.1d]\n", -1);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%%03.d] number: [%d]\n"UNCOLOR, -1);
+	orig = printf("expect: [%03.d]\n", -1);
+	mine = ft_printf("output: [%03.d]\n", -1);
+	print_result(orig, mine);
+
 	printf(YELLOW"\nInput: [%%.10d] number: [%d]\n"UNCOLOR, -42);
 	orig = printf("expect: [%.10d]\n", -42);
 	mine = ft_printf("output: [%.10d]\n", -42);
@@ -454,6 +464,11 @@ static void	d(void)
 	printf(YELLOW"\nInput: [%%.0d] number: [%d]\n"UNCOLOR, 0);
 	orig = printf("expect: [%.0d]\n", 0);
 	mine = ft_printf("output: [%.0d]\n", 0);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%%05d] number: [%d]\n"UNCOLOR, 0);
+	orig = printf("expect: [%05d]\n", 0);
+	mine = ft_printf("output: [%05d]\n", 0);
 	print_result(orig, mine);
 
 	// with flags hh
