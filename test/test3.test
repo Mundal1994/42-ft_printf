@@ -893,6 +893,61 @@ static void	X(void)
 	mine = ft_printf("output: [%#-7.7X]\n", 9009999);
 	print_result(orig, mine);
 
+	printf(YELLOW"\nInput: [%%#08X] number: [%X]\n"UNCOLOR, 42);
+	orig = printf("expect: [%#08X]\n", 42);
+	mine = ft_printf("output: [%#08X]\n", 42);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%%#00X] number: [%X]\n"UNCOLOR, 42);
+	orig = printf("expect: [%#00X]\n", 42);
+	mine = ft_printf("output: [%#00X]\n", 42);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%%#8X] number: [%X]\n"UNCOLOR, 42);
+	orig = printf("expect: [%#8X]\n", 42);
+	mine = ft_printf("output: [%#8X]\n", 42);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%%#0X] number: [%X]\n"UNCOLOR, 42);
+	orig = printf("expect: [%#0X]\n", 42);
+	mine = ft_printf("output: [%#0X]\n", 42);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%%0X] number: [%X]\n"UNCOLOR, 42);
+	orig = printf("expect: [%0X]\n", 42);
+	mine = ft_printf("output: [%0X]\n", 42);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%%#.X] number: [%X]\n"UNCOLOR, 0);
+	orig = printf("expect: [%#.X]\n", 0);
+	mine = ft_printf("output: [%#.X]\n", 0);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%%#.0X] number: [%X]\n"UNCOLOR, 0);
+	orig = printf("expect: [%#.0X]\n", 0);
+	mine = ft_printf("output: [%#.0X]\n", 0);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%%.X] number: [%X]\n"UNCOLOR, 0);
+	orig = printf("expect: [%.X]\n", 0);
+	mine = ft_printf("output: [%.X]\n", 0);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%%.0X] number: [%X]\n"UNCOLOR, 0);
+	orig = printf("expect: [%.0X]\n", 0);
+	mine = ft_printf("output: [%.0X]\n", 0);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%%5.X] number: [%X]\n"UNCOLOR, 0);
+	orig = printf("expect: [%5.X]\n", 0);
+	mine = ft_printf("output: [%5.X]\n", 0);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%%5.0X] number: [%X]\n"UNCOLOR, 0);
+	orig = printf("expect: [%5.0X]\n", 0);
+	mine = ft_printf("output: [%5.0X]\n", 0);
+	print_result(orig, mine);
+
 	// with flags hh
 	unsigned char	c = '5';
 	printf(PURPLE"\nhh TEST\n"UNCOLOR);

@@ -38,9 +38,11 @@ $(NAME):
 
 clean:
 	/bin/rm -f *.o
+	make -C libft/ clean
 
 fclean: clean
 	/bin/rm -f $(NAME)
+	make -C libft/ fclean
 
 re: fclean all
 

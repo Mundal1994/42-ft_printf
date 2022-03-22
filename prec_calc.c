@@ -30,18 +30,27 @@ static void	ft_hash_print(t_flag *flag)
 
 void	ft_prec_calc_ox(char *str, t_flag *flag, int first)
 {
+	char	space;
+
+	space = ' ';
 	if (first == TRUE)
 	{
 		if (flag->hash == TRUE && str[0] != '0')
 		{
-			if ((int)ft_strlen(str) < flag->width && flag->width == flag->prec && flag->width != -1 && flag->spec == 'o')
+			if ((int)ft_strlen(str) < flag->width && flag->width == flag->prec && flag->spec == 'o')
 				return ;
 			else
 				ft_hash_print(flag);
 		}
 	}
-	else if (str[0] == '0' && str[1] == '\0' && flag->spec == 'o' && flag->prec == 0 && flag->hash == FALSE)
+	else if (flag->spec == 'o' && str[0] == '0' && str[1] == '\0' && flag->prec == 0 && flag->hash == FALSE)
 		return ;
+	else if ((flag->spec == 'x' || flag->spec == 'X') && str[0] == '0' && str[1] == '\0' && flag->prec == 0)
+	{
+		if (flag->width > 0)
+			flag->ret += write(1, &space, 1);
+		return ;
+	}
 	else
 		flag->ret += write(1, str, ft_strlen(str));
 }
