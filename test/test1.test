@@ -226,6 +226,21 @@ static void	c(void)
 	mine = ft_printf("output: [%-1000c]\n", c);
 	print_result(orig, mine);
 
+	printf(YELLOW"\n[%%c]\n"UNCOLOR);
+	orig = printf("expect: [%c]\n", 0);
+	mine = ft_printf("output: [%c]\n", 0);
+	print_result(orig, mine);
+/*
+	printf(YELLOW"\n[%%2c]\n"UNCOLOR);
+	orig = printf("expect: [%2c]\n", 0);
+	mine = ft_printf("output: [%2c]\n", 0);
+	print_result(orig, mine);
+
+	printf(YELLOW"\n[%% c]\n"UNCOLOR);
+	orig = printf("expect: [% c]\n", 0);
+	mine = ft_printf("output: [% c]\n", 0);
+	print_result(orig, mine);*/
+
 	/*
 	printf(YELLOW"\n[%%-4.3c]\n"UNCOLOR);
 	orig = printf("expect: [%-4.3c]\n", c);
@@ -367,6 +382,21 @@ static void	s(void)
 	printf(YELLOW"\n[%%10.2s]\n"UNCOLOR);
 	orig = printf("expect: [%10.2s]\n", NULL);
 	mine = ft_printf("output: [%10.2s]\n", NULL);
+	print_result(orig, mine);
+
+	printf(YELLOW"\n[%%5.2s]\n"UNCOLOR);
+	orig = printf("expect: [%5.2s]\n", "");
+	mine = ft_printf("output: [%5.2s]\n", "");
+	print_result(orig, mine);
+
+	printf(YELLOW"\n[%%-5.2s]\n"UNCOLOR);
+	orig = printf("expect: [%-5.2s]\n", "");
+	mine = ft_printf("output: [%-5.2s]\n", "");
+	print_result(orig, mine);
+
+	printf(YELLOW"\n[%%.2s]\n"UNCOLOR);
+	orig = printf("expect: [%.2s]\n", NULL);
+	mine = ft_printf("output: [%.2s]\n",NULL);
 	print_result(orig, mine);
 
 /*

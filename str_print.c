@@ -15,10 +15,7 @@
 void	ft_space_calc_csp(t_flag *flag, int len)
 {
 	char	space = ' ';
-/*
-	if (flag->plus == '+')
-		len++;
-	else */
+
 	if (flag->zero == '0' && flag->prec == -1 && flag->minus == '-')
 	{
 		while (len++ < flag->width)

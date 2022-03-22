@@ -14,7 +14,7 @@
 
 void	ft_space_calc_ox(t_flag *flag, int len)
 {
-	if (flag->hash == TRUE && (flag->width <= len || flag->prec <= len))
+	if (flag->hash == TRUE)// && (flag->width <= len || flag->prec <= len))
 	{
 		if (flag->spec == 'o')
 			len++;
@@ -40,11 +40,11 @@ static void	ft_striter_uplow(char *str, int (*f)(int))
 }
 
 static char	*ft_convert_length_ox(char *str, t_flag *flag,
-			unsigned long long nbr, int c)
+			unsigned long long nbr)
 {
 	int	specifier;
 
-	if (c == 'o')
+	if (flag->spec == 'o')
 		specifier = 8;
 	else
 		specifier = 16;
@@ -71,20 +71,20 @@ void	ft_ox_print(const char *format, t_flag *flag, va_list *arg)
 	if (*format == 'o')
 	{
 		flag->spec = 'o';
-		str = ft_convert_length_ox(str, flag, nbr, 'o');
+		str = ft_convert_length_ox(str, flag, nbr);
 		ft_print_calc(str, flag, &ft_space_calc_ox);
 	}
 	else if (*format == 'x')
 	{
 		flag->spec = 'x';
-		str = ft_convert_length_ox(str, flag, nbr, 'x');
+		str = ft_convert_length_ox(str, flag, nbr);
 		ft_striter_uplow(str, &ft_tolower);
 		ft_print_calc(str, flag, &ft_space_calc_ox);
 	}
 	else if (*format == 'X')
 	{
 		flag->spec = 'X';
-		str = ft_convert_length_ox(str, flag, nbr, 'X');
+		str = ft_convert_length_ox(str, flag, nbr);
 		ft_striter_uplow(str, &ft_toupper);
 		ft_print_calc(str, flag, &ft_space_calc_ox);
 	}

@@ -16,10 +16,17 @@ void	ft_space_zero_calc_digit(t_flag *flag, int len)
 {
 	char	zero;
 	char	space;
+	int		dif;
 
 	zero = '0';
 	space = ' ';
-	if (flag->prec >= 0 && flag->prec > len && flag->spec != 'f')
+	dif = flag->prec - len;
+	if (flag->prec < flag->width && flag->prec != -1 && flag->spec == 'o' && dif > 0)
+	{
+		while (len++ < flag->width - dif)
+			flag->ret += write(1, &space, 1);
+	}
+	else if (flag->prec >= 0 && flag->prec > len && flag->spec != 'f')
 	{
 		while (len++ < flag->prec)
 			flag->ret += write(1, &zero, 1);
@@ -108,16 +115,14 @@ int	ft_specifier_check(const char *format, t_flag *flag, va_list *arg)
 {
 	if (flag->prec >= 0)
 		flag->zero = '1';
-	if (flag->prec >= flag->width)
-	{
-		flag->width = -1;
-	}
 	if (*format == 'c' || *format == 's' || *format == 'p')
 		ft_csp_print(format, flag, arg);
 	else if (*format == 'd' || *format == 'i' || *format == 'u')
 		ft_diu_print(format, flag, arg);
 	else if (*format == 'o' || *format == 'x' || *format == 'X')
 	{
+		if (flag->prec >= flag->width)
+			flag->width = -1;
 		if (flag->zero == '0')
 		{
 			if (flag->width > 0)
