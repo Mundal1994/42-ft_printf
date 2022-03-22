@@ -68,6 +68,7 @@ void	ft_prec_calc_ox(char *str, t_flag *flag, int first)
 static void	ft_prec_calc_digit(char *str, t_flag *flag, int first)
 {
 	char	space;
+	int		len;
 
 	space = ' ';
 	if (first == TRUE)
@@ -80,6 +81,16 @@ static void	ft_prec_calc_digit(char *str, t_flag *flag, int first)
 	{
 		if ((ft_strlen(str) == 0 || (str[0] == '0' && str[1] == '\0')) && flag->spec != 'f')
 			flag->ret += write(1, &space, 1);
+		else if (flag->spec == 'd' && flag->prec > (int)ft_strlen(str) && flag->prec < flag->width)
+		{
+			len = ft_strlen(str);
+			while (len < flag->prec)
+			{
+				ft_hash_print(flag);
+				len++;
+			}
+			flag->ret += write(1, str, ft_strlen(str));
+		}
 		else
 			flag->ret += write(1, str, ft_strlen(str));
 	}

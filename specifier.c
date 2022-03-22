@@ -21,7 +21,7 @@ void	ft_space_zero_calc_digit(t_flag *flag, int len)
 	zero = '0';
 	space = ' ';
 	dif = flag->prec - len;
-	if (flag->prec < flag->width && flag->prec != -1 && flag->spec == 'o' && dif > 0)
+	if (flag->prec < flag->width && flag->prec != -1 && dif > 0 && (flag->spec == 'o' || flag->spec == 'd' || flag->spec == 'u'))
 	{
 		while (len++ < flag->width - dif)
 			flag->ret += write(1, &space, 1);
@@ -87,7 +87,10 @@ void	ft_print_calc(char *str, t_flag *flag, void (*f)(t_flag *, int))
 
 	len = ft_len_calc(str, flag);
 	if (str[0] == '-')
+	{
 		flag->plus = '+';
+		len++;
+	}
 	if (((flag->space == ' ' && flag->minus == '1') || flag->prec > flag->width || flag->zero == '0') && \
 		(flag->spec == 'd' || flag->spec == 'f' || flag->spec == 'u'))
 		ft_plus_print(str, flag);
@@ -118,7 +121,18 @@ int	ft_specifier_check(const char *format, t_flag *flag, va_list *arg)
 	if (*format == 'c' || *format == 's' || *format == 'p')
 		ft_csp_print(format, flag, arg);
 	else if (*format == 'd' || *format == 'i' || *format == 'u')
+	{
+		if (flag->prec >= flag->width)
+			flag->width = -1;
+		if (flag->zero == '0')
+		{
+			if (flag->width > 0)
+				flag->prec = flag->width;
+			flag->zero = '1';
+			flag->width = -1;
+		}
 		ft_diu_print(format, flag, arg);
+	}
 	else if (*format == 'o' || *format == 'x' || *format == 'X')
 	{
 		if (flag->prec >= flag->width)
