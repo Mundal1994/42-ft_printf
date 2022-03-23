@@ -12,123 +12,67 @@
 
 #include "ft_printf.h"
 
-void	ft_space_zero_calc_digit(t_flag *flag, int len)
+void	ft_hash_print(t_flag *flag)
 {
 	char	zero;
-	char	space;
+	char	x;
+	char	big_x;
 
 	zero = '0';
-	space = ' ';
-	if (flag->prec < flag->width && flag->prec != -1 && (flag->spec == 'o' || flag->spec == 'd'))
-	{
-		while (len++ < flag->width)
-			flag->ret += write(1, &space, 1);
-	}
-	else if (flag->prec >= 0 && flag->prec > len && flag->spec != 'f')
-	{
-		while (len++ < flag->prec)
-			flag->ret += write(1, &zero, 1);
-	}
-	else if (flag->zero == '0' && flag->prec == -1 && flag->minus == '1')
-	{
-		while (len++ < flag->width)
-			flag->ret += write(1, &zero, 1);
-	}
-	else
-	{
-		while (len++ < flag->width)
-			flag->ret += write(1, &space, 1);
-	}
+	x = 'x';
+	big_x = 'X';
+	flag->ret += write(1, &zero, 1);
+	if (flag->spec == 'x')
+		flag->ret += write(1, &x, 1);
+	else if (flag->spec == 'X')
+		flag->ret += write(1, &big_x, 1);
 }
 
-void	ft_plus_print(char *str, t_flag *flag)
+void	ft_zero_print(t_flag *flag, char *str)
 {
+	int		len;
 	char	space;
-	char	minus;
 
 	space = ' ';
-	minus = '-';
-	if (flag->spec != 'u' && str[0] != '-')
+	len = 0;
+	if (spec_check(flag, 'c', 's', 'p') == TRUE)
 	{
-		if (flag->plus == '+')
-			flag->ret += write(1, &flag->plus, 1);
-		else if ((flag->width != -1 && flag->zero != '0') || flag->space == ' ')
+		while (len < flag->prec)
+		{
+			len++;
 			flag->ret += write(1, &space, 1);
-	}
-	else if (str[0] == '-' && flag->spec != 'u')
-	{
-		flag->ret += write(1, &minus, 1);
-		flag->plus = '1';
-	}
-}
-
-static int	ft_len_calc(char *str, t_flag *flag)
-{
-	int	len;
-
-	if (flag->spec == 's')
-	{
-		len = flag->prec;
-		if (flag->prec == -1 || flag->prec == flag->width)
-			len = ft_strlen(str);
+		}
 	}
 	else
 	{
 		len = ft_strlen(str);
-	}
-	return (len);
-}
-
-void	ft_print_calc(char *str, t_flag *flag, void (*f)(t_flag *, int, char *))
-{
-	int	len;
-
-	len = ft_len_calc(str, flag);
-	if (str[0] == '-')
-	{
-		flag->plus = '+';
-		if (flag->prec != -1 && (flag->prec < flag->width || flag->prec >= len))
+		if (str[0] == '-' && flag->spec == 'o')
 			len--;
-	}
-	if (((flag->space == ' ' && flag->minus == '1') || flag->prec > flag->width || flag->zero == '0') && \
-		(flag->spec == 'd' || flag->spec == 'f' || flag->spec == 'u'))
-		ft_plus_print(str, flag);
-	else if ((flag->spec == 'o' || flag->spec == 'x' || flag->spec == 'X') && flag->width <= flag->prec)
-		ft_prec_calc_ox(str, flag, TRUE);
-	if (flag->width >= 0 || flag->prec >= 0)
-	{
-		if (flag->minus == '-' && flag->prec < flag->width)
+		while (len < flag->prec)
 		{
-			ft_prec_calc(str, flag);
-			f(flag, len, str);
-		}
-		else
-		{
-			f(flag, len, str);
-			ft_prec_calc(str, flag);
+			ft_hash_print(flag);
+			len++;
 		}
 	}
-	else
-		ft_prec_calc(str, flag);
-	ft_strdel(&str);
 }
 
-int	ft_specifier_check(const char *format, t_flag *flag, va_list *arg)
+int	spec_check(t_flag *flag, int a, int b, int c)
 {
-	if (flag->prec >= 0)
-		flag->zero = '1';
-	if (*format == 'c' || *format == 's' || *format == 'p')
-		ft_csp_print(format, flag, arg);
-	else if (*format == 'd' || *format == 'i' || *format == 'u')
+	if (flag->spec == a)
+		return (TRUE);
+	else if (flag->spec == b)
+		return (TRUE);
+	else if (flag->spec == c)
+		return (TRUE);
+	return (FALSE);
+}
+
+static void	ft_prepare_flags(t_flag *flag, int c)
+{
+	if (flag->prec >= flag->width)
+		flag->width = -1;
+	if (c == 'o')
 	{
-		if (flag->prec >= flag->width)
-			flag->width = -1;
-		ft_diu_print(format, flag, arg);
-	}
-	else if (*format == 'o' || *format == 'x' || *format == 'X')
-	{
-		if (flag->prec >= flag->width)
-			flag->width = -1;
 		if (flag->zero == '0')
 		{
 			if (flag->width > 0)
@@ -140,12 +84,27 @@ int	ft_specifier_check(const char *format, t_flag *flag, va_list *arg)
 			flag->zero = '1';
 			flag->width = -1;
 		}
+	}
+}
+
+int	ft_specifier_check(const char *format, t_flag *flag, va_list *arg)
+{
+	if (flag->prec >= 0)
+		flag->zero = '1';
+	if (*format == 'c' || *format == 's' || *format == 'p')
+		ft_csp_print(format, flag, arg);
+	else if (*format == 'd' || *format == 'i' || *format == 'u')
+	{
+		ft_prepare_flags(flag, 'd');
+		ft_diu_print(format, flag, arg);
+	}
+	else if (*format == 'o' || *format == 'x' || *format == 'X')
+	{
+		ft_prepare_flags(flag, 'o');
 		ft_ox_print(format, flag, arg);
 	}
-	else if (*format == 'f' || *format == 'b' || *format == '%')
-	{
+	else if (*format == 'f' || *format == '%')
 		ft_f_print(format, flag, arg);
-	}
 	else
 		return (FALSE);
 	ft_i_reset(format, flag);

@@ -17,6 +17,7 @@ CC = gcc -Wall -Wextra -Werror -I ./libft
 SRC = ft_printf.c
 SRC += flags.c
 SRC += specifier.c
+SRC += print_calc.c
 SRC += str_print.c
 SRC += digit_print.c
 SRC += ox_print.c

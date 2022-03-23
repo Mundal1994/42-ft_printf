@@ -12,6 +12,11 @@
 
 #include "ft_printf.h"
 
+/*
+**	calculate the amount of space we need to consider when printing digits
+**	narrows down what extra needs to be printed to have correct width
+*/
+
 void	ft_space_calc_digit(t_flag *flag, int len, char *str)
 {
 	int		dif;
@@ -32,6 +37,8 @@ void	ft_space_calc_digit(t_flag *flag, int len, char *str)
 	ft_space_zero_calc_digit(flag, len);
 }
 
+/*	convert long long down to wanted length based on flags	*/
+
 static char	*ft_convert_length(char *str, t_flag *flag, long long nbr)
 {
 	if (flag->hh == TRUE)
@@ -46,6 +53,8 @@ static char	*ft_convert_length(char *str, t_flag *flag, long long nbr)
 		str = ft_itoa_base((int)nbr, ft_long_len(nbr), 10);
 	return (str);
 }
+
+/*	convert unsigned long long down to wanted length based on flags	*/
 
 static char	*ft_convert_length_u(char *str, t_flag *flag, unsigned long long \
 nbr)
@@ -63,6 +72,8 @@ nbr)
 		str = ft_ulltoa((unsigned int)nbr, str);
 	return (str);
 }
+
+/*	narrows down the specifier and start calculation for printing	*/
 
 void	ft_diu_print(const char *format, t_flag *flag, va_list *arg)
 {

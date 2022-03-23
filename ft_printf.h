@@ -50,10 +50,12 @@ void	ft_csp_print(const char *format, t_flag *flag, va_list *arg);
 void	ft_diu_print(const char *format, t_flag *flag, va_list *arg);
 void	ft_ox_print(const char *format, t_flag *flag, va_list *arg);
 void	ft_f_print(const char *format, t_flag *flag, va_list *arg);
-void	ft_b_print(const char *format, t_flag *flag, va_list *arg);
+int		spec_check(t_flag *flag, int a, int b, int c);
 char	*ft_ftoa(double number, int len);
 long	ft_flong_len(double nbr);
 void	ft_i_reset(const char *format, t_flag *flag);
 int		ft_color_print(const char *str, t_flag *flag);
+void	ft_zero_print(t_flag *flag, char *str);
+void	ft_hash_print(t_flag *flag);
 
 #endif

@@ -253,6 +253,22 @@ static void	c(void)
 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's',
 't', 'u', 'v', 'w', 'x', 'y', 'z', '{', '|', '}');
 	print_result(orig, mine);
+
+	printf(YELLOW"\n[%%3c]\n"UNCOLOR);
+	orig = printf("expect: [%3c]\n", 0);
+	mine = ft_printf("output: [%3c]\n", 0);
+	print_result(orig, mine);
+
+	printf(YELLOW"\n[%%1c]\n"UNCOLOR);
+	orig = printf("expect: [%1c]\n", 0);
+	mine = ft_printf("output: [%1c]\n", 0);
+	print_result(orig, mine);
+
+	printf(YELLOW"\n[%%c]\n"UNCOLOR);
+	orig = printf("expect: [%c]\n", 0);
+	mine = ft_printf("output: [%c]\n", 0);
+	print_result(orig, mine);
+
 /*
 	printf(YELLOW"\n[%%2c]\n"UNCOLOR);
 	orig = printf("expect: [%2c]\n", 0);

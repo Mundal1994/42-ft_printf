@@ -46,6 +46,20 @@ static char	*ft_convert_length_f(char *str, t_flag *flag, double number, long do
 	return (str);
 }
 
+static void	ft_percentage_print(const char *format, t_flag *flag)
+{
+	char	*str;
+
+	str = NULL;
+	if (*format == '%')
+	{
+		flag->spec = 'u';
+		str = ft_strnew(1);
+		str[0] = '%';
+		ft_print_calc(str, flag, &ft_space_calc_digit);
+	}
+}
+
 void	ft_f_print(const char *format, t_flag *flag, va_list *arg)
 {
 	double				number;
@@ -71,6 +85,6 @@ void	ft_f_print(const char *format, t_flag *flag, va_list *arg)
 		ft_print_calc(str, flag, &ft_space_calc_digit);
 	}
 	else
-		ft_b_print(format, flag, arg);
+		ft_percentage_print(format, flag);
 	//make sure to round up / down the number depending on len i have provided...
 }
