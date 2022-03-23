@@ -25,6 +25,9 @@ void	ft_i_reset(const char *format, t_flag *flag)
 
 static void	ft_initialize_flag(t_flag *flag, int first)
 {
+	//if (flag->str)
+	//	ft_strdel(&flag->str);
+	flag->str = ft_strnew(1);
 	flag->spec = '1';
 	flag->hash = FALSE;
 	flag->space = '1';
