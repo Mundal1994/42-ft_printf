@@ -225,7 +225,7 @@ static void	ft_cpy_to_temp(char **temp, char *str, t_flag *flag, int *i)
 	}
 
 }
-
+/*
 static void	ft_prec_calculator(char **temp, t_flag *flag, int len, int *i)
 {
 	int		dif;
@@ -247,7 +247,7 @@ static void	ft_prec_calculator(char **temp, t_flag *flag, int len, int *i)
 				(*temp)[(*i)++] = '0';
 		}
 	}
-}
+}*/
 /*
 static int	ft_add_sign(char **temp, char *str, t_flag *flag)
 {
@@ -299,20 +299,40 @@ void	ft_print_calc(char *str, t_flag *flag, void (*f)(t_flag *, int, char *))
 	temp = ft_strnew(total);
 	if (!temp)
 		return (ft_putstr_fd("error\n", 2));
-	ft_memset(temp, ' ', total);
+	if (flag->zero == '0' && flag->width > 0 && flag->prec == -1)
+		ft_memset(temp, '0', total);
+	else if (flag->prec > -1 && spec_check(flag, 'c', 's', 'p') == FALSE)
+	{
+		if (flag->prec < flag->width && flag->prec > len && flag->minus == '1')
+		{
+			ft_memset(temp, ' ', flag->width - flag->prec);
+			ft_memset(&temp[flag->prec], '0', flag->prec);
+		}
+		else if (flag->prec < flag->width && flag->prec > len && flag->minus == '-')
+		{
+			ft_memset(temp, '0', flag->prec);
+			ft_memset(&temp[flag->prec], ' ', flag->width - flag->prec);
+		}
+		else if (flag->prec > len)
+			ft_memset(temp, '0', flag->prec);
+		else
+			ft_memset(temp, ' ', total);
+	}
+	else
+		ft_memset(temp, ' ', total);
 	if (str[0] == '-' && spec_check(flag, 'd', 'u', 'f') == TRUE)// put this inside prec calc function
 		len--;
 	if (flag->minus == '1')
 	{
 		i = total;
 		ft_cpy_to_temp(&temp, str, flag, &i);
-		if (flag->prec > -1 && spec_check(flag, 'c', 's', 'p') == FALSE)
-		{
-			ft_prec_calculator(&(&temp)[i], flag, len, &i);
+		//if (flag->prec > -1 && spec_check(flag, 'c', 's', 'p') == FALSE)
+		//{
+		//	ft_prec_calculator(&(&temp)[i], flag, len, &i);
 			//if (flag->prec - len > 0)
 			//	i -= flag->prec - len;
 			/*i -= ft_prec_calculator(&(&temp)[i], flag, len);*/
-		}
+		//}
 		/*else if (flag->zero == '0' && flag->width > 0 && flag->prec == -1)
 		{
 			ft_putnbr(1);
@@ -331,6 +351,7 @@ void	ft_print_calc(char *str, t_flag *flag, void (*f)(t_flag *, int, char *))
 	{
 		/*this need to happen last*/
 		i = 0;
+		//i =	flag->prec - len;
 		/*if (spec_check(flag, 'c', 's', 'p') == FALSE)
 		{
 			if (flag->plus == '+' || flag->space == ' ' || str[0] == '-' || flag->hash == TRUE)
@@ -339,11 +360,11 @@ void	ft_print_calc(char *str, t_flag *flag, void (*f)(t_flag *, int, char *))
 			}
 		}*/
 		// it segmentfault at this end...
-		if (flag->prec > -1 && spec_check(flag, 'c', 's', 'p') == FALSE)
-		{
-			ft_prec_calculator(&(&temp)[i], flag, len, &i);
+		//if (flag->prec > -1 && spec_check(flag, 'c', 's', 'p') == FALSE)
+		//{
+		//	ft_prec_calculator(&(&temp)[i], flag, len, &i);
 			//i += ft_prec_calculator(&(&temp)[i], flag, len);
-		}
+		//}
 		/*else if (flag->zero == '0' && flag->width > 0 && flag->prec == -1)
 		{
 			ft_putnbr(1);
