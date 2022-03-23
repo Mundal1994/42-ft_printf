@@ -92,71 +92,40 @@ static void	ft_print_calc_helper(char *str, t_flag *flag, int len, void (*f)(t_f
 		ft_prec_calc(str, flag);
 	}
 }*/
-/*
-static void	ft_prec_calculator(char **temp, char *str, t_flag *flag, int c)
+
+static int	ft_check_flags_ox(char *str, t_flag *flag, int total, int len)
 {
-	int		count;
-	int		len;
-
-	if (flag->prec == 0)
+	if (ft_strcmp(str, "0") == 0 && flag->width < flag->prec && flag->prec == 0)
 	{
-		*temp = "\0";
-		return ;
+		if (flag->spec == 'o' && flag->hash == TRUE)
+			return (1);
+		return (0);
 	}
-	count = 0;
-	len = ft_strlen(str);
-	if (str[0] == '-' && c == '0')
+	if (flag->hash == TRUE)
 	{
-		(*temp)[0] = '-';
-		count = 1;
-		len--;
-		if (flag->prec == len)
-			flag->prec++;
+		if (flag->width == -1 && flag->prec == -1 && ft_strcmp(str, "0") == 0)
+			return (total);
+		if (flag->width < len || flag->prec > len)
+		{
+			if (flag->spec == 'o')
+			{
+				if (flag->prec <= len)
+					return (++total);
+				if (flag->width < flag->prec)
+					return (total);
+			}
+			total++;
+			if (spec_check(flag, 'n', 'x', 'X') == TRUE)
+				total++;
+		}
 	}
-	while (count < flag->prec - len)
-	{
-		(*temp)[count++] = c;
-	}
-	if (c == ' ')
-		ft_strncpy(&(*temp)[count], str, flag->prec);
-	else if (str[0] == '-')
-		ft_strcpy(&(*temp)[count], &str[1]);
-	else
-		ft_strcpy(&(*temp)[count], str);
-}*/
-
+	return (total);
+}
 
 static int	ft_check_flags(char *str, t_flag *flag, int total, int len)
 {
-	//if (str[0] == '-' && spec_check(flag, 'd', 'u', 'f') == TRUE)
-	//	len++;
 	if (spec_check(flag, 'o', 'x', 'X') == TRUE)
-	{
-		if (ft_strcmp(str, "0") == 0 && flag->width < flag->prec && flag->prec == 0)
-		{
-			if (flag->spec == 'o' && flag->hash == TRUE)
-				return (1);
-			return (0);
-		}
-		if (flag->hash == TRUE)
-		{
-			if (flag->width == -1 && flag->prec == -1 && ft_strcmp(str, "0") == 0)
-				return (total);
-			if (flag->width < len || flag->prec > len)
-			{
-				if (flag->spec == 'o')
-				{
-					if (flag->prec <= len)
-						return (++total);
-					if (flag->width < flag->prec)
-						return (total);
-				}
-				total++;
-				if (spec_check(flag, 'n', 'x', 'X') == TRUE)
-					total++;
-			}
-		}
-	}
+		return (ft_check_flags_ox(str, flag, total, len));
 	if (flag->spec == 'c' && str[0] == '\0' && flag->width > 0)
 		total--;
 	if (flag->spec == 'p' && ft_strcmp(str, "0x0") == 0 && flag->prec == 0)
@@ -205,62 +174,163 @@ static int	ft_len_calculator(t_flag *flag, int len)
 	return (len);
 }
 /*
-static void	ft_width_calc(char *str, flag)
+static void	ft_prec_calculator(char **temp, char *str, t_flag *flag, int c)
 {
+	int		count;
+	int		len;
 
-}*/
+	count = 0;
+	len = ft_strlen(str);
+	if (str[0] == '-' && c == '0')
+	{
+		(*temp)[0] = '-';
+		count = 1;
+		len--;
+		if (flag->prec == len)
+			flag->prec++;
+	}
+	//while (count < //(loop until str[0] == ascii//flag->prec - len)
+	//{
+	//	(*temp)[count++] = c;
+	//}
+	if (c == ' ')
+		ft_strncpy(&(*temp)[count], str, flag->prec);
+	else if (str[0] == '-')
+		ft_strcpy(&(*temp)[count], &str[1]);
+	else
+		ft_strcpy(&(*temp)[count], str);
+}
+*//*
+static int	ft_str_i_calc(int len, t_flag *flag)
+{
+	int	dif;
+
+	dif = flag->prec - len;
+	if (dif < 0)
+		dif *= -1;
+	return (dif);
+}
+*/
+
+static int	ft_str_i_calc(int len, t_flag *flag)
+{
+	int	dif;
+
+	dif = flag->prec - len;
+	if (dif < 0)
+	{
+		if (flag->prec == -1)
+			return (len);
+		return (flag->prec);
+	}
+	return (len);
+}
+
+static void	ft_cpy_to_temp(char **temp, char *str, t_flag *flag, int *i)
+{
+	int	remain;
+	int	len;
+
+	len = ft_strlen(str);
+	if (flag->minus != '-')
+	{
+		if (spec_check(flag, 'c', 's', 'p') == TRUE)
+		{
+			remain = ft_str_i_calc(len, flag);
+			*i -= remain;
+			ft_strncpy(&(*temp)[*i], str, remain);
+			//can i just return here if it is c s or p??
+		}
+		else if (str[0] == '-')
+			ft_strcpy(&(*temp)[*i - len], &str[1]);
+		else
+			ft_strcpy(&(*temp)[*i - len], str);
+	}
+	else
+	{
+		if (spec_check(flag, 'c', 's', 'p') == TRUE)
+		{
+			remain = ft_str_i_calc(len, flag);
+			ft_strncpy(*temp, str, remain);
+		}
+		else if (str[0] == '-')
+			ft_strcpy(*temp, &str[1]);
+		else
+			ft_strcpy(*temp, str);
+	}
+
+}
 
 void	ft_print_calc(char *str, t_flag *flag, void (*f)(t_flag *, int, char *))
 {
 	int		len;
 	char	*temp;
 	int		total;
-	//int		pnt;
+	int		i;
 
 	len = ft_strlen(str);
 	total = ft_len_calculator(flag, len);
 	total = ft_check_flags(str, flag, total, len);
-	//if (flag->spec == 'p' && flag->width < len && flag->prec < len)
-	//	total += 2;
-	//ft_putstr(str);
 	temp = ft_strnew(total);
 	if (!temp)
 		return (ft_putstr_fd("error\n", 2));
 	ft_memset(temp, ' ', total);
-	ft_putstr(temp);
-	//if (str[0] == '-' && flag->width < flag->prec)// put this inside prec calc function
-	//	len--;
-	//if (flag->minus == '-')
-	//{
+	if (str[0] == '-' && flag->width < flag->prec && spec_check(flag, 'd', 'u', 'f') == TRUE)// put this inside prec calc function
+		len--;
+	if (flag->minus != '-')
+	{
+		i = total;
+		ft_cpy_to_temp(&temp, str, flag, &i);
+		flag->ret = write(1, temp, total);
+		//ft_putstr(temp);
+			/*
+		if (flag->prec > -1)
+		{
+			if (spec_check(flag, 'c', 's', 'p') == TRUE)
+			{
+				i -= ft_str_i_calc(len, flag);
+				ft_prec_calculator(&(&temp)[i], str, flag, ' ');
+			}
+			else if (flag->prec >= len && spec_check(flag, 'c', 's', 'p') == FALSE)
+				ft_prec_calculator(&(&temp)[i], str, flag, '0');
+			ft_putstr(temp);
+		}*/
 		/*
 		if minus go to right end and call all the functions in reverse order and calculate where to be in temp from there
 		ex
 		if minus
-			pnt = total;
+			i = total;
 			if (flag->prec > -1)
-				pnt -= len - 1;
-				call precision function &temp[pnt]
+				i -= len - 1;
+				call precision function &temp[i]
 			if (flag->zero == '0' && ...)
-				pnt recalculate
+				i recalculate
 				call zero function
 			call plus function
-				pnt--;
-				plus function (&temp[pnt]);
+				i--;
+				plus function (&temp[i]);
 			if hash
-				pnt recalculate
+				i recalculate
 				call hash function
 		else
 		{
 			if (plus)
 				call plus function
-				pnt++
+				i++
 			if (special char like hash)
 				call hash function
 			if (flag->zero)
 			if prec
 		}
 		*/
-	//}
+	}
+	else
+	{
+		i = 0;
+		ft_cpy_to_temp(&temp, str, flag, &i);
+		flag->ret = write(1, temp, total);
+		//ft_putstr(temp);
+	}
 	/*if (flag->prec > -1)
 	{
 		if (spec_check(flag, 'c', 's', 'p') == TRUE)
