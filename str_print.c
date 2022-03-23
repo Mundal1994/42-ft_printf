@@ -86,6 +86,7 @@ void	ft_csp_print(const char *format, t_flag *flag, va_list *arg)
 	char				*str;
 
 	str = NULL;
+	flag->zero = '1';
 	if (*format == 'c')
 	{
 		c = (char)va_arg(*arg, int);
