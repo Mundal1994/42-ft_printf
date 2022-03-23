@@ -35,7 +35,7 @@ void	ft_zero_print(t_flag *flag, char *str)
 
 	space = ' ';
 	len = 0;
-	if (spec_check(flag, 'c', 's', 'p') == TRUE)
+	if (spec_check(flag, 'n', 's', 'p') == TRUE)
 	{
 		while (len < flag->prec)
 		{

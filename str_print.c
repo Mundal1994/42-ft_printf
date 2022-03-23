@@ -16,6 +16,8 @@ void	ft_space_calc_csp(t_flag *flag, int len, char *str)
 {
 	char	space = ' ';
 
+	if (flag->spec == 'c' && str[0] == '\0')
+		len++;
 	if (flag->zero == '0' && flag->prec == -1 && flag->minus == '-' && str)
 	{
 		while (len++ < flag->width)
@@ -87,6 +89,8 @@ void	ft_csp_print(const char *format, t_flag *flag, va_list *arg)
 	if (*format == 'c')
 	{
 		c = (char)va_arg(*arg, int);
+		if (c < 32 || c >= 127)
+			c = '\0';
 		flag->spec = 'c';
 		str = ft_str_creater(&c, flag->spec);
 	}

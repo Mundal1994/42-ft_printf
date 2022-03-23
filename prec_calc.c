@@ -125,7 +125,11 @@ void	ft_prec_calc(char *str, t_flag *flag)
 	if (str[0] == '-' && flag->spec != 'c' && flag->spec != 's')
 		str++;
 	if (flag->prec == -1)
+	{
+		if (flag->spec == 'c' && str[0] == '\0')
+			return ;
 		flag->ret += write(1, str, ft_strlen(str));
+	}
 	else
 	{
 		if (spec_check(flag, 'd', 'u', 'f') == TRUE)

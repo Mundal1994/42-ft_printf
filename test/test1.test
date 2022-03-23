@@ -269,6 +269,21 @@ static void	c(void)
 	mine = ft_printf("output: [%c]\n", 0);
 	print_result(orig, mine);
 
+	printf(YELLOW"\n[%%3c]\n"UNCOLOR);
+	orig = printf("expect: [%3c]\n", 50);
+	mine = ft_printf("output: [%3c]\n", 50);
+	print_result(orig, mine);
+
+	printf(YELLOW"\n[%%1c]\n"UNCOLOR);
+	orig = printf("expect: [%1c]\n", 50);
+	mine = ft_printf("output: [%1c]\n", 50);
+	print_result(orig, mine);
+
+	printf(YELLOW"\n[%%c]\n"UNCOLOR);
+	orig = printf("expect: [%c]\n", 50);
+	mine = ft_printf("output: [%c]\n", 50);
+	print_result(orig, mine);
+
 /*
 	printf(YELLOW"\n[%%2c]\n"UNCOLOR);
 	orig = printf("expect: [%2c]\n", 0);
