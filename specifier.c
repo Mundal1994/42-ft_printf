@@ -123,13 +123,6 @@ int	ft_specifier_check(const char *format, t_flag *flag, va_list *arg)
 	{
 		if (flag->prec >= flag->width)
 			flag->width = -1;
-		//if (flag->zero == '0')
-		//{
-			//if (flag->width > 0)
-			//	flag->prec = flag->width;
-			//flag->zero = '1';
-			//flag->width = -1;
-		//}
 		ft_diu_print(format, flag, arg);
 	}
 	else if (*format == 'o' || *format == 'x' || *format == 'X')
@@ -139,14 +132,20 @@ int	ft_specifier_check(const char *format, t_flag *flag, va_list *arg)
 		if (flag->zero == '0')
 		{
 			if (flag->width > 0)
-				flag->prec = flag->width - 2;
+			{
+				flag->prec = flag->width;
+				if (flag->hash == TRUE)
+					flag->prec -= 2;
+			}
 			flag->zero = '1';
 			flag->width = -1;
 		}
 		ft_ox_print(format, flag, arg);
 	}
 	else if (*format == 'f' || *format == 'b' || *format == '%')
+	{
 		ft_f_print(format, flag, arg);
+	}
 	else
 		return (FALSE);
 	ft_i_reset(format, flag);

@@ -16,9 +16,10 @@ void	ft_space_calc_digit(t_flag *flag, int len, char *str)
 {
 	int		dif;
 
-	if (str[0] == '-' && flag->prec > len)
+	dif = 0;
+	if (str[0] == '-' && flag->prec > len && flag->spec != 'u')
 		dif = flag->prec - len + 1;
-	else
+	else if (flag->spec != 'u')
 		dif = flag->prec - len;
 	if (flag->plus == '+' && flag->spec != 'u' && str[0] != '-' && (flag->prec < len || flag->width > flag->prec))
 		len++;

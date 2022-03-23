@@ -14,6 +14,11 @@
 
 void	ft_space_calc_ox(t_flag *flag, int len, char *str)
 {
+	int		dif;
+
+	dif = 0;
+	if (flag->prec < flag->width && flag->prec > len && flag->spec == 'o')
+		dif = flag->prec - len;
 	if (flag->hash == TRUE && str)// && (flag->width <= len || flag->prec <= len))
 	{
 		if (flag->spec == 'o')
@@ -21,7 +26,7 @@ void	ft_space_calc_ox(t_flag *flag, int len, char *str)
 		else if (flag->spec != 'o' && flag->width > len)
 			len += 2;
 	}
-	ft_space_zero_calc_digit(flag, len);
+	ft_space_zero_calc_digit(flag, len + dif);
 }
 
 static void	ft_striter_uplow(char *str, int (*f)(int))

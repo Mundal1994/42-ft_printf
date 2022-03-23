@@ -450,6 +450,16 @@ static void	o(void)
 	mine = ft_printf("output: [%5.0o]\n", 0);
 	print_result(orig, mine);
 
+	printf(YELLOW"\nInput: [%%05o] number: [%o]\n"UNCOLOR, 42);
+	orig = printf("expect: [%05o]\n", 42);
+	mine = ft_printf("output: [%05o]\n", 42);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%%-10.5o] number: [%o]\n"UNCOLOR, 2500);
+	orig = printf("expect: [%-10.5o]\n", 2500);
+	mine = ft_printf("output: [%-10.5o]\n", 2500);
+	print_result(orig, mine);
+
 	// with flags hh
 	unsigned char	c = '5';
 	printf(PURPLE"\nhh TEST\n"UNCOLOR);
@@ -692,6 +702,11 @@ static void	x(void)
 	printf(YELLOW"\nInput: [%%#-7.7x] number: [%x]\n"UNCOLOR, 9009999);
 	orig = printf("expect: [%#-7.7x]\n", 9009999);
 	mine = ft_printf("output: [%#-7.7x]\n", 9009999);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%%010x] number: [%X]\n"UNCOLOR, 542);
+	orig = printf("expect: [%010x]\n", 542);
+	mine = ft_printf("output: [%010x]\n", 542);
 	print_result(orig, mine);
 
 	// with flags hh
@@ -996,6 +1011,11 @@ static void	X(void)
 	printf(YELLOW"\nInput: [%%5.0X] number: [%X]\n"UNCOLOR, 0);
 	orig = printf("expect: [%5.0X]\n", 0);
 	mine = ft_printf("output: [%5.0X]\n", 0);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%%010X] number: [%X]\n"UNCOLOR, 542);
+	orig = printf("expect: [%010X]\n", 542);
+	mine = ft_printf("output: [%010X]\n", 542);
 	print_result(orig, mine);
 
 	// with flags hh
