@@ -225,47 +225,60 @@ static void	ft_cpy_to_temp(char **temp, char *str, t_flag *flag, int *i)
 	}
 
 }
-/*
-static int	ft_prec_calculator(char **temp, t_flag *flag, int len)
+
+static void	ft_prec_calculator(char **temp, t_flag *flag, int len, int *i)
 {
-	int		i;
 	int		dif;
 
-	i = 0;
 	dif = flag->prec - len;
-	if (dif < 0)
+	if (flag->minus == '1' && dif > 0)
 	{
-		if (flag->prec == -1)
-			dif = 0;
-		dif *= -1;
-	}
-	ft_putnbr(dif);
-	if (flag->minus == '1')
-	{*/
-	//	ft_putnbr(*i);
-		/*total = *i;
-		if (flag->prec - remain > 0)
-			*i -= (flag->prec - remain);
-		else
-			return ;
-		ft_putnbr(*i);
-		ft_putnbr(total);
-		ft_memset(&(*temp)[*i], '0', total);
-		ft_putstr(*temp);*/
-		/*ft_putstr("HELlo");
-		while (i < dif)//(loop until str[0] == ascii//flag->prec - len)
+		while (*i > dif)
 		{
-			(*temp)[i++] = '0';
+			if ((*temp)[*i] == ' ')
+				(*temp)[(*i)--] = '0';
 		}
 	}
-	else
-	{*/
-		/*if (flag->prec - len > 0)
-			*i -= (flag->prec - len);
+	else if (dif > 0)
+	{
+		while (*i < dif)
+		{
+			if ((*temp)[*i] == ' ')
+				(*temp)[(*i)++] = '0';
+		}
+	}
+}
+/*
+static int	ft_add_sign(char **temp, char *str, t_flag *flag)
+{
+	int	i;
+
+	i = 0;
+	if (str[0] == '-')
+	{
+		(*temp)[i++] = '-';
+	}
+	else if (flag->plus == '+')
+	{
+		(*temp)[i++] = '+';
+	}
+	else if (flag->space == ' ')
+	{
+		(*temp)[i++] = ' ';
+	}
+	else if (flag->hash == TRUE && spec_check(flag, 'o', 'x', 'X') == TRUE)
+	{
+		if (flag->spec == 'x')
+		{
+			(*temp)[i++] = '0';
+			(*temp)[i++] = 'x';
+		}
+		else if (flag->spec == 'X')
+		{
+			(*temp)[i++] = '0';
+			(*temp)[i++] = 'X';
+		}
 		else
-			return ;*/
-		//ft_putnbr(*i);
-		/*while (i < dif)//(loop until str[0] == ascii//flag->prec - len)
 		{
 			(*temp)[i++] = '0';
 		}
@@ -287,68 +300,58 @@ void	ft_print_calc(char *str, t_flag *flag, void (*f)(t_flag *, int, char *))
 	if (!temp)
 		return (ft_putstr_fd("error\n", 2));
 	ft_memset(temp, ' ', total);
-	if (str[0] == '-' && flag->width < flag->prec && spec_check(flag, 'd', 'u', 'f') == TRUE)// put this inside prec calc function
+	if (str[0] == '-' && spec_check(flag, 'd', 'u', 'f') == TRUE)// put this inside prec calc function
 		len--;
 	if (flag->minus == '1')
 	{
 		i = total;
 		ft_cpy_to_temp(&temp, str, flag, &i);
-		if (flag->prec > -1)
-		{/*
-			if (flag->prec < len && spec_check(flag, 'c', 's', 'p') == TRUE)
-			{
-				len++;
-				len--;
-			}
-			else
-				i -= ft_prec_calculator(&(&temp)[i], flag, len);*/
-		}
-		flag->ret += write(1, temp, total);
-		/*
-		if minus go to right end and call all the functions in reverse order and calculate where to be in temp from there
-		ex
-		if minus
-			i = total;
-			if (flag->prec > -1)
-				i -= len - 1;
-				call precision function &temp[i]
-			if (flag->zero == '0' && ...)
-				i recalculate
-				call zero function
-			call plus function
-				i--;
-				plus function (&temp[i]);
-			if hash
-				i recalculate
-				call hash function
-		else
+		if (flag->prec > -1 && spec_check(flag, 'c', 's', 'p') == FALSE)
 		{
-			if (plus)
-				call plus function
-				i++
-			if (special char like hash)
-				call hash function
-			if (flag->zero)
-			if prec
+			ft_prec_calculator(&(&temp)[i], flag, len, &i);
+			//if (flag->prec - len > 0)
+			//	i -= flag->prec - len;
+			/*i -= ft_prec_calculator(&(&temp)[i], flag, len);*/
 		}
-		*/
+		/*else if (flag->zero == '0' && flag->width > 0 && flag->prec == -1)
+		{
+			ft_putnbr(1);
+			// new calculation for adding zeros
+		}*/
+		/*if (spec_check(flag, 'c', 's', 'p') == FALSE)
+		{
+			if (flag->plus == '+' || flag->space == ' ' || str[0] == '-' || flag->hash == TRUE)
+			{
+				i -= ft_add_sign(&(&temp)[i], str, flag);
+			}
+		}*/
+		flag->ret += write(1, temp, total);
 	}
 	else
 	{
 		/*this need to happen last*/
 		i = 0;
-		if (flag->prec > -1)
-		{/*
-			if (flag->prec < len && spec_check(flag, 'c', 's', 'p') == TRUE)
+		/*if (spec_check(flag, 'c', 's', 'p') == FALSE)
+		{
+			if (flag->plus == '+' || flag->space == ' ' || str[0] == '-' || flag->hash == TRUE)
 			{
-				len++;
-				len--;
+				i += ft_add_sign(&(&temp)[i], str, flag);
 			}
-			else
-				i += ft_prec_calculator(&(&temp)[i], flag, len);*/
+		}*/
+		// it segmentfault at this end...
+		if (flag->prec > -1 && spec_check(flag, 'c', 's', 'p') == FALSE)
+		{
+			ft_prec_calculator(&(&temp)[i], flag, len, &i);
+			//i += ft_prec_calculator(&(&temp)[i], flag, len);
 		}
-		ft_cpy_to_temp(&(&temp)[i], str, flag, &i);
+		/*else if (flag->zero == '0' && flag->width > 0 && flag->prec == -1)
+		{
+			ft_putnbr(1);
+			// new calculation for adding zeros
+		}*/
+		ft_cpy_to_temp(&temp, str, flag, &i);
 		flag->ret += write(1, temp, total);
+		//ft_putstr(temp);
 		if (spec_check(flag, 'c', 's', 'p') == TRUE)
 			return ;
 		//ft_putstr(temp);
@@ -414,4 +417,6 @@ void	ft_print_calc(char *str, t_flag *flag, void (*f)(t_flag *, int, char *))
 	else
 		ft_prec_calc(str, flag);*/
 	//ft_strdel(&str);
+	ft_strdel(&str);
+	ft_strdel(&temp);
 }
