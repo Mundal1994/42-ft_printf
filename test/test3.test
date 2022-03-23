@@ -1018,6 +1018,11 @@ static void	X(void)
 	mine = ft_printf("output: [%010X]\n", 542);
 	print_result(orig, mine);
 
+	printf(YELLOW"\nInput: [%%15.4X] number: [%X]\n"UNCOLOR, 42);
+	orig = printf("expect: [%15.4X]\n", 42);
+	mine = ft_printf("output: [%15.4X]\n", 42);
+	print_result(orig, mine);
+
 	// with flags hh
 	unsigned char	c = '5';
 	printf(PURPLE"\nhh TEST\n"UNCOLOR);

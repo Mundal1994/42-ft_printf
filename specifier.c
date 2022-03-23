@@ -91,6 +91,8 @@ int	ft_specifier_check(const char *format, t_flag *flag, va_list *arg)
 {
 	if (flag->prec >= 0)
 		flag->zero = '1';
+	if (flag->space == ' ' && flag->plus == '+')
+		flag->space = '1';
 	if (*format == 'c' || *format == 's' || *format == 'p')
 		ft_csp_print(format, flag, arg);
 	else if (*format == 'd' || *format == 'i' || *format == 'u')
