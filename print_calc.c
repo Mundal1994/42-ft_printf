@@ -173,44 +173,6 @@ static int	ft_len_calculator(t_flag *flag, int len)
 		return (flag->prec);
 	return (len);
 }
-/*
-static void	ft_prec_calculator(char **temp, char *str, t_flag *flag, int c)
-{
-	int		count;
-	int		len;
-
-	count = 0;
-	len = ft_strlen(str);
-	if (str[0] == '-' && c == '0')
-	{
-		(*temp)[0] = '-';
-		count = 1;
-		len--;
-		if (flag->prec == len)
-			flag->prec++;
-	}
-	//while (count < //(loop until str[0] == ascii//flag->prec - len)
-	//{
-	//	(*temp)[count++] = c;
-	//}
-	if (c == ' ')
-		ft_strncpy(&(*temp)[count], str, flag->prec);
-	else if (str[0] == '-')
-		ft_strcpy(&(*temp)[count], &str[1]);
-	else
-		ft_strcpy(&(*temp)[count], str);
-}
-*//*
-static int	ft_str_i_calc(int len, t_flag *flag)
-{
-	int	dif;
-
-	dif = flag->prec - len;
-	if (dif < 0)
-		dif *= -1;
-	return (dif);
-}
-*/
 
 static int	ft_str_i_calc(int len, t_flag *flag)
 {
@@ -239,12 +201,14 @@ static void	ft_cpy_to_temp(char **temp, char *str, t_flag *flag, int *i)
 			remain = ft_str_i_calc(len, flag);
 			*i -= remain;
 			ft_strncpy(&(*temp)[*i], str, remain);
+			return ;
 			//can i just return here if it is c s or p??
 		}
-		else if (str[0] == '-')
-			ft_strcpy(&(*temp)[*i - len], &str[1]);
+		*i -= len;
+		if (str[0] == '-')
+			ft_strcpy(&(*temp)[*i], &str[1]);
 		else
-			ft_strcpy(&(*temp)[*i - len], str);
+			ft_strcpy(&(*temp)[*i], str);
 	}
 	else
 	{
@@ -252,14 +216,62 @@ static void	ft_cpy_to_temp(char **temp, char *str, t_flag *flag, int *i)
 		{
 			remain = ft_str_i_calc(len, flag);
 			ft_strncpy(*temp, str, remain);
+			return ;
 		}
-		else if (str[0] == '-')
+		if (str[0] == '-')
 			ft_strcpy(*temp, &str[1]);
 		else
 			ft_strcpy(*temp, str);
 	}
 
 }
+/*
+static int	ft_prec_calculator(char **temp, t_flag *flag, int len)
+{
+	int		i;
+	int		dif;
+
+	i = 0;
+	dif = flag->prec - len;
+	if (dif < 0)
+	{
+		if (flag->prec == -1)
+			dif = 0;
+		dif *= -1;
+	}
+	ft_putnbr(dif);
+	if (flag->minus == '1')
+	{*/
+	//	ft_putnbr(*i);
+		/*total = *i;
+		if (flag->prec - remain > 0)
+			*i -= (flag->prec - remain);
+		else
+			return ;
+		ft_putnbr(*i);
+		ft_putnbr(total);
+		ft_memset(&(*temp)[*i], '0', total);
+		ft_putstr(*temp);*/
+		/*ft_putstr("HELlo");
+		while (i < dif)//(loop until str[0] == ascii//flag->prec - len)
+		{
+			(*temp)[i++] = '0';
+		}
+	}
+	else
+	{*/
+		/*if (flag->prec - len > 0)
+			*i -= (flag->prec - len);
+		else
+			return ;*/
+		//ft_putnbr(*i);
+		/*while (i < dif)//(loop until str[0] == ascii//flag->prec - len)
+		{
+			(*temp)[i++] = '0';
+		}
+	}
+	return (i);
+}*/
 
 void	ft_print_calc(char *str, t_flag *flag, void (*f)(t_flag *, int, char *))
 {
@@ -277,24 +289,21 @@ void	ft_print_calc(char *str, t_flag *flag, void (*f)(t_flag *, int, char *))
 	ft_memset(temp, ' ', total);
 	if (str[0] == '-' && flag->width < flag->prec && spec_check(flag, 'd', 'u', 'f') == TRUE)// put this inside prec calc function
 		len--;
-	if (flag->minus != '-')
+	if (flag->minus == '1')
 	{
 		i = total;
 		ft_cpy_to_temp(&temp, str, flag, &i);
-		flag->ret = write(1, temp, total);
-		//ft_putstr(temp);
-			/*
 		if (flag->prec > -1)
-		{
-			if (spec_check(flag, 'c', 's', 'p') == TRUE)
+		{/*
+			if (flag->prec < len && spec_check(flag, 'c', 's', 'p') == TRUE)
 			{
-				i -= ft_str_i_calc(len, flag);
-				ft_prec_calculator(&(&temp)[i], str, flag, ' ');
+				len++;
+				len--;
 			}
-			else if (flag->prec >= len && spec_check(flag, 'c', 's', 'p') == FALSE)
-				ft_prec_calculator(&(&temp)[i], str, flag, '0');
-			ft_putstr(temp);
-		}*/
+			else
+				i -= ft_prec_calculator(&(&temp)[i], flag, len);*/
+		}
+		flag->ret += write(1, temp, total);
 		/*
 		if minus go to right end and call all the functions in reverse order and calculate where to be in temp from there
 		ex
@@ -326,9 +335,22 @@ void	ft_print_calc(char *str, t_flag *flag, void (*f)(t_flag *, int, char *))
 	}
 	else
 	{
+		/*this need to happen last*/
 		i = 0;
-		ft_cpy_to_temp(&temp, str, flag, &i);
-		flag->ret = write(1, temp, total);
+		if (flag->prec > -1)
+		{/*
+			if (flag->prec < len && spec_check(flag, 'c', 's', 'p') == TRUE)
+			{
+				len++;
+				len--;
+			}
+			else
+				i += ft_prec_calculator(&(&temp)[i], flag, len);*/
+		}
+		ft_cpy_to_temp(&(&temp)[i], str, flag, &i);
+		flag->ret += write(1, temp, total);
+		if (spec_check(flag, 'c', 's', 'p') == TRUE)
+			return ;
 		//ft_putstr(temp);
 	}
 	/*if (flag->prec > -1)
