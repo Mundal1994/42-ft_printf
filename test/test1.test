@@ -520,7 +520,7 @@ static void	p(void)
 	print_result(orig, mine);
 
 	pnt = NULL;
-	printf(YELLOW"\n[%%0x0]\n"UNCOLOR);
+	printf(YELLOW"\n[%%p]\n"UNCOLOR);
 	orig = printf("expect: [%p]\n", pnt);
 	mine = ft_printf("output: [%p]\n", pnt);
 	print_result(orig, mine);
