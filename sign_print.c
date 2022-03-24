@@ -12,6 +12,8 @@
 
 #include "ft_printf.h"
 
+/*	if the corresponding flag is true we put it into the string	*/
+
 static void	*ft_sign_print(char *temp, char *str, t_flag *flag, int *i)
 {
 	int	len;
@@ -34,6 +36,8 @@ static void	*ft_sign_print(char *temp, char *str, t_flag *flag, int *i)
 	}
 	return (temp);
 }
+
+/*	checks sign to put if we try placing digits furthest left	*/
 
 static void	*ft_sign_check_l(char *temp, char *str, t_flag *flag, int *i)
 {
@@ -62,6 +66,8 @@ static void	*ft_sign_check_l(char *temp, char *str, t_flag *flag, int *i)
 	return (temp);
 }
 
+/*	checks sign to put if we try placing digits furthest rigth	*/
+
 static void	*ft_sign_check_r(char *temp, char *str, t_flag *flag, int *index)
 {
 	if (spec_check(flag, 'o', 'x', 'X') == TRUE && flag->hash == TRUE)
@@ -75,6 +81,8 @@ static void	*ft_sign_check_r(char *temp, char *str, t_flag *flag, int *index)
 		ft_sign_print(temp, str, flag, index);
 	return (temp);
 }
+
+/*	calculations of what to input str based on prec in combination with other variable	*/
 
 static void	ft_if_prec_helper(char *str, t_flag *flag, int *index, int total)
 {
@@ -104,6 +112,8 @@ static void	ft_if_prec_helper(char *str, t_flag *flag, int *index, int total)
 	else
 		ft_memset(&flag->str[*index], ' ', total - *index);
 }
+
+/*	puts in space, zero and sign depending on width, prec and flags	*/
 
 void	ft_set_base_str(char *str, t_flag *flag, int total, int len)
 {

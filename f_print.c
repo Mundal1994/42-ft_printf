@@ -12,6 +12,10 @@
 
 #include "ft_printf.h"
 
+/*
+**	finds length of double
+*/
+
 long	ft_flong_len(double nbr)
 {
 	long	counter;
@@ -26,6 +30,10 @@ long	ft_flong_len(double nbr)
 	}
 	return (counter);
 }
+
+/*
+**	converts to correct float based on flags
+*/
 
 static char	*ft_convert_length_f(char *str, t_flag *flag, double number, long double b_nbr)
 {
@@ -46,6 +54,10 @@ static char	*ft_convert_length_f(char *str, t_flag *flag, double number, long do
 	return (str);
 }
 
+/*
+**	percentage calculator
+*/
+
 static void	ft_percentage_print(const char *format, t_flag *flag)
 {
 	char	*str;
@@ -59,6 +71,10 @@ static void	ft_percentage_print(const char *format, t_flag *flag)
 		ft_print_calc(str, flag, &ft_digit_print);
 	}
 }
+
+/*
+**	float argv is taken
+*/
 
 void	ft_f_print(const char *format, t_flag *flag, va_list *arg)
 {

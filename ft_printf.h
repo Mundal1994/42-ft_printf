@@ -40,8 +40,6 @@ int		ft_printf(const char *format, ...);
 void	ft_flag_checker(const char *format, t_flag *flag, va_list *arg);
 int		ft_specifier_check(const char *format, t_flag *flag, va_list *arg);
 void	ft_print_calc(char *str, t_flag *flag, void (*f)(char *, t_flag *, int, int));
-void	ft_plus_print(char *str, t_flag *flag);//, int len);
-void	ft_space_zero_calc_digit(t_flag *flag, int len);
 void	ft_prec_calc(char *str, t_flag *flag);
 void	ft_digit_print(char *str, t_flag *flag, int len, int total);
 void	ft_set_base_str_ox(char *str, t_flag *flag, int total, int len);
