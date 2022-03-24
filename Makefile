@@ -25,6 +25,7 @@ SRC += f_print.c
 SRC += ftoa.c
 SRC += prec_calc.c
 SRC += bonus.c
+SRC += sign_print.c
 
 OBJ = $(SRC:.c=.o)
 

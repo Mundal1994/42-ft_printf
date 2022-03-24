@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
+/*
 static void	*ft_hash2_print(char *temp, t_flag *flag, int *index)
 {
 	ft_memset(temp, '0', 1);
@@ -29,42 +29,37 @@ static void	*ft_hash2_print(char *temp, t_flag *flag, int *index)
 	return (temp);
 }
 
-
 static void	*ft_check_hash(char *temp, char *str, t_flag *flag, int *index)
 {
 	int	len;
 
 	len = ft_strlen(str);
-	if (flag->hash == TRUE && flag->minus == '1')
+	if (flag->hash == TRUE)
 	{
-		if (flag->spec == 'o' || (len > flag->width - 2 && len > flag->prec))
+		if (flag->minus == '-')
+			ft_hash2_print(temp, flag, index);
+		else if (flag->zero == '0' && flag->width >= 0 && flag->prec == -1)
+			ft_hash2_print(temp, flag, index);
+		else if (flag->width == -1 && flag->prec == -1)
+			ft_hash2_print(temp, flag, index);
+		else if (flag->prec > len)
 			ft_hash2_print(temp, flag, index);
 		
 	}
-	//else if (len > flag->width && len > flag->prec)
-	//	ft_hash2_print(temp, flag, index);
-	//else if (flag->prec > flag->width)
-	//	ft_hash2_print(temp, flag, index);
-	//else if (flag->zero == '0' && flag->width > 0 && flag->prec == -1)
-	//	ft_hash2_print(temp, flag, index);
-	
 	return (temp);
 }
-/*
+
 static void	*ft_check_hash_rigth(char *temp, char *str, t_flag *flag, int *index)
 {
 	int	len;
 
 	len = ft_strlen(str);
-	
-	if ((flag->minus == '-' || (len > flag->width - 2 && len > flag->prec)) && flag->hash == TRUE)
-		ft_hash2_print(temp, flag, index);
-	else
-			ft_hash2_print(&temp[-1], flag, index);
-	
+
+	if (flag->hash == TRUE && flag->minus == '1')
+		ft_hash2_print(&temp[-1], flag, index);
 	return (temp);
 }
-*/
+
 static void	ft_if_prec_calc(char *str, t_flag *flag, int *index, int total)
 {
 	int	len;
@@ -75,7 +70,7 @@ static void	ft_if_prec_calc(char *str, t_flag *flag, int *index, int total)
 	if (flag->prec < flag->width && flag->prec > len && flag->minus == '1')
 	{
 		ft_memset(&flag->str[*index], ' ', flag->width - flag->prec);
-		//ft_check_hash_rigth(&flag->str[flag->width - flag->prec - 1], str, flag, index);
+		ft_check_hash_rigth(&flag->str[flag->width - flag->prec - 1], str, flag, index);
 		ft_memset(&flag->str[flag->width - flag->prec], '0', flag->prec);
 	}
 	else if (flag->prec < flag->width && flag->prec > len && flag->minus == '-')
@@ -88,20 +83,35 @@ static void	ft_if_prec_calc(char *str, t_flag *flag, int *index, int total)
 	else if (flag->width > len)
 	{
 		ft_memset(&flag->str[*index], ' ', total - *index);
-		//ft_check_hash_rigth(&flag->str[flag->width - len - 1], str, flag, index);
+		ft_check_hash_rigth(&flag->str[flag->width - len - 1], str, flag, index);
 	}
 	else
 		ft_memset(&flag->str[*index], ' ', total - *index);
-}
+}*/
 
+void	*ft_hash_print(char *temp, t_flag *flag, int *index)
+{
+	ft_memset(temp, '0', 1);
+	(*index)++;
+	if (flag->spec == 'x')
+	{
+		(*index)++;
+		ft_memset(&temp[1], 'x', 1);
+	}
+	if (flag->spec == 'X')
+	{
+		(*index)++;
+		ft_memset(&temp[1], 'X', 1);
+	}
+	return (temp);
+}
+/*
 void	ft_set_base_str_ox(char *str, t_flag *flag, int total, int len)
 {
 	int	index;
 
 	index = 0;
 	ft_check_hash(&flag->str[index], str, flag, &index);
-	if (index == -1)
-		index = 0;
 	if (flag->zero == '0' && flag->width > 0 && flag->prec == -1)
 		ft_memset(&flag->str[index], '0', total);
 	else if (flag->prec > -1)
@@ -109,11 +119,11 @@ void	ft_set_base_str_ox(char *str, t_flag *flag, int total, int len)
 	else if (flag->width > 0 && flag->width > len)
 	{
 		ft_memset(&flag->str[index], ' ', total - index);
-		ft_check_hash(&flag->str[flag->width - len - 1], str, flag, &index);
+		ft_check_hash_rigth(&flag->str[flag->width - len - 1], str, flag, &index);
 	}
 	else
 		ft_memset(&flag->str[index], ' ', total);
-}
+}*/
 
 static void	ft_striter_uplow(char *str, int (*f)(int))
 {

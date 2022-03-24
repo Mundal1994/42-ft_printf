@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
+/*
 void	ft_prec_calc_ox(char *str, t_flag *flag, int first)
 {
 	char	space;
@@ -140,3 +140,4 @@ void	ft_prec_calc(char *str, t_flag *flag)
 			ft_prec_calc_csp(str, flag);
 	}
 }
+*/

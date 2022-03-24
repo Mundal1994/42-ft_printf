@@ -55,8 +55,8 @@ char	*ft_ftoa(double number, int len);
 long	ft_flong_len(double nbr);
 void	ft_i_reset(const char *format, t_flag *flag);
 int		ft_color_print(const char *str, t_flag *flag);
-void	ft_zero_print(t_flag *flag, char *str);
-void	ft_hash_print(t_flag *flag);
 int		ft_str_i_calc(int len, t_flag *flag);
+void	*ft_hash_print(char *temp, t_flag *flag, int *index);
+void	ft_set_base_str(char *str, t_flag *flag, int total, int len);
 
 #endif
