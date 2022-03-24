@@ -73,26 +73,27 @@ static void	ft_cpy_to_temp_digit(char **temp, char *str, t_flag *flag, int i)
 **	narrows down what extra needs to be printed to have correct width
 */
 
-static void	ft_put_plus_space_minus(char **temp, char *str, t_flag *flag, int *index)
+static void	*ft_put_plus_space_minus(char *temp, char *str, t_flag *flag, int *index)
 {
 	if (str[0] == '-')
 	{
-		ft_memset(*temp, '-', 1);
+		ft_memset(temp, '-', 1);
 		(*index)++;
 	}
 	else if (flag->plus == '+')
 	{
-		ft_memset(*temp, '+', 1);
+		ft_memset(temp, '+', 1);
 		(*index)++;
 	}
 	else if (flag->space == ' ')
 	{
-		ft_memset(*temp, ' ', 1);
+		ft_memset(temp, ' ', 1);
 		(*index)++;
 	}
+	return (temp);
 }
 
-static void	ft_check_plus_space_minus_left(char **temp, char *str, t_flag *flag, int *index)
+static void	*ft_check_plus_space_minus_left(char *temp, char *str, t_flag *flag, int *index)
 {
 	int	len;
 
@@ -105,15 +106,16 @@ static void	ft_check_plus_space_minus_left(char **temp, char *str, t_flag *flag,
 		ft_put_plus_space_minus(temp, str, flag, index);
 	else if (flag->zero == '0' && flag->width > 0 && flag->prec == -1)
 		ft_put_plus_space_minus(temp, str, flag, index);
-
+	return (temp);
 }
 
-static void	ft_check_plus_space_minus_left_rigth(char **temp, char *str, t_flag *flag, int *index)
+static void	*ft_check_plus_space_minus_left_rigth(char *temp, char *str, t_flag *flag, int *index)
 {
 	if (flag->minus == '1')
 	{
 		ft_put_plus_space_minus(temp, str, flag, index);
 	}
+	return (temp);
 }
 
 void	ft_digit_print(char *str, t_flag *flag, int len, int total)
@@ -129,7 +131,7 @@ void	ft_digit_print(char *str, t_flag *flag, int len, int total)
 	if (!temp)
 		return (ft_putstr_fd("error\n", 2));
 	index = 0;
-	ft_check_plus_space_minus_left(&(&temp)[index], str, flag, &index);
+	ft_check_plus_space_minus_left(&temp[index], str, flag, &index);
 	if (str[0] == '-' && spec_check(flag, 'd', 'n', 'f') == TRUE)
 		len--;
 	if (flag->zero == '0' && flag->width > 0 && flag->prec == -1)
@@ -139,7 +141,7 @@ void	ft_digit_print(char *str, t_flag *flag, int len, int total)
 		if (flag->prec < flag->width && flag->prec > len && flag->minus == '1')
 		{
 			ft_memset(&temp[index], ' ', flag->width - flag->prec);
-			ft_check_plus_space_minus_left_rigth(&(&temp)[flag->width - flag->prec - 1], str, flag, &index);
+			ft_check_plus_space_minus_left_rigth(&temp[flag->width - flag->prec - 1], str, flag, &index);
 			ft_memset(&temp[flag->width - flag->prec], '0', flag->prec);
 		}
 		else if (flag->prec < flag->width && flag->prec > len && flag->minus == '-')
@@ -155,15 +157,8 @@ void	ft_digit_print(char *str, t_flag *flag, int len, int total)
 		}
 		else if (flag->width > len)
 		{
-			//here
-			/*ft_putstr("HERE\n");
-			ft_putnbr(len);
-			ft_putchar('\n');*/
-			/*int new_len = flag->width - len - 1;
-			if (new_len < 0)
-				new_len = 0;*/
-			ft_check_plus_space_minus_left_rigth(&(&temp)[flag->width - len - 1], str, flag, &index);
 			ft_memset(&temp[index], ' ', total - index);
+			ft_check_plus_space_minus_left_rigth(&temp[flag->width - len - 1], str, flag, &index);
 		}
 		else
 			ft_memset(&temp[index], ' ', total - index);
@@ -175,7 +170,7 @@ void	ft_digit_print(char *str, t_flag *flag, int len, int total)
 	if (flag->minus == '1')
 	{
 		ft_cpy_to_temp_digit(&temp, str, flag, total);
-		i = total - len;
+		i = total - len - 1;
 		while (i < total)
 		{
 			if (temp[i] == '\0')
