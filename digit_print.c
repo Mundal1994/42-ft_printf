@@ -31,6 +31,8 @@ static int	ft_check_float_flags(char *str, t_flag *flag, int total, int len)
 		else if ((flag->plus == '+' || flag->space == ' ') && str[0] != '-')
 			total++;
 	}
+	else if (flag->minus == '-' && flag->plus == '+')
+		total++;
 	return (total);
 }
 

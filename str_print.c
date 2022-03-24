@@ -81,7 +81,7 @@ static char	*ft_str_creater(char *str_arg, char c)
 	return (str);
 }
 
-static char	*ft_address_to_str(uintptr_t addr)
+static char	*addr_to_str(uintptr_t addr)
 {
 	char	*str;
 	char	*dest;
@@ -110,9 +110,7 @@ static void	ft_print_str(char *str, t_flag *flag)
 
 void	ft_csp_print(const char *format, t_flag *flag, va_list *arg)
 {
-	char				*str_arg;
 	char				c;
-	unsigned long long	long_arg;
 	char				*str;
 
 	str = NULL;
@@ -127,15 +125,13 @@ void	ft_csp_print(const char *format, t_flag *flag, va_list *arg)
 	}
 	else if (*format == 's')
 	{
-		str_arg = va_arg(*arg, char *);
 		flag->spec = 's';
-		str = ft_str_creater(str_arg, flag->spec);
+		str = ft_str_creater((char *)va_arg(*arg, char *), flag->spec);
 	}
 	else if (*format == 'p')
 	{
-		long_arg = va_arg(*arg, unsigned long long);
 		flag->spec = 'p';
-		str = ft_address_to_str(long_arg);
+		str = addr_to_str((unsigned long long)va_arg(*arg, unsigned long long));
 	}
 	ft_print_str(str, flag);
 }

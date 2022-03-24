@@ -58,8 +58,6 @@ void	ft_diu_print(const char *format, t_flag *flag, va_list *arg)
 
 	str = NULL;
 	nbr = 0;
-	//if (flag->minus == '-')
-	//	flag->zero = '1';
 	if (*format == 'd' || *format == 'i')
 	{
 		nbr = va_arg(*arg, long long);
