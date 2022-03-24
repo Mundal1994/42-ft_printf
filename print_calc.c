@@ -126,11 +126,7 @@ static int	ft_check_flags(char *str, t_flag *flag, int total, int len)
 {
 	if (spec_check(flag, 'o', 'x', 'X') == TRUE)
 		return (ft_check_flags_ox(str, flag, total, len));
-	if (flag->spec == 'c' && str[0] == '\0' && flag->width > 0)
-		total--;
-	if (flag->spec == 'p' && ft_strcmp(str, "0x0") == 0 && flag->prec == 0)
-		total = 2;
-	if (spec_check(flag, 'd', 'u', 'f') == TRUE)
+	if (spec_check(flag, 'd', 'n', 'f') == TRUE)
 	{
 		if (flag->spec == 'f' && flag->prec < len && flag->width == -1)
 		{
@@ -147,7 +143,7 @@ static int	ft_check_flags(char *str, t_flag *flag, int total, int len)
 		}
 	}
 	if (spec_check(flag, 'd', 'u', 'f') == TRUE)
-		if (ft_strcmp(str, "0") == 0 && flag->prec == 0 && flag->width == -1)
+		if (ft_strcmp(str, "0") == 0 && ft_strlen(str) == 0 && flag->prec == 0 && flag->width == -1)
 			total--;
 	return (total);
 }
