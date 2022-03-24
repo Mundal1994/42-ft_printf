@@ -56,7 +56,7 @@ static void	ft_percentage_print(const char *format, t_flag *flag)
 		flag->spec = 'u';
 		str = ft_strnew(1);
 		str[0] = '%';
-		ft_print_calc(str, flag, &ft_space_calc_digit);
+		ft_print_calc(str, flag, &ft_digit_print);
 	}
 }
 
@@ -82,7 +82,7 @@ void	ft_f_print(const char *format, t_flag *flag, va_list *arg)
 			number = va_arg(*arg, double);
 			str = ft_convert_length_f(str, flag, number, b_number);
 		}
-		ft_print_calc(str, flag, &ft_space_calc_digit);
+		ft_print_calc(str, flag, &ft_digit_print);
 	}
 	else
 		ft_percentage_print(format, flag);

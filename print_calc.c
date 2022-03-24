@@ -174,7 +174,7 @@ static int	ft_len_calculator(t_flag *flag, int len)
 	return (len);
 }
 
-static int	ft_str_i_calc(int len, t_flag *flag)
+int	ft_str_i_calc(int len, t_flag *flag)
 {
 	int	dif;
 
@@ -187,7 +187,7 @@ static int	ft_str_i_calc(int len, t_flag *flag)
 	}
 	return (len);
 }
-
+/*
 static void	ft_cpy_to_temp(char **temp, char *str, t_flag *flag, int *i)
 {
 	int	remain;
@@ -224,7 +224,7 @@ static void	ft_cpy_to_temp(char **temp, char *str, t_flag *flag, int *i)
 			ft_strcpy(*temp, str);
 	}
 
-}
+}*/
 /*
 static void	ft_prec_calculator(char **temp, t_flag *flag, int len, int *i)
 {
@@ -286,17 +286,18 @@ static int	ft_add_sign(char **temp, char *str, t_flag *flag)
 	return (i);
 }*/
 
-void	ft_print_calc(char *str, t_flag *flag, void (*f)(t_flag *, int, char *))
+void	ft_print_calc(char *str, t_flag *flag, void (*f)(char *, t_flag *, int, int))
 {
 	int		len;
-	char	*temp;
+	//char	*temp;
 	int		total;
-	int		i;
+//	int		i;
 
 	len = ft_strlen(str);
 	total = ft_len_calculator(flag, len);
 	total = ft_check_flags(str, flag, total, len);
-	temp = ft_strnew(total);
+	f(str, flag, len, total);
+	/*temp = ft_strnew(total);
 	if (!temp)
 		return (ft_putstr_fd("error\n", 2));
 	if (flag->zero == '0' && flag->width > 0 && flag->prec == -1)
@@ -325,7 +326,7 @@ void	ft_print_calc(char *str, t_flag *flag, void (*f)(t_flag *, int, char *))
 	if (flag->minus == '1')
 	{
 		i = total;
-		ft_cpy_to_temp(&temp, str, flag, &i);
+		ft_cpy_to_temp(&temp, str, flag, &i);*/
 		//if (flag->prec > -1 && spec_check(flag, 'c', 's', 'p') == FALSE)
 		//{
 		//	ft_prec_calculator(&(&temp)[i], flag, len, &i);
@@ -345,12 +346,12 @@ void	ft_print_calc(char *str, t_flag *flag, void (*f)(t_flag *, int, char *))
 				i -= ft_add_sign(&(&temp)[i], str, flag);
 			}
 		}*/
-		flag->ret += write(1, temp, total);
-	}
-	else
-	{
+		//flag->ret += write(1, temp, total);
+	//}
+	//else
+	//{
 		/*this need to happen last*/
-		i = 0;
+	//	i = 0;
 		//i =	flag->prec - len;
 		/*if (spec_check(flag, 'c', 's', 'p') == FALSE)
 		{
@@ -370,13 +371,13 @@ void	ft_print_calc(char *str, t_flag *flag, void (*f)(t_flag *, int, char *))
 			ft_putnbr(1);
 			// new calculation for adding zeros
 		}*/
-		ft_cpy_to_temp(&temp, str, flag, &i);
+	/*	ft_cpy_to_temp(&temp, str, flag, &i);
 		flag->ret += write(1, temp, total);
 		//ft_putstr(temp);
 		if (spec_check(flag, 'c', 's', 'p') == TRUE)
-			return ;
+			return ;*/
 		//ft_putstr(temp);
-	}
+//	}
 	/*if (flag->prec > -1)
 	{
 		if (spec_check(flag, 'c', 's', 'p') == TRUE)
@@ -393,8 +394,8 @@ void	ft_print_calc(char *str, t_flag *flag, void (*f)(t_flag *, int, char *))
 	}*/
 	//if (flag->width > len)
 	//	ft_width_calc(str, flag)
-	if (f)
-		ft_putstr("");
+	//if (f)
+	//	ft_putstr("");
 	/*
 	int len
 
@@ -438,6 +439,6 @@ void	ft_print_calc(char *str, t_flag *flag, void (*f)(t_flag *, int, char *))
 	else
 		ft_prec_calc(str, flag);*/
 	//ft_strdel(&str);
-	ft_strdel(&str);
-	ft_strdel(&temp);
+	//ft_strdel(&str);
+	//ft_strdel(&temp);
 }

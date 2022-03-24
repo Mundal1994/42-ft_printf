@@ -12,11 +12,13 @@
 
 #include "ft_printf.h"
 
-void	ft_space_calc_ox(t_flag *flag, int len, char *str)
+void	ft_ox_print_calc(char *str, t_flag *flag, int len, int total)
 {
 	int		dif;
 
 	dif = 0;
+	if (len || total || str)
+		dif = 0;
 	if (flag->prec < flag->width && flag->prec > len && flag->spec == 'o')
 		dif = flag->prec - len;
 	if (flag->hash == TRUE && str)// && (flag->width <= len || flag->prec <= len))
@@ -77,20 +79,20 @@ void	ft_ox_print(const char *format, t_flag *flag, va_list *arg)
 	{
 		flag->spec = 'o';
 		str = ft_convert_length_ox(str, flag, nbr);
-		ft_print_calc(str, flag, &ft_space_calc_ox);
+		ft_print_calc(str, flag, &ft_ox_print_calc);
 	}
 	else if (*format == 'x')
 	{
 		flag->spec = 'x';
 		str = ft_convert_length_ox(str, flag, nbr);
 		ft_striter_uplow(str, &ft_tolower);
-		ft_print_calc(str, flag, &ft_space_calc_ox);
+		ft_print_calc(str, flag, &ft_ox_print_calc);
 	}
 	else if (*format == 'X')
 	{
 		flag->spec = 'X';
 		str = ft_convert_length_ox(str, flag, nbr);
 		ft_striter_uplow(str, &ft_toupper);
-		ft_print_calc(str, flag, &ft_space_calc_ox);
+		ft_print_calc(str, flag, &ft_ox_print_calc);
 	}
 }

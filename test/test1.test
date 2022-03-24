@@ -529,6 +529,7 @@ static void	p(void)
 	orig = printf("expect: [%.p]\n", pnt);
 	mine = ft_printf("output: [%.p]\n", pnt);
 	print_result(orig, mine);
+
 }
 
 int main(void)
@@ -553,12 +554,6 @@ int main(void)
 	printf(PURPLE"\n-------\n\n"UNCOLOR);
 	printf(PURPLE"POINTER TEST\n"UNCOLOR);
 	p();
-int orig;
-int mine;
-	printf(YELLOW"\n[%%c]\n"UNCOLOR);
-	orig = printf("expect: [%c]\n", 0);
-	mine = ft_printf("output: [%c]\n", 0);
-	print_result(orig, mine);
 
 	return (0);
 }

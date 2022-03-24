@@ -39,13 +39,12 @@ typedef struct s_flag
 int		ft_printf(const char *format, ...);
 void	ft_flag_checker(const char *format, t_flag *flag, va_list *arg);
 int		ft_specifier_check(const char *format, t_flag *flag, va_list *arg);
-void	ft_print_calc(char *str, t_flag *flag, void (*f)(t_flag *, int, char *));
+void	ft_print_calc(char *str, t_flag *flag, void (*f)(char *, t_flag *, int, int));
 void	ft_plus_print(char *str, t_flag *flag);//, int len);
 void	ft_space_zero_calc_digit(t_flag *flag, int len);
 void	ft_prec_calc(char *str, t_flag *flag);
-void	ft_space_calc_csp(t_flag *flag, int len, char *str);
-void	ft_space_calc_digit(t_flag *flag, int len, char *str);
-void	ft_space_calc_ox(t_flag *flag, int len, char *str);
+void	ft_digit_print(char *str, t_flag *flag, int len, int total);
+void	ft_ox_print_calc(char *str, t_flag *flag, int len, int total);
 void	ft_prec_calc_ox(char *str, t_flag *flag, int first);
 void	ft_csp_print(const char *format, t_flag *flag, va_list *arg);
 void	ft_diu_print(const char *format, t_flag *flag, va_list *arg);
@@ -58,5 +57,6 @@ void	ft_i_reset(const char *format, t_flag *flag);
 int		ft_color_print(const char *str, t_flag *flag);
 void	ft_zero_print(t_flag *flag, char *str);
 void	ft_hash_print(t_flag *flag);
+int		ft_str_i_calc(int len, t_flag *flag);
 
 #endif

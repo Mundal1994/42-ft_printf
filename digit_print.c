@@ -17,11 +17,13 @@
 **	narrows down what extra needs to be printed to have correct width
 */
 
-void	ft_space_calc_digit(t_flag *flag, int len, char *str)
+void	ft_digit_print(char *str, t_flag *flag, int len, int total)
 {
 	int		dif;
 
 	dif = 0;
+	if (len || total || str)
+		dif = 0;
 	if (str[0] == '-' && flag->prec > len && flag->spec != 'u')
 		dif = flag->prec - len + 1;
 	else if (flag->spec != 'u')
@@ -88,13 +90,13 @@ void	ft_diu_print(const char *format, t_flag *flag, va_list *arg)
 		nbr = va_arg(*arg, long long);
 		str = ft_convert_length(str, flag, nbr);
 		flag->spec = 'd';
-		ft_print_calc(str, flag, &ft_space_calc_digit);
+		ft_print_calc(str, flag, &ft_digit_print);
 	}
 	else if (*format == 'u')
 	{
 		var = va_arg(*arg, unsigned long long);
 		str = ft_convert_length_u(str, flag, var);
 		flag->spec = 'u';
-		ft_print_calc(str, flag, &ft_space_calc_digit);
+		ft_print_calc(str, flag, &ft_digit_print);
 	}
 }
