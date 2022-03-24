@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-static void	ft_cpy_to_temp_str(char **temp, char *str, t_flag *flag, int i)
+static void	*ft_cpy_to_temp_str(char *temp, char *str, t_flag *flag, int i)
 {
 	int	remain;
 	int	len;
@@ -23,39 +23,40 @@ static void	ft_cpy_to_temp_str(char **temp, char *str, t_flag *flag, int i)
 		remain = 2;
 		if (flag->minus != '-')
 			i -= remain;
-		ft_strncpy(&(*temp)[i], str, remain);
+		ft_strncpy(&temp[i], str, remain);
 	}
 	else if (spec_check(flag, 'c', 's', 'p') == TRUE)
 	{
 		remain = ft_str_i_calc(len, flag);
 		if (flag->minus != '-')
 			i -= remain;
-		ft_strncpy(&(*temp)[i], str, remain);
+		ft_strncpy(&temp[i], str, remain);
 	}
+	return (temp);
 }
 
 static void	ft_str_print(char *str, t_flag *flag, int len, int total)
 {
-	char	*temp;
 	int		i;
 
 	if (len)
 		i = 0;
-	temp = ft_strnew(total);
-	if (!temp)
+	if (str[0] == '\0' && flag->spec == 'c')
+	{
+		if (!(flag->width < 0))
+			total--;
+	}
+	flag->str = ft_strnew(total);
+	if (!flag->str)
 		return (ft_putstr_fd("error\n", 2));
-	ft_memset(temp, ' ', total);
+	ft_memset(flag->str, ' ', total);
 	if (flag->minus == '1')
-	{
-		ft_cpy_to_temp_str(&temp, str, flag, total);
-	}
+		ft_cpy_to_temp_str(flag->str, str, flag, total);
 	else
-	{
-		ft_cpy_to_temp_str(&temp, str, flag, 0);
-	}
-	flag->ret += write(1, temp, total);
+		ft_cpy_to_temp_str(flag->str, str, flag, 0);
+	flag->ret += write(1, flag->str, total);
 	ft_strdel(&str);
-	ft_strdel(&temp);
+	ft_strdel(&flag->str);
 }
 
 static char	*ft_str_creater(char *str_arg, char c)

@@ -122,7 +122,7 @@ static void	percentage_print(void)
 	orig = printf("expect: [%%]\n");
 	mine = ft_printf("output: [%%]\n");
 	print_result(orig, mine);
-/*
+
 	printf("\n");
 	orig = printf("expect: [%%] [%%] [%%]\n");
 	mine = ft_printf("output: [%%] [%%] [%%]\n");
@@ -161,7 +161,7 @@ static void	percentage_print(void)
 	printf("\n");
 	orig = printf("expect: [%010%]\n");
 	mine = ft_printf("output: [%010%]\n");
-	print_result(orig, mine);*/
+	print_result(orig, mine);
 }
 
 static void	c(void)
