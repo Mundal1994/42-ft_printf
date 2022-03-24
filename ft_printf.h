@@ -44,7 +44,7 @@ void	ft_plus_print(char *str, t_flag *flag);//, int len);
 void	ft_space_zero_calc_digit(t_flag *flag, int len);
 void	ft_prec_calc(char *str, t_flag *flag);
 void	ft_digit_print(char *str, t_flag *flag, int len, int total);
-void	ft_ox_print_calc(char *str, t_flag *flag, int len, int total);
+void	ft_set_base_str_ox(char *str, t_flag *flag, int total, int len);
 void	ft_prec_calc_ox(char *str, t_flag *flag, int first);
 void	ft_csp_print(const char *format, t_flag *flag, va_list *arg);
 void	ft_diu_print(const char *format, t_flag *flag, va_list *arg);

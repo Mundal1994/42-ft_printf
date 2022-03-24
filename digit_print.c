@@ -32,6 +32,8 @@ static int	ft_check_flags_digit(char *str, t_flag *flag, int total, int len)
 {
 	if (flag->spec == 'f')
 		return (ft_check_float_flags(str, flag, total, len));
+	//else if (spec_check(flag, 'o', 'x', 'X') == TRUE && flag->hash == TRUE)
+	//	total++;
 	else
 	{
 		if ((flag->width <= len && flag->width <= flag->prec) || (flag->prec >= len && flag->prec > flag->width))
@@ -61,7 +63,12 @@ static void	ft_cpy_to_temp_digit(char **temp, char *str, t_flag *flag, int i)
 	if (flag->minus != '-')
 		i -= len;
 	if (flag->prec == 0 && ft_strcmp(str, "0") == 0)
-		(*temp)[i] = ' ';
+	{
+		if (spec_check(flag, 'o', 'x', 'X') == TRUE && flag->hash == TRUE)
+			(*temp)[i] = '0';
+		else
+			(*temp)[i] = ' ';
+	}
 	else if (str[0] == '-')
 		ft_strcpy(&(*temp)[i], &str[1]);
 	else
@@ -75,6 +82,9 @@ static void	ft_cpy_to_temp_digit(char **temp, char *str, t_flag *flag, int i)
 
 static void	*ft_put_plus_space_minus(char *temp, char *str, t_flag *flag, int *index)
 {
+	int	len;
+
+	len = ft_strlen(str);
 	if (str[0] == '-' && flag->spec != 'u')
 	{
 		ft_memset(temp, '-', 1);
@@ -112,13 +122,11 @@ static void	*ft_check_plus_space_minus_left(char *temp, char *str, t_flag *flag,
 static void	*ft_check_plus_space_minus_left_rigth(char *temp, char *str, t_flag *flag, int *index)
 {
 	if (flag->minus == '1')
-	{
 		ft_put_plus_space_minus(temp, str, flag, index);
-	}
 	return (temp);
 }
 
-static void	*ft_if_prec_calc(char *temp, char *str, t_flag *flag, int *index, int total)
+static void	ft_if_prec_calc(char *str, t_flag *flag, int *index, int total)
 {
 	int	len;
 
@@ -127,38 +135,30 @@ static void	*ft_if_prec_calc(char *temp, char *str, t_flag *flag, int *index, in
 		len--;
 	if (flag->prec < flag->width && flag->prec > len && flag->minus == '1')
 	{
-		ft_memset(&temp[*index], ' ', flag->width - flag->prec);
-		ft_check_plus_space_minus_left_rigth(&temp[flag->width - flag->prec - 1], str, flag, index);
-		ft_memset(&temp[flag->width - flag->prec], '0', flag->prec);
+		ft_memset(&flag->str[*index], ' ', flag->width - flag->prec);
+		ft_check_plus_space_minus_left_rigth(&flag->str[flag->width - flag->prec - 1], str, flag, index);
+		ft_memset(&flag->str[flag->width - flag->prec], '0', flag->prec);
 	}
 	else if (flag->prec < flag->width && flag->prec > len && flag->minus == '-')
 	{
-		ft_memset(&temp[*index], '0', flag->prec);
-		ft_memset(&temp[flag->width - flag->prec + *index], ' ', flag->width - flag->prec - *index);
+		ft_memset(&flag->str[*index], '0', flag->prec);
+		ft_memset(&flag->str[flag->width - flag->prec + *index], ' ', flag->width - flag->prec - *index);
 	}
 	else if (flag->prec > len && flag->width < flag->prec)
-		ft_memset(&temp[*index], '0', flag->prec);
+		ft_memset(&flag->str[*index], '0', flag->prec);
 	else if (flag->width > len)
 	{
-		ft_memset(&temp[*index], ' ', total - *index);
-		ft_check_plus_space_minus_left_rigth(&temp[flag->width - len - 1], str, flag, index);
+		ft_memset(&flag->str[*index], ' ', total - *index);
+		ft_check_plus_space_minus_left_rigth(&flag->str[flag->width - len - 1], str, flag, index);
 	}
 	else
-		ft_memset(&temp[*index], ' ', total - *index);
-	return (temp);
+		ft_memset(&flag->str[*index], ' ', total - *index);
 }
 
-void	ft_digit_print(char *str, t_flag *flag, int len, int total)
+static void	ft_set_base_str(char *str, t_flag *flag, int total, int len)
 {
-	int		i;
-	int		new_total;
-	int		index;
+	int	index;
 
-	if (flag->prec == 0 && ft_strcmp(str, "0") == 0 && flag->width == -1)
-		return ;
-	flag->str = ft_strnew(total);
-	if (!flag->str)
-		return (ft_putstr_fd("error\n", 2));
 	index = 0;
 	ft_check_plus_space_minus_left(&flag->str[index], str, flag, &index);
 	if (str[0] == '-' && spec_check(flag, 'd', 'n', 'f') == TRUE)
@@ -166,7 +166,7 @@ void	ft_digit_print(char *str, t_flag *flag, int len, int total)
 	if (flag->zero == '0' && flag->width > 0 && flag->prec == -1)
 		ft_memset(&flag->str[index], '0', total);
 	else if (flag->prec > -1)
-		ft_if_prec_calc(flag->str, str, flag, &index, total);
+		ft_if_prec_calc(str, flag, &index, total);
 	else if (flag->width > 0 && flag->width > len)
 	{
 		ft_memset(&flag->str[index], ' ', total - index);
@@ -174,16 +174,27 @@ void	ft_digit_print(char *str, t_flag *flag, int len, int total)
 	}
 	else
 		ft_memset(&flag->str[index], ' ', total);
-	if (flag->spec != 'u' && ft_strcmp(str, "0") == 0 && ft_strlen(str) == 0 && flag->prec == 0)
-		return ;
+}
+
+static void	ft_minus_decide_strcpy(char *str, t_flag *flag, int total, int len)
+{
+	int	i;
+	int	new_total;
+
 	if (flag->minus == '1')
 		ft_cpy_to_temp_digit(&flag->str, str, flag, total);
 	else
 	{
 		i = 0;
 		new_total = ft_check_flags_digit(str, flag, total, len);
-		if (flag->prec > len)
-			i =	flag->prec - len;
+		if (spec_check(flag, 'n', 'x', 'X') == TRUE && flag->hash == TRUE)
+			i += 2;
+		else if (flag->spec == 'o' && flag->hash == TRUE)
+			i++;
+		if (flag->prec > len && flag->hash == TRUE && flag->spec == 'o')
+			i += flag->prec - len - 1;
+		else if (flag->prec > len)
+			i += flag->prec - len;
 		if (total < new_total)
 			i++;
 		ft_cpy_to_temp_digit(&flag->str, str, flag, i);
@@ -194,6 +205,22 @@ void	ft_digit_print(char *str, t_flag *flag, int len, int total)
 			i++;
 		}
 	}
+}
+
+void	ft_digit_print(char *str, t_flag *flag, int len, int total)
+{
+	if (spec_check(flag, 'd', 'u', 'f') == TRUE || spec_check(flag, 'n', 'x', 'X') == TRUE)
+		if (flag->prec == 0 && ft_strcmp(str, "0") == 0 && flag->width == -1)
+			return ;
+	flag->str = ft_strnew(total);
+	if (!flag->str)
+		return (ft_putstr_fd("error\n", 2));
+	if (spec_check(flag, 'd', 'u', 'f') == TRUE)
+		ft_set_base_str(str, flag, total, len);
+	else
+		ft_set_base_str_ox(str, flag, total, len);
+	if (!(flag->spec != 'u' && ft_strcmp(str, "0") == 0 && ft_strlen(str) == 0 && flag->prec == 0))
+		ft_minus_decide_strcpy(str, flag, total, len);
 	flag->ret += write(1, flag->str, total);
 	ft_strdel(&str);
 	ft_strdel(&flag->str);
