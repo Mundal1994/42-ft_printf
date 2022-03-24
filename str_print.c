@@ -18,33 +18,19 @@ static void	ft_cpy_to_temp_str(char **temp, char *str, t_flag *flag, int i)
 	int	len;
 
 	len = ft_strlen(str);
-	if (flag->minus != '-')
+	if (flag->spec == 'p' && flag->prec == 0)
 	{
-		if (flag->spec == 'p' && flag->prec == 0)
-		{
-			remain = 2;
+		remain = 2;
+		if (flag->minus != '-')
 			i -= remain;
-			ft_strncpy(&(*temp)[i], str, remain);
-		}
-		else if (spec_check(flag, 'c', 's', 'p') == TRUE)
-		{
-			remain = ft_str_i_calc(len, flag);
-			i -= remain;
-			ft_strncpy(&(*temp)[i], str, remain);
-		}
+		ft_strncpy(&(*temp)[i], str, remain);
 	}
-	else
+	else if (spec_check(flag, 'c', 's', 'p') == TRUE)
 	{
-		if (flag->spec == 'p' && flag->prec == 0)
-		{
-			remain = 2;
-			ft_strncpy(&(*temp)[i], str, remain);
-		}
-		else if (spec_check(flag, 'c', 's', 'p') == TRUE)
-		{
-			remain = ft_str_i_calc(len, flag);
-			ft_strncpy(*temp, str, remain);
-		}
+		remain = ft_str_i_calc(len, flag);
+		if (flag->minus != '-')
+			i -= remain;
+		ft_strncpy(&(*temp)[i], str, remain);
 	}
 }
 
