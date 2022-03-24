@@ -163,6 +163,11 @@ void	ft_digit_print(char *str, t_flag *flag, int len, int total)
 		else
 			ft_memset(&temp[index], ' ', total - index);
 	}
+	else if (flag->width > 0 && flag->width > len)
+	{
+		ft_memset(&temp[index], ' ', total - index);
+		ft_check_plus_space_minus_left_rigth(&temp[flag->width - len - 1], str, flag, &index);
+	}
 	else
 		ft_memset(&temp[index], ' ', total);
 	if (flag->spec != 'u' && ft_strcmp(str, "0") == 0 && ft_strlen(str) == 0 && flag->prec == 0)
