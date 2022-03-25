@@ -47,23 +47,10 @@ static int	ft_check_flags(char *str, t_flag *flag, int total, int len)
 		return (ft_check_flags_ox(str, flag, total, len));
 	if (spec_check(flag, 'd', 'n', 'f') == TRUE)
 	{
-		if (flag->spec == 'f' && flag->prec < len && flag->width == -1)
-		{
-			if ((flag->plus == '+' || flag->space == ' ') && str[0] != '-')
-				total++;
-			return (total);
-		}
-		if ((flag->width <= len && (flag->width <= flag->prec || flag->spec == 'f')) || (flag->prec >= len && flag->prec > flag->width && flag->spec != 'f'))
-		{
-			if (str[0] == '-' && (flag->width > -1 || flag->prec > -1))
-				total++;
-			else if ((flag->plus == '+' || flag->space == ' ') && str[0] != '-')
-				total++;
-		}
+		if (!(len > flag->width && len > flag->prec && (str[0] == '-' || str[0] == '+')))
+			if (flag->width < len)
+				return (ft_check_flags_digit(str, flag, total, len));
 	}
-	if (spec_check(flag, 'd', 'u', 'f') == TRUE)
-		if (ft_strcmp(str, "0") == 0 && ft_strlen(str) == 0 && flag->prec == 0 && flag->width == -1)
-			total--;
 	return (total);
 }
 
@@ -85,7 +72,11 @@ static int	ft_len_calculator(t_flag *flag, int len)
 			return (flag->prec);
 	}
 	else if (flag->prec >= flag->width && (flag->prec >= len || spec_check(flag, 'c', 's', 'p') == TRUE))
+	{
+		if (spec_check(flag, 'c', 's', 'p') == TRUE && flag->prec > len)
+			return (flag->width);
 		return (flag->prec);
+	}
 	return (len);
 }
 

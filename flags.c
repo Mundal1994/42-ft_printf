@@ -63,7 +63,7 @@ static int	ft_flag_check(const char *format, t_flag *flag, int on, int *pnt)
 		flag->minus = '-';
 	else if (*format == '+')
 		flag->plus = '+';
-	else if (*format == ' ' && flag->plus != '+')
+	else if (*format == ' ')
 		flag->space = ' ';
 	else if (*format == '0' && format[-1] != '0')
 		flag->zero = '0';

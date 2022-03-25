@@ -463,6 +463,11 @@ static void	s(void)
 	mine = ft_printf("output: [%-.2s]\n","");
 	print_result(orig, mine);
 
+	printf(YELLOW"\n[%%4.15s]\n"UNCOLOR);
+	orig = printf("expect: [%4.15s]\n", "42");
+	mine = ft_printf("output: [%4.15s]\n","42");
+	print_result(orig, mine);
+
 /*
 	int orig;
 	int mine;

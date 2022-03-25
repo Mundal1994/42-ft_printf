@@ -38,7 +38,7 @@ static int	ft_check_float_flags(char *str, t_flag *flag, int total, int len)
 
 /*	when placing furthest left we check flags to know index to place digit	*/
 
-static int	ft_check_flags_digit(char *str, t_flag *flag, int total, int len)
+int	ft_check_flags_digit(char *str, t_flag *flag, int total, int len)
 {
 	if (flag->spec == 'f')
 		return (ft_check_float_flags(str, flag, total, len));
@@ -48,15 +48,15 @@ static int	ft_check_flags_digit(char *str, t_flag *flag, int total, int len)
 		(flag->prec >= len && flag->prec > flag->width))
 		{
 			if (str[0] == '-' && (flag->width > -1 || flag->prec > -1))
-				total++;
+				return (++total);
 			else if ((flag->plus == '+' || flag->space == ' ') && str[0] != '-')
-				total++;
+				return (++total);
 		}
 		if (ft_strcmp(str, "0") == 0 && flag->prec == 0 && flag->width == -1)
 			total--;
-		if (flag->plus == '+' && flag->minus == '-')
+		if (flag->plus == '+' && flag->width > flag->prec && flag->width > len)
 			total++;
-		else if (flag->plus == '+' && flag->width > flag->prec && flag->width > len)
+		else if (flag->plus == '+' && flag->minus == '1' && flag->width < len && flag->prec < len)
 			total++;
 	}
 	return (total);
@@ -97,7 +97,11 @@ static void	ft_minus_decide_strcpy(char *str, t_flag *flag, int total, int len)
 	int	new_total;
 
 	if (flag->minus == '1')
+	{
+		//ft_putnbr(total);
+		//ft_putchar('\n');
 		ft_digit_to_str(&flag->str, str, flag, total);
+	}
 	else
 	{
 		i = 0;
