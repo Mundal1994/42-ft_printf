@@ -51,6 +51,8 @@ static void	*ft_sign_check_l(char *temp, char *str, t_flag *flag, int *i)
 			ft_hash_print(temp, flag, i);
 		else if (flag->prec > (int)ft_strlen(str))
 			ft_hash_print(temp, flag, i);
+		else if (flag->prec < (int)ft_strlen(str) && flag->prec != -1 && flag->width < (int)ft_strlen(str))
+			ft_hash_print(temp, flag, i);
 	}
 	else if (spec_check(flag, 'd', 'u', 'f') == TRUE)
 	{

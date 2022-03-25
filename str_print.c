@@ -118,9 +118,11 @@ void	ft_csp_print(const char *format, t_flag *flag, va_list *arg)
 	if (*format == 'c')
 	{
 		c = (char)va_arg(*arg, int);
-		if (c < 32 || c >= 127)
+		if (c < 32 || c != 127)
 			c = '\0';
 		flag->spec = 'c';
+		ft_putchar(c);
+		ft_putchar('\n');
 		str = ft_str_creater(&c, flag->spec);
 	}
 	else if (*format == 's')

@@ -74,7 +74,11 @@ static int	ft_len_calculator(t_flag *flag, int len)
 	else if (flag->prec >= flag->width && (flag->prec >= len || spec_check(flag, 'c', 's', 'p') == TRUE))
 	{
 		if (spec_check(flag, 'c', 's', 'p') == TRUE && flag->prec > len)
-			return (flag->width);
+		{
+			if (flag->width > len)
+				return (flag->width);
+			return (len);
+		}
 		return (flag->prec);
 	}
 	return (len);
@@ -96,10 +100,22 @@ int	ft_str_i_calc(int len, t_flag *flag)
 
 void	ft_print_calc(char *str, t_flag *flag, void (*f)(char *, t_flag *, int, int))
 {
-	int		len;
-	int		total;
+	int	len;
+	int	total;
+	int	temp;
+	int	decimal_len;
 
 	len = ft_strlen(str);
+	if (flag->spec == 'f')
+	{
+		temp = ft_strlen_stop(str, '.') + 1;
+		decimal_len = ft_strlen(&str[temp]);
+		if (flag->prec == -1 && decimal_len != 6)
+		{
+			str = ft_strjoin(str, "0");
+			len++;
+		}
+	}
 	total = ft_len_calculator(flag, len);
 	total = ft_check_flags(str, flag, total, len);
 	f(str, flag, len, total);
