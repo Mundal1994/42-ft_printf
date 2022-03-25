@@ -46,6 +46,8 @@ static void	ft_str_print(char *str, t_flag *flag, int len, int total)
 	{
 		if (!(flag->width < 0))
 			total--;
+		else
+			return ;
 	}
 	flag->str = ft_strnew(total);
 	if (!flag->str)
@@ -110,19 +112,15 @@ static void	ft_print_str(char *str, t_flag *flag)
 
 void	ft_csp_print(const char *format, t_flag *flag, va_list *arg)
 {
-	char				c;
-	char				*str;
+	char	c;
+	char	*str;
 
 	str = NULL;
 	flag->zero = '1';
 	if (*format == 'c')
 	{
 		c = (char)va_arg(*arg, int);
-		if (c < 32 || c != 127)
-			c = '\0';
 		flag->spec = 'c';
-		ft_putchar(c);
-		ft_putchar('\n');
 		str = ft_str_creater(&c, flag->spec);
 	}
 	else if (*format == 's')

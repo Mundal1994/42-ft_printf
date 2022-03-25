@@ -20,9 +20,18 @@
 # define WHITE	"\033[37m"
 # define UNCOLOR	"\033[39m"
 
-void	print_result(int mine)
+void	print_OK(int result)
 {
-	printf(CYAN"returns: [%d]\n"UNCOLOR, mine);
+	if (result != 0)
+		printf(RED"KO!\n"UNCOLOR);
+	else
+		printf(GREEN"OK!\n"UNCOLOR);
+}
+
+void	print_result(int result, int mine)
+{
+	printf(CYAN"return expected [%d] : [%d]	"UNCOLOR, result, mine);
+	print_OK(result - mine);
 }
 
 static void	color(void)
@@ -55,6 +64,39 @@ static void	color(void)
 
 int main(void)
 {
+	int orig;
+	int mine;
+
+	printf(YELLOW"\nInput: [%f]\n"UNCOLOR, 1444565444646.6465424242242);
+	orig = printf("expect: [%f]\n", 1444565444646.6465424242242);
+	mine = ft_printf("output: [%f]\n", 1444565444646.6465424242242);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%lf]\n"UNCOLOR, 1444565444646.6465424242242);
+	orig = printf("expect: [%lf]\n", 1444565444646.6465424242242);
+	mine = ft_printf("output: [%lf]\n", 1444565444646.6465424242242);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%Lf]\n"UNCOLOR, 1444565444646.6465424242242l);
+	orig = printf("expect: [%Lf]\n", 1444565444646.6465424242242l);
+	mine = ft_printf("output: [%Lf]\n", 1444565444646.6465424242242l);
+	print_result(orig, mine);
+	
+	printf(YELLOW"\nInput: [%f]\n"UNCOLOR, -1444565444646.6465424242242454654);
+	orig = printf("expect: [%f]\n", -1444565444646.6465424242242454654);
+	mine = ft_printf("output: [%f]\n", -1444565444646.6465424242242454654);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%lf]\n"UNCOLOR, -1444565444646.6465424242242454654);
+	orig = printf("expect: [%lf]\n", -1444565444646.6465424242242454654);
+	mine = ft_printf("output: [%lf]\n", -1444565444646.6465424242242454654);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%Lf]\n"UNCOLOR, -1444565444646.6465424242242454654l);
+	orig = printf("expect: [%Lf]\n", -1444565444646.6465424242242454654l);
+	mine = ft_printf("output: [%Lf]\n", -1444565444646.6465424242242454654l);
+	print_result(orig, mine);
+
 	printf(PURPLE"color test\n"UNCOLOR);
 	color();
 }

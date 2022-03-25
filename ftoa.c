@@ -12,31 +12,31 @@
 
 #include "ft_printf.h"
 
-static int	ft_correct_end_loop(char *str, int total, int add, int *pnt)
+static int	ft_correct_end_loop(char *str, int total, int add, int *i)
 {
-	while (str[*pnt] && (*pnt >= total || add == 1))
+	while (str[*i] && (*i >= total || add == 1))
 	{
-		if (str[*pnt] == '.')
-			*pnt -= 1;
+		if (str[*i] == '.')
+			*i -= 1;
 		if (add == 1)
 		{
-			if (str[*pnt] == '9')
+			if (str[*i] == '9')
 			{
-				str[*pnt] = '0';
+				str[*i] = '0';
 				add = 1;
 			}
 			else
 			{
-				str[*pnt] = str[*pnt] + 1;
+				str[*i] = str[*i] + 1;
 				add = 0;
 			}
 		}
-		if (str[*pnt] >= '5' && *pnt >= total)
+		if (str[*i] >= '5' && *i >= total)
 		{
-			str[*pnt] = str[*pnt] - 1;
+			str[*i] = str[*i] - 1;
 			add = 1;
 		}
-		*pnt -= 1;
+		*i -= 1;
 	}
 	return (add);
 }
@@ -46,17 +46,15 @@ static void	ft_check_correct_end(char *str, int len, int dot)
 	int		i;
 	int		total;
 	int		add;
-	int		*pnt;
 	char	*temp;
 
 	i = dot + len;
-	pnt = &i;
 	total = dot + len;
 	add = 0;
 	if (ft_strncmp(&str[dot - 1], ".25", len + 2) == 0 && len == 1)
 		str[dot] = '2';
 	else
-		add = ft_correct_end_loop(str, total, 0, pnt);
+		add = ft_correct_end_loop(str, total, 0, &i);
 	if (add == 1)
 	{
 		temp = ft_strnew(ft_strlen(str));
@@ -120,6 +118,7 @@ char	*ft_ftoa(double number, int len)
 	int		dot;
 
 	lnbr = number;
+	temp = NULL;
 	temp = ft_strnew(ft_flong_len(number) + 19);
 	lnbr = ft_fcalc(number, temp, lnbr);
 	i = ft_strlen(temp);
@@ -133,7 +132,7 @@ char	*ft_ftoa(double number, int len)
 		dot = ft_strlen_stop(temp, '.') + 1;
 		ft_check_correct_end(temp, len, dot);
 	}
-	str = ft_strnew(ft_strlen(temp));
+	str = ft_strnew(i + len);
 	ft_strncpy(str, temp, i + len);
 	ft_strdel(&temp);
 	return (str);

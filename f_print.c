@@ -23,6 +23,11 @@ long	ft_flong_len(double nbr)
 	counter = 0;
 	if (nbr == 0)
 		return (1);
+	if (nbr < 0)
+	{
+		nbr *= -1;
+		counter++;
+	}
 	while (nbr >= 1)
 	{
 		nbr /= 10;
@@ -75,7 +80,7 @@ static void	ft_percentage_print(const char *format, t_flag *flag)
 /*
 **	float argv is taken
 */
-
+#include<stdio.h>
 void	ft_f_print(const char *format, t_flag *flag, va_list *arg)
 {
 	double				number;

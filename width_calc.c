@@ -63,7 +63,15 @@ static int	ft_len_calculator(t_flag *flag, int len)
 	else if (flag->width < len && flag->prec == -1 && spec_check(flag, 'c', 's', 'n') == TRUE)
 		return (len);
 	else if (flag->width > flag->prec && (flag->width > len || spec_check(flag, 'c', 's', 'n') == TRUE))
+	{
+	/*	if (flag->spec == 'c')
+		{
+			if (flag->width > len)
+				return (flag->width);
+			return (len);
+		}*/
 		return (flag->width);
+	}
 	else if (flag->prec > len && flag->width == -1)
 	{
 		if (spec_check(flag, 'c', 's', 'n') == TRUE)
@@ -100,19 +108,22 @@ int	ft_str_i_calc(int len, t_flag *flag)
 
 void	ft_print_calc(char *str, t_flag *flag, void (*f)(char *, t_flag *, int, int))
 {
-	int	len;
-	int	total;
-	int	temp;
-	int	decimal_len;
+	int		len;
+	int		total;
+	int		len_until_dec;
+	int		decimal_len;
+	char	*temp;
 
 	len = ft_strlen(str);
-	if (flag->spec == 'f')
+	if (flag->spec == 'f' && flag->prec == -1)
 	{
-		temp = ft_strlen_stop(str, '.') + 1;
-		decimal_len = ft_strlen(&str[temp]);
-		if (flag->prec == -1 && decimal_len != 6)
+		len_until_dec = ft_strlen_stop(str, '.') + 1;
+		decimal_len = ft_strlen(&str[len_until_dec]);
+		if (decimal_len != 6)
 		{
-			str = ft_strjoin(str, "0");
+			temp = str;
+			str = ft_strjoin(temp, "0");
+			ft_strdel(&temp);
 			len++;
 		}
 	}
