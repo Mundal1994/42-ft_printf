@@ -87,31 +87,31 @@ static void	ft_itoa_add_zeros(unsigned long long nbr, char *str, int len, int ne
 	str[i] = '\0';
 }
 
-static double	ft_fcalc(double number, char *temp, double lnbr)
+static void	ft_fcalc(long long number, char *temp)
 {
-	long long	nbr;
+	long	nbr;
 	int			neg;
 
 	if ((int)number == 0)
 	{
 		temp[0] = '0';
-		return (lnbr);
+		return ;
+		//return (lnbr);
 	}
 	neg = 1;
 	nbr = (long long)number;
-	lnbr -= (double)nbr;
+	//lnbr -= (double)nbr;
 	if (nbr < 0)
 	{
 		neg = -1;
 		nbr *= neg;
 	}
-	ft_itoa_add_zeros((unsigned long long)nbr, temp, 0, neg);
-	return (lnbr);
+	ft_itoa_add_zeros((double)nbr, temp, 0, neg);
 }
 
-char	*ft_ftoa(double number, int len)
+char	*ft_ftoa(long double number, int len)
 {
-	double	lnbr;
+	long double	lnbr;
 	int		i;
 	char	*temp;
 	char	*str;
@@ -119,16 +119,17 @@ char	*ft_ftoa(double number, int len)
 
 	lnbr = number;
 	temp = NULL;
-	temp = ft_strnew(ft_flong_len(number) + 19);
-	lnbr = ft_fcalc(number, temp, lnbr);
+	temp = ft_strnew(ft_flong_len(number) + len + 1);
+	ft_fcalc(number, temp);
+	lnbr = number - (long long)number;
 	i = ft_strlen(temp);
 	if (len != 0)
 	{
 		if (lnbr < 0)
 			lnbr *= -1;
 		temp[i++] = '.';
-		lnbr = lnbr * ft_pow(10, 18);
-		ft_itoa_add_zeros((unsigned long long)lnbr, &temp[i], 18, 1);
+		lnbr = lnbr * ft_pow(10, len);
+		ft_itoa_add_zeros((unsigned long long)lnbr, &temp[i], len, 1);
 		dot = ft_strlen_stop(temp, '.') + 1;
 		ft_check_correct_end(temp, len, dot);
 	}

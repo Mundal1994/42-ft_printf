@@ -49,7 +49,7 @@ void	ft_diu_print(const char *format, t_flag *flag, va_list *arg);
 void	ft_ox_print(const char *format, t_flag *flag, va_list *arg);
 void	ft_f_print(const char *format, t_flag *flag, va_list *arg);
 int		spec_check(t_flag *flag, int a, int b, int c);
-char	*ft_ftoa(double number, int len);
+char	*ft_ftoa(long double number, int len);
 long	ft_flong_len(double nbr);
 void	ft_i_reset(const char *format, t_flag *flag);
 int		ft_color_print(const char *str, t_flag *flag);
