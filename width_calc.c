@@ -54,7 +54,7 @@ static int	ft_check_flags(char *str, t_flag *flag, int total)
 		if (!(flag->len > flag->width && flag->len > flag->prec && \
 			(str[0] == '-' || str[0] == '+')))
 			if (flag->width < flag->len)
-				return (ft_check_flags_digit(str, flag, total, flag->len));
+				return (ft_check_flags_digit(str, flag, total));
 	}
 	return (total);
 }

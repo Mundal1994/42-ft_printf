@@ -55,7 +55,7 @@ void	ft_i_reset(const char *format, t_flag *flag);
 int		ft_color_print(const char *str, t_flag *flag);
 int		ft_str_i_calc(int len, t_flag *flag);
 void	ft_set_base_str(char *str, t_flag *flag, int total);
-int		ft_check_flags_digit(char *str, t_flag *flag, int total, int len);
+int		ft_check_flags_digit(char *str, t_flag *flag, int total);
 void	*ft_hash_sign_check(char *temp, char *str, t_flag *flag, int *i);
 void	*ft_hash_print(char *temp, t_flag *flag, int *index);
 

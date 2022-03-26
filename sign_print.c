@@ -47,8 +47,7 @@ static void	*ft_sign_check_l(char *temp, char *str, t_flag *flag, int *i)
 	{
 		if (flag->minus == '-')
 			ft_sign_print(temp, str, flag, i);
-		else if ((int)ft_strlen(str) > flag->width && \
-			(int)ft_strlen(str) > flag->prec)
+		else if (flag->len > flag->width && flag->len > flag->prec)
 			ft_sign_print(temp, str, flag, i);
 		else if (flag->prec > flag->width)
 			ft_sign_print(temp, str, flag, i);

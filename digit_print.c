@@ -17,14 +17,14 @@
 **	this function checks for float specific rules
 */
 
-static int	ft_check_float_flags(char *str, t_flag *flag, int total, int len)
+static int	ft_check_float_flags(char *str, t_flag *flag, int total)
 {
-	if (flag->prec < len && flag->width == -1)
+	if (flag->prec < flag->len && flag->width == -1)
 	{
 		if ((flag->plus == '+' || flag->space == ' ') && str[0] != '-')
 			total++;
 	}
-	else if (flag->width <= len)
+	else if (flag->width <= flag->len)
 	{
 		if (str[0] == '-' && (flag->width > -1 || flag->prec > -1))
 			total++;
@@ -38,28 +38,28 @@ static int	ft_check_float_flags(char *str, t_flag *flag, int total, int len)
 
 /*	when placing furthest left we check flags to know index to place digit	*/
 
-int	ft_check_flags_digit(char *str, t_flag *flag, int total, int len)
+int	ft_check_flags_digit(char *str, t_flag *flag, int total)
 {
 	if (flag->spec == 'f')
-		return (ft_check_float_flags(str, flag, total, len));
+		return (ft_check_float_flags(str, flag, total));
 	else
 	{
-		if ((flag->width <= len && flag->width <= flag->prec) || \
-		(flag->prec >= len && flag->prec > flag->width))
+		if ((flag->width <= flag->len && flag->width <= flag->prec) || \
+		(flag->prec >= flag->len && flag->prec > flag->width))
 		{
 			if (str[0] == '-' && (flag->width > -1 || flag->prec > -1))
 				return (++total);
 			else if ((flag->plus == '+' || flag->space == ' ') && str[0] != '-')
 				return (++total);
 		}
-		if (flag->width > len && flag->prec == -1 && flag->minus == '-' && \
+		if (flag->width > flag->len && flag->prec == -1 && flag->minus == '-' && \
 			str[0] == '-')
 			total++;
 		else if (flag->plus == '+' && flag->width > flag->prec && \
-			flag->width > len)
+			flag->width > flag->len)
 			total++;
-		else if (flag->plus == '+' && flag->minus == '1' && flag->width < len \
-			&& flag->prec < len)
+		else if (flag->plus == '+' && flag->minus == '1' && flag->width < flag->len \
+			&& flag->prec < flag->len)
 			total++;
 	}
 	return (total);
@@ -100,7 +100,7 @@ static void	ft_minus_flag_strcpy(char *str, t_flag *flag, int total)
 	int	new_total;
 
 	i = 0;
-	new_total = ft_check_flags_digit(str, flag, total, flag->len);
+	new_total = ft_check_flags_digit(str, flag, total);
 	if (spec_check(flag, 'n', 'x', 'X') == TRUE && flag->hash == TRUE)
 		i += 2;
 	else if (flag->spec == 'o' && flag->hash == TRUE)
