@@ -12,6 +12,27 @@
 
 #include "ft_printf.h"
 
+/*
+**	function called from str_print.c from function ft_cpy_to_temp_str
+**	helps calculate how much of string should be copied into final string
+*/
+
+int	ft_str_i_calc(int len, t_flag *flag)
+{
+	int	dif;
+
+	dif = flag->prec - len;
+	if (dif < 0)
+	{
+		if (flag->prec == -1)
+			return (len);
+		return (flag->prec);
+	}
+	return (len);
+}
+
+/*	checks if any of the specifiers inputtet is correct	*/
+
 int	spec_check(t_flag *flag, int a, int b, int c)
 {
 	if (flag->spec == a)
@@ -23,11 +44,7 @@ int	spec_check(t_flag *flag, int a, int b, int c)
 	return (FALSE);
 }
 
-static void	ft_prepare_flags(t_flag *flag)
-{
-	if (flag->prec >= flag->width)
-		flag->width = -1;
-}
+/*	narrows down correct specifier and resets i in main loop to correct pos	*/
 
 int	ft_specifier_check(const char *format, t_flag *flag, va_list *arg)
 {
@@ -37,12 +54,14 @@ int	ft_specifier_check(const char *format, t_flag *flag, va_list *arg)
 		ft_csp_print(format, flag, arg);
 	else if (*format == 'd' || *format == 'i' || *format == 'u')
 	{
-		ft_prepare_flags(flag);
+		if (flag->prec >= flag->width)
+			flag->width = -1;
 		ft_diu_print(format, flag, arg);
 	}
 	else if (*format == 'o' || *format == 'x' || *format == 'X')
 	{
-		ft_prepare_flags(flag);
+		if (flag->prec >= flag->width)
+			flag->width = -1;
 		ft_ox_print(format, flag, arg);
 	}
 	else if (*format == 'f' || *format == '%')

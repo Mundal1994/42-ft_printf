@@ -102,20 +102,6 @@ static int	ft_len_calculator(t_flag *flag)
 	return (flag->len);
 }
 
-int	ft_str_i_calc(int len, t_flag *flag)
-{
-	int	dif;
-
-	dif = flag->prec - len;
-	if (dif < 0)
-	{
-		if (flag->prec == -1)
-			return (len);
-		return (flag->prec);
-	}
-	return (len);
-}
-
 /*	calculates length of str that needs to be malloced	*/
 
 void	ft_print_calc(char *str, t_flag *flag, void (*f)(char *, t_flag *, int))

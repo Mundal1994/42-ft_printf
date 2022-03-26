@@ -12,12 +12,12 @@
 
 #include "ft_printf.h"
 
+/*	copies final content of string into main str	*/
+
 static void	ft_cpy_to_temp_str(char **temp, char *str, t_flag *flag, int i)
 {
 	int	remain;
-	int	len;
 
-	len = ft_strlen(str);
 	if (flag->spec == 'p' && flag->prec == 0)
 	{
 		remain = 2;
@@ -25,14 +25,16 @@ static void	ft_cpy_to_temp_str(char **temp, char *str, t_flag *flag, int i)
 			i -= remain;
 		ft_strncpy(&(*temp)[i], str, remain);
 	}
-	else if (spec_check(flag, 'c', 's', 'p') == TRUE)
+	else
 	{
-		remain = ft_str_i_calc(len, flag);
+		remain = ft_str_i_calc(flag->len, flag);
 		if (flag->minus != '-')
 			i -= remain;
 		ft_strncpy(&(*temp)[i], str, remain);
 	}
 }
+
+/*	calculations of printing the string	*/
 
 static void	ft_str_print(char *str, t_flag *flag, int total)
 {
@@ -58,6 +60,8 @@ static void	ft_str_print(char *str, t_flag *flag, int total)
 	ft_strdel(&flag->str);
 }
 
+/*	createed string from arg depending on specifier	*/
+
 static char	*ft_str_creater(char *str_arg, char c)
 {
 	char	*str;
@@ -79,6 +83,8 @@ static char	*ft_str_creater(char *str_arg, char c)
 	return (str);
 }
 
+/*	calls function that will calculate string	*/
+
 static void	ft_print_str(char *str, t_flag *flag)
 {
 	if (str[0] == '\0' && flag->spec == 'c')
@@ -86,6 +92,8 @@ static void	ft_print_str(char *str, t_flag *flag)
 	if (str)
 		ft_print_calc(str, flag, &ft_str_print);
 }
+
+/*	narrows down specifier and get arg	*/
 
 void	ft_csp_print(const char *format, t_flag *flag, va_list *arg)
 {

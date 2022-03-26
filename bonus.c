@@ -12,6 +12,8 @@
 
 #include "ft_printf.h"
 
+/*	checks each string to see if it is what user has written	*/
+
 static int	ft_color_check(const char *str, int len)
 {
 	if (ft_strncmp(str, "reset", len) == 0)
@@ -38,6 +40,8 @@ static int	ft_color_check(const char *str, int len)
 		return (FALSE);
 	return (TRUE);
 }
+
+/*	bonus color print - starts the loop to check if there is a valid color	*/
 
 int	ft_color_print(const char *str, t_flag *flag)
 {
