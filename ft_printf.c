@@ -12,6 +12,8 @@
 
 #include "ft_printf.h"
 
+/*	keep track of the index of the main string	*/
+
 void	ft_i_reset(const char *format, t_flag *flag)
 {
 	int		i;
@@ -22,6 +24,8 @@ void	ft_i_reset(const char *format, t_flag *flag)
 	i *= -1;
 	flag->i += i;
 }
+
+/*	initializes flags or reset them	*/
 
 static void	ft_initialize_flag(t_flag *flag, int first)
 {
@@ -39,12 +43,15 @@ static void	ft_initialize_flag(t_flag *flag, int first)
 	flag->l = FALSE;
 	flag->ll = FALSE;
 	flag->b_l = FALSE;
+	flag->len = 0;
 	if (first == TRUE)
 	{
 		flag->i = 0;
 		flag->ret = 0;
 	}
 }
+
+/*	check each char in the main str	*/
 
 static void	ft_check_char(const char *format, t_flag *flag, va_list *arg)
 {
@@ -72,11 +79,13 @@ static void	ft_check_char(const char *format, t_flag *flag, va_list *arg)
 	}
 }
 
+/*	initializes flags, calls function to make the loop	*/
+
 int	ft_printf(const char *format, ...)
 {
 	va_list	arg;
 	t_flag	*flag;
-	int	ret;
+	int		ret;
 
 	flag = (t_flag *) malloc(sizeof(t_flag));
 	if (!flag)
@@ -96,4 +105,3 @@ int	ft_printf(const char *format, ...)
 	free(flag);
 	return (ret);
 }
-//error handling ex if someone writes something incorreeclty with %kf;l

@@ -113,5 +113,6 @@ unsigned long long	ft_pow(unsigned long long x, int y);
 char				*ft_ulltoa(unsigned long long nbr, char *str);
 char				*ft_ulltoa_base(unsigned long long nbr, int len, int base);
 void				ft_strrev_len(char *str, int len);
+char				*addr_to_str(uintptr_t addr);
 
 #endif

@@ -107,9 +107,9 @@ static int	ft_flag_loop(const char *format, t_flag *flag, va_list *arg,
 
 void	ft_flag_checker(const char *format, t_flag *flag, va_list *arg)
 {
-	int	i;
-	int	*pnt;
-	int	specifier;
+	int		i;
+	int		*pnt;
+	int		specifier;
 	char	c;
 
 	i = 0;

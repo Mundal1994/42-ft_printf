@@ -31,6 +31,24 @@ void	*ft_hash_print(char *temp, t_flag *flag, int *index)
 	return (temp);
 }
 
+/*	checks if the conditions for putting hash has been meet	*/
+
+void	*ft_hash_sign_check(char *temp, char *str, t_flag *flag, int *i)
+{
+	if (flag->minus == '-')
+		ft_hash_print(temp, flag, i);
+	else if (flag->zero == '0' && flag->width >= 0 && flag->prec == -1)
+		ft_hash_print(temp, flag, i);
+	else if (flag->width == -1 && flag->prec == -1)
+		ft_hash_print(temp, flag, i);
+	else if (flag->prec > (int)ft_strlen(str))
+		ft_hash_print(temp, flag, i);
+	else if (flag->prec < (int)ft_strlen(str) && flag->prec != -1 && \
+		flag->width < (int)ft_strlen(str))
+		ft_hash_print(temp, flag, i);
+	return (temp);
+}
+
 /*	loops through string and changes either toupper or tolower	*/
 
 static void	ft_striter_uplow(char *str, int (*f)(int))

@@ -52,13 +52,14 @@ int	ft_check_flags_digit(char *str, t_flag *flag, int total, int len)
 			else if ((flag->plus == '+' || flag->space == ' ') && str[0] != '-')
 				return (++total);
 		}
-		if (ft_strcmp(str, "0") == 0 && flag->prec == 0 && flag->width == -1)
-			total--;
-		if (flag->width > len && flag->prec == -1 && flag->minus == '-' && str[0] == '-')
+		if (flag->width > len && flag->prec == -1 && flag->minus == '-' && \
+			str[0] == '-')
 			total++;
-		else if (flag->plus == '+' && flag->width > flag->prec && flag->width > len)
+		else if (flag->plus == '+' && flag->width > flag->prec && \
+			flag->width > len)
 			total++;
-		else if (flag->plus == '+' && flag->minus == '1' && flag->width < len && flag->prec < len)
+		else if (flag->plus == '+' && flag->minus == '1' && flag->width < len \
+			&& flag->prec < len)
 			total++;
 	}
 	return (total);
@@ -93,42 +94,38 @@ static void	ft_digit_to_str(char **temp, char *str, t_flag *flag, int i)
 **	narrows down what extra needs to be printed to have correct width
 */
 
-static void	ft_minus_decide_strcpy(char *str, t_flag *flag, int total, int len)
+static void	ft_minus_flag_strcpy(char *str, t_flag *flag, int total)
 {
 	int	i;
 	int	new_total;
 
-	if (flag->minus == '1')
-		ft_digit_to_str(&flag->str, str, flag, total);
-	else
+	i = 0;
+	new_total = ft_check_flags_digit(str, flag, total, flag->len);
+	if (spec_check(flag, 'n', 'x', 'X') == TRUE && flag->hash == TRUE)
+		i += 2;
+	else if (flag->spec == 'o' && flag->hash == TRUE)
+		i++;
+	if (flag->prec > flag->len && flag->hash == TRUE && flag->spec == 'o')
+		i += flag->prec - flag->len - 1;
+	else if (flag->prec > flag->len)
+		i += flag->prec - flag->len;
+	if (total < new_total)
+		i++;
+	ft_digit_to_str(&flag->str, str, flag, i);
+	while (i < total)
 	{
-		i = 0;
-		new_total = ft_check_flags_digit(str, flag, total, len);
-		if (spec_check(flag, 'n', 'x', 'X') == TRUE && flag->hash == TRUE)
-			i += 2;
-		else if (flag->spec == 'o' && flag->hash == TRUE)
-			i++;
-		if (flag->prec > len && flag->hash == TRUE && flag->spec == 'o')
-			i += flag->prec - len - 1;
-		else if (flag->prec > len)
-			i += flag->prec - len;
-		if (total < new_total)
-			i++;
-		ft_digit_to_str(&flag->str, str, flag, i);
-		while (i < total)
-		{
-			if (flag->str[i] == '\0')
-				flag->str[i] = ' ';
-			i++;
-		}
+		if (flag->str[i] == '\0')
+			flag->str[i] = ' ';
+		i++;
 	}
 }
 
 /*	base function for printing digits d,u,f,o,x,X	*/
-#include<stdio.h>
-void	ft_digit_print(char *str, t_flag *flag, int len, int total)
+
+void	ft_digit_print(char *str, t_flag *flag, int total)
 {
-	if (spec_check(flag, 'd', 'u', 'f') == TRUE || spec_check(flag, 'n', 'x', 'X') == TRUE)
+	if (spec_check(flag, 'd', 'u', 'f') == TRUE || \
+		spec_check(flag, 'n', 'x', 'X') == TRUE)
 		if (flag->prec == 0 && ft_strcmp(str, "0") == 0 && flag->width == -1)
 			return ;
 	flag->str = ft_strnew(total);
@@ -137,9 +134,15 @@ void	ft_digit_print(char *str, t_flag *flag, int len, int total)
 		ft_strdel(&str);
 		return (ft_putstr_fd("error\n", 2));
 	}
-	ft_set_base_str(str, flag, total, len);
-	if (!(flag->spec != 'u' && ft_strcmp(str, "0") == 0 && ft_strlen(str) == 0 && flag->prec == 0))
-		ft_minus_decide_strcpy(str, flag, total, len);
+	ft_set_base_str(str, flag, total);
+	if (!(flag->spec != 'u' && ft_strcmp(str, "0") == 0 && \
+		ft_strlen(str) == 0 && flag->prec == 0))
+	{
+		if (flag->minus == '1')
+			ft_digit_to_str(&flag->str, str, flag, total);
+		else
+			ft_minus_flag_strcpy(str, flag, total);
+	}
 	flag->ret += write(1, flag->str, total);
 	ft_strdel(&str);
 	ft_strdel(&flag->str);

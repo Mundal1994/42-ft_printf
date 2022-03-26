@@ -46,7 +46,7 @@ int	ft_specifier_check(const char *format, t_flag *flag, va_list *arg)
 		ft_ox_print(format, flag, arg);
 	}
 	else if (*format == 'f' || *format == '%')
-		ft_f_print(format, flag, arg);
+		ft_fp_print(format, flag, arg);
 	else
 		return (FALSE);
 	ft_i_reset(format, flag);

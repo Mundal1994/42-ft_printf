@@ -46,25 +46,15 @@ t5:
 	$(CL) $(CC) $(LIB) -o test5.o -c -x c test5.test
 	$(CL) -o t5.out test5.o $(LIBPRINT)
 
-t6:
-	$(MAKEPRINT)
-	$(CL) $(CC) $(LIB) -o test6.o -c -x c test6.test
-	$(CL) -o t6.out test6.o $(LIBPRINT)
-
-b:
-	$(MAKEPRINT)
-	$(CL) $(CC) $(LIB) -o bonus.o -c -x c bonus.test
-	$(CL) -o b.out bonus.o $(LIBPRINT)
-
 clean:
 	/bin/rm -f $(DEL)
 
 fclean: clean
 	/bin/rm -f $(NAME)
 
-al: t1 t2 t3 t4 t5 t6 b clean
+al: t1 t2 t3 t4 t5 clean
 
-all: lib t1 t2 t3 t4 t5 t6 b clean
+all: lib t1 t2 t3 t4 t5 clean
 
 runall:
 	./t1.out
@@ -72,6 +62,5 @@ runall:
 	./t3.out
 	./t4.out
 	./t5.out
-	./t6.out
 
 re: fclean all

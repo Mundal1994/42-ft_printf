@@ -413,6 +413,11 @@ static void	f(void)
 	mine = ft_printf("output: [%f]\n", 2.5555545);
 	print_result(orig, mine);
 
+	printf(YELLOW"\nInput: [%%.19f] number: [%f]\n"UNCOLOR,2.5555545);
+	orig = printf("expect: [%.19f]\n", 2.5555545);
+	mine = ft_printf("output: [%.19f]\n", 2.5555545);
+	print_result(orig, mine);
+
 	printf(YELLOW"\nInput: [%%.18f] number: [%f]\n"UNCOLOR,2.5555545);
 	orig = printf("expect: [%.18f]\n", 2.5555545);
 	mine = ft_printf("output: [%.18f]\n", 2.5555545);
@@ -485,6 +490,36 @@ static void	f(void)
 	//mine = ft_printf("%d", number);
 	//printf("Expected: [%d]	output: [%s]\n", , "5");
 	//print_OK(strcmp(printf("%d", number), "5"));
+
+	printf(YELLOW"\nInput: [%f]\n"UNCOLOR, 1.42);
+	orig = printf("expect: [%f]\n", 1.42);
+	mine = ft_printf("output: [%f]\n", 1.42);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%lf]\n"UNCOLOR, 1.42);
+	orig = printf("expect: [%lf]\n", 1.42);
+	mine = ft_printf("output: [%lf]\n", 1.42);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%Lf]\n"UNCOLOR, 1.42l);
+	orig = printf("expect: [%Lf]\n", 1.42l);
+	mine = ft_printf("output: [%Lf]\n", 1.42l);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%f]\n"UNCOLOR, -1.42);
+	orig = printf("expect: [%f]\n", -1.42);
+	mine = ft_printf("output: [%f]\n", -1.42);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%lf]\n"UNCOLOR, -1.42);
+	orig = printf("expect: [%lf]\n", -1.42);
+	mine = ft_printf("output: [%lf]\n", -1.42);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%Lf]\n"UNCOLOR, -1.42l);
+	orig = printf("expect: [%Lf]\n", -1.42l);
+	mine = ft_printf("output: [%Lf]\n", -1.42l);
+	print_result(orig, mine);
 
 	printf(YELLOW"\nInput: [%f]\n"UNCOLOR, 1444565444646.6465424242242);
 	orig = printf("expect: [%f]\n", 1444565444646.6465424242242);
