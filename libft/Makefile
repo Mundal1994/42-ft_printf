@@ -95,6 +95,7 @@ SRCS += ft_pow.c
 SRCS += ft_ulltoa.c
 SRCS += ft_ulltoa_base.c
 SRCS += ft_strrev_len.c
+SRCS += ft_addr_to_str.c
 
 OBJS = $(SRCS:.c=.o)
 

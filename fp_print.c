@@ -12,6 +12,8 @@
 
 #include "ft_printf.h"
 
+/*	returns length of double	*/
+
 long	ft_flong_len(double nbr)
 {
 	long	counter;
@@ -19,6 +21,11 @@ long	ft_flong_len(double nbr)
 	counter = 0;
 	if (nbr == 0)
 		return (1);
+	if (nbr < 0)
+	{
+		nbr *= -1;
+		counter++;
+	}
 	while (nbr >= 1)
 	{
 		nbr /= 10;
@@ -27,7 +34,10 @@ long	ft_flong_len(double nbr)
 	return (counter);
 }
 
-static char	*ft_convert_length_f(char *str, t_flag *flag, double number, long double b_nbr)
+/*	converts to correct float based on flags	*/
+
+static char	*ft_convert_length_f(char *str, t_flag *flag, double number,
+			long double b_nbr)
 {
 	if (flag->prec != -1)
 	{
@@ -46,6 +56,8 @@ static char	*ft_convert_length_f(char *str, t_flag *flag, double number, long do
 	return (str);
 }
 
+/*	percentage calculator & cals digit print function	*/
+
 static void	ft_percentage_print(const char *format, t_flag *flag)
 {
 	char	*str;
@@ -56,15 +68,17 @@ static void	ft_percentage_print(const char *format, t_flag *flag)
 		flag->spec = 'u';
 		str = ft_strnew(1);
 		str[0] = '%';
-		ft_print_calc(str, flag, &ft_space_calc_digit);
+		ft_print_calc(str, flag, &ft_digit_print);
 	}
 }
 
-void	ft_f_print(const char *format, t_flag *flag, va_list *arg)
+/*	checks if the specifier is float or percentage sign	*/
+
+void	ft_fp_print(const char *format, t_flag *flag, va_list *arg)
 {
-	double				number;
-	long double			b_number;
-	char				*str;
+	double		number;
+	long double	b_number;
+	char		*str;
 
 	str = NULL;
 	if (*format == 'f')
@@ -82,9 +96,8 @@ void	ft_f_print(const char *format, t_flag *flag, va_list *arg)
 			number = va_arg(*arg, double);
 			str = ft_convert_length_f(str, flag, number, b_number);
 		}
-		ft_print_calc(str, flag, &ft_space_calc_digit);
+		ft_print_calc(str, flag, &ft_digit_print);
 	}
 	else
 		ft_percentage_print(format, flag);
-	//make sure to round up / down the number depending on len i have provided...
 }

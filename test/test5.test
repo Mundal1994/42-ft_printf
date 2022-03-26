@@ -20,9 +20,18 @@
 # define WHITE	"\033[37m"
 # define UNCOLOR	"\033[39m"
 
-void	print_result(int mine)
+void	print_OK(int result)
 {
-	printf(CYAN"returns: [%d]\n"UNCOLOR, mine);
+	if (result != 0)
+		printf(RED"KO!\n"UNCOLOR);
+	else
+		printf(GREEN"OK!\n"UNCOLOR);
+}
+
+void	print_result(int result, int mine)
+{
+	printf(CYAN"return expected [%d] : [%d]	"UNCOLOR, result, mine);
+	print_OK(result - mine);
 }
 
 static void	color(void)
@@ -53,118 +62,41 @@ static void	color(void)
 	ft_printf("{{red}output: {purple}{bold}[%+-10.15d]{reset}\n\n", 9009999);
 }
 
-static void	binary(void)
-{
-	int	mine;
-
-	printf(YELLOW"\nInput: [%%b] number: [%d]\n"UNCOLOR, 1);
-	mine = ft_printf("{reset}output: [%b]\n", 1);
-	print_result(mine);
-
-	printf(YELLOW"\nInput: [%%b] number: [%d]\n"UNCOLOR, 14);
-	mine = ft_printf("{reset}output: [%b]\n", 14);
-	print_result(mine);
-
-	/* space */
-	printf(YELLOW"\nInput: [%% b] number: [%d]\n"UNCOLOR, 900999);
-	mine = ft_printf("{reset}output: [% b]\n", 900999);
-	print_result(mine);
-	
-	/* - */
-	printf(YELLOW"\nInput: [%%-010b] number: [%d]\n"UNCOLOR, 900999);
-	mine = ft_printf("{reset}output: [%-010b]\n", 900999);
-	print_result(mine);
-
-	/* + */
-	printf(YELLOW"\nInput: [%%+b] number: [%d] UNDEFINED BEHAVIOUR\n"UNCOLOR, 900999);
-	mine = ft_printf("{reset}output: [%+b]\n", 900999);
-	print_result(mine);
-
-	/* WIDTH */
-	printf(YELLOW"\nInput: [%%100b] number: [%d]\n"UNCOLOR, 900999);
-	mine = ft_printf("{reset}output: [%100b]\n", 900999);
-	print_result(mine);
-
-	/* PRECISION */
-	printf(YELLOW"\nInput: [%%.5b] number: [%d]\n"UNCOLOR, 900999);
-	mine = ft_printf("{reset}output: [%.5b]\n", 900999);
-	print_result(mine);
-
-	printf(YELLOW"\nInput: [%%.10b] number: [%d]\n"UNCOLOR, 900999);
-	mine = ft_printf("{reset}output: [%.10b]\n", 900999);
-	print_result(mine);
-
-	printf(YELLOW"\nInput: [%%10.5b] number: [%d]\n"UNCOLOR, 900999);
-	mine = ft_printf("{reset}output: [%10.5b]\n", 900999);
-	print_result(mine);
-
-	printf(YELLOW"\nInput: [%%-10.5b] number: [%d]\n"UNCOLOR, 9009999);
-	mine = ft_printf("{reset}output: [%-10.5b]\n", 9009999);
-	print_result(mine);
-
-	printf(YELLOW"\nInput: [%%-10.0b] number: [%d]\n"UNCOLOR, 9009999);
-	mine = ft_printf("{reset}output: [%-10.0b]\n", 9009999);
-	print_result(mine);
-
-	printf(YELLOW"\nInput: [%%-10.15b] number: [%d]\n"UNCOLOR, 9009999);
-	mine = ft_printf("{reset}output: [%-10.15b]\n", 9009999);
-	print_result(mine);
-
-	printf(YELLOW"\nInput: [%%-10b] number: [%d]\n"UNCOLOR, 9009999);
-	mine = ft_printf("{reset}output: [%-10b]\n", 9009999);
-	print_result(mine);
-
-	printf(YELLOW"\nInput: [%%-.15b] number: [%d]\n"UNCOLOR, 9009999);
-	mine = ft_printf("{reset}output: [%-.15b]\n", 9009999);
-	print_result(mine);
-
-	/* # */
-	printf(YELLOW"\nInput: [%%#b] number: [%d]\n"UNCOLOR, 0);
-	mine = ft_printf("{reset}output: [%#b]\n", 0);
-	print_result(mine);
-
-	printf(YELLOW"\nInput: [%%#b] number: [%d]\n"UNCOLOR, 999);
-	mine = ft_printf("{reset}output: [%#b]\n", 999);
-	print_result(mine);
-
-	printf(YELLOW"\nInput: [%%#b] number: [%d]\n"UNCOLOR, 900999);
-	mine = ft_printf("{reset}output: [%#b]\n", 900999);
-	print_result(mine);
-
-	printf(YELLOW"\nInput: [%%#.10b] number: [%d]\n"UNCOLOR, 900999);
-	mine = ft_printf("{reset}output: [%#.10b]\n", 900999);
-	print_result(mine);
-
-	printf(YELLOW"\nInput: [%%#10.5b] number: [%d]\n"UNCOLOR, 900999);
-	mine = ft_printf("{reset}output: [%#10.5b]\n", 900999);
-	print_result(mine);
-
-	printf(YELLOW"\nInput: [%%#5.10b] number: [%d]\n"UNCOLOR, 900999);
-	mine = ft_printf("{reset}output: [%#5.10b]\n", 900999);
-	print_result(mine);
-
-	printf(YELLOW"\nInput: [%%#-10.5b] number: [%d]\n"UNCOLOR, 9009999);
-	mine = ft_printf("{reset}output: [%#-10.5b]\n", 9009999);
-	print_result(mine);
-
-	printf(YELLOW"\nInput: [%%#-8.8b] number: [%d]\n"UNCOLOR, 9009999);
-	mine = ft_printf("{reset}output: [%#-8.8b]\n", 9009999);
-	print_result(mine);
-
-	printf(YELLOW"\nInput: [%%#-9.9b] number: [%d]\n"UNCOLOR, 9009999);
-	mine = ft_printf("{reset}output: [%#-9.9b]\n", 9009999);
-	print_result(mine);
-
-	printf(YELLOW"\nInput: [%%#-7.7b] number: [%d]\n"UNCOLOR, 9009999);
-	mine = ft_printf("{reset}output: [%#-7.7b]\n", 9009999);
-	print_result(mine);
-}
-
 int main(void)
 {
+	int orig;
+	int mine;
+
+	printf(YELLOW"\nInput: [%f]\n"UNCOLOR, 1444565444646.6465424242242);
+	orig = printf("expect: [%f]\n", 1444565444646.6465424242242);
+	mine = ft_printf("output: [%f]\n", 1444565444646.6465424242242);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%lf]\n"UNCOLOR, 1444565444646.6465424242242);
+	orig = printf("expect: [%lf]\n", 1444565444646.6465424242242);
+	mine = ft_printf("output: [%lf]\n", 1444565444646.6465424242242);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%Lf]\n"UNCOLOR, 1444565444646.6465424242242l);
+	orig = printf("expect: [%Lf]\n", 1444565444646.6465424242242l);
+	mine = ft_printf("output: [%Lf]\n", 1444565444646.6465424242242l);
+	print_result(orig, mine);
+	
+	printf(YELLOW"\nInput: [%f]\n"UNCOLOR, -1444565444646.6465424242242454654);
+	orig = printf("expect: [%f]\n", -1444565444646.6465424242242454654);
+	mine = ft_printf("output: [%f]\n", -1444565444646.6465424242242454654);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%lf]\n"UNCOLOR, -1444565444646.6465424242242454654);
+	orig = printf("expect: [%lf]\n", -1444565444646.6465424242242454654);
+	mine = ft_printf("output: [%lf]\n", -1444565444646.6465424242242454654);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%Lf]\n"UNCOLOR, -1444565444646.6465424242242454654l);
+	orig = printf("expect: [%Lf]\n", -1444565444646.6465424242242454654l);
+	mine = ft_printf("output: [%Lf]\n", -1444565444646.6465424242242454654l);
+	print_result(orig, mine);
+
 	printf(PURPLE"color test\n"UNCOLOR);
 	color();
-
-	printf(PURPLE"binary test\n"UNCOLOR);
-	binary();
 }

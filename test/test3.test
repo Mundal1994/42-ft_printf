@@ -460,6 +460,11 @@ static void	o(void)
 	mine = ft_printf("output: [%-10.5o]\n", 2500);
 	print_result(orig, mine);
 
+	printf(YELLOW"\nInput: [%%#.o] number: [%o]\n"UNCOLOR, 42);
+	orig = printf("expect: [%#.o]\n", 42);
+	mine = ft_printf("output: [%#.o]\n", 42);
+	print_result(orig, mine);
+
 	// with flags hh
 	unsigned char	c = '5';
 	printf(PURPLE"\nhh TEST\n"UNCOLOR);

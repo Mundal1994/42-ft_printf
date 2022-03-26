@@ -12,22 +12,44 @@
 
 #include "ft_printf.h"
 
-void	ft_space_calc_ox(t_flag *flag, int len, char *str)
-{
-	int		dif;
+/*	puts 0x into string	*/
 
-	dif = 0;
-	if (flag->prec < flag->width && flag->prec > len && flag->spec == 'o')
-		dif = flag->prec - len;
-	if (flag->hash == TRUE && str)// && (flag->width <= len || flag->prec <= len))
+void	*ft_hash_print(char *temp, t_flag *flag, int *index)
+{
+	ft_memset(temp, '0', 1);
+	(*index)++;
+	if (flag->spec == 'x')
 	{
-		if (flag->spec == 'o')
-			len++;
-		else if (flag->spec != 'o' && flag->width > len)
-			len += 2;
+		(*index)++;
+		ft_memset(&temp[1], 'x', 1);
 	}
-	ft_space_zero_calc_digit(flag, len + dif);
+	if (flag->spec == 'X')
+	{
+		(*index)++;
+		ft_memset(&temp[1], 'X', 1);
+	}
+	return (temp);
 }
+
+/*	checks if the conditions for putting hash has been meet	*/
+
+void	*ft_hash_sign_check(char *temp, char *str, t_flag *flag, int *i)
+{
+	if (flag->minus == '-')
+		ft_hash_print(temp, flag, i);
+	else if (flag->zero == '0' && flag->width >= 0 && flag->prec == -1)
+		ft_hash_print(temp, flag, i);
+	else if (flag->width == -1 && flag->prec == -1)
+		ft_hash_print(temp, flag, i);
+	else if (flag->prec > (int)ft_strlen(str))
+		ft_hash_print(temp, flag, i);
+	else if (flag->prec < (int)ft_strlen(str) && flag->prec != -1 && \
+		flag->width < (int)ft_strlen(str))
+		ft_hash_print(temp, flag, i);
+	return (temp);
+}
+
+/*	loops through string and changes either toupper or tolower	*/
 
 static void	ft_striter_uplow(char *str, int (*f)(int))
 {
@@ -43,6 +65,8 @@ static void	ft_striter_uplow(char *str, int (*f)(int))
 		}
 	}
 }
+
+/*	length converter for octal and hex	*/
 
 static char	*ft_convert_length_ox(char *str, t_flag *flag,
 			unsigned long long nbr)
@@ -66,6 +90,8 @@ static char	*ft_convert_length_ox(char *str, t_flag *flag,
 	return (str);
 }
 
+/*	specifies specifier and gets arg	*/
+
 void	ft_ox_print(const char *format, t_flag *flag, va_list *arg)
 {
 	unsigned long long	nbr;
@@ -77,20 +103,20 @@ void	ft_ox_print(const char *format, t_flag *flag, va_list *arg)
 	{
 		flag->spec = 'o';
 		str = ft_convert_length_ox(str, flag, nbr);
-		ft_print_calc(str, flag, &ft_space_calc_ox);
+		ft_print_calc(str, flag, &ft_digit_print);
 	}
 	else if (*format == 'x')
 	{
 		flag->spec = 'x';
 		str = ft_convert_length_ox(str, flag, nbr);
 		ft_striter_uplow(str, &ft_tolower);
-		ft_print_calc(str, flag, &ft_space_calc_ox);
+		ft_print_calc(str, flag, &ft_digit_print);
 	}
 	else if (*format == 'X')
 	{
 		flag->spec = 'X';
 		str = ft_convert_length_ox(str, flag, nbr);
 		ft_striter_uplow(str, &ft_toupper);
-		ft_print_calc(str, flag, &ft_space_calc_ox);
+		ft_print_calc(str, flag, &ft_digit_print);
 	}
 }

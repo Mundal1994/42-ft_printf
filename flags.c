@@ -12,6 +12,8 @@
 
 #include "ft_printf.h"
 
+/*	if length has been found it will be stored in the struct 	*/
+
 static int	ft_hhll_flag_check(const char *format, t_flag *flag, int on,
 			int *pnt)
 {
@@ -37,6 +39,8 @@ static int	ft_hhll_flag_check(const char *format, t_flag *flag, int on,
 	return (TRUE);
 }
 
+/*	if width or precision is found the numbers will be stored in struct	*/
+
 static void	ft_width_calc(const char *format, int *digit, int *pnt)
 {
 	int	i;
@@ -57,6 +61,8 @@ static void	ft_width_calc(const char *format, int *digit, int *pnt)
 	*pnt += i;
 }
 
+/*	first flag check - basic flags #0-+' ' - result saved in struct	*/
+
 static int	ft_flag_check(const char *format, t_flag *flag, int on, int *pnt)
 {
 	if (*format == '-')
@@ -74,10 +80,12 @@ static int	ft_flag_check(const char *format, t_flag *flag, int on, int *pnt)
 	*pnt += 1;
 	if (flag->plus == '+')
 		flag->space = '1';
-	if (flag->minus == '-' || flag->space == '0')
+	if (flag->minus == '-')
 		flag->zero = '1';
 	return (on);
 }
+
+/*	loops through the different flag posibilities in order	*/
 
 static int	ft_flag_loop(const char *format, t_flag *flag, va_list *arg,
 			int *pnt)
@@ -105,11 +113,13 @@ static int	ft_flag_loop(const char *format, t_flag *flag, va_list *arg,
 	return (specifier);
 }
 
+/*	keeps track of if specifier has been found or not	*/
+
 void	ft_flag_checker(const char *format, t_flag *flag, va_list *arg)
 {
-	int	i;
-	int	*pnt;
-	int	specifier;
+	int		i;
+	int		*pnt;
+	int		specifier;
 	char	c;
 
 	i = 0;

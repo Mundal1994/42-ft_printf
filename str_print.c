@@ -12,23 +12,55 @@
 
 #include "ft_printf.h"
 
-void	ft_space_calc_csp(t_flag *flag, int len, char *str)
-{
-	char	space = ' ';
+/*	copies final content of string into main str	*/
 
-	if (flag->spec == 'c' && str[0] == '\0')
-		len++;
-	if (flag->zero == '0' && flag->prec == -1 && flag->minus == '-' && str)
+static void	ft_cpy_to_temp_str(char **temp, char *str, t_flag *flag, int i)
+{
+	int	remain;
+
+	if (flag->spec == 'p' && flag->prec == 0)
 	{
-		while (len++ < flag->width)
-			flag->ret += write(1, &flag->zero, 1);
+		remain = 2;
+		if (flag->minus != '-')
+			i -= remain;
+		ft_strncpy(&(*temp)[i], str, remain);
 	}
 	else
 	{
-		while (len++ < flag->width)
-			flag->ret += write(1, &space, 1);
+		remain = ft_str_i_calc(flag->len, flag);
+		if (flag->minus != '-')
+			i -= remain;
+		ft_strncpy(&(*temp)[i], str, remain);
 	}
 }
+
+/*	calculations of printing the string	*/
+
+static void	ft_str_print(char *str, t_flag *flag, int total)
+{
+	if (flag->spec == 'p' && ft_strcmp(str, "0x0") == 0 && flag->prec == 0)
+		total = 2;
+	else if (str[0] == '\0' && flag->spec == 'c')
+	{
+		if (!(flag->width < 0))
+			total--;
+		else
+			return ;
+	}
+	flag->str = ft_strnew(total);
+	if (!flag->str)
+		return (ft_putstr_fd("error\n", 2));
+	ft_memset(flag->str, ' ', total);
+	if (flag->minus == '1')
+		ft_cpy_to_temp_str(&flag->str, str, flag, total);
+	else
+		ft_cpy_to_temp_str(&flag->str, str, flag, 0);
+	flag->ret += write(1, flag->str, total);
+	ft_strdel(&str);
+	ft_strdel(&flag->str);
+}
+
+/*	createed string from arg depending on specifier	*/
 
 static char	*ft_str_creater(char *str_arg, char c)
 {
@@ -51,60 +83,40 @@ static char	*ft_str_creater(char *str_arg, char c)
 	return (str);
 }
 
-static char	*ft_address_to_str(uintptr_t addr)
-{
-	char	*str;
-	char	*dest;
-
-	dest = ft_strnew(14);
-	str = ft_strnew(12);
-	if (!str && !dest)
-		return (NULL);
-	if (addr == 0)
-		ft_strcpy(str, "0");
-	else
-		str = ft_htoa(str, addr);
-	ft_strcpy(dest, "0x");
-	ft_strcpy(&dest[2], str);
-	ft_strdel(&str);
-	return (dest);
-}
+/*	calls function that will calculate string	*/
 
 static void	ft_print_str(char *str, t_flag *flag)
 {
-	if (str)
-		ft_print_calc(str, flag, &ft_space_calc_csp);
-	if (*str == '\0' && flag->spec == 'c')
+	if (str[0] == '\0' && flag->spec == 'c')
 		flag->ret += 1;
+	if (str)
+		ft_print_calc(str, flag, &ft_str_print);
 }
+
+/*	narrows down specifier and get arg	*/
 
 void	ft_csp_print(const char *format, t_flag *flag, va_list *arg)
 {
-	char				*str_arg;
-	char				c;
-	unsigned long long	long_arg;
-	char				*str;
+	char	c;
+	char	*str;
 
 	str = NULL;
+	flag->zero = '1';
 	if (*format == 'c')
 	{
 		c = (char)va_arg(*arg, int);
-		if (c < 32 || c >= 127)
-			c = '\0';
 		flag->spec = 'c';
 		str = ft_str_creater(&c, flag->spec);
 	}
 	else if (*format == 's')
 	{
-		str_arg = va_arg(*arg, char *);
 		flag->spec = 's';
-		str = ft_str_creater(str_arg, flag->spec);
+		str = ft_str_creater((char *)va_arg(*arg, char *), flag->spec);
 	}
 	else if (*format == 'p')
 	{
-		long_arg = va_arg(*arg, unsigned long long);
 		flag->spec = 'p';
-		str = ft_address_to_str(long_arg);
+		str = addr_to_str((unsigned long long)va_arg(*arg, unsigned long long));
 	}
 	ft_print_str(str, flag);
 }
