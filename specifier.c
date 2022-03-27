@@ -44,6 +44,22 @@ int	spec_check(t_flag *flag, int a, int b, int c)
 	return (FALSE);
 }
 
+static void	ft_flag_adjuster(t_flag *flag)
+{
+	if (flag->star == 'p' && flag->prec < -1)
+	{
+		flag->prec *= -1;
+		flag->minus = '-';
+	}
+	if ((flag->star == 'w' || flag->star == 'p') && flag->width < -1)
+	{
+		flag->width *= -1;
+		flag->minus = '-';
+	}
+	if (flag->prec >= flag->width && spec_check(flag, 'c', 's', 'p') == FALSE)
+		flag->width = -1;
+}
+
 /*	narrows down correct specifier and resets i in main loop to correct pos	*/
 
 int	ft_specifier_check(const char *format, t_flag *flag, va_list *arg)
@@ -52,20 +68,13 @@ int	ft_specifier_check(const char *format, t_flag *flag, va_list *arg)
 		flag->zero = '1';
 	if (flag->space == ' ' && flag->plus == '+')
 		flag->space = '1';
+	ft_flag_adjuster(flag);
 	if (*format == 'c' || *format == 's' || *format == 'p')
 		ft_csp_print(format, flag, arg);
 	else if (*format == 'd' || *format == 'i' || *format == 'u')
-	{
-		if (flag->prec >= flag->width)
-			flag->width = -1;
 		ft_diu_print(format, flag, arg);
-	}
 	else if (*format == 'o' || *format == 'x' || *format == 'X')
-	{
-		if (flag->prec >= flag->width)
-			flag->width = -1;
 		ft_ox_print(format, flag, arg);
-	}
 	else if (*format == 'f' || *format == '%')
 		ft_fp_print(format, flag, arg);
 	else

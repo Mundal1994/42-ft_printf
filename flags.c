@@ -41,22 +41,31 @@ static int	ft_hhll_flag_check(const char *format, t_flag *flag, int on,
 
 /*	if width or precision is found the numbers will be stored in struct	*/
 
-static void	ft_width_calc(const char *format, int *digit, int *pnt)
+static void	ft_width_calc(const char *format, int *digit, int *pnt, va_list *arg)
 {
 	int	i;
-	int	nbr;
 	int	first;
+	int	nbr;
 
 	i = 0;
 	first = TRUE;
 	*digit = 0;
-	while (ft_isdigit(format[i]) == 1)
+	if (format[i] == '*')
 	{
-		if (first == FALSE)
-			*digit *= 10;
-		nbr = format[i++] - '0';
-		*digit += nbr;
-		first = FALSE;
+		nbr = va_arg(*arg, int);
+		*digit = nbr;
+		i++;
+	}
+	else 
+	{
+		while (ft_isdigit(format[i]) == 1)
+		{
+			if (first == FALSE)
+				*digit *= 10;
+			nbr = format[i++] - '0';
+			*digit += nbr;
+			first = FALSE;
+		}
 	}
 	*pnt += i;
 }
@@ -96,15 +105,19 @@ static int	ft_flag_loop(const char *format, t_flag *flag, va_list *arg,
 	while (specifier == FALSE && ft_flag_check(&format[*pnt], flag, TRUE, pnt) \
 		== TRUE)
 		specifier = ft_specifier_check(&format[*pnt], flag, arg);
-	while (specifier == FALSE && ft_isdigit(format[*pnt]) == 1)
+	while (specifier == FALSE && (ft_isdigit(format[*pnt]) == 1 || format[*pnt] == '*'))
 	{
-		ft_width_calc(&format[*pnt], &flag->width, pnt);
+		if (format[*pnt] == '*')
+			flag->star = 'w';
+		ft_width_calc(&format[*pnt], &flag->width, pnt, arg);
 		specifier = ft_specifier_check(&format[*pnt], flag, arg);
 	}
 	while (specifier == FALSE && format[*pnt] == '.')
 	{
 		*pnt += 1;
-		ft_width_calc(&format[*pnt], &flag->prec, pnt);
+		if (format[*pnt] == '*')
+			flag->star = 'p';
+		ft_width_calc(&format[*pnt], &flag->prec, pnt, arg);
 		specifier = ft_specifier_check(&format[*pnt], flag, arg);
 	}
 	if (specifier == FALSE && ft_hhll_flag_check(&format[*pnt], flag, TRUE, \

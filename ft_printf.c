@@ -44,6 +44,7 @@ static void	ft_initialize_flag(t_flag *flag, int first)
 	flag->ll = FALSE;
 	flag->b_l = FALSE;
 	flag->len = 0;
+	flag->star = '1';
 	if (first == TRUE)
 	{
 		flag->i = 0;
@@ -105,3 +106,5 @@ int	ft_printf(const char *format, ...)
 	free(flag);
 	return (ret);
 }
+
+// how to handle ex printf(%d, 10, 10, 20);

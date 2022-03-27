@@ -35,6 +35,7 @@ typedef struct s_flag
 	int			i;
 	int			ret;
 	int			len;
+	int			star;
 }				t_flag;
 
 int		ft_printf(const char *format, ...);

@@ -16,9 +16,6 @@
 
 static void	*ft_sign_print(char *temp, char *str, t_flag *flag, int *i)
 {
-	int	len;
-
-	len = ft_strlen(str);
 	if (str[0] == '-' && flag->spec != 'u')
 	{
 		ft_memset(temp, '-', 1);
@@ -117,11 +114,7 @@ void	ft_set_base_str(char *str, t_flag *flag, int total)
 	if (flag->zero == '0' && flag->width > 0 && flag->prec == -1)
 		ft_memset(&flag->str[index], '0', total);
 	else if (flag->prec > -1)
-	{
-		if (str[0] == '-')
-			flag->len--;
 		ft_if_prec_helper(str, flag, &index, total);
-	}
 	else if (flag->width > 0 && flag->width > flag->len)
 	{
 		ft_memset(&flag->str[index], ' ', total - index);
