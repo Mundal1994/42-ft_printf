@@ -34,6 +34,28 @@ void	print_result(int result, int mine)
 	print_OK(result - mine);
 }
 
+static void	compare_results(int number, int number2)
+{
+	int orig;
+	int mine;
+
+	printf(YELLOW"\nInput: [%d][%d]\n"UNCOLOR, number, number2);
+	orig = printf("expect: [%*d]\n", number, number2);
+	mine = ft_printf("output: [%*d]\n", number, number2);
+	print_result(orig, mine);
+}
+
+static void	compare_results_prec(int number, int number2, int number3)
+{
+	int orig;
+	int mine;
+
+	printf(YELLOW"\nInput: [%d][%d][%d]\n"UNCOLOR, number, number2, number3);
+	orig = printf("expect: [%*.*d]\n", number, number2, number3);
+	mine = ft_printf("output: [%*.*d]\n", number, number2, number3);
+	print_result(orig, mine);
+}
+
 static void	color(void)
 {
 	printf("hello {red}%%s{yellow} my name is {bold}%%s{reset} \n");
@@ -62,41 +84,70 @@ static void	color(void)
 	ft_printf("{{red}output: {purple}{bold}[%+-10.15d]{reset}\n\n", 9009999);
 }
 
+static void	bonus(void)
+{
+	//int	orig;
+	//int	mine;
+
+	int	number = 5;
+	int number2 = 1;
+
+	compare_results(number, number2);
+
+	number = 214;
+	number2 = 5;
+	compare_results(number, number2);
+
+	number = -214;
+	compare_results(number, number2);
+
+	number = -1234;
+	compare_results(number, number2);
+
+	number = 1234;
+	number2 = 10;
+	compare_results(number, number2);
+
+	number = -0;
+	compare_results(number, number2);
+
+	number = 5;
+	number2 = 10;
+	compare_results(number, number2);
+
+	// difference between %d and %i
+	printf(PURPLE"\ndifference between %%d and %%i TEST\n"UNCOLOR);
+	number = 012;
+	compare_results(number, number2);
+
+	number = 033;
+	compare_results(number, number2);
+
+	number = 5;
+	number2 = 42;
+	compare_results(number, number2);
+
+	number = 5;
+	number2 = 10;
+	int number3 = 15;
+	compare_results_prec(number, number2, number3);
+
+	number = 10;
+	number2 = 5;
+	number3 = 15;
+	compare_results_prec(number, number2, number3);
+
+	number = -10;
+	number2 = 5;
+	number3 = 15;
+	compare_results_prec(number, number2, number3);
+}
+
 int main(void)
 {
-	int orig;
-	int mine;
-
-	printf(YELLOW"\nInput: [%f]\n"UNCOLOR, 1444565444646.6465424242242);
-	orig = printf("expect: [%f]\n", 1444565444646.6465424242242);
-	mine = ft_printf("output: [%f]\n", 1444565444646.6465424242242);
-	print_result(orig, mine);
-
-	printf(YELLOW"\nInput: [%lf]\n"UNCOLOR, 1444565444646.6465424242242);
-	orig = printf("expect: [%lf]\n", 1444565444646.6465424242242);
-	mine = ft_printf("output: [%lf]\n", 1444565444646.6465424242242);
-	print_result(orig, mine);
-
-	printf(YELLOW"\nInput: [%Lf]\n"UNCOLOR, 1444565444646.6465424242242l);
-	orig = printf("expect: [%Lf]\n", 1444565444646.6465424242242l);
-	mine = ft_printf("output: [%Lf]\n", 1444565444646.6465424242242l);
-	print_result(orig, mine);
-	
-	printf(YELLOW"\nInput: [%f]\n"UNCOLOR, -1444565444646.6465424242242454654);
-	orig = printf("expect: [%f]\n", -1444565444646.6465424242242454654);
-	mine = ft_printf("output: [%f]\n", -1444565444646.6465424242242454654);
-	print_result(orig, mine);
-
-	printf(YELLOW"\nInput: [%lf]\n"UNCOLOR, -1444565444646.6465424242242454654);
-	orig = printf("expect: [%lf]\n", -1444565444646.6465424242242454654);
-	mine = ft_printf("output: [%lf]\n", -1444565444646.6465424242242454654);
-	print_result(orig, mine);
-
-	printf(YELLOW"\nInput: [%Lf]\n"UNCOLOR, -1444565444646.6465424242242454654l);
-	orig = printf("expect: [%Lf]\n", -1444565444646.6465424242242454654l);
-	mine = ft_printf("output: [%Lf]\n", -1444565444646.6465424242242454654l);
-	print_result(orig, mine);
-
 	printf(PURPLE"color test\n"UNCOLOR);
 	color();
+
+	printf(PURPLE"bonus test\n"UNCOLOR);
+	bonus();
 }
