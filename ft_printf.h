@@ -61,5 +61,7 @@ int		ft_check_flags_digit(char *str, t_flag *flag, int total);
 void	*ft_hash_sign_check(char *temp, char *str, t_flag *flag, int *i);
 void	*ft_hash_print(char *temp, t_flag *flag, int *index);
 void	ft_flag_adjuster(t_flag *flag);
+void	ft_str_error(char *str, t_flag *flag);
+void	ft_error(char *str, t_flag *flag);
 
 #endif

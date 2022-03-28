@@ -52,13 +52,14 @@ int	ft_check_flags_digit(char *str, t_flag *flag, int total)
 			else if ((flag->plus == '+' || flag->space == ' ') && str[0] != '-')
 				return (++total);
 		}
-		if (flag->width > flag->len && flag->prec == -1 && flag->minus == '-' && \
-			str[0] == '-')
+		if (flag->width > flag->len && flag->prec == -1 && flag->minus == '-' \
+		&& str[0] == '-')
 			total++;
 		else if (flag->plus == '+' && flag->width > flag->prec && \
 			flag->width > flag->len)
 			total++;
-		else if (flag->plus == '+' && flag->minus == '1' && flag->width < flag->len \
+		else if (flag->plus == '+' && flag->minus == '1' && flag->width < \
+			flag->len \
 			&& flag->prec < flag->len)
 			total++;
 	}
@@ -130,10 +131,7 @@ void	ft_digit_print(char *str, t_flag *flag, int total)
 			return ;
 	flag->str = ft_strnew(total);
 	if (!flag->str)
-	{
-		ft_strdel(&str);
-		return (ft_putstr_fd("error\n", 2));
-	}
+		ft_str_error(str, flag);
 	ft_set_base_str(str, flag, total);
 	if (!(flag->spec != 'u' && ft_strcmp(str, "0") == 0 && \
 		ft_strlen(str) == 0 && flag->prec == 0))

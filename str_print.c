@@ -51,7 +51,7 @@ static void	ft_str_print(char *str, t_flag *flag, int total)
 		return ;
 	flag->str = ft_strnew(total);
 	if (!flag->str)
-		return (ft_putstr_fd("error\n", 2));
+		ft_str_error(str, flag);
 	ft_memset(flag->str, ' ', total);
 	if (flag->minus == '1')
 		ft_cpy_to_temp_str(&flag->str, str, flag, total);
@@ -91,8 +91,9 @@ static void	ft_print_str(char *str, t_flag *flag)
 {
 	if (str[0] == '\0' && flag->spec == 'c')
 		flag->ret += 1;
-	if (str)
-		ft_print_calc(str, flag, &ft_str_print);
+	if (!str)
+		ft_str_error(str, flag);
+	ft_print_calc(str, flag, &ft_str_print);
 }
 
 /*	narrows down specifier and get arg	*/

@@ -41,7 +41,8 @@ static int	ft_hhll_flag_check(const char *format, t_flag *flag, int on,
 
 /*	if width or precision is found the numbers will be stored in struct	*/
 
-static void	ft_width_calc(const char *format, int *digit, int *pnt, va_list *arg)
+static void	ft_width_calc(const char *format, int *digit, int *pnt, \
+va_list *arg)
 {
 	int	i;
 	int	first;
@@ -56,7 +57,7 @@ static void	ft_width_calc(const char *format, int *digit, int *pnt, va_list *arg
 		*digit = nbr;
 		i++;
 	}
-	else 
+	else
 	{
 		while (ft_isdigit(format[i]) == 1)
 		{
@@ -96,34 +97,31 @@ static int	ft_flag_check(const char *format, t_flag *flag, int on, int *pnt)
 
 /*	loops through the different flag posibilities in order	*/
 
-static int	ft_flag_loop(const char *format, t_flag *flag, va_list *arg,
+static void	ft_flag_loop(const char *format, t_flag *flag, va_list *arg,
 			int *pnt)
 {
-	int	specifier;
-
-	specifier = FALSE;
-	while (specifier == FALSE && ft_flag_check(&format[*pnt], flag, TRUE, pnt) \
+	while (flag->spec == '1' && ft_flag_check(&format[*pnt], flag, TRUE, pnt) \
 		== TRUE)
-		specifier = ft_specifier_check(&format[*pnt], flag, arg);
-	while (specifier == FALSE && (ft_isdigit(format[*pnt]) == 1 || format[*pnt] == '*'))
+		ft_specifier_check(&format[*pnt], flag, arg);
+	while (flag->spec == '1' && (ft_isdigit(format[*pnt]) == 1 || \
+		format[*pnt] == '*'))
 	{
 		if (format[*pnt] == '*')
 			flag->star_w = '*';
 		ft_width_calc(&format[*pnt], &flag->width, pnt, arg);
-		specifier = ft_specifier_check(&format[*pnt], flag, arg);
+		ft_specifier_check(&format[*pnt], flag, arg);
 	}
-	while (specifier == FALSE && format[*pnt] == '.')
+	while (flag->spec == '1' && format[*pnt] == '.')
 	{
 		*pnt += 1;
 		if (format[*pnt] == '*')
 			flag->star_p = '*';
 		ft_width_calc(&format[*pnt], &flag->prec, pnt, arg);
-		specifier = ft_specifier_check(&format[*pnt], flag, arg);
+		ft_specifier_check(&format[*pnt], flag, arg);
 	}
-	if (specifier == FALSE && ft_hhll_flag_check(&format[*pnt], flag, TRUE, \
+	if (flag->spec == '1' && ft_hhll_flag_check(&format[*pnt], flag, TRUE, \
 		pnt) == TRUE)
-		specifier = ft_specifier_check(&format[*pnt], flag, arg);
-	return (specifier);
+		ft_specifier_check(&format[*pnt], flag, arg);
 }
 
 /*	keeps track of if specifier has been found or not	*/
@@ -132,18 +130,19 @@ void	ft_flag_checker(const char *format, t_flag *flag, va_list *arg)
 {
 	int		i;
 	int		*pnt;
-	int		specifier;
-	char	c;
+	int		c;
 
 	i = 0;
 	pnt = &i;
 	c = '%';
-	specifier = ft_specifier_check(&format[i], flag, arg);
-	if (specifier == FALSE)
-		specifier = ft_flag_loop(format, flag, arg, pnt);
-	if (specifier == FALSE)
+	ft_specifier_check(&format[i], flag, arg);
+	if (flag->spec == '1')
+		ft_flag_loop(format, flag, arg, pnt);
+	if (flag->spec == '1')
 	{
+		ft_putstr("\033[31m");
 		flag->ret += write(1, &c, 1);
+		ft_putstr("\033[39m");
 		flag->i -= 1;
 	}
 }

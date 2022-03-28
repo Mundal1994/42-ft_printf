@@ -14,7 +14,7 @@ NAME = libftprintf.a
 
 CC = gcc -Wall -Wextra -Werror -I ./libft
 
-SRC = ft_printf.c
+SRC = main.c
 SRC += flags.c
 SRC += specifier.c
 SRC += width_calc.c
@@ -27,6 +27,7 @@ SRC += ftoa.c
 SRC += ftoa_end.c
 SRC += bonus.c
 SRC += sign_print.c
+SRC += error.c
 
 OBJ = $(SRC:.c=.o)
 

@@ -220,6 +220,13 @@ static void	bonus(void)
 	print_result(orig, mine);
 }
 
+static void	error(void)
+{
+
+	ft_printf(UNCOLOR"% qi\n");
+	ft_printf("%.0-d hi\n", 5);
+}
+
 int main(void)
 {
 	printf(PURPLE"color test\n"UNCOLOR);
@@ -227,4 +234,7 @@ int main(void)
 
 	printf(PURPLE"bonus test\n"UNCOLOR);
 	bonus();
+
+	printf(PURPLE"error test\n"UNCOLOR);
+	error();
 }
