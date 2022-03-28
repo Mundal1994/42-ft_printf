@@ -447,11 +447,6 @@ static void	f(void)
 	orig = printf("expect: [%0.4f]\n", 0.00025);
 	mine = ft_printf("output: [%0.4f]\n", 0.00025);
 	print_result(orig, mine);
-
-	printf(YELLOW"\nInput: [%%0.30f] number: [%f]\n"UNCOLOR,0.005);
-	orig = printf("expect: [%0.30f]\n", 0.005);
-	mine = ft_printf("output: [%0.30f]\n", 0.005);
-	print_result(orig, mine);
 	
 	printf(PURPLE"\nl TEST\n"UNCOLOR);
 	printf("l modifier: ignored does same as without it. takes in double\n");
@@ -461,8 +456,8 @@ static void	f(void)
 	//doub = DBL_MAX;
 	//compare_results_f_l(doub);
 
-	doub = DBL_MIN;
-	compare_results_f_l(doub);
+	//doub = DBL_MIN;
+	//compare_results_f_l(doub);
 
 	printf(PURPLE"\nL TEST\n"UNCOLOR);
 	printf("L modifier: converts long double into int or unsigned int and the L makes sure it changes back to orig\n");

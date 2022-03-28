@@ -61,29 +61,17 @@ static void	ft_fcalc(long long number, char *temp)
 
 static int	ft_rounding(long double lnbr, int len, char *temp, int *i)
 {
-	int	total;
+	int	nbr;
 
-	total = len;
-	while (total > 0)
-	{
-		if (total > 18)
-		{
-			lnbr = lnbr * ft_pow(10, 18);
-			ft_itoa_add_zeros((unsigned long long)lnbr, &temp[*i], 18, 1);
-			*i += 18;
-			total -= 18;
-		}
-		else
-		{
-			lnbr = lnbr * ft_pow(10, total);
-			ft_itoa_add_zeros((unsigned long long)lnbr, &temp[*i], total, 1);
-			*i += total;
-			total -= total;
-		}
-		lnbr -= (unsigned long long)lnbr;
-	}
+	lnbr = lnbr * ft_pow(10, len);
+	ft_itoa_add_zeros((unsigned long long)lnbr, &temp[*i], len, 1);
+	nbr = temp[ft_strlen(temp) - 1] - '0';
 	lnbr = lnbr - (unsigned long long)lnbr;
 	if (lnbr > 0.5)
+		return (TRUE);
+	else if (lnbr < 0.5)
+		return (FALSE);
+	if (nbr % 2 != 0)
 		return (TRUE);
 	return (FALSE);
 }
@@ -99,7 +87,7 @@ char	*ft_ftoa(long double number, int len)
 	char		*str;
 
 	lnbr = number;
-	temp = ft_strnew(ft_flong_len(number) + len + 1);
+	temp = ft_strnew(ft_flong_len(number) + len + 2);
 	ft_fcalc(number, temp);
 	lnbr = number - (long long)number;
 	i = ft_strlen(temp);

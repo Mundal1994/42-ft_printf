@@ -107,9 +107,24 @@ static int	ft_len_calculator(t_flag *flag)
 void	ft_print_calc(char *str, t_flag *flag, void (*f)(char *, t_flag *, int))
 {
 	int		total;
+	int		len_until_dec;
+	int		decimal_len;
+	char	*temp;
 
 	flag->len = ft_strlen(str);
 	ft_flag_adjuster(flag);
+	if (flag->spec == 'f' && flag->prec == -1)
+	{
+		len_until_dec = ft_strlen_stop(str, '.') + 1;
+		decimal_len = ft_strlen(&str[len_until_dec]);
+		if (decimal_len != 6)
+		{
+			temp = str;
+			str = ft_strjoin(temp, "0");
+			ft_strdel(&temp);
+			flag->len++;
+		}
+	}
 	total = ft_len_calculator(flag);
 	total = ft_check_flags(str, flag, total);
 	f(str, flag, total);
