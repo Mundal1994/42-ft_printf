@@ -12,6 +12,8 @@
 
 #include "ft_printf.h"
 
+/*	adds the needed zeros to the string	*/
+
 static void	ft_itoa_add_zeros(unsigned long long nbr, char *str, int len, \
 int neg)
 {
@@ -33,6 +35,8 @@ int neg)
 	str[i] = '\0';
 }
 
+/*	takes number and stores it in a string	*/
+
 static void	ft_fcalc(long long number, char *temp)
 {
 	long	nbr;
@@ -53,16 +57,49 @@ static void	ft_fcalc(long long number, char *temp)
 	ft_itoa_add_zeros((double)nbr, temp, 0, neg);
 }
 
+/*	calculates if we need to round up or not when deciding decimal length	*/
+
+static int	ft_rounding(long double lnbr, int len, char *temp, int *i)
+{
+	int	total;
+
+	total = len;
+	while (total > 0)
+	{
+		if (total > 18)
+		{
+			lnbr = lnbr * ft_pow(10, 18);
+			ft_itoa_add_zeros((unsigned long long)lnbr, &temp[*i], 18, 1);
+			*i += 18;
+			total -= 18;
+		}
+		else
+		{
+			lnbr = lnbr * ft_pow(10, total);
+			ft_itoa_add_zeros((unsigned long long)lnbr, &temp[*i], total, 1);
+			*i += total;
+			total -= total;
+		}
+		lnbr -= (unsigned long long)lnbr;
+	}
+	lnbr = lnbr - (unsigned long long)lnbr;
+	if (lnbr > 0.5)
+		return (TRUE);
+	return (FALSE);
+}
+
+/*	converts float(double) to str	*/
+
 char	*ft_ftoa(long double number, int len)
 {
 	long double	lnbr;
 	int			i;
-	int			dot;
+	int			up;
 	char		*temp;
 	char		*str;
 
 	lnbr = number;
-	temp = ft_strnew(ft_flong_len(number) + 20 + 1);
+	temp = ft_strnew(ft_flong_len(number) + len + 1);
 	ft_fcalc(number, temp);
 	lnbr = number - (long long)number;
 	i = ft_strlen(temp);
@@ -71,10 +108,8 @@ char	*ft_ftoa(long double number, int len)
 		if (lnbr < 0)
 			lnbr *= -1;
 		temp[i++] = '.';
-		lnbr = lnbr * ft_pow(10, 19);
-		ft_itoa_add_zeros((unsigned long long)lnbr, &temp[i], 19, 1);
-		dot = ft_strlen_stop(temp, '.') + 1;
-		ft_check_correct_end(temp, len, dot);
+		up = ft_rounding(lnbr, len, temp, &i);
+		ft_check_correct_end(temp, up);
 	}
 	str = ft_strnew(i + len);
 	ft_strncpy(str, temp, i + len);

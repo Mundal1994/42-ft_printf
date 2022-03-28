@@ -241,7 +241,7 @@ static void	f(void)
 	mine = ft_printf("output: [%.2f]\n", 2.35);
 	print_result(orig, mine);
 
-	printf(YELLOW"\nInput: [%%.2f] number: [%f]\n"UNCOLOR,2.35);
+	printf(YELLOW"\nInput: [%%.1f] number: [%f]\n"UNCOLOR,2.35);
 	orig = printf("expect: [%.1f]\n", 2.35);
 	mine = ft_printf("output: [%.1f]\n", 2.35);
 	print_result(orig, mine);
@@ -251,7 +251,7 @@ static void	f(void)
 	mine = ft_printf("output: [%.2f]\n", 2.45);
 	print_result(orig, mine);
 
-	printf(YELLOW"\nInput: [%%.2f] number: [%f]\n"UNCOLOR,2.45);
+	printf(YELLOW"\nInput: [%%.1f] number: [%f]\n"UNCOLOR,2.45);
 	orig = printf("expect: [%.1f]\n", 2.45);
 	mine = ft_printf("output: [%.1f]\n", 2.45);
 	print_result(orig, mine);
@@ -261,7 +261,7 @@ static void	f(void)
 	mine = ft_printf("output: [%.2f]\n", 2.15);
 	print_result(orig, mine);
 
-	printf(YELLOW"\nInput: [%%.2f] number: [%f]\n"UNCOLOR,2.15);
+	printf(YELLOW"\nInput: [%%.1f] number: [%f]\n"UNCOLOR,2.15);
 	orig = printf("expect: [%.1f]\n", 2.15);
 	mine = ft_printf("output: [%.1f]\n", 2.15);
 	print_result(orig, mine);
@@ -271,7 +271,7 @@ static void	f(void)
 	mine = ft_printf("output: [%.2f]\n", -2.35);
 	print_result(orig, mine);
 
-	printf(YELLOW"\nInput: [%%.2f] number: [%f]\n"UNCOLOR,-2.35);
+	printf(YELLOW"\nInput: [%%.1f] number: [%f]\n"UNCOLOR,-2.35);
 	orig = printf("expect: [%.1f]\n", -2.35);
 	mine = ft_printf("output: [%.1f]\n", -2.35);
 	print_result(orig, mine);
@@ -281,89 +281,89 @@ static void	f(void)
 	mine = ft_printf("output: [%.2f]\n", -2.45);
 	print_result(orig, mine);
 
-	printf(YELLOW"\nInput: [%%.2f] number: [%f]\n"UNCOLOR,-2.45);
+	printf(YELLOW"\nInput: [%%.1f] number: [%f]\n"UNCOLOR,-2.45);
 	orig = printf("expect: [%.1f]\n", -2.45);
 	mine = ft_printf("output: [%.1f]\n", -2.45);
 	print_result(orig, mine);
 
 	printf(PURPLE"\ndecimal logic TEST\n"UNCOLOR);	
 
-	printf(YELLOW"\nInput: [%%.2f] number: [%f]\n"UNCOLOR,2.05);
+	printf(YELLOW"\nInput: [%%.1f] number: [%f]\n"UNCOLOR,2.05);
 	orig = printf("expect: [%.1f]\n", 2.05);
 	mine = ft_printf("output: [%.1f]\n", 2.05);
 	print_result(orig, mine);
 
-	printf(YELLOW"\nInput: [%%.2f] number: [%f]\n"UNCOLOR,2.15);
+	printf(YELLOW"\nInput: [%%.1f] number: [%f]\n"UNCOLOR,2.15);
 	orig = printf("expect: [%.1f]\n", 2.15);
 	mine = ft_printf("output: [%.1f]\n", 2.15);
 	print_result(orig, mine);
 
-	printf(YELLOW"\nInput: [%%.2f] number: [%f]\n"UNCOLOR,2.25);
+	printf(YELLOW"\nInput: [%%.1f] number: [%f]\n"UNCOLOR,2.25);
 	orig = printf("expect: [%.1f]\n", 2.25);
 	mine = ft_printf("output: [%.1f]\n", 2.25);
 	print_result(orig, mine);
 
-	printf(YELLOW"\nInput: [%%.2f] number: [%f]\n"UNCOLOR,2.35);
+	printf(YELLOW"\nInput: [%%.1f] number: [%f]\n"UNCOLOR,2.35);
 	orig = printf("expect: [%.1f]\n", 2.35);
 	mine = ft_printf("output: [%.1f]\n", 2.35);
 	print_result(orig, mine);
 
-	printf(YELLOW"\nInput: [%%.2f] number: [%f]\n"UNCOLOR,2.45);
+	printf(YELLOW"\nInput: [%%.1f] number: [%f]\n"UNCOLOR,2.45);
 	orig = printf("expect: [%.1f]\n", 2.45);
 	mine = ft_printf("output: [%.1f]\n", 2.45);
 	print_result(orig, mine);
 
-	printf(YELLOW"\nInput: [%%.2f] number: [%f]\n"UNCOLOR,2.55);
+	printf(YELLOW"\nInput: [%%.1f] number: [%f]\n"UNCOLOR,2.55);
 	orig = printf("expect: [%.1f]\n", 2.55);
 	mine = ft_printf("output: [%.1f]\n", 2.55);
 	print_result(orig, mine);
 
-	printf(YELLOW"\nInput: [%%.2f] number: [%f]\n"UNCOLOR,2.65);
+	printf(YELLOW"\nInput: [%%.1f] number: [%f]\n"UNCOLOR,2.65);
 	orig = printf("expect: [%.1f]\n", 2.65);
 	mine = ft_printf("output: [%.1f]\n", 2.65);
 	print_result(orig, mine);
 
-	printf(YELLOW"\nInput: [%%.2f] number: [%f]\n"UNCOLOR,2.75);
+	printf(YELLOW"\nInput: [%%.1f] number: [%f]\n"UNCOLOR,2.75);
 	orig = printf("expect: [%.1f]\n", 2.75);
 	mine = ft_printf("output: [%.1f]\n", 2.75);
 	print_result(orig, mine);
 
-	printf(YELLOW"\nInput: [%%.2f] number: [%f]\n"UNCOLOR,2.85);
+	printf(YELLOW"\nInput: [%%.1f] number: [%f]\n"UNCOLOR,2.85);
 	orig = printf("expect: [%.1f]\n", 2.85);
 	mine = ft_printf("output: [%.1f]\n", 2.85);
 	print_result(orig, mine);
 
-	printf(YELLOW"\nInput: [%%.2f] number: [%f]\n"UNCOLOR,2.95);
+	printf(YELLOW"\nInput: [%%.1f] number: [%f]\n"UNCOLOR,2.95);
 	orig = printf("expect: [%.1f]\n", 2.95);
 	mine = ft_printf("output: [%.1f]\n", 2.95);
 	print_result(orig, mine);
 
-	printf(YELLOW"\nInput: [%%.4f] number: [%f]\n"UNCOLOR,2.3405);
+	printf(YELLOW"\nInput: [%%.3f] number: [%f]\n"UNCOLOR,2.3405);
 	orig = printf("expect: [%.3f]\n", 2.3405);
 	mine = ft_printf("output: [%.3f]\n", 2.3405);
 	print_result(orig, mine);
 
-	printf(YELLOW"\nInput: [%%.4f] number: [%f]\n"UNCOLOR,2.3415);
+	printf(YELLOW"\nInput: [%%.3f] number: [%f]\n"UNCOLOR,2.3415);
 	orig = printf("expect: [%.3f]\n", 2.3415);
 	mine = ft_printf("output: [%.3f]\n", 2.3415);
 	print_result(orig, mine);
 
-	printf(YELLOW"\nInput: [%%.4f] number: [%f]\n"UNCOLOR,2.3425);
+	printf(YELLOW"\nInput: [%%.3f] number: [%f]\n"UNCOLOR,2.3425);
 	orig = printf("expect: [%.3f]\n", 2.3425);
 	mine = ft_printf("output: [%.3f]\n", 2.3425);
 	print_result(orig, mine);
 
-	printf(YELLOW"\nInput: [%%.4f] number: [%f]\n"UNCOLOR,2.3435);
+	printf(YELLOW"\nInput: [%%.3f] number: [%f]\n"UNCOLOR,2.3435);
 	orig = printf("expect: [%.3f]\n", 2.3435);
 	mine = ft_printf("output: [%.3f]\n", 2.3435);
 	print_result(orig, mine);
 
-	printf(YELLOW"\nInput: [%%.4f] number: [%f]\n"UNCOLOR,2.3445);
+	printf(YELLOW"\nInput: [%%.3f] number: [%f]\n"UNCOLOR,2.3445);
 	orig = printf("expect: [%.3f]\n", 2.3445);
 	mine = ft_printf("output: [%.3f]\n", 2.3445);
 	print_result(orig, mine);
 
-	printf(YELLOW"\nInput: [%%.4f] number: [%f]\n"UNCOLOR,1.02);
+	printf(YELLOW"\nInput: [%%.3f] number: [%f]\n"UNCOLOR,1.02);
 	orig = printf("expect: [%.3f]\n", 1.02);
 	mine = ft_printf("output: [%.3f]\n", 1.02);
 	print_result(orig, mine);
@@ -446,6 +446,11 @@ static void	f(void)
 	printf(YELLOW"\nInput: [%%0.4f] number: [%f]\n"UNCOLOR,0.00025);
 	orig = printf("expect: [%0.4f]\n", 0.00025);
 	mine = ft_printf("output: [%0.4f]\n", 0.00025);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%%0.30f] number: [%f]\n"UNCOLOR,0.005);
+	orig = printf("expect: [%0.30f]\n", 0.005);
+	mine = ft_printf("output: [%0.30f]\n", 0.005);
 	print_result(orig, mine);
 	
 	printf(PURPLE"\nl TEST\n"UNCOLOR);
