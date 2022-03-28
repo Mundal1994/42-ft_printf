@@ -224,13 +224,17 @@ static void	error(void)
 {
 	int	ret;
 
-	printf("%% qi\n");
-	ret = ft_printf(UNCOLOR"% qi\n");
+	printf(YELLOW"\nInput: %% qi\n"UNCOLOR);
+	ret = ft_printf("% qi\n");
+	printf("expect return: -1\n");
+	ft_putstr("output return: ");
 	ft_putnbr(ret);
 	ft_putchar('\n');
 	
-	printf("%%.0-d hi\n");
+	printf(YELLOW"\nInput: %%.0-d hi\n"UNCOLOR);
 	ret = ft_printf("%.0-d hi\n", 5);
+	printf("expect return: -1\n");
+	ft_putstr("output return: ");
 	ft_putnbr(ret);
 	ft_putchar('\n');
 }

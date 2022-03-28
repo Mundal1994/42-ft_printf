@@ -3,8 +3,6 @@ NAME += t2.out
 NAME += t3.out
 NAME += t4.out
 NAME += t5.out
-NAME += t6.out
-NAME += b.out
 
 DEL = *.o
 DEL += ./*.o

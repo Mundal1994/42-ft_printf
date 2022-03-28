@@ -413,11 +413,6 @@ static void	f(void)
 	mine = ft_printf("output: [%f]\n", 2.5555545);
 	print_result(orig, mine);
 
-	printf(YELLOW"\nInput: [%%.19f] number: [%f]\n"UNCOLOR,2.5555545);
-	orig = printf("expect: [%.19f]\n", 2.5555545);
-	mine = ft_printf("output: [%.19f]\n", 2.5555545);
-	print_result(orig, mine);
-
 	printf(YELLOW"\nInput: [%%.18f] number: [%f]\n"UNCOLOR,2.5555545);
 	orig = printf("expect: [%.18f]\n", 2.5555545);
 	mine = ft_printf("output: [%.18f]\n", 2.5555545);
