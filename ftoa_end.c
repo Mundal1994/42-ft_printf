@@ -33,7 +33,7 @@ static int	ft_round_up(char *str)
 static int	ft_correct_end_loop(char *str, int add, int up)
 {
 	int	five;
-	int total;
+	int	total;
 	int	i;
 
 	five = FALSE;
