@@ -131,7 +131,10 @@ void	ft_digit_print(char *str, t_flag *flag, int total)
 			return ;
 	flag->str = ft_strnew(total);
 	if (!flag->str)
+	{
 		ft_str_error(str, flag);
+		return ;
+	}
 	ft_set_base_str(str, flag, total);
 	if (!(flag->spec != 'u' && ft_strcmp(str, "0") == 0 && \
 		ft_strlen(str) == 0 && flag->prec == 0))

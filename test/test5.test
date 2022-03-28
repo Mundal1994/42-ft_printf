@@ -222,9 +222,17 @@ static void	bonus(void)
 
 static void	error(void)
 {
+	int	ret;
 
-	ft_printf(UNCOLOR"% qi\n");
-	ft_printf("%.0-d hi\n", 5);
+	printf("%% qi\n");
+	ret = ft_printf(UNCOLOR"% qi\n");
+	ft_putnbr(ret);
+	ft_putchar('\n');
+	
+	printf("%%.0-d hi\n");
+	ret = ft_printf("%.0-d hi\n", 5);
+	ft_putnbr(ret);
+	ft_putchar('\n');
 }
 
 int main(void)

@@ -18,21 +18,14 @@ void	ft_str_error(char *str, t_flag *flag)
 {
 	if (str)
 		ft_strdel(&str);
-	free(flag);
-	ft_putstr("\033[31m");
-	ft_putstr_fd("error\n", 2);
-	ft_putstr("\033[39m");
-	exit(1);
+	flag->ret = -1;
 }
 
 /*	error anywhere else	*/
 
-void	ft_error(char *str, t_flag *flag)
+int	ft_error(t_flag *flag)
 {
-	ft_putstr("\033[31m");
-	ft_putstr_fd(str, 2);
-	ft_putstr("\033[39m");
 	if (flag)
 		free(flag);
-	exit(1);
+	return (-1);
 }

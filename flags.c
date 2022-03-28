@@ -139,10 +139,5 @@ void	ft_flag_checker(const char *format, t_flag *flag, va_list *arg)
 	if (flag->spec == '1')
 		ft_flag_loop(format, flag, arg, pnt);
 	if (flag->spec == '1')
-	{
-		ft_putstr("\033[31m");
-		flag->ret += write(1, &c, 1);
-		ft_putstr("\033[39m");
-		flag->i -= 1;
-	}
+		flag->ret = -1;
 }

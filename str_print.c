@@ -51,7 +51,10 @@ static void	ft_str_print(char *str, t_flag *flag, int total)
 		return ;
 	flag->str = ft_strnew(total);
 	if (!flag->str)
+	{
 		ft_str_error(str, flag);
+		return ;
+	}
 	ft_memset(flag->str, ' ', total);
 	if (flag->minus == '1')
 		ft_cpy_to_temp_str(&flag->str, str, flag, total);

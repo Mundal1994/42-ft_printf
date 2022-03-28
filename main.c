@@ -91,12 +91,12 @@ int	ft_printf(const char *format, ...)
 
 	flag = (t_flag *) malloc(sizeof(t_flag));
 	if (!flag)
-		ft_error("error\n", flag);
+		return (ft_error(flag));
 	ft_initialize_flag(flag, TRUE);
 	va_start(arg, format);
 	if (format)
 	{
-		while (format[flag->i] != '\0')
+		while (format[flag->i] != '\0' && flag->ret != -1)
 		{
 			ft_check_char(format, flag, &arg);
 			flag->i++;
