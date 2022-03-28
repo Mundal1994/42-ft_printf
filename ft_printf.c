@@ -44,7 +44,8 @@ static void	ft_initialize_flag(t_flag *flag, int first)
 	flag->ll = FALSE;
 	flag->b_l = FALSE;
 	flag->len = 0;
-	flag->star = '1';
+	flag->star_w = '1';
+	flag->star_p = '1';
 	if (first == TRUE)
 	{
 		flag->i = 0;

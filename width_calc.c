@@ -112,6 +112,7 @@ void	ft_print_calc(char *str, t_flag *flag, void (*f)(char *, t_flag *, int))
 	char	*temp;
 
 	flag->len = ft_strlen(str);
+	ft_flag_adjuster(flag);
 	if (flag->spec == 'f' && flag->prec == -1)
 	{
 		len_until_dec = ft_strlen_stop(str, '.') + 1;

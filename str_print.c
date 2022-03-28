@@ -47,6 +47,8 @@ static void	ft_str_print(char *str, t_flag *flag, int total)
 		else
 			return ;
 	}
+	if (flag->width == 0)
+		return ;
 	flag->str = ft_strnew(total);
 	if (!flag->str)
 		return (ft_putstr_fd("error\n", 2));

@@ -108,7 +108,7 @@ static int	ft_flag_loop(const char *format, t_flag *flag, va_list *arg,
 	while (specifier == FALSE && (ft_isdigit(format[*pnt]) == 1 || format[*pnt] == '*'))
 	{
 		if (format[*pnt] == '*')
-			flag->star = 'w';
+			flag->star_w = '*';
 		ft_width_calc(&format[*pnt], &flag->width, pnt, arg);
 		specifier = ft_specifier_check(&format[*pnt], flag, arg);
 	}
@@ -116,7 +116,7 @@ static int	ft_flag_loop(const char *format, t_flag *flag, va_list *arg,
 	{
 		*pnt += 1;
 		if (format[*pnt] == '*')
-			flag->star = 'p';
+			flag->star_p = '*';
 		ft_width_calc(&format[*pnt], &flag->prec, pnt, arg);
 		specifier = ft_specifier_check(&format[*pnt], flag, arg);
 	}

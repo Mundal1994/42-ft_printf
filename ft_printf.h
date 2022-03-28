@@ -35,7 +35,8 @@ typedef struct s_flag
 	int			i;
 	int			ret;
 	int			len;
-	int			star;
+	int			star_w;
+	int			star_p;
 }				t_flag;
 
 int		ft_printf(const char *format, ...);
@@ -59,5 +60,6 @@ void	ft_set_base_str(char *str, t_flag *flag, int total);
 int		ft_check_flags_digit(char *str, t_flag *flag, int total);
 void	*ft_hash_sign_check(char *temp, char *str, t_flag *flag, int *i);
 void	*ft_hash_print(char *temp, t_flag *flag, int *index);
+void	ft_flag_adjuster(t_flag *flag);
 
 #endif

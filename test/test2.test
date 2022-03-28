@@ -536,6 +536,11 @@ static void	d(void)
 	mine = ft_printf("output: [%15.4d]\n", -424242);
 	print_result(orig, mine);
 
+	printf(YELLOW"\nInput: [%%.5d] number: [%d]\n"UNCOLOR, 42);
+	orig = printf("expect: [%.5d]\n", 42);
+	mine = ft_printf("output: [%.5d]\n", 42);
+	print_result(orig, mine);
+
 	// with flags hh
 	signed char	c = '5';
 	printf(PURPLE"\nhh TEST\n"UNCOLOR);
