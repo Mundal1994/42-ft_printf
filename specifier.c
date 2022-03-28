@@ -44,6 +44,8 @@ int	spec_check(t_flag *flag, int a, int b, int c)
 	return (FALSE);
 }
 
+/*	readjustments on the flags before using them	*/
+
 void	ft_flag_adjuster(t_flag *flag)
 {
 	if (flag->star_p == '*' && flag->prec < 0)
@@ -52,7 +54,7 @@ void	ft_flag_adjuster(t_flag *flag)
 			flag->prec = -1;
 		else
 		{
-			flag->prec = flag->len;
+			flag->prec = -1;
 			flag->minus = '-';
 		}
 	}
@@ -60,9 +62,32 @@ void	ft_flag_adjuster(t_flag *flag)
 	{
 		flag->width *= -1;
 		flag->minus = '-';
+		flag->zero = '1';
 	}
 	if (flag->prec >= flag->width && spec_check(flag, 'c', 's', 'p') == FALSE)
 		flag->width = -1;
+}
+
+/*	copies final content of string into main str	*/
+
+void	ft_cpy_to_temp_str(char **temp, char *str, t_flag *flag, int i)
+{
+	int	remain;
+
+	if (flag->spec == 'p' && flag->prec == 0)
+	{
+		remain = 2;
+		if (flag->minus != '-')
+			i -= remain;
+		ft_strncpy(&(*temp)[i], str, remain);
+	}
+	else
+	{
+		remain = ft_str_i_calc(flag->len, flag);
+		if (flag->minus != '-')
+			i -= remain;
+		ft_strncpy(&(*temp)[i], str, remain);
+	}
 }
 
 /*	narrows down correct specifier and resets i in main loop to correct pos	*/
@@ -73,6 +98,10 @@ int	ft_specifier_check(const char *format, t_flag *flag, va_list *arg)
 		flag->zero = '1';
 	if (flag->space == ' ' && flag->plus == '+')
 		flag->space = '1';
+	if (flag->plus == '+')
+		flag->space = '1';
+	if (flag->minus == '-')
+		flag->zero = '1';
 	if (*format == 'c' || *format == 's' || *format == 'p')
 		ft_csp_print(format, flag, arg);
 	else if (*format == 'd' || *format == 'i' || *format == 'u')

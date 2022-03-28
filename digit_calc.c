@@ -63,13 +63,12 @@ void	ft_diu_print(const char *format, t_flag *flag, va_list *arg)
 		nbr = va_arg(*arg, long long);
 		str = ft_convert_length(str, flag, nbr);
 		flag->spec = 'd';
-		ft_print_calc(str, flag, &ft_digit_print);
 	}
 	else if (*format == 'u')
 	{
 		var = va_arg(*arg, unsigned long long);
 		str = ft_convert_length_u(str, flag, var);
 		flag->spec = 'u';
-		ft_print_calc(str, flag, &ft_digit_print);
 	}
+	ft_print_calc(str, flag, &ft_digit_print, arg);
 }

@@ -86,7 +86,7 @@ static void	ft_if_prec_helper(char *str, t_flag *flag, int *index, int total)
 		flag->minus == '-')
 	{
 		ft_memset(&flag->str[*index], '0', flag->prec);
-		ft_memset(&flag->str[flag->width - flag->prec + *index], ' ', \
+		ft_memset(&flag->str[flag->width - flag->prec + *index + 1], ' ', \
 		flag->width - flag->prec - *index);
 	}
 	else if (flag->prec > flag->len && flag->width < flag->prec)

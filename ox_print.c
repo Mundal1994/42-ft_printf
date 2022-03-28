@@ -103,20 +103,18 @@ void	ft_ox_print(const char *format, t_flag *flag, va_list *arg)
 	{
 		flag->spec = 'o';
 		str = ft_convert_length_ox(str, flag, nbr);
-		ft_print_calc(str, flag, &ft_digit_print);
 	}
 	else if (*format == 'x')
 	{
 		flag->spec = 'x';
 		str = ft_convert_length_ox(str, flag, nbr);
 		ft_striter_uplow(str, &ft_tolower);
-		ft_print_calc(str, flag, &ft_digit_print);
 	}
 	else if (*format == 'X')
 	{
 		flag->spec = 'X';
 		str = ft_convert_length_ox(str, flag, nbr);
 		ft_striter_uplow(str, &ft_toupper);
-		ft_print_calc(str, flag, &ft_digit_print);
 	}
+	ft_print_calc(str, flag, &ft_digit_print, arg);
 }

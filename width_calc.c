@@ -54,7 +54,8 @@ static int	ft_check_flags(char *str, t_flag *flag, int total)
 		if (!(flag->len > flag->width && flag->len > flag->prec && \
 			(str[0] == '-' || str[0] == '+')))
 			if (flag->width < flag->len)
-				return (ft_check_flags_digit(str, flag, total));
+				if (str[0] == '-' || flag->plus == '+' || flag->space == ' ')
+					++total;
 	}
 	return (total);
 }
@@ -104,7 +105,8 @@ static int	ft_len_calculator(t_flag *flag)
 
 /*	calculates length of str that needs to be malloced	*/
 
-void	ft_print_calc(char *str, t_flag *flag, void (*f)(char *, t_flag *, int))
+void	ft_print_calc(char *str, t_flag *flag, void (*f)(char *, \
+t_flag *, int, va_list *), va_list *arg)
 {
 	int		total;
 	int		len_until_dec;
@@ -127,5 +129,7 @@ void	ft_print_calc(char *str, t_flag *flag, void (*f)(char *, t_flag *, int))
 	}
 	total = ft_len_calculator(flag);
 	total = ft_check_flags(str, flag, total);
-	f(str, flag, total);
+	if (flag->spec == 'p' && ft_strcmp(str, "0x0") == 0 && flag->prec == 0)
+		total = 2;
+	f(str, flag, total, arg);
 }

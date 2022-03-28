@@ -12,42 +12,41 @@
 
 #include "ft_printf.h"
 
-/*	copies final content of string into main str	*/
+/*	helper function for ft_str_print	*/
 
-static void	ft_cpy_to_temp_str(char **temp, char *str, t_flag *flag, int i)
+static void	ft_print_depend_on_char(char *str, t_flag *flag, int total, char c)
 {
-	int	remain;
-
-	if (flag->spec == 'p' && flag->prec == 0)
-	{
-		remain = 2;
-		if (flag->minus != '-')
-			i -= remain;
-		ft_strncpy(&(*temp)[i], str, remain);
-	}
-	else
-	{
-		remain = ft_str_i_calc(flag->len, flag);
-		if (flag->minus != '-')
-			i -= remain;
-		ft_strncpy(&(*temp)[i], str, remain);
-	}
+	if (flag->minus == '1' && flag->spec != 'c')
+		ft_cpy_to_temp_str(&flag->str, str, flag, total);
+	else if (flag->spec != 'c')
+		ft_cpy_to_temp_str(&flag->str, str, flag, 0);
+	if (flag->spec == 'c' && flag->minus == '-')
+		flag->ret += write(1, &c, 1);
+	flag->ret += write(1, flag->str, total);
+	if (flag->spec == 'c' && flag->minus == '1')
+		flag->ret += write(1, &c, 1);
+	ft_strdel(&str);
+	ft_strdel(&flag->str);
 }
 
 /*	calculations of printing the string	*/
 
-static void	ft_str_print(char *str, t_flag *flag, int total)
+static void	ft_str_print(char *str, t_flag *flag, int total, va_list *arg)
 {
-	if (flag->spec == 'p' && ft_strcmp(str, "0x0") == 0 && flag->prec == 0)
-		total = 2;
-	else if (str[0] == '\0' && flag->spec == 'c')
+	int	c;
+
+	if (flag->spec == 'c')
 	{
+		c = (char)va_arg(*arg, int);
 		if (!(flag->width < 0))
 			total--;
-		else
+		if (flag->width == 0)
+		{
+			flag->ret += write(1, &c, 1);
 			return ;
+		}
 	}
-	if (flag->width == 0)
+	if (flag->width == 0 && flag->spec != 'c')
 		return ;
 	flag->str = ft_strnew(total);
 	if (!flag->str)
@@ -56,13 +55,7 @@ static void	ft_str_print(char *str, t_flag *flag, int total)
 		return ;
 	}
 	ft_memset(flag->str, ' ', total);
-	if (flag->minus == '1')
-		ft_cpy_to_temp_str(&flag->str, str, flag, total);
-	else
-		ft_cpy_to_temp_str(&flag->str, str, flag, 0);
-	flag->ret += write(1, flag->str, total);
-	ft_strdel(&str);
-	ft_strdel(&flag->str);
+	ft_print_depend_on_char(str, flag, total, c);
 }
 
 /*	createed string from arg depending on specifier	*/
@@ -80,7 +73,7 @@ static char	*ft_str_creater(char *str_arg, char c)
 	if (!str)
 		return (NULL);
 	if (c == 'c')
-		ft_strncpy(str, str_arg, 1);
+		ft_strncpy(str, "\0", 1);
 	else if (!str_arg)
 		ft_strcpy(str, "(null)");
 	else
@@ -90,29 +83,28 @@ static char	*ft_str_creater(char *str_arg, char c)
 
 /*	calls function that will calculate string	*/
 
-static void	ft_print_str(char *str, t_flag *flag)
+static void	ft_print_str(char *str, t_flag *flag, va_list *arg)
 {
-	if (str[0] == '\0' && flag->spec == 'c')
-		flag->ret += 1;
-	if (!str)
+	if (!str && flag->spec != 'c')
+	{
 		ft_str_error(str, flag);
-	ft_print_calc(str, flag, &ft_str_print);
+		return ;
+	}
+	ft_print_calc(str, flag, &ft_str_print, arg);
 }
 
 /*	narrows down specifier and get arg	*/
 
 void	ft_csp_print(const char *format, t_flag *flag, va_list *arg)
 {
-	char	c;
 	char	*str;
 
 	str = NULL;
 	flag->zero = '1';
 	if (*format == 'c')
 	{
-		c = (char)va_arg(*arg, int);
 		flag->spec = 'c';
-		str = ft_str_creater(&c, flag->spec);
+		str = ft_str_creater(" ", flag->spec);
 	}
 	else if (*format == 's')
 	{
@@ -124,5 +116,5 @@ void	ft_csp_print(const char *format, t_flag *flag, va_list *arg)
 		flag->spec = 'p';
 		str = addr_to_str((unsigned long long)va_arg(*arg, unsigned long long));
 	}
-	ft_print_str(str, flag);
+	ft_print_str(str, flag, arg);
 }
