@@ -106,12 +106,10 @@ char	*ft_ftoa(long double number, int len)
 
 	lnbr = number;
 	neg = 0;
-	if (number < 0 && (long long)number == 0)
+	if (1 / number < 0 && (long long)number == 0)
 		neg = 1;
 	temp = ft_strnew(ft_long_len((long long)number) + len + 1 + neg);
-	//ft_putnbr(ft_long_len((long long)number) + neg);
-	//ft_putchar('\n');
-	if (number < 0)
+	if (1 / number < 0)
 		neg = 1;
 	ft_fcalc(number, temp, neg);
 	lnbr = number - (long long)number;
