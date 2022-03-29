@@ -462,6 +462,26 @@ static void	f(void)
 	orig = printf("expect: [%.f]\n", 0.0f);
 	mine = ft_printf("output: [%.f]\n", 0.0f);
 	print_result(orig, mine);
+// test cases to show jeff - everything below
+	printf(YELLOW"\nInput: [%%0#10.1f] number: [%f]\n"UNCOLOR, -0.0f);
+	orig = printf("expect: [%0#10.1f]\n", -0.0f);
+	mine = ft_printf("output: [%0#10.1f]\n", -0.0f);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%%10.f] number: [%f]\n"UNCOLOR, (double)-2);
+	orig = printf("expect: [%10.f]\n", (double)-2);
+	mine = ft_printf("output: [%10.f]\n", (double)-2);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%%#.f][%%#.0f][%%#.15Lf] number: [%f]\n"UNCOLOR, 4.0);
+	orig = printf("expect: [%#.f][%#.0f][%#.15Lf]\n", (double)0, 4.0, 4.5L);
+	mine = ft_printf("output: [%#.f][%#.0f][%#.15Lf]\n", (double)0, 4.0, 4.5L);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%%#.f][%%#.0f][%%#.15Lf] number: [%f]\n"UNCOLOR, 1.500000);
+	orig = printf("expect: [%#.f][%#.0f][%#.15Lf]\n", 1.500000, 1.500000, 1.500000L);
+	mine = ft_printf("output: [%#.f][%#.0f][%#.15Lf]\n", 1.500000, 1.500000, 1.500000L);
+	print_result(orig, mine);
 
 	printf(PURPLE"\nl TEST\n"UNCOLOR);
 	printf("l modifier: ignored does same as without it. takes in double\n");

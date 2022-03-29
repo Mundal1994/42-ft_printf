@@ -23,7 +23,7 @@ static void	ft_digit_to_str(char **temp, char *str, t_flag *flag, int i)
 		len--;
 	if (flag->minus != '-')
 		i -= len;
-	if (flag->prec == 0 && ft_strcmp(str, "0") == 0)
+	if (flag->prec == 0 && ft_strcmp(str, "0") == 0 && flag->spec != 'f')
 	{
 		if (spec_check(flag, 'o', 'x', 'X') == TRUE && flag->hash == TRUE)
 			(*temp)[i] = '0';
@@ -73,7 +73,7 @@ static void	ft_minus_flag_strcpy(char *str, t_flag *flag, int total)
 
 void	ft_digit_print(char *str, t_flag *flag, int total, va_list *arg)
 {
-	if (spec_check(flag, 'd', 'u', 'f') == TRUE || \
+	if (spec_check(flag, 'd', 'u', 'n') == TRUE || \
 		spec_check(flag, 'n', 'x', 'X') == TRUE)
 		if (flag->prec == 0 && ft_strcmp(str, "0") == 0 && flag->width == -1)
 			return ;

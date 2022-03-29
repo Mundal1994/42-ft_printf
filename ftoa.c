@@ -67,9 +67,14 @@ static int	ft_rounding(long double lnbr, int len, char *temp, int *i)
 {
 	int	nbr;
 
-	lnbr = lnbr * ft_pow(10, len);
-	ft_itoa_add_zeros((unsigned long long)lnbr, &temp[*i], len, 1);
-	nbr = temp[ft_strlen(temp) - 1] - '0';
+	if (len != 0)
+	{
+		lnbr = lnbr * ft_pow(10, len);
+		ft_itoa_add_zeros((unsigned long long)lnbr, &temp[*i], len, 1);
+		nbr = temp[ft_strlen(temp) - 1] - '0';
+	}
+	else
+		nbr = temp[*i - 2] - '0';
 	lnbr = lnbr - (unsigned long long)lnbr;
 	if (lnbr > 0.5)
 		return (TRUE);
@@ -96,7 +101,7 @@ static void	*ft_calc_decimals(long double lnbr, int *i, char *temp, int len)
 
 /*	converts float(double) to str	*/
 
-char	*ft_ftoa(long double number, int len)
+char	*ft_ftoa(long double number, int len, t_flag *flag)
 {
 	long double	lnbr;
 	int			i;
@@ -114,7 +119,7 @@ char	*ft_ftoa(long double number, int len)
 	ft_fcalc(number, temp, neg);
 	lnbr = number - (long long)number;
 	i = ft_strlen(temp);
-	if (len != 0)
+	if (len != 0 || (len == 0 && flag->hash == TRUE))
 		ft_calc_decimals(lnbr, &i, temp, len);
 	str = ft_strnew(i + len);
 	ft_strncpy(str, temp, i + len);

@@ -50,6 +50,9 @@ static void	*ft_sign_check_l(char *temp, char *str, t_flag *flag, int *i)
 			ft_sign_print(temp, str, flag, i);
 		else if (flag->zero == '0' && flag->width > 0 && flag->prec == -1)
 			ft_sign_print(temp, str, flag, i);
+		else if (flag->zero == '0' && flag->width > 0 && flag->spec == 'f' \
+			&& flag->len < flag->width)
+			ft_sign_print(temp, str, flag, i);
 	}
 	return (temp);
 }
@@ -111,7 +114,8 @@ void	ft_set_base_str(char *str, t_flag *flag, int total)
 	ft_sign_check_l(&flag->str[index], str, flag, &index);
 	if (str[0] == '-' && spec_check(flag, 'd', 'n', 'f') == TRUE)
 		flag->len--;
-	if (flag->zero == '0' && flag->width > 0 && flag->prec == -1)
+	if (flag->zero == '0' && flag->width > 0 && (flag->prec == -1 || \
+		(flag->spec == 'f' && flag->len < flag->width)))
 		ft_memset(&flag->str[index], '0', total);
 	else if (flag->prec > -1)
 		ft_if_prec_helper(str, flag, &index, total);

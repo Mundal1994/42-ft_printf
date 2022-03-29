@@ -48,6 +48,8 @@ int	spec_check(t_flag *flag, int a, int b, int c)
 
 void	ft_flag_adjuster(t_flag *flag)
 {
+	if (flag->prec >= 0 && flag->spec != 'f')
+		flag->zero = '1';
 	if (flag->star_p == '*' && flag->prec < 0)
 	{
 		if (flag->width > flag->len && flag->zero == '0')
@@ -94,8 +96,6 @@ void	ft_cpy_to_temp_str(char **temp, char *str, t_flag *flag, int i)
 
 void	ft_specifier_check(const char *format, t_flag *flag, va_list *arg)
 {
-	if (flag->prec >= 0)
-		flag->zero = '1';
 	if (flag->space == ' ' && flag->plus == '+')
 		flag->space = '1';
 	if (flag->plus == '+')

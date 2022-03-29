@@ -12,30 +12,6 @@
 
 #include "ft_printf.h"
 
-/*	returns length of double	*/
-/*s
-long	ft_flong_len(double nbr)
-{
-	long	counter;
-
-	counter = 0;
-	if ((nbr >= 0 && nbr < 1) || (nbr <= 0 && nbr > -1))
-		++counter;
-	if (nbr < 0)
-	{
-		nbr *= -1;
-		++counter;
-	}
-	while (nbr >= 1)
-	{
-		nbr /= 10;
-		++counter;
-	}
-	if (nbr / 10 == 0)
-		++counter;
-	return (counter);
-}
-*/
 /*	converts to correct float based on flags	*/
 
 static char	*ft_convert_length_f(char *str, t_flag *flag, double number,
@@ -44,16 +20,16 @@ static char	*ft_convert_length_f(char *str, t_flag *flag, double number,
 	if (flag->prec != -1)
 	{
 		if (flag->b_l)
-			str = ft_ftoa(b_nbr, flag->prec);
+			str = ft_ftoa(b_nbr, flag->prec, flag);
 		else
-			str = ft_ftoa((double)number, flag->prec);
+			str = ft_ftoa((double)number, flag->prec, flag);
 	}
 	else
 	{
 		if (flag->b_l)
-			str = ft_ftoa(b_nbr, 6);
+			str = ft_ftoa(b_nbr, 6, flag);
 		else
-			str = ft_ftoa((double)number, 6);
+			str = ft_ftoa((double)number, 6, flag);
 	}
 	return (str);
 }
