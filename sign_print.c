@@ -16,12 +16,12 @@
 
 static void	*ft_sign_print(char *temp, char *str, t_flag *flag, int *i)
 {
-	if (str[0] == '-' && flag->spec != 'u')
+	if (str[0] == '-')
 	{
 		ft_memset(temp, '-', 1);
 		(*i)++;
 	}
-	else if (flag->plus == '+' && flag->spec != 'u')
+	else if (flag->plus == '+')
 	{
 		ft_memset(temp, '+', 1);
 		(*i)++;

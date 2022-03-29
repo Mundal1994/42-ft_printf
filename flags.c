@@ -132,7 +132,6 @@ void	ft_flag_checker(const char *format, t_flag *flag, va_list *arg)
 	ft_specifier_check(&format[i], flag, arg);
 	if (flag->spec == '1')
 		ft_flag_loop(format, flag, arg, pnt);
-//	if (flag->spec == '1')
-//		ft_putstr("hello\n");
-		//flag->ret = -1;
+	if (flag->spec == '1')
+		flag->ret = 0;
 }

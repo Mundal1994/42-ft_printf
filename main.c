@@ -96,10 +96,15 @@ int	ft_printf(const char *format, ...)
 	va_start(arg, format);
 	if (format)
 	{
-		while (format[flag->i] != '\0' && flag->ret != -1)
+		if (ft_strcmp(format, "%") == 0)
+			flag->ret = 0;
+		else
 		{
-			ft_check_char(format, flag, &arg);
-			flag->i++;
+			while (format[flag->i] != '\0' && flag->ret != -1)
+			{
+				ft_check_char(format, flag, &arg);
+				flag->i++;
+			}
 		}
 	}
 	va_end(arg);

@@ -13,27 +13,29 @@
 #include "ft_printf.h"
 
 /*	returns length of double	*/
-
+/*s
 long	ft_flong_len(double nbr)
 {
 	long	counter;
 
 	counter = 0;
-	if (nbr == 0)
-		return (1);
+	if ((nbr >= 0 && nbr < 1) || (nbr <= 0 && nbr > -1))
+		++counter;
 	if (nbr < 0)
 	{
 		nbr *= -1;
-		counter++;
+		++counter;
 	}
 	while (nbr >= 1)
 	{
 		nbr /= 10;
-		counter++;
+		++counter;
 	}
+	if (nbr / 10 == 0)
+		++counter;
 	return (counter);
 }
-
+*/
 /*	converts to correct float based on flags	*/
 
 static char	*ft_convert_length_f(char *str, t_flag *flag, double number,

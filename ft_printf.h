@@ -41,7 +41,7 @@ typedef struct s_flag
 
 int		ft_printf(const char *format, ...);
 void	ft_flag_checker(const char *format, t_flag *flag, va_list *arg);
-int		ft_specifier_check(const char *format, t_flag *flag, va_list *arg);
+void	ft_specifier_check(const char *format, t_flag *flag, va_list *arg);
 void	ft_print_calc(char *str, t_flag *flag, void (*f)(char *, t_flag *, \
 		int, va_list *), va_list *arg);
 void	ft_digit_print(char *str, t_flag *flag, int total, va_list *arg);
@@ -53,7 +53,7 @@ int		spec_check(t_flag *flag, int a, int b, int c);
 void	ft_cpy_to_temp_str(char **temp, char *str, t_flag *flag, int i);
 char	*ft_ftoa(long double number, int len);
 void	ft_check_correct_end(char *str, int up);
-long	ft_flong_len(double nbr);
+//long	ft_flong_len(double nbr);
 void	ft_i_reset(const char *format, t_flag *flag);
 int		ft_color_print(const char *str, t_flag *flag);
 int		ft_str_i_calc(int len, t_flag *flag);

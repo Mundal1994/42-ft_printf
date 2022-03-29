@@ -116,5 +116,7 @@ void	ft_ox_print(const char *format, t_flag *flag, va_list *arg)
 		str = ft_convert_length_ox(str, flag, nbr);
 		ft_striter_uplow(str, &ft_toupper);
 	}
+	if (ft_strcmp(str, "0") == 0 && spec_check(flag, 'n', 'x', 'X') == TRUE)
+			flag->hash = FALSE;
 	ft_print_calc(str, flag, &ft_digit_print, arg);
 }

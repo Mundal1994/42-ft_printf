@@ -37,19 +37,23 @@ int neg)
 
 /*	takes number and stores it in a string	*/
 
-static void	ft_fcalc(long long number, char *temp)
+static void	ft_fcalc(long long number, char *temp, int neg)
 {
 	long	nbr;
-	int		neg;
 
-	if ((int)number == 0)
+	if ((long long)number == 0)
 	{
-		temp[0] = '0';
+		if (neg == 1)
+		{
+			temp[0] = '-';
+			temp[1] = '0';
+		}
+		else
+			temp[0] = '0';
 		return ;
 	}
-	neg = 1;
 	nbr = (long long)number;
-	if (nbr < 0)
+	if (neg == 1)
 	{
 		neg = -1;
 		nbr *= neg;
@@ -76,29 +80,44 @@ static int	ft_rounding(long double lnbr, int len, char *temp, int *i)
 	return (FALSE);
 }
 
+/*	calculates digits	*/
+
+static void	*ft_calc_decimals(long double lnbr, int *i, char *temp, int len)
+{
+	int	up;
+
+	if (lnbr < 0)
+		lnbr *= -1;
+	temp[(*i)++] = '.';
+	up = ft_rounding(lnbr, len, temp, i);
+	ft_check_correct_end(temp, up);
+	return (temp);
+}
+
 /*	converts float(double) to str	*/
 
 char	*ft_ftoa(long double number, int len)
 {
 	long double	lnbr;
 	int			i;
-	int			up;
+	int			neg;
 	char		*temp;
 	char		*str;
 
 	lnbr = number;
-	temp = ft_strnew(ft_flong_len(number) + len + 2);
-	ft_fcalc(number, temp);
+	neg = 0;
+	if (number < 0 && (long long)number == 0)
+		neg = 1;
+	temp = ft_strnew(ft_long_len((long long)number) + len + 1 + neg);
+	//ft_putnbr(ft_long_len((long long)number) + neg);
+	//ft_putchar('\n');
+	if (number < 0)
+		neg = 1;
+	ft_fcalc(number, temp, neg);
 	lnbr = number - (long long)number;
 	i = ft_strlen(temp);
 	if (len != 0)
-	{
-		if (lnbr < 0)
-			lnbr *= -1;
-		temp[i++] = '.';
-		up = ft_rounding(lnbr, len, temp, &i);
-		ft_check_correct_end(temp, up);
-	}
+		ft_calc_decimals(lnbr, &i, temp, len);
 	str = ft_strnew(i + len);
 	ft_strncpy(str, temp, i + len);
 	ft_strdel(&temp);

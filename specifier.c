@@ -92,7 +92,7 @@ void	ft_cpy_to_temp_str(char **temp, char *str, t_flag *flag, int i)
 
 /*	narrows down correct specifier and resets i in main loop to correct pos	*/
 
-int	ft_specifier_check(const char *format, t_flag *flag, va_list *arg)
+void	ft_specifier_check(const char *format, t_flag *flag, va_list *arg)
 {
 	if (flag->prec >= 0)
 		flag->zero = '1';
@@ -111,7 +111,6 @@ int	ft_specifier_check(const char *format, t_flag *flag, va_list *arg)
 	else if (*format == 'f' || *format == '%')
 		ft_fp_print(format, flag, arg);
 	else
-		return (FALSE);
+		return ;
 	ft_i_reset(format, flag);
-	return (TRUE);
 }

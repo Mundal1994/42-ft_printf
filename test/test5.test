@@ -240,7 +240,7 @@ static void	error(void)
 
 	printf(YELLOW"\nInput: %%\n"UNCOLOR);
 	ret = ft_printf("%\n");
-	printf("expect return: -1\n");
+	printf("expect return: 0\n");
 	ft_putstr("output return: ");
 	ft_putnbr(ret);
 	ft_putchar('\n');
