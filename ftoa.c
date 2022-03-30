@@ -63,18 +63,18 @@ static void	ft_fcalc(long long number, char *temp, int neg)
 
 /*	calculates if we need to round up or not when deciding decimal length	*/
 
-static int	ft_rounding(long double lnbr, int len, char *temp, int *i)
+static int	ft_rounding(long double lnbr, int len, char *temp, int i)
 {
 	int	nbr;
 
 	if (len != 0)
 	{
 		lnbr = lnbr * ft_pow(10, len);
-		ft_itoa_add_zeros((unsigned long long)lnbr, &temp[*i], len, 1);
+		ft_itoa_add_zeros((unsigned long long)lnbr, &temp[i], len, 1);
 		nbr = temp[ft_strlen(temp) - 1] - '0';
 	}
 	else
-		nbr = temp[*i - 2] - '0';
+		nbr = temp[i - 2] - '0';
 	lnbr = lnbr - (unsigned long long)lnbr;
 	if (lnbr > 0.5)
 		return (TRUE);
@@ -87,13 +87,18 @@ static int	ft_rounding(long double lnbr, int len, char *temp, int *i)
 
 /*	calculates digits	*/
 
-static void	*ft_calc_decimals(long double lnbr, int *i, char *temp, int len)
+static void	*ft_calc_decimals(long double lnbr, char *temp, int len, t_flag *flag)
 {
 	int	up;
+	int	i;
 
+	i = ft_strlen(temp);
 	if (lnbr < 0)
 		lnbr *= -1;
-	temp[(*i)++] = '.';
+	if (len != 0 || (len == 0 && flag->hash == TRUE))
+		temp[i++] = '.';
+	else
+		i++;
 	up = ft_rounding(lnbr, len, temp, i);
 	ft_check_correct_end(temp, up);
 	return (temp);
@@ -118,9 +123,8 @@ char	*ft_ftoa(long double number, int len, t_flag *flag)
 		neg = 1;
 	ft_fcalc(number, temp, neg);
 	lnbr = number - (long long)number;
+	ft_calc_decimals(lnbr, temp, len, flag);
 	i = ft_strlen(temp);
-	if (len != 0 || (len == 0 && flag->hash == TRUE))
-		ft_calc_decimals(lnbr, &i, temp, len);
 	str = ft_strnew(i + len);
 	ft_strncpy(str, temp, i + len);
 	ft_strdel(&temp);

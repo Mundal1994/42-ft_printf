@@ -483,6 +483,11 @@ static void	f(void)
 	mine = ft_printf("output: [%#.f][%#.0f][%#.15Lf]\n", 1.500000, 1.500000, 1.500000L);
 	print_result(orig, mine);
 
+	printf(YELLOW"\nInput: [%%10.f][%%10.0f][%%10.15Lf] number: [%f]\n"UNCOLOR, -3.500000);
+	orig = printf("expect: [%10.f][%10.0f][%10.15Lf]\n", -3.500000, -3.500000, -3.500000L);
+	mine = ft_printf("output: [%10.f][%10.0f][%10.15Lf]\n", -3.500000, -3.500000, -3.500000L);
+	print_result(orig, mine);
+
 	printf(PURPLE"\nl TEST\n"UNCOLOR);
 	printf("l modifier: ignored does same as without it. takes in double\n");
 	double doub = 25.20;
