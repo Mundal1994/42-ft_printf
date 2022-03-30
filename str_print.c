@@ -60,7 +60,10 @@ static void	ft_str_print(char *str, t_flag *flag, int total, va_list *arg)
 		return ;
 	if (flag->spec == 'p' && ft_strncmp(str, "0x0", 3) == 0 && flag->prec > 0)
 	{
-		total = flag->prec + 2;
+		if (flag->width > flag->prec && flag->width > flag->len)
+			total = flag->width;
+		else
+			total = flag->prec + 2;
 		flag->prec += 2;
 	}
 	ft_print_depend_on_char(str, flag, total, c);
@@ -122,7 +125,8 @@ void	ft_csp_print(const char *format, t_flag *flag, va_list *arg)
 	else if (*format == 'p')
 	{
 		flag->spec = 'p';
-		str = addr_to_str((unsigned long long)va_arg(*arg, unsigned long long), flag->prec);
+		str = addr_to_str((unsigned long long)va_arg(*arg, unsigned long long), \
+		flag->prec);
 	}
 	ft_print_str(str, flag, arg);
 }

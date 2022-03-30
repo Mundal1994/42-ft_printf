@@ -303,24 +303,6 @@ static void	c(void)
 	orig = printf("expect: [%-5c]\n", 42);
 	mine = ft_printf("output: [%-5c]\n", 42);
 	print_result(orig, mine);
-
-/*
-	printf(YELLOW"\n[%%2c]\n"UNCOLOR);
-	orig = printf("expect: [%2c]\n", 0);
-	mine = ft_printf("output: [%2c]\n", 0);
-	print_result(orig, mine);
-
-	printf(YELLOW"\n[%% c]\n"UNCOLOR);
-	orig = printf("expect: [% c]\n", 0);
-	mine = ft_printf("output: [% c]\n", 0);
-	print_result(orig, mine);*/
-
-	/*
-	printf(YELLOW"\n[%%-4.3c]\n"UNCOLOR);
-	orig = printf("expect: [%-4.3c]\n", c);
-	mine = ft_printf("output: [%-4.3c]\n", c);
-	print_result(orig, mine);
-	*/
 }
 
 static void	s(void)
@@ -492,16 +474,6 @@ static void	s(void)
 	orig = printf("expect: [%4.15s]\n", "I am 42");
 	mine = ft_printf("output: [%4.15s]\n","I am 42");
 	print_result(orig, mine);
-
-/*
-	int orig;
-	int mine;
-
-	str = "hello";
-	printf(YELLOW"\n[%s]\n"UNCOLOR, str);
-	orig = printf("expect: [%#s]\n", str);
-	mine = ft_printf("output: [%#s]\n", str);
-	print_result(orig, mine);*/
 }
 
 static void	p(void)
@@ -554,52 +526,6 @@ static void	p(void)
 	orig = printf("expect: [%p]\n", pnt);
 	mine = ft_printf("output: [%p]\n", pnt);
 	print_result(orig, mine);
-
-	printf(YELLOW"\n[%%.5p  0x0]\n"UNCOLOR);
-	orig = printf("expect: [0x00000]\n");
-	mine = ft_printf("output: [%.5p]\n", pnt);
-	print_result(orig, mine);
-/*
-	Testcing precision specifier on pointer
-[ OK! ] [ OK! ] [ NOT OK! ]
-Resulting diff output format:
-< Standard C printf results
----
-> ft_printf results
-
-1c1$
-< 0x00000$
-\ No newline at end of file$
----$
->   0x0$
-\ No newline at end of file$
-
-Testing field width specifiers*/
-/*
-	printf(YELLOW"\n[%%.5p] number: [%d]\n"UNCOLOR, 0);
-	orig = printf("expect: [%.5p]\n", (void *)0);
-	mine = ft_printf("output: [%.5p]\n", (void *)0);
-	print_result(orig, mine);
-
-	printf(YELLOW"\n[%%9.2p] number: [%d]\n"UNCOLOR, 1234);
-	orig = printf("expect: [%9.2p]\n", (void *)1234);
-	mine = ft_printf("output: [%9.2p]\n", (void *)1234);
-	print_result(orig, mine);
-
-	printf(YELLOW"\n[%%9.2p] number: [%d]\n"UNCOLOR, 1234567);
-	orig = printf("expect: [%9.2p]\n", (void *)1234567);
-	mine = ft_printf("output: [%9.2p]\n", (void *)1234567);
-	print_result(orig, mine);
-
-	printf(YELLOW"\n[%%2.9p] number: [%d]\n"UNCOLOR, 1234);
-	orig = printf("expect: [%2.9p]\n", (void *)1234);
-	mine = ft_printf("output: [%2.9p]\n", (void *)1234);
-	print_result(orig, mine);
-
-	printf(YELLOW"\n[%%2.9p] number: [%d]\n"UNCOLOR, 1234567);
-	orig = printf("expect: [%2.9p]\n", (void *)1234567);
-	mine = ft_printf("output: [%2.9p]\n", (void *)1234567);
-	print_result(orig, mine);*/
 }
 
 int main(void)

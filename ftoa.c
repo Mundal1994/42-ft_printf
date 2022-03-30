@@ -87,11 +87,12 @@ static int	ft_rounding(long double lnbr, int len, char *temp, int i)
 
 /*	calculates digits	*/
 
-static void	*ft_calc_decimals(long double lnbr, char *temp, int len, t_flag *flag)
+static void	*ft_calc_decimals(long double lnbr, char *temp, int len, \
+t_flag *flag)
 {
-	int	up;
-	int	i;
-	char *str;
+	int		up;
+	int		i;
+	char	*str;
 
 	i = ft_strlen(temp);
 	if (lnbr < 0)
@@ -110,24 +111,18 @@ static void	*ft_calc_decimals(long double lnbr, char *temp, int len, t_flag *fla
 char	*ft_ftoa(long double number, int len, t_flag *flag)
 {
 	long double	lnbr;
-	int			i;
 	int			neg;
-	char		*temp;
 	char		*str;
 
 	lnbr = number;
 	neg = 0;
 	if (1 / number < 0 && (long long)number == 0)
 		neg = 1;
-	temp = ft_strnew(ft_long_len((long long)number) + len + 1 + neg);
+	str = ft_strnew(ft_long_len((long long)number) + len + 1 + neg);
 	if (1 / number < 0)
 		neg = 1;
-	ft_fcalc(number, temp, neg);
+	ft_fcalc(number, str, neg);
 	lnbr = number - (long long)number;
-	temp = ft_calc_decimals(lnbr, temp, len, flag);
-	i = ft_strlen(temp);
-	str = ft_strnew(i + len);
-	ft_strncpy(str, temp, i + len);
-	ft_strdel(&temp);
+	str = ft_calc_decimals(lnbr, str, len, flag);
 	return (str);
 }

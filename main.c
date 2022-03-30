@@ -96,9 +96,7 @@ int	ft_printf(const char *format, ...)
 	va_start(arg, format);
 	if (format)
 	{
-		if (ft_strcmp(format, "%") == 0)
-			flag->ret = 0;
-		else
+		if (!(ft_strcmp(format, "%") == 0))
 		{
 			while (format[flag->i] != '\0' && flag->ret != -1)
 			{

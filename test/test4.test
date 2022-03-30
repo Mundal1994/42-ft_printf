@@ -423,11 +423,6 @@ static void	f(void)
 	mine = ft_printf("output: [%.17f]\n", 2.5555545);
 	print_result(orig, mine);
 
-	printf(YELLOW"\nInput: [%%f] number: [%f]\n"UNCOLOR,9.9999999);
-	orig = printf("expect: [%f]\n", 9.9999999);
-	mine = ft_printf("output: [%f]\n", 9.9999999);
-	print_result(orig, mine);
-
 	printf(YELLOW"\nInput: [%%0.4f] number: [%f]\n"UNCOLOR,0.00035);
 	orig = printf("expect: [%0.4f]\n", 0.00035);
 	mine = ft_printf("output: [%0.4f]\n", 0.00035);
@@ -591,7 +586,11 @@ static void	f(void)
 	mine = ft_printf("output: [%Lf]\n", -1444565444646.6465424242242454654l);
 	print_result(orig, mine);
 	
-	
+	printf(YELLOW"\nInput: [%%f] number: [%f]\n"UNCOLOR,9.9999999);
+	orig = printf("expect: [%f]\n", 9.9999999);
+	mine = ft_printf("output: [%f]\n", 9.9999999);
+	print_result(orig, mine);
+
 }
 
 int main(void)
