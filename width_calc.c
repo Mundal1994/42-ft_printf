@@ -25,8 +25,8 @@ static int	ft_check_flags_ox(char *str, t_flag *flag, int total)
 	if (flag->hash == TRUE && flag->width == -1 && flag->prec == -1 && \
 		ft_strcmp(str, "0") == 0)
 		return (total);
-	if (flag->hash == TRUE && (flag->width < flag->len && flag->width > \
-		flag->prec) || (flag->prec > flag->len && flag->width < flag->prec))
+	if (flag->hash == TRUE && ((flag->width < flag->len && flag->width > \
+		flag->prec) || (flag->prec > flag->len && flag->width < flag->prec)))
 	{
 		if (flag->spec == 'o')
 		{
@@ -58,6 +58,8 @@ static int	ft_check_flags(char *str, t_flag *flag, int total)
 	}
 	return (total);
 }
+
+/*	specific precision and width cases when specifier is c, s or p	*/
 
 static int	ft_len_calc_helper(t_flag *flag, int i)
 {

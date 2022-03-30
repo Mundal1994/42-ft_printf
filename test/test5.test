@@ -52,21 +52,7 @@ static void	compare_results(int number, int number2, char c)
 		orig = printf("expect: [%*c]\n", number, number2);
 		mine = ft_printf("output: [%*c]\n", number, number2);
 		print_result(orig, mine);
-	}/*
-	else if (c == 's')
-	{
-		printf(YELLOW"\nInput: [%d][%d]\n"UNCOLOR, number, number2);
-		orig = printf("expect: [%*s]\n", number, number2);
-		mine = ft_printf("output: [%*s]\n", number, number2);
-		print_result(orig, mine);
 	}
-	else if (c == 'p')
-	{
-		printf(YELLOW"\nInput: [%d][%d]\n"UNCOLOR, number, number2);
-		orig = printf("expect: [%*p]\n", number, number2);
-		mine = ft_printf("output: [%*p]\n", number, number2);
-		print_result(orig, mine);
-	}*/
 }
 
 static void	compare_results_width_prec(int number, int number2, int number3)
