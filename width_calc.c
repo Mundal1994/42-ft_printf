@@ -22,23 +22,22 @@ static int	ft_check_flags_ox(char *str, t_flag *flag, int total)
 			return (1);
 		return (0);
 	}
-	if (flag->hash == TRUE)
+	if (flag->hash == TRUE && flag->width == -1 && flag->prec == -1 && \
+		ft_strcmp(str, "0") == 0)
+		return (total);
+	if (flag->hash == TRUE && (flag->width < flag->len && flag->width > \
+		flag->prec) || (flag->prec > flag->len && flag->width < flag->prec))
 	{
-		if (flag->width == -1 && flag->prec == -1 && ft_strcmp(str, "0") == 0)
-			return (total);
-		if ((flag->width < flag->len && flag->width > flag->prec) || (flag->prec > flag->len && flag->width < flag->prec))
+		if (flag->spec == 'o')
 		{
-			if (flag->spec == 'o')
-			{
-				if (flag->prec <= flag->len)
-					return (++total);
-				if (flag->width < flag->prec)
-					return (total);
-			}
-			total++;
-			if (spec_check(flag, 'n', 'x', 'X') == TRUE)
-				total++;
+			if (flag->prec <= flag->len)
+				return (++total);
+			if (flag->width < flag->prec)
+				return (total);
 		}
+		total++;
+		if (spec_check(flag, 'n', 'x', 'X') == TRUE)
+			total++;
 	}
 	return (total);
 }
