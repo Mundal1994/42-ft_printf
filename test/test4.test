@@ -74,28 +74,12 @@ static void	f(void)
 
 	// FLOAT
 	float flo = FLT_MAX;
-	//compare_results_f(flo);
 
 	flo = 25.0250509999;
 	compare_results_f(flo);
 
-	//flo = FLT_MIN;
-	//compare_results_f(flo);
-
 	flo = -25.02505;
 	compare_results_f(flo);
-
-	/*flo = DBL_MAX;
-	printf(YELLOW"\nInput: [%lf]\n"UNCOLOR, flo);
-	orig = printf("expect: [%lf]\n", flo);
-	mine = ft_printf("output: [%lf]\n", flo);
-	print_result(orig, mine);
-
-	flo = DBL_MIN;
-	printf(YELLOW"\nInput: [%lf]\n"UNCOLOR, flo);
-	orig = printf("expect: [%lf]\n", flo);
-	mine = ft_printf("output: [%lf]\n", flo);
-	print_result(orig, mine);*/
 
 	flo = 0.559499999;
 	compare_results_f(flo);
@@ -438,6 +422,11 @@ static void	f(void)
 	mine = ft_printf("output: [%0.4f]\n", 0.00025);
 	print_result(orig, mine);
 
+	printf(YELLOW"\nInput: [%%f] number: [%f]\n"UNCOLOR,9.9999999);
+	orig = printf("expect: [%f]\n", 9.9999999);
+	mine = ft_printf("output: [%f]\n", 9.9999999);
+	print_result(orig, mine);
+
 	printf(YELLOW"\nInput: [%%+0f] number: [%f]\n"UNCOLOR,-0.005000);
 	orig = printf("expect: [%+0f]\n", -0.005000);
 	mine = ft_printf("output: [%+0f]\n", -0.005000);
@@ -488,19 +477,10 @@ static void	f(void)
 	double doub = 25.20;
 	compare_results_f_l(doub);
 
-	//doub = DBL_MAX;
-	//compare_results_f_l(doub);
-
-	//doub = DBL_MIN;
-	//compare_results_f_l(doub);
-
 	printf(PURPLE"\nL TEST\n"UNCOLOR);
 	printf("L modifier: converts long double into int or unsigned int and the L makes sure it changes back to orig\n");
 	long double ldoub = 740992.051452552;
 	compare_results_f_L(ldoub);
-
-	//ldoub = LDBL_MAX;
-	//compare_results_f_L(ldoub);
 
 	ldoub = 1.0000000000000000000000000000000001926;
 	compare_results_f_L(ldoub);
@@ -512,19 +492,6 @@ static void	f(void)
 	orig = printf("expect: [%.18Lf]\n", ldoub);
 	mine = ft_printf("output: [%.18Lf]\n", ldoub);
 	print_result(orig, mine);
-/*
-	printf("%f: ", 1234567.89);
-	orig = printf("%'.2f\n", 1234567.89);
-	print_result(orig);
-	printf("%f: ", 1234567.8908);
-	orig = printf("%'.2f\n", 1234567.8908);
-	print_result(orig);
-	printf("%f: ", 1234567.8);
-	orig = printf("%'.2f\n", 1234567.8);
-	print_result(orig);*/
-	//mine = ft_printf("%d", number);
-	//printf("Expected: [%d]	output: [%s]\n", , "5");
-	//print_OK(strcmp(printf("%d", number), "5"));
 
 	printf(YELLOW"\nInput: [%f]\n"UNCOLOR, 1.42);
 	orig = printf("expect: [%f]\n", 1.42);
@@ -585,12 +552,6 @@ static void	f(void)
 	orig = printf("expect: [%Lf]\n", -1444565444646.6465424242242454654l);
 	mine = ft_printf("output: [%Lf]\n", -1444565444646.6465424242242454654l);
 	print_result(orig, mine);
-	
-	printf(YELLOW"\nInput: [%%f] number: [%f]\n"UNCOLOR,9.9999999);
-	orig = printf("expect: [%f]\n", 9.9999999);
-	mine = ft_printf("output: [%f]\n", 9.9999999);
-	print_result(orig, mine);
-
 }
 
 int main(void)

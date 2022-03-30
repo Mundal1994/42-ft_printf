@@ -39,7 +39,7 @@ static int	ft_correct_end_loop(char *str, int add, int up)
 	five = FALSE;
 	total = ft_strlen(str) - 1;
 	i = total;
-	while (i != -1 && (i >= total || add == TRUE))
+	while (i >= 0 && (i >= total || add == TRUE))
 	{
 		if (str[i] == '.')
 			i -= 1;

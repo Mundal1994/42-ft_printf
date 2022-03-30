@@ -220,30 +220,30 @@ static void	bonus(void)
 	print_result(orig, mine);
 }
 
-static void	error(void)
+static void	mix(void)
 {
-	int	ret;
+	int	orig;
+	int	mine;
 
-	printf(YELLOW"\nInput: %% qi\n"UNCOLOR);
-	ret = ft_printf("% qi\n");
-	printf("expect return: -1\n");
-	ft_putstr("output return: ");
-	ft_putnbr(ret);
-	ft_putchar('\n');
-	
-	printf(YELLOW"\nInput: %%.0-d hi\n"UNCOLOR);
-	ret = ft_printf("%.0-d hi\n", 5);
-	printf("expect return: -1\n");
-	ft_putstr("output return: ");
-	ft_putnbr(ret);
-	ft_putchar('\n');
+	printf(YELLOW"\nInput: [%%-10.5d][%%5s][%%c]\n"UNCOLOR);
+	orig = printf("expect: [%-10.5d][%5s][%c]\n", 900999, "hello my", 'j');
+	mine = ft_printf("expect: [%-10.5d][%5s][%c]\n", 900999, "hello my", 'j');
+	print_result(orig, mine);
 
-	printf(YELLOW"\nInput: %%\n"UNCOLOR);
-	ret = ft_printf("%\n");
-	printf("expect return: 0\n");
-	ft_putstr("output return: ");
-	ft_putnbr(ret);
-	ft_putchar('\n');
+	printf(YELLOW"\nInput: [%%-1f][%%.5s][%%3c]\n"UNCOLOR);
+	orig = printf("expect: [%-1f][%.5s][%3c]\n", 9.99, "hiiiii", 'n');
+	mine = ft_printf("output: [%-1f][%.5s][%3c]\n", 9.99, "hiiiii", 'n');
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%%#-10.5x][%%d][%%1s]\n"UNCOLOR);
+	orig = printf("expect: [%#-10.5x][%d][%1s]\n", 104, 12, "hi");
+	mine = ft_printf("output: [%#-10.5x][%d][%1s]\n", 104, 12, "hi");
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%%#-10.5o][%%-10.5d][%%1s]\n"UNCOLOR);
+	orig = printf("expect: [%#-10.5o][%-10.5d][%1s]\n", 104, 12, "hi");
+	mine = ft_printf("output: [%#-10.5o][%-10.5d][%1s]\n", 104, 12, "hi");
+	print_result(orig, mine);
 }
 
 int main(void)
@@ -255,5 +255,5 @@ int main(void)
 	bonus();
 
 	printf(PURPLE"error test\n"UNCOLOR);
-	error();
+	mix();
 }

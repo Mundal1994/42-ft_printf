@@ -26,7 +26,7 @@ static int	ft_check_flags_ox(char *str, t_flag *flag, int total)
 	{
 		if (flag->width == -1 && flag->prec == -1 && ft_strcmp(str, "0") == 0)
 			return (total);
-		if (flag->width < flag->len || flag->prec > flag->len)
+		if ((flag->width < flag->len && flag->width > flag->prec) || (flag->prec > flag->len && flag->width < flag->prec))
 		{
 			if (flag->spec == 'o')
 			{
