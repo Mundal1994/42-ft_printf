@@ -162,6 +162,16 @@ static void	percentage_print(void)
 	orig = printf("expect: [%010%]\n");
 	mine = ft_printf("output: [%010%]\n");
 	print_result(orig, mine);
+
+	printf("\n");
+	orig = printf("expect: [%05.10%]\n");
+	mine = ft_printf("output: [%05.10%]\n");
+	print_result(orig, mine);
+
+	printf("\n");
+	orig = printf("expect: [% .10%]\n");
+	mine = ft_printf("output: [% .10%]\n");
+	print_result(orig, mine);
 }
 
 static void	c(void)
@@ -542,6 +552,8 @@ static void	p(void)
 
 int main(void)
 {
+	char *str = "hello";
+	compare_string(str);
 	printf(PURPLE"BASIC STRING TEST\n"UNCOLOR);
 	basic();
 

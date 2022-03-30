@@ -465,6 +465,21 @@ static void	o(void)
 	mine = ft_printf("output: [%#.o]\n", 42);
 	print_result(orig, mine);
 
+	printf(YELLOW"\nInput: [%%#1o] number: [%o]\n"UNCOLOR, 3);
+	orig = printf("expect: [%#1o]\n", 3);
+	mine = ft_printf("output: [%#1o]\n", 3);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%%#10o] number: [%o]\n"UNCOLOR, 0);
+	orig = printf("expect: [%#10o]\n", 0);
+	mine = ft_printf("output: [%#10o]\n", 0);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%%-#5o] number: [%o]\n"UNCOLOR, 0);
+	orig = printf("expect: [%-#5o]\n", 0);
+	mine = ft_printf("output: [%-#5o]\n", 0);
+	print_result(orig, mine);
+
 	// with flags hh
 	unsigned char	c = '5';
 	printf(PURPLE"\nhh TEST\n"UNCOLOR);
@@ -1046,6 +1061,36 @@ static void	X(void)
 	printf(YELLOW"\nInput: [%%#-10.5x] number: [%X]\n"UNCOLOR, 104);
 	orig = printf("expect: [%#-10.5x]\n", 104);
 	mine = ft_printf("output: [%#-10.5x]\n", 104);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%%#2X] number: [%X]\n"UNCOLOR, 8);
+	orig = printf("expect: [%#2X]\n", 8);
+	mine = ft_printf("output: [%#2X]\n", 8);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%%#10.7X] number: [%X]\n"UNCOLOR, 38);
+	orig = printf("expect: [%#10.7X]\n", 38);
+	mine = ft_printf("output: [%#10.7X]\n", 38);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%%#1X] number: [%X]\n"UNCOLOR, 3);
+	orig = printf("expect: [%#1X]\n", 3);
+	mine = ft_printf("output: [%#1X]\n", 3);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%%0#10.1X] number: [%X]\n"UNCOLOR, 0);
+	orig = printf("expect: [%0#10.1X]\n", 0);
+	mine = ft_printf("output: [%0#10.1X]\n", 0);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%%0#10.1o] number: [%X]\n"UNCOLOR, 0);
+	orig = printf("expect: [%0#10.1o]\n", 0);
+	mine = ft_printf("output: [%0#10.1o]\n", 0);
+	print_result(orig, mine);
+
+	printf(YELLOW"\nInput: [%%0#10.5o] number: [%X]\n"UNCOLOR, 0);
+	orig = printf("expect: [%0#10.5o]\n", 0);
+	mine = ft_printf("output: [%0#10.5o]\n", 0);
 	print_result(orig, mine);
 
 	// with flags hh

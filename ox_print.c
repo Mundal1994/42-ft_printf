@@ -12,43 +12,6 @@
 
 #include "ft_printf.h"
 
-/*	puts 0x into string	*/
-
-void	*ft_hash_print(char *temp, t_flag *flag, int *index)
-{
-	ft_memset(temp, '0', 1);
-	++(*index);
-	if (flag->spec == 'x')
-	{
-		++(*index);
-		ft_memset(&temp[1], 'x', 1);
-	}
-	if (flag->spec == 'X')
-	{
-		++(*index);
-		ft_memset(&temp[1], 'X', 1);
-	}
-	return (temp);
-}
-
-/*	checks if the conditions for putting hash has been meet	*/
-
-void	*ft_hash_sign_check(char *temp, char *str, t_flag *flag, int *i)
-{
-	if (flag->minus == '-')
-		ft_hash_print(temp, flag, i);
-	else if (flag->zero == '0' && flag->width >= 0 && flag->prec == -1)
-		ft_hash_print(temp, flag, i);
-	else if (flag->width == -1 && flag->prec == -1)
-		ft_hash_print(temp, flag, i);
-	else if (flag->prec > (int)ft_strlen(str))
-		ft_hash_print(temp, flag, i);
-	else if (flag->prec < (int)ft_strlen(str) && flag->prec != -1 && \
-		flag->width < (int)ft_strlen(str))
-		ft_hash_print(temp, flag, i);
-	return (temp);
-}
-
 /*	loops through string and changes either toupper or tolower	*/
 
 static void	ft_striter_uplow(char *str, int (*f)(int))
@@ -118,5 +81,5 @@ void	ft_ox_print(const char *format, t_flag *flag, va_list *arg)
 	}
 	if (ft_strcmp(str, "0") == 0 && spec_check(flag, 'n', 'x', 'X') == TRUE)
 			flag->hash = FALSE;
-	ft_print_calc(str, flag, &ft_digit_print, arg);
+	ft_print_calc(str, flag, arg);
 }

@@ -41,12 +41,13 @@ static void	ft_percentage_print(const char *format, t_flag *flag, va_list *arg)
 	char	*str;
 
 	str = NULL;
+	flag->prec = -1;
 	if (*format == '%')
 	{
 		flag->spec = 'u';
 		str = ft_strnew(1);
 		str[0] = '%';
-		ft_print_calc(str, flag, &ft_digit_print, arg);
+		ft_print_calc(str, flag, arg);
 	}
 }
 
@@ -74,7 +75,7 @@ void	ft_fp_print(const char *format, t_flag *flag, va_list *arg)
 			number = va_arg(*arg, double);
 			str = ft_convert_length_f(str, flag, number, b_number);
 		}
-		ft_print_calc(str, flag, &ft_digit_print, arg);
+		ft_print_calc(str, flag, arg);
 	}
 	else
 		ft_percentage_print(format, flag, arg);

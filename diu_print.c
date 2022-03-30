@@ -70,5 +70,5 @@ void	ft_diu_print(const char *format, t_flag *flag, va_list *arg)
 		str = ft_convert_length_u(str, flag, var);
 		flag->spec = 'u';
 	}
-	ft_print_calc(str, flag, &ft_digit_print, arg);
+	ft_print_calc(str, flag, arg);
 }

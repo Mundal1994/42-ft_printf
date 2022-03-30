@@ -12,25 +12,6 @@
 
 #include "ft_printf.h"
 
-/*
-**	function called from str_print.c from function ft_cpy_to_temp_str
-**	helps calculate how much of string should be copied into final string
-*/
-
-int	ft_str_i_calc(int len, t_flag *flag)
-{
-	int	dif;
-
-	dif = flag->prec - len;
-	if (dif < 0)
-	{
-		if (flag->prec == -1)
-			return (len);
-		return (flag->prec);
-	}
-	return (len);
-}
-
 /*	checks if any of the specifiers inputtet is correct	*/
 
 int	spec_check(t_flag *flag, int a, int b, int c)
@@ -68,28 +49,6 @@ void	ft_flag_adjuster(t_flag *flag)
 	}
 	if (flag->prec >= flag->width && spec_check(flag, 'c', 's', 'p') == FALSE)
 		flag->width = -1;
-}
-
-/*	copies final content of string into main str	*/
-
-void	ft_cpy_to_temp_str(char **temp, char *str, t_flag *flag, int i)
-{
-	int	remain;
-
-	if (flag->spec == 'p' && flag->prec == 0)
-	{
-		remain = 2;
-		if (flag->minus != '-')
-			i -= remain;
-		ft_strncpy(&(*temp)[i], str, remain);
-	}
-	else
-	{
-		remain = ft_str_i_calc(flag->len, flag);
-		if (flag->minus != '-')
-			i -= remain;
-		ft_strncpy(&(*temp)[i], str, remain);
-	}
 }
 
 /*	narrows down correct specifier and resets i in main loop to correct pos	*/

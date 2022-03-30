@@ -17,16 +17,16 @@ CC = gcc -Wall -Wextra -Werror -I ./libft
 SRC = main.c
 SRC += flags.c
 SRC += specifier.c
-SRC += width_calc.c
-SRC += str_print.c
-SRC += digit_calc.c
-SRC += digit_print.c
+SRC += print_str.c
+SRC += prec_str.c
+SRC += width_str.c
+SRC += csp_print.c
+SRC += diu_print.c
 SRC += ox_print.c
 SRC += fp_print.c
 SRC += ftoa.c
 SRC += ftoa_end.c
 SRC += bonus.c
-SRC += sign_print.c
 SRC += error.c
 
 OBJ = $(SRC:.c=.o)
