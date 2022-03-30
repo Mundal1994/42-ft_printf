@@ -48,7 +48,8 @@ static void	ft_minus_flag_strcpy(char *str, t_flag *flag, int total)
 
 	i = 0;
 	new_total = total;
-	if (str[0] == '-' || flag->plus == '+' || flag->space == ' ')
+	if ((str[0] == '-' || flag->plus == '+' || flag->space == ' ') && \
+		flag->spec != 'u')
 		++new_total;
 	if (spec_check(flag, 'n', 'x', 'X') == TRUE && flag->hash == TRUE)
 		i += 2;

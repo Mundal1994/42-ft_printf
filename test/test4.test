@@ -462,7 +462,7 @@ static void	f(void)
 	orig = printf("expect: [%.f]\n", 0.0f);
 	mine = ft_printf("output: [%.f]\n", 0.0f);
 	print_result(orig, mine);
-// test cases to show jeff - everything below
+
 	printf(YELLOW"\nInput: [%%0#10.1f] number: [%f]\n"UNCOLOR, -0.0f);
 	orig = printf("expect: [%0#10.1f]\n", -0.0f);
 	mine = ft_printf("output: [%0#10.1f]\n", -0.0f);

@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-char	*addr_to_str(uintptr_t addr)
+char	*addr_to_str(uintptr_t addr, int len)
 {
 	char	*str;
 	char	*dest;
@@ -22,7 +22,12 @@ char	*addr_to_str(uintptr_t addr)
 	if (!str && !dest)
 		return (NULL);
 	if (addr == 0)
-		ft_strcpy(str, "0");
+	{
+		if (len > 0)
+			ft_memset(str, '0', len);
+		else
+			ft_memset(str, '0', 1);
+	}
 	else
 		str = ft_htoa(str, addr);
 	ft_strcpy(dest, "0x");

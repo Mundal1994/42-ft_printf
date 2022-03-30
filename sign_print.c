@@ -40,7 +40,7 @@ static void	*ft_sign_check_l(char *temp, char *str, t_flag *flag, int *i)
 {
 	if (spec_check(flag, 'o', 'x', 'X') == TRUE && flag->hash == TRUE)
 		ft_hash_sign_check(temp, str, flag, i);
-	else if (spec_check(flag, 'd', 'u', 'f') == TRUE)
+	else if (spec_check(flag, 'd', 'n', 'f') == TRUE)
 	{
 		if (flag->minus == '-')
 			ft_sign_print(temp, str, flag, i);
@@ -68,7 +68,7 @@ static void	*ft_sign_check_r(char *temp, char *str, t_flag *flag, int *index)
 		else if (flag->hash == TRUE && flag->minus == '1' && flag->spec == 'o')
 			ft_hash_print(temp, flag, index);
 	}
-	else if (spec_check(flag, 'd', 'u', 'f') == TRUE && flag->minus == '1')
+	else if (spec_check(flag, 'd', 'n', 'f') == TRUE && flag->minus == '1')
 		ft_sign_print(temp, str, flag, index);
 	return (temp);
 }

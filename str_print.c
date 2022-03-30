@@ -16,6 +16,16 @@
 
 static void	ft_print_depend_on_char(char *str, t_flag *flag, int total, char c)
 {
+	flag->str = ft_strnew(total);
+	if (!flag->str)
+	{
+		ft_str_error(str, flag);
+		return ;
+	}
+	if (flag->spec == 'p' && ft_strcmp(str, "0x0") == 0 && flag->prec > 0)
+		ft_memset(flag->str, '0', total);
+	else
+		ft_memset(flag->str, ' ', total);
 	if (flag->minus == '1' && flag->spec != 'c')
 		ft_cpy_to_temp_str(&flag->str, str, flag, total);
 	else if (flag->spec != 'c')
@@ -48,13 +58,11 @@ static void	ft_str_print(char *str, t_flag *flag, int total, va_list *arg)
 	}
 	if (flag->width == 0 && flag->spec != 'c')
 		return ;
-	flag->str = ft_strnew(total);
-	if (!flag->str)
+	if (flag->spec == 'p' && ft_strncmp(str, "0x0", 3) == 0 && flag->prec > 0)
 	{
-		ft_str_error(str, flag);
-		return ;
+		total = flag->prec + 2;
+		flag->prec += 2;
 	}
-	ft_memset(flag->str, ' ', total);
 	ft_print_depend_on_char(str, flag, total, c);
 }
 
@@ -114,7 +122,7 @@ void	ft_csp_print(const char *format, t_flag *flag, va_list *arg)
 	else if (*format == 'p')
 	{
 		flag->spec = 'p';
-		str = addr_to_str((unsigned long long)va_arg(*arg, unsigned long long));
+		str = addr_to_str((unsigned long long)va_arg(*arg, unsigned long long), flag->prec);
 	}
 	ft_print_str(str, flag, arg);
 }
