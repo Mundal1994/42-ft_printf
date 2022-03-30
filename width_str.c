@@ -12,6 +12,8 @@
 
 #include "ft_printf.h"
 
+/*	prints final string	*/
+
 static void	ft_print_final_str(char *str, t_flag *flag, char c)
 {
 	if (flag->spec == 'c' && flag->minus == '-')
@@ -22,6 +24,8 @@ static void	ft_print_final_str(char *str, t_flag *flag, char c)
 	flag->len = ft_strlen(str);
 	ft_strdel(&str);
 }
+
+/*	join string based on minus flag	*/
 
 static char	*ft_minus_decide_join(char *temp, char *str, t_flag *flag, int i)
 {
@@ -35,6 +39,8 @@ static char	*ft_minus_decide_join(char *temp, char *str, t_flag *flag, int i)
 	ft_strdel(&temp);
 	return (new);
 }
+
+/*	width get's applied to the string	*/
 
 static char	*ft_collect_remainder_width(char *str, t_flag *flag, int len)
 {
@@ -60,6 +66,8 @@ static char	*ft_collect_remainder_width(char *str, t_flag *flag, int len)
 	new = ft_minus_decide_join(temp, str, flag, i);
 	return (new);
 }
+
+/*	applies the width and calls function to print final string	*/
 
 void	ft_apply_width(char *str, t_flag *flag, va_list *arg)
 {
