@@ -52,7 +52,7 @@ void	ft_fp_print(const char *format, t_flag *flag, va_list *arg);
 int		spec_check(t_flag *flag, int a, int b, int c);
 void	ft_cpy_to_temp_str(char **temp, char *str, t_flag *flag, int i);
 char	*ft_ftoa(long double number, int len, t_flag *flag);
-void	ft_check_correct_end(char *str, int up);
+char	*ft_check_correct_end(char *str, int up);
 void	ft_i_reset(const char *format, t_flag *flag);
 int		ft_color_print(const char *str, t_flag *flag);
 int		ft_str_i_calc(int len, t_flag *flag);

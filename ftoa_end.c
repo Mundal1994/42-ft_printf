@@ -60,7 +60,7 @@ static int	ft_correct_end_loop(char *str, int add, int up)
 
 /*	correct ending to float calculator based on precision	*/
 
-void	ft_check_correct_end(char *str, int up)
+char	*ft_check_correct_end(char *str, int up)
 {
 	int		add;
 	char	*temp;
@@ -69,12 +69,12 @@ void	ft_check_correct_end(char *str, int up)
 	add = ft_correct_end_loop(str, add, up);
 	if (add == TRUE)
 	{
-		temp = ft_strnew(ft_strlen(str));
-		ft_strcpy(temp, str);
+		temp = ft_strnew(ft_strlen(str) + 1);
+		temp[0] = '1';
+		ft_strcat(temp, str);
 		ft_strdel(&str);
-		str = ft_strnew(ft_strlen(temp) + 1);
-		str[0] = '1';
-		ft_strcpy(&str[1], temp);
-		ft_strdel(&temp);
+		return (temp);
 	}
+	else
+		return (str);
 }

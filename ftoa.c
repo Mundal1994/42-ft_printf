@@ -91,6 +91,7 @@ static void	*ft_calc_decimals(long double lnbr, char *temp, int len, t_flag *fla
 {
 	int	up;
 	int	i;
+	char *str;
 
 	i = ft_strlen(temp);
 	if (lnbr < 0)
@@ -100,8 +101,8 @@ static void	*ft_calc_decimals(long double lnbr, char *temp, int len, t_flag *fla
 	else
 		i++;
 	up = ft_rounding(lnbr, len, temp, i);
-	ft_check_correct_end(temp, up);
-	return (temp);
+	str = ft_check_correct_end(temp, up);
+	return (str);
 }
 
 /*	converts float(double) to str	*/
@@ -123,7 +124,7 @@ char	*ft_ftoa(long double number, int len, t_flag *flag)
 		neg = 1;
 	ft_fcalc(number, temp, neg);
 	lnbr = number - (long long)number;
-	ft_calc_decimals(lnbr, temp, len, flag);
+	temp = ft_calc_decimals(lnbr, temp, len, flag);
 	i = ft_strlen(temp);
 	str = ft_strnew(i + len);
 	ft_strncpy(str, temp, i + len);
