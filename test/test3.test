@@ -1043,6 +1043,11 @@ static void	X(void)
 	mine = ft_printf("output: [%#5.5X]\n", (unsigned char)0);
 	print_result(orig, mine);
 
+	printf(YELLOW"\nInput: [%%#-10.5x] number: [%X]\n"UNCOLOR, 104);
+	orig = printf("expect: [%#-10.5x]\n", 104);
+	mine = ft_printf("output: [%#-10.5x]\n", 104);
+	print_result(orig, mine);
+
 	// with flags hh
 	unsigned char	c = '5';
 	printf(PURPLE"\nhh TEST\n"UNCOLOR);
