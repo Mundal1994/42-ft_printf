@@ -100,7 +100,7 @@ t_flag *flag)
 	if (len != 0 || (len == 0 && flag->hash == TRUE))
 		temp[i++] = '.';
 	else
-		i++;
+		++i;
 	up = ft_rounding(lnbr, len, temp, i);
 	str = ft_check_correct_end(temp, up);
 	return (str);

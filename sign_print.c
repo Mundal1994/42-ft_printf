@@ -19,17 +19,17 @@ static void	*ft_sign_print(char *temp, char *str, t_flag *flag, int *i)
 	if (str[0] == '-')
 	{
 		ft_memset(temp, '-', 1);
-		(*i)++;
+		++(*i);
 	}
 	else if (flag->plus == '+')
 	{
 		ft_memset(temp, '+', 1);
-		(*i)++;
+		++(*i);
 	}
 	else if (flag->space == ' ')
 	{
 		ft_memset(temp, ' ', 1);
-		(*i)++;
+		++(*i);
 	}
 	return (temp);
 }

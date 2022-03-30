@@ -55,7 +55,7 @@ va_list *arg)
 	{
 		nbr = va_arg(*arg, int);
 		*digit = nbr;
-		i++;
+		++i;
 	}
 	else
 	{

@@ -36,9 +36,9 @@ static int	ft_check_flags_ox(char *str, t_flag *flag, int total)
 			if (flag->width < flag->prec)
 				return (total);
 		}
-		total++;
+		++total;
 		if (spec_check(flag, 'n', 'x', 'X') == TRUE)
-			total++;
+			++total;
 	}
 	return (total);
 }
@@ -126,7 +126,7 @@ t_flag *, int, va_list *), va_list *arg)
 			temp = str;
 			str = ft_strjoin(temp, "0");
 			ft_strdel(&temp);
-			flag->len++;
+			++flag->len;
 		}
 	}
 	total = ft_len_calculator(flag);

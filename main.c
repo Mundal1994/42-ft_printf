@@ -64,7 +64,7 @@ static void	ft_check_char(const char *format, t_flag *flag, va_list *arg)
 	{
 		if (format[flag->i] == '{')
 		{
-			flag->i++;
+			++flag->i;
 			if (format[flag->i] == '{')
 				flag->ret += write(1, &c, 1);
 			else if (ft_color_print(&format[flag->i], flag) == FALSE)
@@ -75,7 +75,7 @@ static void	ft_check_char(const char *format, t_flag *flag, va_list *arg)
 	}
 	else
 	{
-		flag->i++;
+		++flag->i;
 		ft_flag_checker(&format[flag->i], flag, arg);
 		ft_initialize_flag(flag, FALSE);
 	}
@@ -101,7 +101,7 @@ int	ft_printf(const char *format, ...)
 			while (format[flag->i] != '\0' && flag->ret != -1)
 			{
 				ft_check_char(format, flag, &arg);
-				flag->i++;
+				++flag->i;
 			}
 		}
 	}

@@ -54,7 +54,7 @@ static void	ft_minus_flag_strcpy(char *str, t_flag *flag, int total)
 	if (spec_check(flag, 'n', 'x', 'X') == TRUE && flag->hash == TRUE)
 		i += 2;
 	else if (flag->spec == 'o' && flag->hash == TRUE)
-		i++;
+		++i;
 	if (flag->prec > flag->len && flag->hash == TRUE && flag->spec == 'o')
 		i += flag->prec - flag->len - 1;
 	else if (flag->prec > flag->len)

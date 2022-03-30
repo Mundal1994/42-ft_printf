@@ -526,6 +526,18 @@ static void	p(void)
 	orig = printf("expect: [%p]\n", pnt);
 	mine = ft_printf("output: [%p]\n", pnt);
 	print_result(orig, mine);
+
+	pnt = NULL;
+	printf(YELLOW"\n[%%-10p]\n"UNCOLOR);
+	orig = printf("expect: [%-10p]\n", pnt);
+	mine = ft_printf("output: [%-10p]\n", pnt);
+	print_result(orig, mine);
+
+	pnt = NULL;
+	printf(YELLOW"\n[%%10p]\n"UNCOLOR);
+	orig = printf("expect: [%10p]\n", pnt);
+	mine = ft_printf("output: [%10p]\n", pnt);
+	print_result(orig, mine);
 }
 
 int main(void)

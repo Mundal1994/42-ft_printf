@@ -17,15 +17,15 @@
 void	*ft_hash_print(char *temp, t_flag *flag, int *index)
 {
 	ft_memset(temp, '0', 1);
-	(*index)++;
+	++(*index);
 	if (flag->spec == 'x')
 	{
-		(*index)++;
+		++(*index);
 		ft_memset(&temp[1], 'x', 1);
 	}
 	if (flag->spec == 'X')
 	{
-		(*index)++;
+		++(*index);
 		ft_memset(&temp[1], 'X', 1);
 	}
 	return (temp);
@@ -61,7 +61,7 @@ static void	ft_striter_uplow(char *str, int (*f)(int))
 		while (str[i] != '\0')
 		{
 			str[i] = f(str[i]);
-			i++;
+			++i;
 		}
 	}
 }
