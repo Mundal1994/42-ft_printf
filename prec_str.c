@@ -12,26 +12,6 @@
 
 #include "ft_printf.h"
 
-/*	initial checks before creating the new string	*/
-
-static int	ft_init_checks(char *str, t_flag *flag)
-{
-	int	len;
-
-	len = ft_strlen(str);
-	if (str[0] == '-' && spec_check(flag, 'd', 'n', 'f') == TRUE)
-		--len;
-	if (ft_strcmp(str, "0") == 0 && flag->prec == 0 && \
-		spec_check(flag, 'c', 's', 'p') == FALSE && flag->spec != 'f')
-	{
-		str[0] = '\0';
-		len = 0;
-	}
-	else if (ft_strcmp(str, "0") == 0 && flag->prec <= 1 && flag->spec == 'o')
-		flag->hash = FALSE;
-	return (len);
-}
-
 /*	printing new string depending on given length	*/
 
 static void	ft_basic_sp_prec(char *str, t_flag *flag, va_list *arg, int len)
@@ -39,9 +19,27 @@ static void	ft_basic_sp_prec(char *str, t_flag *flag, va_list *arg, int len)
 	char	*new;
 
 	new = ft_strnew(len);
+	if (!new)
+	{
+		ft_str_error(str, flag);
+		return ;
+	}
 	new = ft_strncpy(new, str, len);
 	ft_strdel(&str);
 	ft_apply_width(new, flag, arg);
+}
+
+/*	sets right signs and char in string if precision is true	*/
+
+static void	*ft_prec_memset(char *new, t_flag *flag, int *i)
+{
+	if (spec_check(flag, 'o', 'x', 'X') == TRUE && flag->hash == TRUE)
+		ft_hash_print(new, flag, i);
+	if (spec_check(flag, 'c', 's', 'p') == TRUE)
+		ft_memset(&new[*i], ' ', flag->prec - flag->len);
+	else
+		ft_memset(&new[*i], '0', flag->prec - flag->len);
+	return (new);
 }
 
 /*	applies precision and adds if there is a sign	*/
@@ -57,14 +55,14 @@ static void	ft_if_prec(char *str, t_flag *flag, va_list *arg, int total)
 	if (str[0] == '-' && spec_check(flag, 'd', 'n', 'f') == TRUE)
 		++s_i;
 	new = ft_strnew(flag->prec + total);
+	if (!new)
+	{
+		ft_str_error(str, flag);
+		return ;
+	}
 	if (total > 0 && spec_check(flag, 'd', 'n', 'f') == TRUE)
 		ft_sign_print(new, str, flag, &i);
-	if (spec_check(flag, 'o', 'x', 'X') == TRUE && flag->hash == TRUE)
-		ft_hash_print(new, flag, &i);
-	if (spec_check(flag, 'c', 's', 'p') == TRUE)
-		ft_memset(&new[i], ' ', flag->prec - flag->len);
-	else
-		ft_memset(&new[i], '0', flag->prec - flag->len);
+	ft_prec_memset(new, flag, &i);
 	if (flag->spec == 'o')
 		ft_strcpy(&new[flag->prec - flag->len], &str[s_i]);
 	else if (spec_check(flag, 'c', 's', 'p') == TRUE)
@@ -88,6 +86,11 @@ static void	ft_no_prec(char *str, t_flag *flag, va_list *arg, int total)
 	if (str[0] == '-' && spec_check(flag, 'd', 'n', 'f') == TRUE)
 		++s_i;
 	new = ft_strnew(flag->len + total);
+	if (!new)
+	{
+		ft_str_error(str, flag);
+		return ;
+	}
 	if (total > 0 && spec_check(flag, 'd', 'n', 'f') == TRUE)
 	{
 		ft_sign_print(new, str, flag, &i);

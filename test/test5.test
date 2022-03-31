@@ -114,6 +114,9 @@ static void	color(void)
 
 	printf("{{red}input: {purple}{bold}[%+-10.15d]{reset}\n", 9009999);
 	ft_printf("{{red}output: {purple}{bold}[%+-10.15d]{reset}\n\n", 9009999);
+
+	printf("{{hello}input: {purple}{bold}[%+-10.15d]{reset}\n", 9009999);
+	ft_printf("{{hello}output: {purple}{bold}[%+-10.15d]{reset}\n\n", 9009999);
 }
 
 static void	bonus(void)

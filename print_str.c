@@ -12,6 +12,26 @@
 
 #include "ft_printf.h"
 
+/*	initial checks before creating the new string	*/
+
+int	ft_init_checks(char *str, t_flag *flag)
+{
+	int	len;
+
+	len = ft_strlen(str);
+	if (str[0] == '-' && spec_check(flag, 'd', 'n', 'f') == TRUE)
+		--len;
+	if (ft_strcmp(str, "0") == 0 && flag->prec == 0 && \
+		spec_check(flag, 'c', 's', 'p') == FALSE && flag->spec != 'f')
+	{
+		str[0] = '\0';
+		len = 0;
+	}
+	else if (ft_strcmp(str, "0") == 0 && flag->prec <= 1 && flag->spec == 'o')
+		flag->hash = FALSE;
+	return (len);
+}
+
 /*	puts 0x into string	*/
 
 void	*ft_hash_print(char *temp, t_flag *flag, int *index)

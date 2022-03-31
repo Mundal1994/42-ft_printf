@@ -44,6 +44,7 @@ void	ft_flag_checker(const char *format, t_flag *flag, va_list *arg);
 void	ft_specifier_check(const char *format, t_flag *flag, va_list *arg);
 void	ft_print_calc(char *str, t_flag *flag, va_list *arg);
 void	ft_apply_prec(char *str, t_flag *flag, va_list *arg);
+int		ft_init_checks(char *str, t_flag *flag);
 void	ft_apply_width(char *str, t_flag *flag, va_list *arg);
 void	ft_digit_print(char *str, t_flag *flag, int total, va_list *arg);
 void	ft_csp_print(const char *format, t_flag *flag, va_list *arg);

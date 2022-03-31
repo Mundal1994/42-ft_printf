@@ -50,6 +50,8 @@ static char	*ft_collect_remainder_width(char *str, t_flag *flag, int len)
 
 	i = 0;
 	temp = ft_strnew(flag->width - len + ft_sign_check(flag, str));
+	if (!temp)
+		return (NULL);
 	if (spec_check(flag, 'o', 'x', 'X') == TRUE && flag->hash == TRUE && \
 		flag->zero == '0' && flag->prec == -1)
 		ft_hash_print(temp, flag, &i);
@@ -84,6 +86,11 @@ void	ft_apply_width(char *str, t_flag *flag, va_list *arg)
 	if (flag->width > len)
 	{
 		new = ft_collect_remainder_width(str, flag, len);
+		if (!new)
+		{
+			ft_str_error(str, flag);
+			return ;
+		}
 		ft_print_final_str(new, flag, c);
 	}
 	else
