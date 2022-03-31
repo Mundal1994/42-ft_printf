@@ -679,46 +679,6 @@ static void	x(void)
 	mine = ft_printf("output: [%#x]\n", 0);
 	print_result(orig, mine);
 
-	printf(YELLOW"\nInput: [%%#x] number: [%x]\n"UNCOLOR, 999);
-	orig = printf("expect: [%#x]\n", 999);
-	mine = ft_printf("output: [%#x]\n", 999);
-	print_result(orig, mine);
-
-	printf(YELLOW"\nInput: [%%#x] number: [%x]\n"UNCOLOR, 900999);
-	orig = printf("expect: [%#x]\n", 900999);
-	mine = ft_printf("output: [%#x]\n", 900999);
-	print_result(orig, mine);
-
-	printf(YELLOW"\nInput: [%%#.10x] number: [%x]\n"UNCOLOR, 900999);
-	orig = printf("expect: [%#.10x]\n", 900999);
-	mine = ft_printf("output: [%#.10x]\n", 900999);
-	print_result(orig, mine);
-
-	printf(YELLOW"\nInput: [%%#10.5x] number: [%x]\n"UNCOLOR, 900999);
-	orig = printf("expect: [%#10.5x]\n", 900999);
-	mine = ft_printf("output: [%#10.5x]\n", 900999);
-	print_result(orig, mine);
-
-	printf(YELLOW"\nInput: [%%#5.10x] number: [%x]\n"UNCOLOR, 900999);
-	orig = printf("expect: [%#5.10x]\n", 900999);
-	mine = ft_printf("output: [%#5.10x]\n", 900999);
-	print_result(orig, mine);
-
-	printf(YELLOW"\nInput: [%%#-10.5x] number: [%x]\n"UNCOLOR, 9009999);
-	orig = printf("expect: [%#-10.5x]\n", 9009999);
-	mine = ft_printf("output: [%#-10.5x]\n", 9009999);
-	print_result(orig, mine);
-
-	printf(YELLOW"\nInput: [%%#-8.8x] number: [%x]\n"UNCOLOR, 9009999);
-	orig = printf("expect: [%#-8.8x]\n", 9009999);
-	mine = ft_printf("output: [%#-8.8x]\n", 9009999);
-	print_result(orig, mine);
-
-	printf(YELLOW"\nInput: [%%#-9.9x] number: [%x]\n"UNCOLOR, 9009999);
-	orig = printf("expect: [%#-9.9x]\n", 9009999);
-	mine = ft_printf("output: [%#-9.9x]\n", 9009999);
-	print_result(orig, mine);
-
 	printf(YELLOW"\nInput: [%%#-7.7x] number: [%x]\n"UNCOLOR, 9009999);
 	orig = printf("expect: [%#-7.7x]\n", 9009999);
 	mine = ft_printf("output: [%#-7.7x]\n", 9009999);

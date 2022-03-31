@@ -12,9 +12,9 @@ SL = ../
 CL = clang
 CC = -g -Wall -Wextra -Werror
 LIB = -I $(SL)libft
-LIBPRINT = $(SL)$(SL)ft_printf/libftprintf.a
+LIBPRINT = $(SL)libftprintf.a
 MAKELIB = make -C $(SL)libft/ fclean && make -C $(SL)libft/
-MAKEPRINT = make -C $(SL)$(SL)ft_printf/ fclean && make -C $(SL)$(SL)ft_printf/
+MAKEPRINT = make -C $(SL) fclean && make -C $(SL)
 
 lib:
 	$(MAKELIB)

@@ -18,7 +18,6 @@
 
 typedef struct s_flag
 {
-	char		*str;
 	char		spec;
 	int			hash;
 	int			space;
